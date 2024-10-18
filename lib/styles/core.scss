@@ -1,0 +1,297 @@
+// Design Tokens
+@import "@ugent-ui/design-tokens/build/scss/_colors-map";
+@import "@ugent-ui/design-tokens/build/scss/_core-map";
+@import "@ugent-ui/design-tokens/src/utils/scss/helpers";
+
+:root,
+:host {
+  /*
+   * Theme Tokens
+   */
+
+  /* Primary */
+  --ug-color-primary-50: #{map-get($colors, "color-ugent-blue-50")};
+  --ug-color-primary-100: #{map-get($colors, "color-ugent-blue-100")};
+  --ug-color-primary-200: #{map-get($colors, "color-ugent-blue-200")};
+  --ug-color-primary-300: #{map-get($colors, "color-ugent-blue-300")};
+  --ug-color-primary-400: #{map-get($colors, "color-ugent-blue-400")};
+  --ug-color-primary-500: #{map-get($colors, "color-ugent-blue-500")};
+  --ug-color-primary-600: #{map-get($colors, "color-ugent-blue-600")};
+  --ug-color-primary-700: #{map-get($colors, "color-ugent-blue-700")};
+  --ug-color-primary-800: #{map-get($colors, "color-ugent-blue-800")};
+  --ug-color-primary-900: #{map-get($colors, "color-ugent-blue-900")};
+  --ug-color-primary-950: #{map-get($colors, "color-ugent-blue-950")};
+
+  /* Success */
+  --ug-color-success-50: #{map-get($colors, "color-mint-50")};
+  --ug-color-success-100: #{map-get($colors, "color-mint-100")};
+  --ug-color-success-200: #{map-get($colors, "color-mint-200")};
+  --ug-color-success-300: #{map-get($colors, "color-mint-300")};
+  --ug-color-success-400: #{map-get($colors, "color-mint-400")};
+  --ug-color-success-500: #{map-get($colors, "color-mint-500")};
+  --ug-color-success-600: #{map-get($colors, "color-mint-600")};
+  --ug-color-success-700: #{map-get($colors, "color-mint-700")};
+  --ug-color-success-800: #{map-get($colors, "color-mint-800")};
+  --ug-color-success-900: #{map-get($colors, "color-mint-900")};
+  --ug-color-success-950: #{map-get($colors, "color-mint-950")};
+
+  /* Warning */
+  --ug-color-warning-50: #{map-get($colors, "color-ugent-yellow-50")};
+  --ug-color-warning-100: #{map-get($colors, "color-ugent-yellow-100")};
+  --ug-color-warning-200: #{map-get($colors, "color-ugent-yellow-200")};
+  --ug-color-warning-300: #{map-get($colors, "color-ugent-yellow-300")};
+  --ug-color-warning-400: #{map-get($colors, "color-ugent-yellow-400")};
+  --ug-color-warning-500: #{map-get($colors, "color-ugent-yellow-500")};
+  --ug-color-warning-600: #{map-get($colors, "color-ugent-yellow-600")};
+  --ug-color-warning-700: #{map-get($colors, "color-ugent-yellow-700")};
+  --ug-color-warning-800: #{map-get($colors, "color-ugent-yellow-800")};
+  --ug-color-warning-900: #{map-get($colors, "color-ugent-yellow-900")};
+  --ug-color-warning-950: #{map-get($colors, "color-ugent-yellow-950")};
+
+  /* Danger */
+  --ug-color-danger-50: #{map-get($colors, "color-tomato-50")};
+  --ug-color-danger-100: #{map-get($colors, "color-tomato-100")};
+  --ug-color-danger-200: #{map-get($colors, "color-tomato-200")};
+  --ug-color-danger-300: #{map-get($colors, "color-tomato-300")};
+  --ug-color-danger-400: #{map-get($colors, "color-tomato-400")};
+  --ug-color-danger-500: #{map-get($colors, "color-tomato-500")};
+  --ug-color-danger-600: #{map-get($colors, "color-tomato-600")};
+  --ug-color-danger-700: #{map-get($colors, "color-tomato-700")};
+  --ug-color-danger-800: #{map-get($colors, "color-tomato-800")};
+  --ug-color-danger-900: #{map-get($colors, "color-tomato-900")};
+  --ug-color-danger-950: #{map-get($colors, "color-tomato-950")};
+
+  /* Neutral */
+  --ug-color-neutral-50: #{map-get($colors, "color-neutral-50")};
+  --ug-color-neutral-100: #{map-get($colors, "color-neutral-100")};
+  --ug-color-neutral-200: #{map-get($colors, "color-neutral-200")};
+  --ug-color-neutral-300: #{map-get($colors, "color-neutral-300")};
+  --ug-color-neutral-400: #{map-get($colors, "color-neutral-400")};
+  --ug-color-neutral-500: #{map-get($colors, "color-neutral-500")};
+  --ug-color-neutral-600: #{map-get($colors, "color-neutral-600")};
+  --ug-color-neutral-700: #{map-get($colors, "color-neutral-700")};
+  --ug-color-neutral-800: #{map-get($colors, "color-neutral-800")};
+  --ug-color-neutral-900: #{map-get($colors, "color-neutral-900")};
+  --ug-color-neutral-950: #{map-get($colors, "color-neutral-950")};
+
+  /* Neutral one-offs */
+  --ug-color-neutral-0: #{map-get($colors, "color-neutral-0")};
+  --ug-color-neutral-1000: #{map-get($colors, "color-neutral-1000")};
+
+  /*
+   * Border radii
+   */
+
+  --ug-border-radius-small: 0.1875rem; /* 3px */
+  --ug-border-radius-medium: 0.25rem; /* 4px */
+  --ug-border-radius-large: 0.5rem; /* 8px */
+  --ug-border-radius-x-large: 1rem; /* 16px */
+
+  --ug-border-radius-circle: 50%;
+  --ug-border-radius-pill: 9999px;
+
+  /*
+   * Elevations
+   */
+
+  --ug-shadow-x-small: 0 1px 2px hsl(240 3.8% 46.1% / 6%);
+  --ug-shadow-small: 0 1px 2px hsl(240 3.8% 46.1% / 12%);
+  --ug-shadow-medium: 0 2px 4px hsl(240 3.8% 46.1% / 12%);
+  --ug-shadow-large: 0 2px 8px hsl(240 3.8% 46.1% / 12%);
+  --ug-shadow-x-large: 0 4px 16px hsl(240 3.8% 46.1% / 12%);
+
+  /*
+   * Spacings
+   */
+
+  --ug-spacing-3x-small: 0.125rem; /* 2px */
+  --ug-spacing-2x-small: 0.25rem; /* 4px */
+  --ug-spacing-x-small: 0.5rem; /* 8px */
+  --ug-spacing-small: 0.75rem; /* 12px */
+  --ug-spacing-medium: 1rem; /* 16px */
+  --ug-spacing-large: 1.25rem; /* 20px */
+  --ug-spacing-x-large: 1.75rem; /* 28px */
+  --ug-spacing-2x-large: 2.25rem; /* 36px */
+  --ug-spacing-3x-large: 3rem; /* 48px */
+  --ug-spacing-4x-large: 4.5rem; /* 72px */
+
+  /*
+   * Transitions
+   */
+
+  --ug-transition-x-slow: 1000ms;
+  --ug-transition-slow: 500ms;
+  --ug-transition-medium: 250ms;
+  --ug-transition-fast: 150ms;
+  --ug-transition-x-fast: 50ms;
+
+  /*
+   * Typography
+   */
+
+  /* Fonts */
+  --ug-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  --ug-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
+  --ug-font-serif: Georgia, "Times New Roman", serif;
+
+  /* Font sizes */
+  --ug-font-size-2x-small: 0.625rem; /* 10px */
+  --ug-font-size-x-small: 0.75rem; /* 12px */
+  --ug-font-size-small: 0.875rem; /* 14px */
+  --ug-font-size-medium: 1rem; /* 16px */
+  --ug-font-size-large: 1.25rem; /* 20px */
+  --ug-font-size-x-large: 1.5rem; /* 24px */
+  --ug-font-size-2x-large: 2.25rem; /* 36px */
+  --ug-font-size-3x-large: 3rem; /* 48px */
+  --ug-font-size-4x-large: 4.5rem; /* 72px */
+
+  /* Font weights */
+  --ug-font-weight-light: 300;
+  --ug-font-weight-normal: 400;
+  --ug-font-weight-semibold: 500;
+  --ug-font-weight-bold: 700;
+
+  /* Letter spacings */
+  --ug-letter-spacing-denser: -0.03em;
+  --ug-letter-spacing-dense: -0.015em;
+  --ug-letter-spacing-normal: normal;
+  --ug-letter-spacing-loose: 0.075em;
+  --ug-letter-spacing-looser: 0.15em;
+
+  /* Line heights */
+  --ug-line-height-denser: 1;
+  --ug-line-height-dense: 1.4;
+  --ug-line-height-normal: 1.8;
+  --ug-line-height-loose: 2.2;
+  --ug-line-height-looser: 2.6;
+
+  /* Focus rings */
+  --ug-focus-ring-color: var(--ug-color-primary-600);
+  --ug-focus-ring-style: solid;
+  --ug-focus-ring-width: 3px;
+  --ug-focus-ring: var(--ug-focus-ring-style) var(--ug-focus-ring-width)
+    var(--ug-focus-ring-color);
+  --ug-focus-ring-offset: 1px;
+
+  /*
+   * Forms
+   */
+
+  /* Buttons */
+  --ug-button-font-size-small: var(--ug-font-size-x-small);
+  --ug-button-font-size-medium: var(--ug-font-size-small);
+  --ug-button-font-size-large: var(--ug-font-size-medium);
+
+  /* Inputs */
+  --ug-input-height-small: 1.875rem; /* 30px */
+  --ug-input-height-medium: 2.5rem; /* 40px */
+  --ug-input-height-large: 3.125rem; /* 50px */
+
+  --ug-input-background-color: var(--ug-color-neutral-0);
+  --ug-input-background-color-hover: var(--ug-input-background-color);
+  --ug-input-background-color-focus: var(--ug-input-background-color);
+  --ug-input-background-color-disabled: var(--ug-color-neutral-100);
+  --ug-input-border-color: var(--ug-color-neutral-300);
+  --ug-input-border-color-hover: var(--ug-color-neutral-400);
+  --ug-input-border-color-focus: var(--ug-color-primary-500);
+  --ug-input-border-color-disabled: var(--ug-color-neutral-300);
+  --ug-input-border-width: 1px;
+  --ug-input-required-content: "*";
+  --ug-input-required-content-offset: -2px;
+  --ug-input-required-content-color: var(--ug-input-label-color);
+
+  --ug-input-border-radius-small: var(--ug-border-radius-medium);
+  --ug-input-border-radius-medium: var(--ug-border-radius-medium);
+  --ug-input-border-radius-large: var(--ug-border-radius-medium);
+
+  --ug-input-font-family: var(--ug-font-sans);
+  --ug-input-font-weight: var(--ug-font-weight-normal);
+  --ug-input-font-size-small: var(--ug-font-size-small);
+  --ug-input-font-size-medium: var(--ug-font-size-medium);
+  --ug-input-font-size-large: var(--ug-font-size-large);
+  --ug-input-letter-spacing: var(--ug-letter-spacing-normal);
+
+  --ug-input-color: var(--ug-color-neutral-700);
+  --ug-input-color-hover: var(--ug-color-neutral-700);
+  --ug-input-color-focus: var(--ug-color-neutral-700);
+  --ug-input-color-disabled: var(--ug-color-neutral-900);
+  --ug-input-icon-color: var(--ug-color-neutral-500);
+  --ug-input-icon-color-hover: var(--ug-color-neutral-600);
+  --ug-input-icon-color-focus: var(--ug-color-neutral-600);
+  --ug-input-placeholder-color: var(--ug-color-neutral-500);
+  --ug-input-placeholder-color-disabled: var(--ug-color-neutral-600);
+  --ug-input-spacing-small: var(--ug-spacing-small);
+  --ug-input-spacing-medium: var(--ug-spacing-medium);
+  --ug-input-spacing-large: var(--ug-spacing-large);
+
+  --ug-input-focus-ring-color: hsl(198.6 88.7% 48.4% / 40%);
+  --ug-input-focus-ring-offset: 0;
+
+  --ug-input-filled-background-color: var(--ug-color-neutral-100);
+  --ug-input-filled-background-color-hover: var(--ug-color-neutral-100);
+  --ug-input-filled-background-color-focus: var(--ug-color-neutral-100);
+  --ug-input-filled-background-color-disabled: var(--ug-color-neutral-100);
+  --ug-input-filled-color: var(--ug-color-neutral-800);
+  --ug-input-filled-color-hover: var(--ug-color-neutral-800);
+  --ug-input-filled-color-focus: var(--ug-color-neutral-700);
+  --ug-input-filled-color-disabled: var(--ug-color-neutral-800);
+
+  /* Labels */
+  --ug-input-label-font-size-small: var(--ug-font-size-small);
+  --ug-input-label-font-size-medium: var(--ug-font-size-medium);
+  --ug-input-label-font-size-large: var(--ug-font-size-large);
+  --ug-input-label-color: inherit;
+
+  /* Help text */
+  --ug-input-help-text-font-size-small: var(--ug-font-size-x-small);
+  --ug-input-help-text-font-size-medium: var(--ug-font-size-small);
+  --ug-input-help-text-font-size-large: var(--ug-font-size-medium);
+  --ug-input-help-text-color: var(--ug-color-neutral-500);
+
+  /* Toggles (checkboxes, radios, switches) */
+  --ug-toggle-size-small: 0.875rem; /* 14px */
+  --ug-toggle-size-medium: 1.125rem; /* 18px */
+  --ug-toggle-size-large: 1.375rem; /* 22px */
+
+  /*
+   * Overlays
+   */
+
+  --ug-overlay-background-color: hsl(240 3.8% 46.1% / 33%);
+
+  /*
+   * Panels
+   */
+
+  --ug-panel-background-color: var(--ug-color-neutral-0);
+  --ug-panel-border-color: var(--ug-color-neutral-200);
+  --ug-panel-border-width: 1px;
+
+  /*
+   * Tooltips
+   */
+
+  --ug-tooltip-border-radius: var(--ug-border-radius-medium);
+  --ug-tooltip-background-color: var(--ug-color-neutral-800);
+  --ug-tooltip-color: var(--ug-color-neutral-0);
+  --ug-tooltip-font-family: var(--ug-font-sans);
+  --ug-tooltip-font-weight: var(--ug-font-weight-normal);
+  --ug-tooltip-font-size: var(--ug-font-size-small);
+  --ug-tooltip-line-height: var(--ug-line-height-dense);
+  --ug-tooltip-padding: var(--ug-spacing-2x-small) var(--ug-spacing-x-small);
+  --ug-tooltip-arrow-size: 6px;
+
+  /*
+   * Z-indexes
+   */
+
+  --ug-z-index-drawer: 700;
+  --ug-z-index-dialog: 800;
+  --ug-z-index-dropdown: 900;
+  --ug-z-index-toast: 950;
+  --ug-z-index-tooltip: 1000;
+}
+
+/* _utility.css */
