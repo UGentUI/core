@@ -1,7 +1,6 @@
 {
   "name": "@ugent-ui/core",
   "description": "A collection of accessible web components and tools for building UGent applications. Built on top of Shoelace (https://shoelace.style), an open-source library of web components.",
-  "private": true,
   "version": "1.0.0-beta.1",
   "type": "module",
   "files": [
