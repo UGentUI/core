@@ -2,6 +2,8 @@
 
 **UGentUI Core** is a collection of accessible web components and tools designed for building applications at Ghent University (UGent). The components are built on top of [Shoelace](https://shoelace.style), an open-source library of modern web components, and are optimized for usability, accessibility, and performance.
 
+> **⚠ Warning:** This project is still under development and is not ready for production usage. Breaking changes may occur, and stability is not guaranteed at this stage.
+
 ## Features
 
 - **Accessible Components**: All components are designed with accessibility in mind, ensuring compliance with the latest WCAG standards.
@@ -32,7 +34,7 @@ To apply the default theme and styles globally across your project, import the U
 import "@ugent-ui/core/style.css";
 ```
 
-##Setting the Base Path
+## Setting the Base Path
 
 Some components may rely on external assets, so it's necessary to configure the base path for those assets:
 
@@ -40,9 +42,3 @@ Some components may rely on external assets, so it's necessary to configure the 
 import { setBasePath } from "@ugent-ui/core";
 setBasePath("/node_modules/@ugent-ui/core/dist/");
 ```
-
-## Documentation
-
-Visit the UGentUI Core Storybook for detailed documentation and component previews:
-
-https://ugentui.github.io/core
