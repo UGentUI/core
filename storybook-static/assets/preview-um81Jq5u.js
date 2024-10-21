@@ -1,1 +1,0 @@
-import{s as o}from"./chunk.3Y6SB6QS-B3KesEIx.js";o("/lib");const a={parameters:{options:{storySort:{order:["Introduction","Components","*"],method:"alphabetical"}},controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}},tags:["autodocs"]};export{a as default};

@@ -1,0 +1,1 @@
+import{s as t}from"./chunk.3Y6SB6QS-B3KesEIx.js";t("https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/");const e={parameters:{options:{storySort:{order:["Introduction","Components","*"],method:"alphabetical"}},controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}}},tags:["autodocs"]};export{e as default};

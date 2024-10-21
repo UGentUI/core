@@ -3,7 +3,7 @@ import type { Preview } from "@storybook/web-components";
 import "@ugent-ui/css-reset/dist/reset.css";
 import "../lib/styles/core.scss";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
-setBasePath("/lib");
+setBasePath("https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/");
 
 const preview: Preview = {
   parameters: {
