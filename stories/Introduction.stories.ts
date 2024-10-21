@@ -5,9 +5,6 @@ const meta: Meta = {
   tags: ["!autodocs"], // Disables autodocs
   parameters: {
     layout: "fullscreen",
-    options: {
-      showRoots: true,
-    },
   },
 };
 

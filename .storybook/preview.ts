@@ -7,6 +7,12 @@ setBasePath("/lib");
 
 const preview: Preview = {
   parameters: {
+    options: {
+      storySort: {
+        order: ["Introduction", "Components", "*"], // Custom order
+        method: "alphabetical",
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
