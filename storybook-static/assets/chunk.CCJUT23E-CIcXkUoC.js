@@ -1,0 +1,1 @@
+import{a as u}from"./chunk.NLWS5DN7-C0h9DzRV.js";function w(t,c){const l=u({waitUntilFirstUpdate:!1},c);return(i,o)=>{const{update:r}=i,d=Array.isArray(t)?t:[t];i.update=function(s){d.forEach(f=>{const a=f;if(s.has(a)){const e=s.get(a),n=this[a];e!==n&&(!l.waitUntilFirstUpdate||this.hasUpdated)&&this[o](e,n)}}),r.call(this,s)}}}export{w};
