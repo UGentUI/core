@@ -1,0 +1,36 @@
+# UGentUI Web Components
+
+Welcome to the UGentUI Web Components Storybook. This documentation will guide you through the installation, usage, and theming of the UGentUI web components.
+
+## Getting Started
+
+To begin using UGentUI web components, install the core package by running:
+
+```
+npm install @ugent-ui/core
+```
+
+## Usage
+
+After installation, you can start using the components by importing them into your project. For example, to use the button component:
+
+```
+import "@ugent-ui/core/components/button";
+```
+
+## Theming
+
+To apply the default styles globally across your project, import the UGentUI style sheet:
+
+```
+import "@ugent-ui/core/style.css";
+```
+
+## Setting the Base Path
+
+Some UGentUI components rely on external assets. To ensure the components can locate these assets, you need to set the base path:
+
+```
+import { setBasePath } from "@ugent-ui/core";
+setBasePath("/node_modules/@ugent-ui/core/dist/");
+```
