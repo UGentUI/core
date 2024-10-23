@@ -15,5 +15,8 @@ const config: StorybookConfig = {
     name: "@storybook/web-components-vite",
     options: {},
   },
+  features: {
+    backgroundsStoryGlobals: true,
+  },
 };
 export default config;
