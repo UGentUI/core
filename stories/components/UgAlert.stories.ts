@@ -42,7 +42,6 @@ export const Alert: Story = {
 <ug-alert ?open="${args.open}" variant="${args.variant}">
     <ug-icon slot="icon" name="info-circle"></ug-icon>
     This is a standard alert. You can customize its content and even the icon.
-</ug-alert
-      >`;
+</ug-alert>`;
   },
 };
