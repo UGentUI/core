@@ -1,4 +1,4 @@
-import { i as d, _ as o, n as p, S as g, k as u, t as v } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as d, S as g, x as u, _ as o, n as p, t as v } from "../../chunks/chunk.UYAO2JRR.js";
 import { L as f } from "../../chunks/chunk.WLV3FVBR.js";
 import { c as h } from "../../chunks/chunk.TUVJKY7S.js";
 import { r as _ } from "../../chunks/state.js";
@@ -114,14 +114,14 @@ o([
 o([
   p()
 ], a.prototype, "label", 2);
-var b = Object.defineProperty, k = Object.getOwnPropertyDescriptor, w = (s, e, t, i) => {
-  for (var r = i > 1 ? void 0 : i ? k(e, t) : e, c = s.length - 1, l; c >= 0; c--)
+var b = Object.defineProperty, w = Object.getOwnPropertyDescriptor, k = (s, e, t, i) => {
+  for (var r = i > 1 ? void 0 : i ? w(e, t) : e, c = s.length - 1, l; c >= 0; c--)
     (l = s[c]) && (r = (i ? l(e, t, r) : l(r)) || r);
   return i && r && b(e, t, r), r;
 };
 let n = class extends a {
 };
-n = w([
+n = k([
   v("ug-progress-ring")
 ], n);
 export {

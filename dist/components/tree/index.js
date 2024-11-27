@@ -1,16 +1,16 @@
-import { i as g, _ as h, n as I, S as y, k as b, t as x } from "../../chunks/chunk.NLWS5DN7.js";
-import { S as u } from "../../chunks/chunk.IYEYDJ32.js";
+import { i as g, S as I, x as y, _ as h, n as b, t as x } from "../../chunks/chunk.UYAO2JRR.js";
+import { S as u } from "../../chunks/chunk.JVZ7GUNC.js";
 import { c as w } from "../../chunks/chunk.HF7GESMZ.js";
-import { w as v } from "../../chunks/chunk.CCJUT23E.js";
-import { c as A } from "../../chunks/chunk.TUVJKY7S.js";
-import { e as m } from "../../chunks/query.js";
-import "../../chunks/chunk.CX3DZWHK.js";
+import { L as v } from "../../chunks/chunk.WLV3FVBR.js";
+import { w as A } from "../../chunks/chunk.CCJUT23E.js";
+import { c as T } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as f } from "../../chunks/query.js";
+import "../../chunks/chunk.4Y6VMQSD.js";
 import "../../chunks/chunk.SI4ACBFK.js";
-import "../../chunks/chunk.R2T2D3TO.js";
+import "../../chunks/chunk.TLKDQ5JG.js";
 import "../../chunks/chunk.2RCF7SLU.js";
-import "../../chunks/chunk.WLV3FVBR.js";
-import "../../chunks/chunk.O7VCMB7W.js";
-var T = g`
+import "../../chunks/chunk.E6QAPUBK.js";
+var C = g`
   :host {
     /*
      * These are actually used by tree item, but we define them here so they can more easily be set and all tree items
@@ -31,7 +31,7 @@ var T = g`
     font-size: 0;
   }
 `;
-function f(e, t = !1) {
+function m(e, t = !1) {
   function s(n) {
     const l = n.getChildrenItems({ includeDisabled: !1 });
     if (l.length) {
@@ -50,9 +50,9 @@ function f(e, t = !1) {
   }
   o(e), i(e);
 }
-var r = class extends y {
+var r = class extends I {
   constructor() {
-    super(), this.selection = "single", this.clickTarget = null, this.initTreeItem = (e) => {
+    super(), this.selection = "single", this.clickTarget = null, this.localize = new v(this), this.initTreeItem = (e) => {
       e.selectable = this.selection === "multiple", ["expand", "collapse"].filter((t) => !!this.querySelector(`[slot="${t}-icon"]`)).forEach((t) => {
         const s = e.querySelector(`[slot="${t}-icon"]`), i = this.getExpandButtonIcon(t);
         i && (s === null ? e.append(i) : s.hasAttribute("data-default") && s.replaceWith(i));
@@ -89,7 +89,7 @@ var r = class extends y {
   selectItem(e) {
     const t = [...this.selectedItems];
     if (this.selection === "multiple")
-      e.selected = !e.selected, e.lazy && (e.expanded = !0), f(e);
+      e.selected = !e.selected, e.lazy && (e.expanded = !0), m(e);
     else if (this.selection === "single" || e.isLeaf) {
       const i = this.getAllTreeItems();
       for (const o of i)
@@ -112,7 +112,7 @@ var r = class extends y {
       return ["input", "textarea"].includes((n = o == null ? void 0 : o.tagName) == null ? void 0 : n.toLowerCase());
     }))
       return;
-    const t = this.getFocusableItems(), s = this.matches(":dir(ltr)"), i = this.matches(":dir(rtl)");
+    const t = this.getFocusableItems(), s = this.localize.dir() === "ltr", i = this.localize.dir() === "rtl";
     if (t.length > 0) {
       e.preventDefault();
       const o = t.findIndex((a) => a.matches(":focus")), n = t[o], l = (a) => {
@@ -143,7 +143,7 @@ var r = class extends y {
     for (const s of t)
       s.selectable = e;
     e && (await this.updateComplete, [...this.querySelectorAll(":scope > ug-tree-item")].forEach(
-      (s) => f(s, !0)
+      (s) => m(s, !0)
     ));
   }
   /** @internal Returns the list of tree items that are selected in the tree. */
@@ -163,7 +163,7 @@ var r = class extends y {
     });
   }
   render() {
-    return b`
+    return y`
       <div
         part="base"
         class="tree"
@@ -178,30 +178,30 @@ var r = class extends y {
     `;
   }
 };
-r.styles = [A, T];
+r.styles = [T, C];
 h([
-  m("slot:not([name])")
+  f("slot:not([name])")
 ], r.prototype, "defaultSlot", 2);
 h([
-  m("slot[name=expand-icon]")
+  f("slot[name=expand-icon]")
 ], r.prototype, "expandedIconSlot", 2);
 h([
-  m("slot[name=collapse-icon]")
+  f("slot[name=collapse-icon]")
 ], r.prototype, "collapsedIconSlot", 2);
 h([
-  I()
+  b()
 ], r.prototype, "selection", 2);
 h([
-  v("selection")
+  A("selection")
 ], r.prototype, "handleSelectionChange", 1);
-var S = Object.defineProperty, k = Object.getOwnPropertyDescriptor, C = (e, t, s, i) => {
+var S = Object.defineProperty, k = Object.getOwnPropertyDescriptor, E = (e, t, s, i) => {
   for (var o = i > 1 ? void 0 : i ? k(t, s) : t, n = e.length - 1, l; n >= 0; n--)
     (l = e[n]) && (o = (i ? l(t, s, o) : l(o)) || o);
   return i && o && S(t, s, o), o;
 };
 let p = class extends r {
 };
-p = C([
+p = E([
   x("ug-tree")
 ], p);
 export {

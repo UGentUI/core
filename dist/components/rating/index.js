@@ -1,15 +1,16 @@
-import { i as y, _ as o, n as l, S as f, k as u, t as b } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as y, S as f, x as u, _ as a, n as l, t as b } from "../../chunks/chunk.UYAO2JRR.js";
 import { c as _ } from "../../chunks/chunk.HF7GESMZ.js";
-import { S as $ } from "../../chunks/chunk.O7VCMB7W.js";
+import { L as $ } from "../../chunks/chunk.WLV3FVBR.js";
+import { S as V } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as p } from "../../chunks/chunk.CCJUT23E.js";
-import { c as V } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as c } from "../../chunks/class-map.js";
+import { c as M } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as c } from "../../chunks/class-map.js";
 import { r as v } from "../../chunks/state.js";
-import { t as M } from "../../chunks/event-options.js";
-import { e as w } from "../../chunks/query.js";
-import { s as g } from "../../chunks/style-map.js";
-import { a as m } from "../../chunks/unsafe-html.js";
-var H = y`
+import { t as w } from "../../chunks/event-options.js";
+import { e as H } from "../../chunks/query.js";
+import { o as g } from "../../chunks/style-map.js";
+import { o as m } from "../../chunks/unsafe-html.js";
+var P = y`
   :host {
     --symbol-color: var(--ug-color-neutral-300);
     --symbol-color-active: var(--ug-color-amber-500);
@@ -97,9 +98,9 @@ var H = y`
       color: SelectedItem;
     }
   }
-`, s = class extends f {
+`, o = class extends f {
   constructor() {
-    super(...arguments), this.hoverValue = 0, this.isHovering = !1, this.label = "", this.value = 0, this.max = 5, this.precision = 1, this.readonly = !1, this.disabled = !1, this.getSymbol = () => '<ug-icon name="star-fill" library="system"></ug-icon>';
+    super(...arguments), this.localize = new $(this), this.hoverValue = 0, this.isHovering = !1, this.label = "", this.value = 0, this.max = 5, this.precision = 1, this.readonly = !1, this.disabled = !1, this.getSymbol = () => '<ug-icon name="star-fill" library="system"></ug-icon>';
   }
   getValueFromMousePosition(e) {
     return this.getValueFromXCoordinate(e.clientX);
@@ -108,7 +109,7 @@ var H = y`
     return this.getValueFromXCoordinate(e.touches[0].clientX);
   }
   getValueFromXCoordinate(e) {
-    const r = this.matches(":dir(rtl)"), { left: t, right: i, width: a } = this.rating.getBoundingClientRect(), n = r ? this.roundToPrecision((i - e) / a * this.max, this.precision) : this.roundToPrecision((e - t) / a * this.max, this.precision);
+    const r = this.localize.dir() === "rtl", { left: t, right: i, width: s } = this.rating.getBoundingClientRect(), n = r ? this.roundToPrecision((i - e) / s * this.max, this.precision) : this.roundToPrecision((e - t) / s * this.max, this.precision);
     return _(n, 0, this.max);
   }
   handleClick(e) {
@@ -118,15 +119,15 @@ var H = y`
     this.disabled || this.readonly || (this.value = e === this.value ? 0 : e, this.isHovering = !1);
   }
   handleKeyDown(e) {
-    const r = this.matches(":dir(ltr)"), t = this.matches(":dir(rtl)"), i = this.value;
+    const r = this.localize.dir() === "ltr", t = this.localize.dir() === "rtl", i = this.value;
     if (!(this.disabled || this.readonly)) {
       if (e.key === "ArrowDown" || r && e.key === "ArrowLeft" || t && e.key === "ArrowRight") {
-        const a = e.shiftKey ? 1 : this.precision;
-        this.value = Math.max(0, this.value - a), e.preventDefault();
+        const s = e.shiftKey ? 1 : this.precision;
+        this.value = Math.max(0, this.value - s), e.preventDefault();
       }
       if (e.key === "ArrowUp" || r && e.key === "ArrowRight" || t && e.key === "ArrowLeft") {
-        const a = e.shiftKey ? 1 : this.precision;
-        this.value = Math.min(this.max, this.value + a), e.preventDefault();
+        const s = e.shiftKey ? 1 : this.precision;
+        this.value = Math.min(this.max, this.value + s), e.preventDefault();
       }
       e.key === "Home" && (this.value = 0, e.preventDefault()), e.key === "End" && (this.value = this.max, e.preventDefault()), this.value !== i && this.emit("ug-change");
     }
@@ -178,7 +179,7 @@ var H = y`
     this.rating.blur();
   }
   render() {
-    const e = this.matches(":dir(rtl)"), r = Array.from(Array(this.max).keys());
+    const e = this.localize.dir() === "rtl", r = Array.from(Array(this.max).keys());
     let t = 0;
     return this.disabled || this.readonly ? t = this.value : t = this.isHovering ? this.hoverValue : this.value, u`
       <div
@@ -249,53 +250,53 @@ var H = y`
     `;
   }
 };
-s.styles = [V, H];
-s.dependencies = { "ug-icon": $ };
-o([
-  w(".rating")
-], s.prototype, "rating", 2);
-o([
+o.styles = [M, P];
+o.dependencies = { "ug-icon": V };
+a([
+  H(".rating")
+], o.prototype, "rating", 2);
+a([
   v()
-], s.prototype, "hoverValue", 2);
-o([
+], o.prototype, "hoverValue", 2);
+a([
   v()
-], s.prototype, "isHovering", 2);
-o([
+], o.prototype, "isHovering", 2);
+a([
   l()
-], s.prototype, "label", 2);
-o([
+], o.prototype, "label", 2);
+a([
   l({ type: Number })
-], s.prototype, "value", 2);
-o([
+], o.prototype, "value", 2);
+a([
   l({ type: Number })
-], s.prototype, "max", 2);
-o([
+], o.prototype, "max", 2);
+a([
   l({ type: Number })
-], s.prototype, "precision", 2);
-o([
+], o.prototype, "precision", 2);
+a([
   l({ type: Boolean, reflect: !0 })
-], s.prototype, "readonly", 2);
-o([
+], o.prototype, "readonly", 2);
+a([
   l({ type: Boolean, reflect: !0 })
-], s.prototype, "disabled", 2);
-o([
+], o.prototype, "disabled", 2);
+a([
   l()
-], s.prototype, "getSymbol", 2);
-o([
-  M({ passive: !0 })
-], s.prototype, "handleTouchMove", 1);
-o([
+], o.prototype, "getSymbol", 2);
+a([
+  w({ passive: !0 })
+], o.prototype, "handleTouchMove", 1);
+a([
   p("hoverValue")
-], s.prototype, "handleHoverValueChange", 1);
-o([
+], o.prototype, "handleHoverValueChange", 1);
+a([
   p("isHovering")
-], s.prototype, "handleIsHoveringChange", 1);
-var P = Object.defineProperty, S = Object.getOwnPropertyDescriptor, T = (e, r, t, i) => {
-  for (var a = i > 1 ? void 0 : i ? S(r, t) : r, n = e.length - 1, h; n >= 0; n--)
-    (h = e[n]) && (a = (i ? h(r, t, a) : h(a)) || a);
-  return i && a && P(r, t, a), a;
+], o.prototype, "handleIsHoveringChange", 1);
+var C = Object.defineProperty, S = Object.getOwnPropertyDescriptor, T = (e, r, t, i) => {
+  for (var s = i > 1 ? void 0 : i ? S(r, t) : r, n = e.length - 1, h; n >= 0; n--)
+    (h = e[n]) && (s = (i ? h(r, t, s) : h(s)) || s);
+  return i && s && C(r, t, s), s;
 };
-let d = class extends s {
+let d = class extends o {
 };
 d = T([
   b("ug-rating")

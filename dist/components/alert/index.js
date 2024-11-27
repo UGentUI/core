@@ -1,16 +1,16 @@
-import { S as y } from "../../chunks/chunk.AYP3HPB7.js";
-import { s as f, a as h, g as p, b as m } from "../../chunks/chunk.3EPZX5HE.js";
+import { S as y } from "../../chunks/chunk.3HB7VQL2.js";
+import { s as h, g as p, a as m, b as f } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as g } from "../../chunks/chunk.B4BZKR24.js";
-import { H as T } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as C } from "../../chunks/chunk.WLV3FVBR.js";
-import { i as A, _ as a, n as s, S as I, k as c, t as k } from "../../chunks/chunk.NLWS5DN7.js";
+import { L as T } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as C } from "../../chunks/chunk.NYIIDP5N.js";
+import { i as A, S as I, x as c, _ as a, n as s, t as x } from "../../chunks/chunk.UYAO2JRR.js";
 import { w as _ } from "../../chunks/chunk.CCJUT23E.js";
-import { c as x } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as v } from "../../chunks/class-map.js";
-import { r as H } from "../../chunks/state.js";
+import { c as H } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as v } from "../../chunks/class-map.js";
+import { r as k } from "../../chunks/state.js";
 import { e as b } from "../../chunks/query.js";
-import "../../chunks/chunk.O7VCMB7W.js";
-var z = A`
+import "../../chunks/chunk.E6QAPUBK.js";
+var $ = A`
   :host {
     display: contents;
 
@@ -151,7 +151,7 @@ var z = A`
   }
 `, i = Object.assign(document.createElement("div"), { className: "ug-toast-stack" }), t = class extends I {
   constructor() {
-    super(...arguments), this.hasSlotController = new T(this, "icon", "suffix"), this.localize = new C(this), this.open = !1, this.closable = !1, this.variant = "primary", this.duration = 1 / 0, this.remainingTime = this.duration;
+    super(...arguments), this.hasSlotController = new C(this, "icon", "suffix"), this.localize = new T(this), this.open = !1, this.closable = !1, this.variant = "primary", this.duration = 1 / 0, this.remainingTime = this.duration;
   }
   firstUpdated() {
     this.base.hidden = !this.open;
@@ -282,7 +282,7 @@ var z = A`
     `;
   }
 };
-t.styles = [x, z];
+t.styles = [H, $];
 t.dependencies = { "ug-icon-button": y };
 a([
   b('[part~="base"]')
@@ -306,7 +306,7 @@ a([
   s({ type: String, reflect: !0 })
 ], t.prototype, "countdown", 2);
 a([
-  H()
+  k()
 ], t.prototype, "remainingTime", 2);
 a([
   _("open", { waitUntilFirstUpdate: !0 })
@@ -328,15 +328,15 @@ f("alert.hide", {
   ],
   options: { duration: 250, easing: "ease" }
 });
-var S = Object.defineProperty, $ = Object.getOwnPropertyDescriptor, E = (e, r, n, l) => {
-  for (var o = l > 1 ? void 0 : l ? $(r, n) : r, d = e.length - 1, u; d >= 0; d--)
+var z = Object.defineProperty, S = Object.getOwnPropertyDescriptor, E = (e, r, n, l) => {
+  for (var o = l > 1 ? void 0 : l ? S(r, n) : r, d = e.length - 1, u; d >= 0; d--)
     (u = e[d]) && (o = (l ? u(r, n, o) : u(o)) || o);
-  return l && o && S(r, n, o), o;
+  return l && o && z(r, n, o), o;
 };
 let w = class extends t {
 };
 w = E([
-  k("ug-alert")
+  x("ug-alert")
 ], w);
 export {
   w as UgAlert

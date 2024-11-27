@@ -1,7 +1,7 @@
 import { L as p } from "../../chunks/chunk.WLV3FVBR.js";
-import { _ as r, n as m, S as v, k as d, t as T } from "../../chunks/chunk.NLWS5DN7.js";
+import { _ as r, S as v, x as d, n as m, t as f } from "../../chunks/chunk.UYAO2JRR.js";
 import { r as h } from "../../chunks/state.js";
-var f = [
+var T = [
   { max: 276e4, value: 6e4, unit: "minute" },
   // max 46 minutes
   { max: 72e6, value: 36e5, unit: "hour" },
@@ -24,7 +24,7 @@ var f = [
     const n = /* @__PURE__ */ new Date(), t = new Date(this.date);
     if (isNaN(t.getMilliseconds()))
       return this.relativeTime = "", this.isoTime = "", "";
-    const i = t.getTime() - n.getTime(), { unit: a, value: s } = f.find((e) => Math.abs(i) < e.max);
+    const i = t.getTime() - n.getTime(), { unit: a, value: s } = T.find((e) => Math.abs(i) < e.max);
     if (this.isoTime = t.toISOString(), this.relativeTime = this.localize.relativeTime(Math.round(i / s), a, {
       numeric: this.numeric,
       style: this.format
@@ -32,7 +32,7 @@ var f = [
       let e;
       a === "minute" ? e = l("second") : a === "hour" ? e = l("minute") : a === "day" ? e = l("hour") : e = l("day"), this.updateTimeout = window.setTimeout(() => this.requestUpdate(), e);
     }
-    return d` <time datetime=${this.isoTime} title=${this.relativeTime}>${this.relativeTime}</time> `;
+    return d` <time datetime=${this.isoTime}>${this.relativeTime}</time> `;
   }
 };
 r([
@@ -65,7 +65,7 @@ var y = Object.defineProperty, x = Object.getOwnPropertyDescriptor, w = (n, t, i
 let c = class extends o {
 };
 c = w([
-  T("ug-relative-time")
+  f("ug-relative-time")
 ], c);
 export {
   c as UgRelativeTime

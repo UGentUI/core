@@ -1,22 +1,22 @@
-import { S as m } from "../../chunks/chunk.R2T2D3TO.js";
+import { S as m } from "../../chunks/chunk.TLKDQ5JG.js";
 import { F as b, v as y } from "../../chunks/chunk.2RCF7SLU.js";
 import { b as v } from "../../chunks/chunk.MAQXLKQ7.js";
-import { H as g } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as C } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as $ } from "../../chunks/chunk.O7VCMB7W.js";
+import { L as g } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as C } from "../../chunks/chunk.NYIIDP5N.js";
+import { S as $ } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as _ } from "../../chunks/chunk.CCJUT23E.js";
 import { c as B } from "../../chunks/chunk.TUVJKY7S.js";
-import { _ as e, n as o, S as x, t as S } from "../../chunks/chunk.NLWS5DN7.js";
-import { R as w } from "../../chunks/class-map.js";
-import { e as d, k as p } from "../../chunks/static.js";
-import { t as r } from "../../chunks/if-defined.js";
+import { S as x, _ as e, n as o, t as S } from "../../chunks/chunk.UYAO2JRR.js";
+import { e as w } from "../../chunks/class-map.js";
+import { i as d, u as p } from "../../chunks/static.js";
+import { o as r } from "../../chunks/if-defined.js";
 import { r as c } from "../../chunks/state.js";
 import { e as F } from "../../chunks/query.js";
 var t = class extends x {
   constructor() {
     super(...arguments), this.formControlController = new b(this, {
       assumeInteractionOn: ["click"]
-    }), this.hasSlotController = new g(this, "[default]", "prefix", "suffix"), this.localize = new C(this), this.hasFocus = !1, this.invalid = !1, this.title = "", this.variant = "default", this.size = "medium", this.caret = !1, this.disabled = !1, this.loading = !1, this.outline = !1, this.pill = !1, this.circle = !1, this.type = "button", this.name = "", this.value = "", this.href = "", this.rel = "noreferrer noopener";
+    }), this.hasSlotController = new C(this, "[default]", "prefix", "suffix"), this.localize = new g(this), this.hasFocus = !1, this.invalid = !1, this.title = "", this.variant = "default", this.size = "medium", this.caret = !1, this.disabled = !1, this.loading = !1, this.outline = !1, this.pill = !1, this.circle = !1, this.type = "button", this.name = "", this.value = "", this.href = "", this.rel = "noreferrer noopener";
   }
   /** Gets the validity state object */
   get validity() {
@@ -217,14 +217,14 @@ e([
 e([
   _("disabled", { waitUntilFirstUpdate: !0 })
 ], t.prototype, "handleDisabledChange", 1);
-var V = Object.defineProperty, k = Object.getOwnPropertyDescriptor, z = (i, s, n, a) => {
-  for (var l = a > 1 ? void 0 : a ? k(s, n) : s, u = i.length - 1, h; u >= 0; u--)
+var V = Object.defineProperty, z = Object.getOwnPropertyDescriptor, k = (i, s, n, a) => {
+  for (var l = a > 1 ? void 0 : a ? z(s, n) : s, u = i.length - 1, h; u >= 0; u--)
     (h = i[u]) && (l = (a ? h(s, n, l) : h(l)) || l);
   return a && l && V(s, n, l), l;
 };
 let f = class extends t {
 };
-f = z([
+f = k([
   S("ug-button")
 ], f);
 export {

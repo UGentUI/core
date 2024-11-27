@@ -1,4 +1,4 @@
-import { u as c } from "./chunk.NLWS5DN7.js";
+import { u as c } from "./chunk.UYAO2JRR.js";
 var C = (r = "value") => (l, s) => {
   const e = l.constructor, b = e.prototype.attributeChangedCallback;
   e.prototype.attributeChangedCallback = function(i, f, n) {

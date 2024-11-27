@@ -1,11 +1,11 @@
-import { i as g, _ as o, n as i, S as y, k as f } from "./chunk.NLWS5DN7.js";
-import { S as w } from "./chunk.H24ENZMO.js";
-import { s as m, p as h, a as l, g as d, b as u } from "./chunk.3EPZX5HE.js";
+import { i as g, S as y, x as f, _ as o, n as i } from "./chunk.UYAO2JRR.js";
+import { S as w } from "./chunk.5J7BMMD5.js";
+import { p as h, s as l, g as d, a as u, b as m } from "./chunk.3EPZX5HE.js";
 import { w as c } from "./chunk.B4BZKR24.js";
 import { L as v } from "./chunk.WLV3FVBR.js";
 import { w as p } from "./chunk.CCJUT23E.js";
 import { c as b } from "./chunk.TUVJKY7S.js";
-import { R as k } from "./class-map.js";
+import { e as k } from "./class-map.js";
 import { e as n } from "./query.js";
 var _ = g`
   :host {
@@ -83,7 +83,7 @@ var _ = g`
   }
   disconnectedCallback() {
     var e;
-    (e = this.closeWatcher) == null || e.destroy(), document.removeEventListener("keydown", this.handleDocumentKeyDown);
+    super.disconnectedCallback(), (e = this.closeWatcher) == null || e.destroy(), document.removeEventListener("keydown", this.handleDocumentKeyDown);
   }
   firstUpdated() {
     this.body.hidden = !this.open, this.open && (this.popup.active = !0, this.popup.reposition());

@@ -1,4 +1,4 @@
-import { i as r, _ as a, n as s, S as g, k as i } from "./chunk.NLWS5DN7.js";
+import { i as r, S as s, x as g, _ as a, n as i } from "./chunk.UYAO2JRR.js";
 import { c as b } from "./chunk.TUVJKY7S.js";
 import { r as d } from "./state.js";
 import { e as p } from "./query.js";
@@ -11,7 +11,7 @@ var h = r`
     display: flex;
     flex-wrap: nowrap;
   }
-`, l = class extends g {
+`, l = class extends s {
   constructor() {
     super(...arguments), this.disableRole = !1, this.label = "";
   }
@@ -42,7 +42,7 @@ var h = r`
     });
   }
   render() {
-    return i`
+    return g`
       <div
         part="base"
         class="button-group"
@@ -66,7 +66,7 @@ a([
   d()
 ], l.prototype, "disableRole", 2);
 a([
-  s()
+  i()
 ], l.prototype, "label", 2);
 function n(o) {
   var t;

@@ -1,6 +1,6 @@
-import { i as u, _ as n, n as d, S as h, k as m, t as f } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as u, S as d, x as h, _ as n, n as m, t as f } from "../../chunks/chunk.UYAO2JRR.js";
 import { L as b } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as g } from "../../chunks/chunk.O7VCMB7W.js";
+import { S as g } from "../../chunks/chunk.E6QAPUBK.js";
 import { c as S } from "../../chunks/chunk.TUVJKY7S.js";
 import { e as c } from "../../chunks/query.js";
 var v = u`
@@ -9,7 +9,7 @@ var v = u`
     align-items: center;
     flex-wrap: wrap;
   }
-`, l = class extends h {
+`, l = class extends d {
   constructor() {
     super(...arguments), this.localize = new b(this), this.separatorDir = this.localize.dir(), this.label = "";
   }
@@ -28,7 +28,7 @@ var v = u`
     });
   }
   render() {
-    return this.separatorDir !== this.localize.dir() && (this.separatorDir = this.localize.dir(), this.updateComplete.then(() => this.handleSlotChange())), m`
+    return this.separatorDir !== this.localize.dir() && (this.separatorDir = this.localize.dir(), this.updateComplete.then(() => this.handleSlotChange())), h`
       <nav part="base" class="breadcrumb" aria-label=${this.label}>
         <slot @slotchange=${this.handleSlotChange}></slot>
       </nav>
@@ -50,7 +50,7 @@ n([
   c('slot[name="separator"]')
 ], l.prototype, "separatorSlot", 2);
 n([
-  d()
+  m()
 ], l.prototype, "label", 2);
 var _ = Object.defineProperty, y = Object.getOwnPropertyDescriptor, C = (s, e, r, t) => {
   for (var a = t > 1 ? void 0 : t ? y(e, r) : e, o = s.length - 1, i; o >= 0; o--)

@@ -1,11 +1,11 @@
-import { i, _ as r, n as l, S as o, k as n } from "./chunk.NLWS5DN7.js";
+import { i, S as l, x as o, _ as r, n } from "./chunk.UYAO2JRR.js";
 import { w as d } from "./chunk.CCJUT23E.js";
 import { c as h } from "./chunk.TUVJKY7S.js";
 var b = i`
   :host {
     display: contents;
   }
-`, t = class extends o {
+`, t = class extends l {
   constructor() {
     super(...arguments), this.observedElements = [], this.disabled = !1;
   }
@@ -36,12 +36,12 @@ var b = i`
     this.disabled ? this.stopObserver() : this.startObserver();
   }
   render() {
-    return n` <slot @slotchange=${this.handleSlotChange}></slot> `;
+    return o` <slot @slotchange=${this.handleSlotChange}></slot> `;
   }
 };
 t.styles = [h, b];
 r([
-  l({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], t.prototype, "disabled", 2);
 r([
   d("disabled", { waitUntilFirstUpdate: !0 })

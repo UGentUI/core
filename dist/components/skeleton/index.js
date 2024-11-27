@@ -1,6 +1,6 @@
-import { i as c, _ as d, n as u, S as p, k as f, t as v } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as c, S as d, x as u, _ as p, n as f, t as v } from "../../chunks/chunk.UYAO2JRR.js";
 import { c as _ } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as h } from "../../chunks/class-map.js";
+import { e as h } from "../../chunks/class-map.js";
 var k = c`
   :host {
     --border-radius: var(--ug-border-radius-pill);
@@ -61,12 +61,12 @@ var k = c`
       opacity: 1;
     }
   }
-`, n = class extends p {
+`, n = class extends d {
   constructor() {
     super(...arguments), this.effect = "none";
   }
   render() {
-    return f`
+    return u`
       <div
         part="base"
         class=${h({
@@ -81,8 +81,8 @@ var k = c`
   }
 };
 n.styles = [_, k];
-d([
-  u()
+p([
+  f()
 ], n.prototype, "effect", 2);
 var m = Object.defineProperty, g = Object.getOwnPropertyDescriptor, b = (i, o, s, r) => {
   for (var e = r > 1 ? void 0 : r ? g(o, s) : o, t = i.length - 1, a; t >= 0; t--)

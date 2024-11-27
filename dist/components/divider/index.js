@@ -1,4 +1,4 @@
-import { i as v, _ as n, n as p, S as d, t as h } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as v, S as p, _ as n, n as d, t as h } from "../../chunks/chunk.UYAO2JRR.js";
 import { w as u } from "../../chunks/chunk.CCJUT23E.js";
 import { c as g } from "../../chunks/chunk.TUVJKY7S.js";
 var f = v`
@@ -20,7 +20,7 @@ var f = v`
     border-left: solid var(--width) var(--color);
     margin: 0 var(--spacing);
   }
-`, a = class extends d {
+`, a = class extends p {
   constructor() {
     super(...arguments), this.vertical = !1;
   }
@@ -33,7 +33,7 @@ var f = v`
 };
 a.styles = [g, f];
 n([
-  p({ type: Boolean, reflect: !0 })
+  d({ type: Boolean, reflect: !0 })
 ], a.prototype, "vertical", 2);
 n([
   u("vertical")

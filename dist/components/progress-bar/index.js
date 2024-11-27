@@ -1,9 +1,9 @@
-import { i as g, _ as l, n, S as m, k as d, t as h } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as g, S as m, x as d, _ as l, n, t as h } from "../../chunks/chunk.UYAO2JRR.js";
 import { L as u } from "../../chunks/chunk.WLV3FVBR.js";
 import { c as b } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as v } from "../../chunks/class-map.js";
-import { t as f } from "../../chunks/if-defined.js";
-import { s as _ } from "../../chunks/style-map.js";
+import { e as v } from "../../chunks/class-map.js";
+import { o as f } from "../../chunks/if-defined.js";
+import { o as _ } from "../../chunks/style-map.js";
 var w = g`
   :host {
     --height: 1rem;
@@ -123,14 +123,14 @@ l([
 l([
   n()
 ], e.prototype, "label", 2);
-var y = Object.defineProperty, x = Object.getOwnPropertyDescriptor, k = (c, t, o, a) => {
+var y = Object.defineProperty, x = Object.getOwnPropertyDescriptor, $ = (c, t, o, a) => {
   for (var r = a > 1 ? void 0 : a ? x(t, o) : t, i = c.length - 1, s; i >= 0; i--)
     (s = c[i]) && (r = (a ? s(t, o, r) : s(r)) || r);
   return a && r && y(t, o, r), r;
 };
 let p = class extends e {
 };
-p = k([
+p = $([
   h("ug-progress-bar")
 ], p);
 export {

@@ -1,22 +1,22 @@
-import { i as f, _ as e, n as a, S as g, k as m, t as b } from "../../chunks/chunk.NLWS5DN7.js";
-import { d as x } from "../../chunks/chunk.GI7VDIWX.js";
-import { f as v } from "../../chunks/chunk.SI4ACBFK.js";
-import { F as y } from "../../chunks/chunk.2RCF7SLU.js";
-import { H as _ } from "../../chunks/chunk.NYIIDP5N.js";
+import { i as g, S as m, x, _ as e, n as a, t as b } from "../../chunks/chunk.UYAO2JRR.js";
+import { d as v } from "../../chunks/chunk.GI7VDIWX.js";
+import { f as y } from "../../chunks/chunk.SI4ACBFK.js";
+import { F as _ } from "../../chunks/chunk.2RCF7SLU.js";
+import { H as z } from "../../chunks/chunk.NYIIDP5N.js";
 import { w as h } from "../../chunks/chunk.CCJUT23E.js";
 import { c as C } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as c } from "../../chunks/class-map.js";
-import { t as l } from "../../chunks/if-defined.js";
-import { F as z } from "../../chunks/live.js";
-import { r as w } from "../../chunks/state.js";
-import { e as k } from "../../chunks/query.js";
-var $ = f`
+import { e as c } from "../../chunks/class-map.js";
+import { o as l } from "../../chunks/if-defined.js";
+import { l as w } from "../../chunks/live.js";
+import { r as k } from "../../chunks/state.js";
+import { e as f } from "../../chunks/query.js";
+var $ = g`
   :host {
     display: block;
   }
 
   .textarea {
-    display: flex;
+    display: grid;
     align-items: center;
     position: relative;
     width: 100%;
@@ -65,6 +65,17 @@ var $ = f`
     cursor: not-allowed;
   }
 
+  .textarea__control,
+  .textarea__size-adjuster {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .textarea__size-adjuster {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+
   .textarea--standard.textarea--disabled .textarea__control {
     color: var(--ug-input-color-disabled);
   }
@@ -97,7 +108,6 @@ var $ = f`
   }
 
   .textarea__control {
-    flex: 1 1 auto;
     font-family: inherit;
     font-size: inherit;
     font-weight: inherit;
@@ -175,11 +185,11 @@ var $ = f`
     resize: none;
     overflow-y: hidden;
   }
-`, t = class extends g {
+`, t = class extends m {
   constructor() {
-    super(...arguments), this.formControlController = new y(this, {
+    super(...arguments), this.formControlController = new _(this, {
       assumeInteractionOn: ["ug-blur", "ug-input"]
-    }), this.hasSlotController = new _(this, "help-text", "label"), this.hasFocus = !1, this.title = "", this.name = "", this.value = "", this.size = "medium", this.filled = !1, this.label = "", this.helpText = "", this.placeholder = "", this.rows = 4, this.resize = "vertical", this.disabled = !1, this.readonly = !1, this.form = "", this.required = !1, this.spellcheck = !0, this.defaultValue = "";
+    }), this.hasSlotController = new z(this, "help-text", "label"), this.hasFocus = !1, this.title = "", this.name = "", this.value = "", this.size = "medium", this.filled = !1, this.label = "", this.helpText = "", this.placeholder = "", this.rows = 4, this.resize = "vertical", this.disabled = !1, this.readonly = !1, this.form = "", this.required = !1, this.spellcheck = !0, this.defaultValue = "";
   }
   /** Gets the validity state object */
   get validity() {
@@ -217,7 +227,7 @@ var $ = f`
     this.formControlController.setValidity(!1), this.formControlController.emitInvalidEvent(r);
   }
   setTextareaHeight() {
-    this.resize === "auto" ? (this.input.style.height = "auto", this.input.style.height = `${this.input.scrollHeight}px`) : this.input.style.height = void 0;
+    this.resize === "auto" ? (this.sizeAdjuster.style.height = `${this.input.clientHeight}px`, this.input.style.height = "auto", this.input.style.height = `${this.input.scrollHeight}px`) : this.input.style.height = void 0;
   }
   handleDisabledChange() {
     this.formControlController.setValidity(this.disabled);
@@ -278,7 +288,7 @@ var $ = f`
   }
   render() {
     const r = this.hasSlotController.test("label"), o = this.hasSlotController.test("help-text"), i = this.label ? !0 : !!r, s = this.helpText ? !0 : !!o;
-    return m`
+    return x`
       <div
         part="form-control"
         class=${c({
@@ -323,7 +333,7 @@ var $ = f`
               class="textarea__control"
               title=${this.title}
               name=${l(this.name)}
-              .value=${z(this.value)}
+              .value=${w(this.value)}
               ?disabled=${this.disabled}
               ?readonly=${this.readonly}
               ?required=${this.required}
@@ -344,6 +354,8 @@ var $ = f`
               @focus=${this.handleFocus}
               @blur=${this.handleBlur}
             ></textarea>
+            <!-- This "adjuster" exists to prevent layout shifting. https://github.com/shoelace-style/shoelace/issues/2180 -->
+            <div part="textarea-adjuster" class="textarea__size-adjuster" ?hidden=${this.resize !== "auto"}></div>
           </div>
         </div>
 
@@ -359,12 +371,15 @@ var $ = f`
     `;
   }
 };
-t.styles = [C, v, $];
+t.styles = [C, y, $];
 e([
-  k(".textarea__control")
+  f(".textarea__control")
 ], t.prototype, "input", 2);
 e([
-  w()
+  f(".textarea__size-adjuster")
+], t.prototype, "sizeAdjuster", 2);
+e([
+  k()
 ], t.prototype, "hasFocus", 2);
 e([
   a()
@@ -443,7 +458,7 @@ e([
   a()
 ], t.prototype, "inputmode", 2);
 e([
-  x()
+  v()
 ], t.prototype, "defaultValue", 2);
 e([
   h("disabled", { waitUntilFirstUpdate: !0 })
@@ -454,14 +469,14 @@ e([
 e([
   h("value", { waitUntilFirstUpdate: !0 })
 ], t.prototype, "handleValueChange", 1);
-var T = Object.defineProperty, F = Object.getOwnPropertyDescriptor, V = (r, o, i, s) => {
-  for (var n = s > 1 ? void 0 : s ? F(o, i) : o, u = r.length - 1, d; u >= 0; u--)
+var T = Object.defineProperty, V = Object.getOwnPropertyDescriptor, F = (r, o, i, s) => {
+  for (var n = s > 1 ? void 0 : s ? V(o, i) : o, u = r.length - 1, d; u >= 0; u--)
     (d = r[u]) && (n = (s ? d(o, i, n) : d(n)) || n);
   return s && n && T(o, i, n), n;
 };
 let p = class extends t {
 };
-p = V([
+p = F([
   b("ug-textarea")
 ], p);
 export {

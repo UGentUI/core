@@ -1,13 +1,13 @@
-import { i as w, _ as s, n as r, S as y, k as v, t as b } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as w, S as y, x as v, _ as s, n as r, t as b } from "../../chunks/chunk.UYAO2JRR.js";
 import { a as _ } from "../../chunks/chunk.LXDTFLWU.js";
-import { S as k } from "../../chunks/chunk.H24ENZMO.js";
-import { s as f, a as h, g as c, b as u } from "../../chunks/chunk.3EPZX5HE.js";
+import { S as E } from "../../chunks/chunk.5J7BMMD5.js";
+import { s as h, g as c, a as u, b as f } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as g } from "../../chunks/chunk.B4BZKR24.js";
-import { L as E } from "../../chunks/chunk.WLV3FVBR.js";
+import { L as k } from "../../chunks/chunk.WLV3FVBR.js";
 import { w as D } from "../../chunks/chunk.CCJUT23E.js";
 import { c as C } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as O } from "../../chunks/class-map.js";
-import { t as T } from "../../chunks/if-defined.js";
+import { e as O } from "../../chunks/class-map.js";
+import { o as T } from "../../chunks/if-defined.js";
 import { e as l } from "../../chunks/query.js";
 var L = w`
   :host {
@@ -59,7 +59,7 @@ var L = w`
   }
 `, i = class extends y {
   constructor() {
-    super(...arguments), this.localize = new E(this), this.open = !1, this.placement = "bottom-start", this.disabled = !1, this.stayOpenOnSelect = !1, this.distance = 0, this.skidding = 0, this.hoist = !1, this.sync = void 0, this.handleKeyDown = (e) => {
+    super(...arguments), this.localize = new k(this), this.open = !1, this.placement = "bottom-start", this.disabled = !1, this.stayOpenOnSelect = !1, this.distance = 0, this.skidding = 0, this.hoist = !1, this.sync = void 0, this.handleKeyDown = (e) => {
       this.open && e.key === "Escape" && (e.stopPropagation(), this.hide(), this.focusOnTrigger());
     }, this.handleDocumentKeyDown = (e) => {
       var t;
@@ -230,7 +230,7 @@ var L = w`
   }
 };
 i.styles = [C, L];
-i.dependencies = { "ug-popup": k };
+i.dependencies = { "ug-popup": E };
 s([
   l(".dropdown")
 ], i.prototype, "popup", 2);

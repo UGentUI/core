@@ -1,4 +1,4 @@
-import { c as u } from "./chunk.NLWS5DN7.js";
+import { c as u } from "./chunk.UYAO2JRR.js";
 function w(t, c) {
   const l = u({
     waitUntilFirstUpdate: !1

@@ -1,8 +1,8 @@
-import { i as p, _ as t, n as d, S as b, k as c, t as f } from "../../chunks/chunk.NLWS5DN7.js";
-import { S as v } from "../../chunks/chunk.O7VCMB7W.js";
+import { i as p, S as b, x as c, _ as i, n as d, t as f } from "../../chunks/chunk.UYAO2JRR.js";
+import { S as v } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as h } from "../../chunks/chunk.CCJUT23E.js";
 import { c as m } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as k } from "../../chunks/class-map.js";
+import { e as k } from "../../chunks/class-map.js";
 import { r as g } from "../../chunks/state.js";
 var _ = p`
   :host {
@@ -163,31 +163,31 @@ var _ = p`
 };
 e.styles = [m, _];
 e.dependencies = { "ug-icon": v };
-t([
+i([
   g()
 ], e.prototype, "checked", 2);
-t([
+i([
   g()
 ], e.prototype, "hasFocus", 2);
-t([
+i([
   d()
 ], e.prototype, "value", 2);
-t([
+i([
   d({ reflect: !0 })
 ], e.prototype, "size", 2);
-t([
+i([
   d({ type: Boolean, reflect: !0 })
 ], e.prototype, "disabled", 2);
-t([
+i([
   h("checked")
 ], e.prototype, "handleCheckedChange", 1);
-t([
+i([
   h("disabled", { waitUntilFirstUpdate: !0 })
 ], e.prototype, "handleDisabledChange", 1);
-var y = Object.defineProperty, z = Object.getOwnPropertyDescriptor, C = (n, i, a, r) => {
-  for (var o = r > 1 ? void 0 : r ? z(i, a) : i, s = n.length - 1, l; s >= 0; s--)
-    (l = n[s]) && (o = (r ? l(i, a, o) : l(o)) || o);
-  return r && o && y(i, a, o), o;
+var y = Object.defineProperty, z = Object.getOwnPropertyDescriptor, C = (n, t, a, r) => {
+  for (var o = r > 1 ? void 0 : r ? z(t, a) : t, s = n.length - 1, l; s >= 0; s--)
+    (l = n[s]) && (o = (r ? l(t, a, o) : l(o)) || o);
+  return r && o && y(t, a, o), o;
 };
 let u = class extends e {
 };

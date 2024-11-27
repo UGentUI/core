@@ -1,4 +1,4 @@
-import { R as l } from "./chunk.NLWS5DN7.js";
+import { T as l } from "./chunk.UYAO2JRR.js";
 import { e as u, i as c, t as d } from "./directive.js";
 /**
  * @license
@@ -6,31 +6,31 @@ import { e as u, i as c, t as d } from "./directive.js";
  * SPDX-License-Identifier: BSD-3-Clause
  */
 const o = "important", f = " !" + o, p = u(class extends c {
-  constructor(r) {
+  constructor(n) {
     var e;
-    if (super(r), r.type !== d.ATTRIBUTE || r.name !== "style" || ((e = r.strings) == null ? void 0 : e.length) > 2) throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.");
+    if (super(n), n.type !== d.ATTRIBUTE || n.name !== "style" || ((e = n.strings) == null ? void 0 : e.length) > 2) throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.");
   }
-  render(r) {
-    return Object.keys(r).reduce((e, s) => {
-      const t = r[s];
+  render(n) {
+    return Object.keys(n).reduce((e, s) => {
+      const t = n[s];
       return t == null ? e : e + `${s = s.includes("-") ? s : s.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g, "-$&").toLowerCase()}:${t};`;
     }, "");
   }
-  update(r, [e]) {
-    const { style: s } = r.element;
+  update(n, [e]) {
+    const { style: s } = n.element;
     if (this.ft === void 0) return this.ft = new Set(Object.keys(e)), this.render(e);
     for (const t of this.ft) e[t] == null && (this.ft.delete(t), t.includes("-") ? s.removeProperty(t) : s[t] = null);
     for (const t in e) {
-      const n = e[t];
-      if (n != null) {
+      const r = e[t];
+      if (r != null) {
         this.ft.add(t);
-        const i = typeof n == "string" && n.endsWith(f);
-        t.includes("-") || i ? s.setProperty(t, i ? n.slice(0, -11) : n, i ? o : "") : s[t] = n;
+        const i = typeof r == "string" && r.endsWith(f);
+        t.includes("-") || i ? s.setProperty(t, i ? r.slice(0, -11) : r, i ? o : "") : s[t] = r;
       }
     }
     return l;
   }
 });
 export {
-  p as s
+  p as o
 };

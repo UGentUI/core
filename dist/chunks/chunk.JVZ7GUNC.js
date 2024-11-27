@@ -1,13 +1,13 @@
-import { i as _, _ as i, n as o, S as x, k as d } from "./chunk.NLWS5DN7.js";
-import { S as y } from "./chunk.CX3DZWHK.js";
-import { S as v } from "./chunk.R2T2D3TO.js";
-import { s as b, a as c, g as m, b as p, c as u } from "./chunk.3EPZX5HE.js";
+import { i as _, S as x, x as d, _ as i, n as o } from "./chunk.UYAO2JRR.js";
+import { S as y } from "./chunk.4Y6VMQSD.js";
+import { S as v } from "./chunk.TLKDQ5JG.js";
+import { s as c, g as m, a as p, c as u, b } from "./chunk.3EPZX5HE.js";
 import { L as C } from "./chunk.WLV3FVBR.js";
-import { S as k } from "./chunk.O7VCMB7W.js";
+import { S as k } from "./chunk.E6QAPUBK.js";
 import { w as a } from "./chunk.CCJUT23E.js";
 import { c as z } from "./chunk.TUVJKY7S.js";
-import { R as g } from "./class-map.js";
-import { F as w } from "./live.js";
+import { e as g } from "./class-map.js";
+import { l as w } from "./live.js";
 import { r as s } from "./state.js";
 import { e as r } from "./query.js";
 var S = _`
@@ -238,7 +238,7 @@ var e = class h extends x {
     ) : [];
   }
   render() {
-    const t = this.matches(":dir(rtl)"), n = !this.loading && (!this.isLeaf || this.lazy);
+    const t = this.localize.dir() === "rtl", n = !this.loading && (!this.isLeaf || this.lazy);
     return d`
       <div
         part="base"
@@ -380,7 +380,7 @@ i([
 i([
   a("lazy", { waitUntilFirstUpdate: !0 })
 ], e.prototype, "handleLazyChange", 1);
-var N = e;
+var j = e;
 b("tree-item.expand", {
   keyframes: [
     { height: "0", opacity: "0", overflow: "hidden" },
@@ -396,5 +396,5 @@ b("tree-item.collapse", {
   options: { duration: 200, easing: "cubic-bezier(0.4, 0.0, 0.2, 1)" }
 });
 export {
-  N as S
+  j as S
 };

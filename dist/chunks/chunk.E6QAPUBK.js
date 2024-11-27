@@ -1,13 +1,13 @@
 import { g as b } from "./chunk.3Y6SB6QS.js";
-import { i as y, _ as a, n as c, S as x, k as C } from "./chunk.NLWS5DN7.js";
+import { i as y, S as x, x as C, _ as a, n as c } from "./chunk.UYAO2JRR.js";
 import { w as m } from "./chunk.CCJUT23E.js";
 import { c as L } from "./chunk.TUVJKY7S.js";
-import { n as z } from "./directive-helpers.js";
-import { r as k } from "./state.js";
-var M = {
+import { e as z } from "./directive-helpers.js";
+import { r as M } from "./state.js";
+var k = {
   name: "default",
   resolver: (t) => b(`assets/icons/${t}.svg`)
-}, B = M, u = {
+}, B = k, u = {
   caret: `
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"></polyline>
@@ -233,7 +233,7 @@ var E = y`
 };
 s.styles = [L, E];
 a([
-  k()
+  M()
 ], s.prototype, "svg", 2);
 a([
   c({ reflect: !0 })

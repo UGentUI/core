@@ -1,11 +1,11 @@
-import { i as g, _ as r, n, S as y, k as h, t as v } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as g, S as y, x as h, _ as r, n as d, t as v } from "../../chunks/chunk.UYAO2JRR.js";
 import { f as b } from "../../chunks/chunk.SI4ACBFK.js";
-import { S as C } from "../../chunks/chunk.RBPP5PLA.js";
-import { F as _, c as R, a as V, v as x } from "../../chunks/chunk.2RCF7SLU.js";
+import { F as C, c as _, a as R, v as V } from "../../chunks/chunk.2RCF7SLU.js";
+import { S as x } from "../../chunks/chunk.FAGP73PT.js";
 import { H as w } from "../../chunks/chunk.NYIIDP5N.js";
 import { w as m } from "../../chunks/chunk.CCJUT23E.js";
-import { c as k } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as S } from "../../chunks/class-map.js";
+import { c as S } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as k } from "../../chunks/class-map.js";
 import { r as c } from "../../chunks/state.js";
 import { e as f } from "../../chunks/query.js";
 var A = g`
@@ -40,14 +40,14 @@ var A = g`
     white-space: nowrap;
     border: 0;
   }
-`, s = class extends y {
+`, a = class extends y {
   constructor() {
-    super(...arguments), this.formControlController = new _(this), this.hasSlotController = new w(this, "help-text", "label"), this.customValidityMessage = "", this.hasButtonGroup = !1, this.errorMessage = "", this.defaultValue = "", this.label = "", this.helpText = "", this.name = "option", this.value = "", this.size = "medium", this.form = "", this.required = !1;
+    super(...arguments), this.formControlController = new C(this), this.hasSlotController = new w(this, "help-text", "label"), this.customValidityMessage = "", this.hasButtonGroup = !1, this.errorMessage = "", this.defaultValue = "", this.label = "", this.helpText = "", this.name = "option", this.value = "", this.size = "medium", this.form = "", this.required = !1;
   }
   /** Gets the validity state object */
   get validity() {
     const t = this.required && !this.value;
-    return this.customValidityMessage !== "" ? R : t ? V : x;
+    return this.customValidityMessage !== "" ? _ : t ? R : V;
   }
   /** Gets the validation message */
   get validationMessage() {
@@ -65,21 +65,20 @@ var A = g`
   }
   handleRadioClick(t) {
     const i = t.target.closest("ug-radio, ug-radio-button"), e = this.getAllRadios(), o = this.value;
-    !i || i.disabled || (this.value = i.value, e.forEach((a) => a.checked = a === i), this.value !== o && (this.emit("ug-change"), this.emit("ug-input")));
+    !i || i.disabled || (this.value = i.value, e.forEach((s) => s.checked = s === i), this.value !== o && (this.emit("ug-change"), this.emit("ug-input")));
   }
   handleKeyDown(t) {
     var i;
     if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(t.key))
       return;
-    const e = this.getAllRadios().filter((d) => !d.disabled), o = (i = e.find((d) => d.checked)) != null ? i : e[0], a = t.key === " " ? 0 : ["ArrowUp", "ArrowLeft"].includes(t.key) ? -1 : 1, u = this.value;
-    let l = e.indexOf(o) + a;
-    l < 0 && (l = e.length - 1), l > e.length - 1 && (l = 0), this.getAllRadios().forEach((d) => {
-      d.checked = !1, this.hasButtonGroup || d.setAttribute("tabindex", "-1");
-    }), this.value = e[l].value, e[l].checked = !0, this.hasButtonGroup ? e[l].shadowRoot.querySelector("button").focus() : (e[l].setAttribute("tabindex", "0"), e[l].focus()), this.value !== u && (this.emit("ug-change"), this.emit("ug-input")), t.preventDefault();
+    const e = this.getAllRadios().filter((u) => !u.disabled), o = (i = e.find((u) => u.checked)) != null ? i : e[0], s = t.key === " " ? 0 : ["ArrowUp", "ArrowLeft"].includes(t.key) ? -1 : 1, n = this.value;
+    let l = e.indexOf(o) + s;
+    l < 0 && (l = e.length - 1), l > e.length - 1 && (l = 0), this.getAllRadios().forEach((u) => {
+      u.checked = !1, this.hasButtonGroup || u.setAttribute("tabindex", "-1");
+    }), this.value = e[l].value, e[l].checked = !0, this.hasButtonGroup ? e[l].shadowRoot.querySelector("button").focus() : (e[l].setAttribute("tabindex", "0"), e[l].focus()), this.value !== n && (this.emit("ug-change"), this.emit("ug-input")), t.preventDefault();
   }
   handleLabelClick() {
-    const t = this.getAllRadios(), e = t.find((o) => o.checked) || t[0];
-    e && e.focus();
+    this.focus();
   }
   handleInvalid(t) {
     this.formControlController.setValidity(!1), this.formControlController.emitInvalidEvent(t);
@@ -137,14 +136,19 @@ var A = g`
   setCustomValidity(t = "") {
     this.customValidityMessage = t, this.errorMessage = t, this.validationInput.setCustomValidity(t), this.formControlController.updateValidity();
   }
+  /** Sets focus on the radio-group. */
+  focus(t) {
+    const i = this.getAllRadios(), e = i.find((n) => n.checked), o = i.find((n) => !n.disabled), s = e || o;
+    s && s.focus(t);
+  }
   render() {
-    const t = this.hasSlotController.test("label"), i = this.hasSlotController.test("help-text"), e = this.label ? !0 : !!t, o = this.helpText ? !0 : !!i, a = h`
+    const t = this.hasSlotController.test("label"), i = this.hasSlotController.test("help-text"), e = this.label ? !0 : !!t, o = this.helpText ? !0 : !!i, s = h`
       <slot @slotchange=${this.syncRadios} @click=${this.handleRadioClick} @keydown=${this.handleKeyDown}></slot>
     `;
     return h`
       <fieldset
         part="form-control"
-        class=${S({
+        class=${k({
       "form-control": !0,
       "form-control--small": this.size === "small",
       "form-control--medium": this.size === "medium",
@@ -185,9 +189,9 @@ var A = g`
 
           ${this.hasButtonGroup ? h`
                 <ug-button-group part="button-group" exportparts="base:button-group__base" role="presentation">
-                  ${a}
+                  ${s}
                 </ug-button-group>
-              ` : a}
+              ` : s}
         </div>
 
         <div
@@ -202,56 +206,56 @@ var A = g`
     `;
   }
 };
-s.styles = [k, b, A];
-s.dependencies = { "ug-button-group": C };
+a.styles = [S, b, A];
+a.dependencies = { "ug-button-group": x };
 r([
   f("slot:not([name])")
-], s.prototype, "defaultSlot", 2);
+], a.prototype, "defaultSlot", 2);
 r([
   f(".radio-group__validation-input")
-], s.prototype, "validationInput", 2);
+], a.prototype, "validationInput", 2);
 r([
   c()
-], s.prototype, "hasButtonGroup", 2);
+], a.prototype, "hasButtonGroup", 2);
 r([
   c()
-], s.prototype, "errorMessage", 2);
+], a.prototype, "errorMessage", 2);
 r([
   c()
-], s.prototype, "defaultValue", 2);
+], a.prototype, "defaultValue", 2);
 r([
-  n()
-], s.prototype, "label", 2);
+  d()
+], a.prototype, "label", 2);
 r([
-  n({ attribute: "help-text" })
-], s.prototype, "helpText", 2);
+  d({ attribute: "help-text" })
+], a.prototype, "helpText", 2);
 r([
-  n()
-], s.prototype, "name", 2);
+  d()
+], a.prototype, "name", 2);
 r([
-  n({ reflect: !0 })
-], s.prototype, "value", 2);
+  d({ reflect: !0 })
+], a.prototype, "value", 2);
 r([
-  n({ reflect: !0 })
-], s.prototype, "size", 2);
+  d({ reflect: !0 })
+], a.prototype, "size", 2);
 r([
-  n({ reflect: !0 })
-], s.prototype, "form", 2);
+  d({ reflect: !0 })
+], a.prototype, "form", 2);
 r([
-  n({ type: Boolean, reflect: !0 })
-], s.prototype, "required", 2);
+  d({ type: Boolean, reflect: !0 })
+], a.prototype, "required", 2);
 r([
   m("size", { waitUntilFirstUpdate: !0 })
-], s.prototype, "handleSizeChange", 1);
+], a.prototype, "handleSizeChange", 1);
 r([
   m("value")
-], s.prototype, "handleValueChange", 1);
-var M = Object.defineProperty, E = Object.getOwnPropertyDescriptor, q = (t, i, e, o) => {
-  for (var a = o > 1 ? void 0 : o ? E(i, e) : i, u = t.length - 1, l; u >= 0; u--)
-    (l = t[u]) && (a = (o ? l(i, e, a) : l(a)) || a);
-  return o && a && M(i, e, a), a;
+], a.prototype, "handleValueChange", 1);
+var E = Object.defineProperty, M = Object.getOwnPropertyDescriptor, q = (t, i, e, o) => {
+  for (var s = o > 1 ? void 0 : o ? M(i, e) : i, n = t.length - 1, l; n >= 0; n--)
+    (l = t[n]) && (s = (o ? l(i, e, s) : l(s)) || s);
+  return o && s && E(i, e, s), s;
 };
-let p = class extends s {
+let p = class extends a {
 };
 p = q([
   v("ug-radio-group")

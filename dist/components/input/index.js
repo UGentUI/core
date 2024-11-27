@@ -1,15 +1,15 @@
-import { i as m, _ as i, n as o, S as f, k as p, t as b } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as m, S as f, x as p, _ as i, n as o, t as b } from "../../chunks/chunk.UYAO2JRR.js";
 import { d as v } from "../../chunks/chunk.GI7VDIWX.js";
 import { f as _ } from "../../chunks/chunk.SI4ACBFK.js";
 import { F as y } from "../../chunks/chunk.2RCF7SLU.js";
-import { H as w } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as x } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as k } from "../../chunks/chunk.O7VCMB7W.js";
+import { L as w } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as x } from "../../chunks/chunk.NYIIDP5N.js";
+import { S as k } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as h } from "../../chunks/chunk.CCJUT23E.js";
 import { c as C } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as c } from "../../chunks/class-map.js";
-import { t as n } from "../../chunks/if-defined.js";
-import { F as $ } from "../../chunks/live.js";
+import { e as c } from "../../chunks/class-map.js";
+import { o as n } from "../../chunks/if-defined.js";
+import { l as $ } from "../../chunks/live.js";
 import { r as V } from "../../chunks/state.js";
 import { e as z } from "../../chunks/query.js";
 var I = m`
@@ -302,7 +302,7 @@ var I = m`
   constructor() {
     super(...arguments), this.formControlController = new y(this, {
       assumeInteractionOn: ["ug-blur", "ug-input"]
-    }), this.hasSlotController = new w(this, "help-text", "label"), this.localize = new x(this), this.hasFocus = !1, this.title = "", this.__numberInput = Object.assign(document.createElement("input"), { type: "number" }), this.__dateInput = Object.assign(document.createElement("input"), { type: "date" }), this.type = "text", this.name = "", this.value = "", this.defaultValue = "", this.size = "medium", this.filled = !1, this.pill = !1, this.label = "", this.helpText = "", this.clearable = !1, this.disabled = !1, this.placeholder = "", this.readonly = !1, this.passwordToggle = !1, this.passwordVisible = !1, this.noSpinButtons = !1, this.form = "", this.required = !1, this.spellcheck = !0;
+    }), this.hasSlotController = new x(this, "help-text", "label"), this.localize = new w(this), this.hasFocus = !1, this.title = "", this.__numberInput = Object.assign(document.createElement("input"), { type: "number" }), this.__dateInput = Object.assign(document.createElement("input"), { type: "date" }), this.type = "text", this.name = "", this.value = "", this.defaultValue = "", this.size = "medium", this.filled = !1, this.pill = !1, this.label = "", this.helpText = "", this.clearable = !1, this.disabled = !1, this.placeholder = "", this.readonly = !1, this.passwordToggle = !1, this.passwordVisible = !1, this.noSpinButtons = !1, this.form = "", this.required = !1, this.spellcheck = !0;
   }
   //
   // NOTE: We use an in-memory input for these getters/setters instead of the one in the template because the properties
@@ -675,14 +675,14 @@ i([
 i([
   h("value", { waitUntilFirstUpdate: !0 })
 ], t.prototype, "handleValueChange", 1);
-var S = Object.defineProperty, F = Object.getOwnPropertyDescriptor, B = (e, r, l, s) => {
-  for (var a = s > 1 ? void 0 : s ? F(r, l) : r, u = e.length - 1, d; u >= 0; u--)
+var S = Object.defineProperty, B = Object.getOwnPropertyDescriptor, T = (e, r, l, s) => {
+  for (var a = s > 1 ? void 0 : s ? B(r, l) : r, u = e.length - 1, d; u >= 0; u--)
     (d = e[u]) && (a = (s ? d(r, l, a) : d(a)) || a);
   return s && a && S(r, l, a), a;
 };
 let g = class extends t {
 };
-g = B([
+g = T([
   b("ug-input")
 ], g);
 export {

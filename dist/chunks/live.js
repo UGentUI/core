@@ -1,30 +1,30 @@
-import { R as i, D as s } from "./chunk.NLWS5DN7.js";
-import { e as T, i as p, t as r } from "./directive.js";
-import { r as a, d as f } from "./directive-helpers.js";
+import { T as n, E as s } from "./chunk.UYAO2JRR.js";
+import { e as T, i as f, t } from "./directive.js";
+import { f as l, m as p } from "./directive-helpers.js";
 /**
  * @license
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const E = T(class extends p {
-  constructor(t) {
-    if (super(t), t.type !== r.PROPERTY && t.type !== r.ATTRIBUTE && t.type !== r.BOOLEAN_ATTRIBUTE) throw Error("The `live` directive is not allowed on child or event bindings");
-    if (!a(t)) throw Error("`live` bindings can only contain a single expression");
+const c = T(class extends f {
+  constructor(e) {
+    if (super(e), e.type !== t.PROPERTY && e.type !== t.ATTRIBUTE && e.type !== t.BOOLEAN_ATTRIBUTE) throw Error("The `live` directive is not allowed on child or event bindings");
+    if (!l(e)) throw Error("`live` bindings can only contain a single expression");
   }
-  render(t) {
-    return t;
+  render(e) {
+    return e;
   }
-  update(t, [e]) {
-    if (e === i || e === s) return e;
-    const n = t.element, o = t.name;
-    if (t.type === r.PROPERTY) {
-      if (e === n[o]) return i;
-    } else if (t.type === r.BOOLEAN_ATTRIBUTE) {
-      if (!!e === n.hasAttribute(o)) return i;
-    } else if (t.type === r.ATTRIBUTE && n.getAttribute(o) === e + "") return i;
-    return f(t), e;
+  update(e, [r]) {
+    if (r === n || r === s) return r;
+    const o = e.element, i = e.name;
+    if (e.type === t.PROPERTY) {
+      if (r === o[i]) return n;
+    } else if (e.type === t.BOOLEAN_ATTRIBUTE) {
+      if (!!r === o.hasAttribute(i)) return n;
+    } else if (e.type === t.ATTRIBUTE && o.getAttribute(i) === r + "") return n;
+    return p(e), r;
   }
 });
 export {
-  E as F
+  c as l
 };

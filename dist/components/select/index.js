@@ -1,22 +1,22 @@
-import { S as x } from "../../chunks/chunk.Q45FKJX7.js";
-import { i as w, _ as s, n as r, S as O, k as p, t as C } from "../../chunks/chunk.NLWS5DN7.js";
+import { S as x } from "../../chunks/chunk.RNK5BM2Z.js";
+import { i as w, S as C, x as p, _ as s, n, t as O } from "../../chunks/chunk.UYAO2JRR.js";
 import { s as k } from "../../chunks/chunk.RWUUFNUL.js";
 import { d as S } from "../../chunks/chunk.GI7VDIWX.js";
 import { f as D } from "../../chunks/chunk.SI4ACBFK.js";
-import { S as $ } from "../../chunks/chunk.H24ENZMO.js";
+import { S as $ } from "../../chunks/chunk.5J7BMMD5.js";
 import { F as z } from "../../chunks/chunk.2RCF7SLU.js";
-import { s as _, a as g, g as m, b as f } from "../../chunks/chunk.3EPZX5HE.js";
+import { s as g, g as m, a as f, b as _ } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as b } from "../../chunks/chunk.B4BZKR24.js";
-import { H as I } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as T } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as L } from "../../chunks/chunk.O7VCMB7W.js";
+import { L as I } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as T } from "../../chunks/chunk.NYIIDP5N.js";
+import { S as L } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as h } from "../../chunks/chunk.CCJUT23E.js";
 import { c as A } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as v } from "../../chunks/class-map.js";
-import { r as d } from "../../chunks/state.js";
-import { e as u } from "../../chunks/query.js";
-import { a as E } from "../../chunks/unsafe-html.js";
-import "../../chunks/chunk.AYP3HPB7.js";
+import { e as v } from "../../chunks/class-map.js";
+import { r as u } from "../../chunks/state.js";
+import { e as d } from "../../chunks/query.js";
+import { o as E } from "../../chunks/unsafe-html.js";
+import "../../chunks/chunk.3HB7VQL2.js";
 var F = w`
   :host {
     display: block;
@@ -226,7 +226,7 @@ var F = w`
     margin-inline-start: var(--ug-input-spacing-medium);
   }
 
-  .select--medium.select--multiple:not(.select--placeholder-visible) .select__combobox {
+  .select--medium.select--multiple .select__combobox {
     padding-inline-start: 0;
     padding-block: 3px;
   }
@@ -255,7 +255,7 @@ var F = w`
     margin-inline-start: var(--ug-input-spacing-large);
   }
 
-  .select--large.select--multiple:not(.select--placeholder-visible) .select__combobox {
+  .select--large.select--multiple .select__combobox {
     padding-inline-start: 0;
     padding-block: 4px;
   }
@@ -359,11 +359,11 @@ var F = w`
     padding-block: var(--ug-spacing-2x-small);
     padding-inline: var(--ug-spacing-x-large);
   }
-`, i = class extends O {
+`, i = class extends C {
   constructor() {
     super(...arguments), this.formControlController = new z(this, {
       assumeInteractionOn: ["ug-blur", "ug-input"]
-    }), this.hasSlotController = new I(this, "help-text", "label"), this.localize = new T(this), this.typeToSelectString = "", this.hasFocus = !1, this.displayLabel = "", this.selectedOptions = [], this.name = "", this.value = "", this.defaultValue = "", this.size = "medium", this.placeholder = "", this.multiple = !1, this.maxOptionsVisible = 3, this.disabled = !1, this.clearable = !1, this.open = !1, this.hoist = !1, this.filled = !1, this.pill = !1, this.label = "", this.placement = "bottom", this.helpText = "", this.form = "", this.required = !1, this.getTag = (e) => p`
+    }), this.hasSlotController = new T(this, "help-text", "label"), this.localize = new I(this), this.typeToSelectString = "", this.hasFocus = !1, this.displayLabel = "", this.selectedOptions = [], this.valueHasChanged = !1, this.name = "", this.value = "", this.defaultValue = "", this.size = "medium", this.placeholder = "", this.multiple = !1, this.maxOptionsVisible = 3, this.disabled = !1, this.clearable = !1, this.open = !1, this.hoist = !1, this.filled = !1, this.pill = !1, this.label = "", this.placement = "bottom", this.helpText = "", this.form = "", this.required = !1, this.getTag = (e) => p`
       <ug-tag
         part="tag"
         exportparts="
@@ -383,27 +383,27 @@ var F = w`
       const t = e.composedPath();
       this && !t.includes(this) && this.hide();
     }, this.handleDocumentKeyDown = (e) => {
-      const t = e.target, l = t.closest(".select__clear") !== null, o = t.closest("ug-icon-button") !== null;
-      if (!(l || o)) {
+      const t = e.target, l = t.closest(".select__clear") !== null, a = t.closest("ug-icon-button") !== null;
+      if (!(l || a)) {
         if (e.key === "Escape" && this.open && !this.closeWatcher && (e.preventDefault(), e.stopPropagation(), this.hide(), this.displayInput.focus({ preventScroll: !0 })), e.key === "Enter" || e.key === " " && this.typeToSelectString === "") {
           if (e.preventDefault(), e.stopImmediatePropagation(), !this.open) {
             this.show();
             return;
           }
-          this.currentOption && !this.currentOption.disabled && (this.multiple ? this.toggleOptionSelection(this.currentOption) : this.setSelectedOptions(this.currentOption), this.updateComplete.then(() => {
+          this.currentOption && !this.currentOption.disabled && (this.valueHasChanged = !0, this.multiple ? this.toggleOptionSelection(this.currentOption) : this.setSelectedOptions(this.currentOption), this.updateComplete.then(() => {
             this.emit("ug-input"), this.emit("ug-change");
           }), this.multiple || (this.hide(), this.displayInput.focus({ preventScroll: !0 })));
           return;
         }
         if (["ArrowUp", "ArrowDown", "Home", "End"].includes(e.key)) {
-          const a = this.getAllOptions(), c = a.indexOf(this.currentOption);
-          let n = Math.max(0, c);
+          const o = this.getAllOptions(), c = o.indexOf(this.currentOption);
+          let r = Math.max(0, c);
           if (e.preventDefault(), !this.open && (this.show(), this.currentOption))
             return;
-          e.key === "ArrowDown" ? (n = c + 1, n > a.length - 1 && (n = 0)) : e.key === "ArrowUp" ? (n = c - 1, n < 0 && (n = a.length - 1)) : e.key === "Home" ? n = 0 : e.key === "End" && (n = a.length - 1), this.setCurrentOption(a[n]);
+          e.key === "ArrowDown" ? (r = c + 1, r > o.length - 1 && (r = 0)) : e.key === "ArrowUp" ? (r = c - 1, r < 0 && (r = o.length - 1)) : e.key === "Home" ? r = 0 : e.key === "End" && (r = o.length - 1), this.setCurrentOption(o[r]);
         }
-        if (e.key.length === 1 || e.key === "Backspace") {
-          const a = this.getAllOptions();
+        if (e.key && e.key.length === 1 || e.key === "Backspace") {
+          const o = this.getAllOptions();
           if (e.metaKey || e.ctrlKey || e.altKey)
             return;
           if (!this.open) {
@@ -412,7 +412,7 @@ var F = w`
             this.show();
           }
           e.stopPropagation(), e.preventDefault(), clearTimeout(this.typeToSelectTimeout), this.typeToSelectTimeout = window.setTimeout(() => this.typeToSelectString = "", 1e3), e.key === "Backspace" ? this.typeToSelectString = this.typeToSelectString.slice(0, -1) : this.typeToSelectString += e.key.toLowerCase();
-          for (const c of a)
+          for (const c of o)
             if (c.getTextLabel().toLowerCase().startsWith(this.typeToSelectString)) {
               this.setCurrentOption(c);
               break;
@@ -433,7 +433,9 @@ var F = w`
     return this.valueInput.validationMessage;
   }
   connectedCallback() {
-    super.connectedCallback(), this.open = !1;
+    super.connectedCallback(), setTimeout(() => {
+      this.handleDefaultSlotChange();
+    }), this.open = !1;
   }
   addOpenListeners() {
     var e;
@@ -455,7 +457,7 @@ var F = w`
     this.displayInput.focus();
   }
   handleComboboxMouseDown(e) {
-    const l = e.composedPath().some((o) => o instanceof Element && o.tagName.toLowerCase() === "ug-icon-button");
+    const l = e.composedPath().some((a) => a instanceof Element && a.tagName.toLowerCase() === "ug-icon-button");
     this.disabled || l || (e.preventDefault(), this.displayInput.focus({ preventScroll: !0 }), this.open = !this.open);
   }
   handleComboboxKeyDown(e) {
@@ -470,14 +472,15 @@ var F = w`
     e.stopPropagation(), e.preventDefault();
   }
   handleOptionClick(e) {
-    const l = e.target.closest("ug-option"), o = this.value;
-    l && !l.disabled && (this.multiple ? this.toggleOptionSelection(l) : this.setSelectedOptions(l), this.updateComplete.then(() => this.displayInput.focus({ preventScroll: !0 })), this.value !== o && this.updateComplete.then(() => {
+    const l = e.target.closest("ug-option"), a = this.value;
+    l && !l.disabled && (this.valueHasChanged = !0, this.multiple ? this.toggleOptionSelection(l) : this.setSelectedOptions(l), this.updateComplete.then(() => this.displayInput.focus({ preventScroll: !0 })), this.value !== a && this.updateComplete.then(() => {
       this.emit("ug-input"), this.emit("ug-change");
     }), this.multiple || (this.hide(), this.displayInput.focus({ preventScroll: !0 })));
   }
   handleDefaultSlotChange() {
-    const e = this.getAllOptions(), t = Array.isArray(this.value) ? this.value : [this.value], l = [];
-    customElements.get("ug-option") ? (e.forEach((o) => l.push(o.value)), this.setSelectedOptions(e.filter((o) => t.includes(o.value)))) : customElements.whenDefined("ug-option").then(() => this.handleDefaultSlotChange());
+    customElements.get("wa-option") || customElements.whenDefined("wa-option").then(() => this.handleDefaultSlotChange());
+    const e = this.getAllOptions(), t = this.valueHasChanged ? this.value : this.defaultValue, l = Array.isArray(t) ? t : [t], a = [];
+    e.forEach((o) => a.push(o.value)), this.setSelectedOptions(e.filter((o) => l.includes(o.value)));
   }
   handleTagRemove(e, t) {
     e.stopPropagation(), this.disabled || (this.toggleOptionSelection(t, !1), this.updateComplete.then(() => {
@@ -502,7 +505,7 @@ var F = w`
   // Sets the selected option(s)
   setSelectedOptions(e) {
     const t = this.getAllOptions(), l = Array.isArray(e) ? e : [e];
-    t.forEach((o) => o.selected = !1), l.length && l.forEach((o) => o.selected = !0), this.selectionChanged();
+    t.forEach((a) => a.selected = !1), l.length && l.forEach((a) => a.selected = !0), this.selectionChanged();
   }
   // Toggles an option's selected state
   toggleOptionSelection(e, t) {
@@ -511,8 +514,15 @@ var F = w`
   // This method must be called whenever the selection changes. It will update the selected options cache, the current
   // value, and the display value
   selectionChanged() {
-    var e, t, l, o;
-    this.selectedOptions = this.getAllOptions().filter((a) => a.selected), this.multiple ? (this.value = this.selectedOptions.map((a) => a.value), this.placeholder && this.value.length === 0 ? this.displayLabel = "" : this.displayLabel = this.localize.term("numOptionsSelected", this.selectedOptions.length)) : (this.value = (t = (e = this.selectedOptions[0]) == null ? void 0 : e.value) != null ? t : "", this.displayLabel = (o = (l = this.selectedOptions[0]) == null ? void 0 : l.getTextLabel()) != null ? o : ""), this.updateComplete.then(() => {
+    var e, t, l;
+    const a = this.getAllOptions();
+    if (this.selectedOptions = a.filter((o) => o.selected), this.multiple)
+      this.value = this.selectedOptions.map((o) => o.value), this.placeholder && this.value.length === 0 ? this.displayLabel = "" : this.displayLabel = this.localize.term("numOptionsSelected", this.selectedOptions.length);
+    else {
+      const o = this.selectedOptions[0];
+      this.value = (e = o == null ? void 0 : o.value) != null ? e : "", this.displayLabel = (l = (t = o == null ? void 0 : o.getTextLabel) == null ? void 0 : t.call(o)) != null ? l : "";
+    }
+    this.updateComplete.then(() => {
       this.formControlController.updateValidity();
     });
   }
@@ -520,7 +530,7 @@ var F = w`
     return this.selectedOptions.map((e, t) => {
       if (t < this.maxOptionsVisible || this.maxOptionsVisible <= 0) {
         const l = this.getTag(e, t);
-        return p`<div @ug-remove=${(o) => this.handleTagRemove(o, e)}>
+        return p`<div @ug-remove=${(a) => this.handleTagRemove(a, e)}>
           ${typeof l == "string" ? E(l) : l}
         </div>`;
       } else if (t === this.maxOptionsVisible)
@@ -592,7 +602,7 @@ var F = w`
     this.displayInput.blur();
   }
   render() {
-    const e = this.hasSlotController.test("label"), t = this.hasSlotController.test("help-text"), l = this.label ? !0 : !!e, o = this.helpText ? !0 : !!t, a = this.clearable && !this.disabled && this.value.length > 0, c = this.placeholder && this.value.length === 0;
+    const e = this.hasSlotController.test("label"), t = this.hasSlotController.test("help-text"), l = this.label ? !0 : !!e, a = this.helpText ? !0 : !!t, o = this.clearable && !this.disabled && this.value.length > 0, c = this.placeholder && this.value && this.value.length <= 0;
     return p`
       <div
         part="form-control"
@@ -602,7 +612,7 @@ var F = w`
       "form-control--medium": this.size === "medium",
       "form-control--large": this.size === "large",
       "form-control--has-label": l,
-      "form-control--has-help-text": o
+      "form-control--has-help-text": a
     })}
       >
         <label
@@ -687,7 +697,7 @@ var F = w`
                 @invalid=${this.handleInvalid}
               />
 
-              ${a ? p`
+              ${o ? p`
                     <button
                       part="clear-button"
                       class="select__clear"
@@ -731,7 +741,7 @@ var F = w`
           part="form-control-help-text"
           id="help-text"
           class="form-control__help-text"
-          aria-hidden=${o ? "false" : "true"}
+          aria-hidden=${a ? "false" : "true"}
         >
           <slot name="help-text">${this.helpText}</slot>
         </div>
@@ -746,37 +756,40 @@ i.dependencies = {
   "ug-tag": x
 };
 s([
-  u(".select")
+  d(".select")
 ], i.prototype, "popup", 2);
 s([
-  u(".select__combobox")
+  d(".select__combobox")
 ], i.prototype, "combobox", 2);
 s([
-  u(".select__display-input")
+  d(".select__display-input")
 ], i.prototype, "displayInput", 2);
 s([
-  u(".select__value-input")
+  d(".select__value-input")
 ], i.prototype, "valueInput", 2);
 s([
-  u(".select__listbox")
+  d(".select__listbox")
 ], i.prototype, "listbox", 2);
 s([
-  d()
+  u()
 ], i.prototype, "hasFocus", 2);
 s([
-  d()
+  u()
 ], i.prototype, "displayLabel", 2);
 s([
-  d()
+  u()
 ], i.prototype, "currentOption", 2);
 s([
-  d()
+  u()
 ], i.prototype, "selectedOptions", 2);
 s([
-  r()
+  u()
+], i.prototype, "valueHasChanged", 2);
+s([
+  n()
 ], i.prototype, "name", 2);
 s([
-  r({
+  n({
     converter: {
       fromAttribute: (e) => e.split(" "),
       toAttribute: (e) => e.join(" ")
@@ -787,52 +800,52 @@ s([
   S()
 ], i.prototype, "defaultValue", 2);
 s([
-  r({ reflect: !0 })
+  n({ reflect: !0 })
 ], i.prototype, "size", 2);
 s([
-  r()
+  n()
 ], i.prototype, "placeholder", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "multiple", 2);
 s([
-  r({ attribute: "max-options-visible", type: Number })
+  n({ attribute: "max-options-visible", type: Number })
 ], i.prototype, "maxOptionsVisible", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "disabled", 2);
 s([
-  r({ type: Boolean })
+  n({ type: Boolean })
 ], i.prototype, "clearable", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "open", 2);
 s([
-  r({ type: Boolean })
+  n({ type: Boolean })
 ], i.prototype, "hoist", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "filled", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "pill", 2);
 s([
-  r()
+  n()
 ], i.prototype, "label", 2);
 s([
-  r({ reflect: !0 })
+  n({ reflect: !0 })
 ], i.prototype, "placement", 2);
 s([
-  r({ attribute: "help-text" })
+  n({ attribute: "help-text" })
 ], i.prototype, "helpText", 2);
 s([
-  r({ reflect: !0 })
+  n({ reflect: !0 })
 ], i.prototype, "form", 2);
 s([
-  r({ type: Boolean, reflect: !0 })
+  n({ type: Boolean, reflect: !0 })
 ], i.prototype, "required", 2);
 s([
-  r()
+  n()
 ], i.prototype, "getTag", 2);
 s([
   h("disabled", { waitUntilFirstUpdate: !0 })
@@ -857,15 +870,15 @@ _("select.hide", {
   ],
   options: { duration: 100, easing: "ease" }
 });
-var V = Object.defineProperty, P = Object.getOwnPropertyDescriptor, B = (e, t, l, o) => {
-  for (var a = o > 1 ? void 0 : o ? P(t, l) : t, c = e.length - 1, n; c >= 0; c--)
-    (n = e[c]) && (a = (o ? n(t, l, a) : n(a)) || a);
-  return o && a && V(t, l, a), a;
+var V = Object.defineProperty, P = Object.getOwnPropertyDescriptor, B = (e, t, l, a) => {
+  for (var o = a > 1 ? void 0 : a ? P(t, l) : t, c = e.length - 1, r; c >= 0; c--)
+    (r = e[c]) && (o = (a ? r(t, l, o) : r(o)) || o);
+  return a && o && V(t, l, o), o;
 };
 let y = class extends i {
 };
 y = B([
-  C("ug-select")
+  O("ug-select")
 ], y);
 export {
   y as UgSelect

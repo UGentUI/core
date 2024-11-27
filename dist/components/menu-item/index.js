@@ -1,16 +1,16 @@
-import { i as S, D as v, k as c, _ as r, n as d, S as k, t as C } from "../../chunks/chunk.NLWS5DN7.js";
-import { r as w } from "../../chunks/directive-helpers.js";
-import { i as $, t as A, e as L } from "../../chunks/directive.js";
-import { S as E } from "../../chunks/chunk.H24ENZMO.js";
-import { S as P } from "../../chunks/chunk.R2T2D3TO.js";
-import { H as M, g as R } from "../../chunks/chunk.NYIIDP5N.js";
-import { S as T } from "../../chunks/chunk.O7VCMB7W.js";
+import { i as S, E as v, x as c, S as C, _ as r, n as d, t as k } from "../../chunks/chunk.UYAO2JRR.js";
+import { f as $ } from "../../chunks/directive-helpers.js";
+import { i as w, t as A, e as L } from "../../chunks/directive.js";
+import { S as E } from "../../chunks/chunk.5J7BMMD5.js";
+import { S as P } from "../../chunks/chunk.TLKDQ5JG.js";
+import { L as M } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as T, g as R } from "../../chunks/chunk.NYIIDP5N.js";
+import { S as z } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as b } from "../../chunks/chunk.CCJUT23E.js";
 import { c as D } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as O } from "../../chunks/class-map.js";
+import { e as O } from "../../chunks/class-map.js";
 import { e as x } from "../../chunks/query.js";
-import "../../chunks/chunk.WLV3FVBR.js";
-var z = S`
+var Y = S`
   :host {
     --submenu-offset: -2px;
 
@@ -185,22 +185,22 @@ const h = (t, s) => {
     let e = s._$AN;
     if (e === void 0) s._$AN = e = /* @__PURE__ */ new Set();
     else if (e.has(t)) break;
-    e.add(t), I(s);
+    e.add(t), N(s);
   }
 };
-function Y(t) {
+function H(t) {
   this._$AN !== void 0 ? (m(this), this._$AM = t, _(this)) : this._$AM = t;
 }
-function H(t, s = !1, e = 0) {
+function I(t, s = !1, e = 0) {
   const i = this._$AH, n = this._$AN;
   if (n !== void 0 && n.size !== 0) if (s) if (Array.isArray(i)) for (let o = e; o < i.length; o++) h(i[o], !1), m(i[o]);
   else i != null && (h(i, !1), m(i));
   else h(this, t);
 }
-const I = (t) => {
-  t.type == A.CHILD && (t._$AP ?? (t._$AP = H), t._$AQ ?? (t._$AQ = Y));
+const N = (t) => {
+  t.type == A.CHILD && (t._$AP ?? (t._$AP = I), t._$AQ ?? (t._$AQ = H));
 };
-class N extends $ {
+class U extends w {
   constructor() {
     super(...arguments), this._$AN = void 0;
   }
@@ -212,10 +212,10 @@ class N extends $ {
     s !== this.isConnected && (this.isConnected = s, s ? (i = this.reconnected) == null || i.call(this) : (n = this.disconnected) == null || n.call(this)), e && (h(this, s), m(this));
   }
   setValue(s) {
-    if (w(this.t)) this.t._$AI(s, this);
+    if ($(this._$Ct)) this._$Ct._$AI(s, this);
     else {
-      const e = [...this.t._$AH];
-      e[this.i] = s, this.t._$AI(e, this, 0);
+      const e = [...this._$Ct._$AH];
+      e[this._$Ci] = s, this._$Ct._$AI(e, this, 0);
     }
   }
   disconnected() {
@@ -228,10 +228,10 @@ class N extends $ {
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const U = () => new V();
-class V {
+const V = () => new q();
+class q {
 }
-const f = /* @__PURE__ */ new WeakMap(), q = L(class extends N {
+const f = /* @__PURE__ */ new WeakMap(), B = L(class extends U {
   render(t) {
     return v;
   }
@@ -258,9 +258,9 @@ const f = /* @__PURE__ */ new WeakMap(), q = L(class extends N {
     this.rt(this.ct);
   }
 });
-var B = class {
+var j = class {
   constructor(t, s) {
-    this.popupRef = U(), this.enableSubmenuTimer = -1, this.isConnected = !1, this.isPopupConnected = !1, this.skidding = 0, this.submenuOpenDelay = 100, this.handleMouseMove = (e) => {
+    this.popupRef = V(), this.enableSubmenuTimer = -1, this.isConnected = !1, this.isPopupConnected = !1, this.skidding = 0, this.submenuOpenDelay = 100, this.handleMouseMove = (e) => {
       this.host.style.setProperty("--safe-triangle-cursor-x", `${e.clientX}px`), this.host.style.setProperty("--safe-triangle-cursor-y", `${e.clientY}px`);
     }, this.handleMouseOver = () => {
       this.hasSlotController.test("submenu") && this.enableSubmenu();
@@ -287,7 +287,7 @@ var B = class {
     }, this.handlePopupMouseover = (e) => {
       e.stopPropagation();
     }, this.handlePopupReposition = () => {
-      const e = this.host.renderRoot.querySelector("slot[name='submenu']"), i = e == null ? void 0 : e.assignedElements({ flatten: !0 }).filter((p) => p.localName === "ug-menu")[0], n = this.host.matches(":dir(rtl)");
+      const e = this.host.renderRoot.querySelector("slot[name='submenu']"), i = e == null ? void 0 : e.assignedElements({ flatten: !0 }).filter((p) => p.localName === "ug-menu")[0], n = getComputedStyle(this.host).direction === "rtl";
       if (!i)
         return;
       const { left: o, top: l, width: u, height: g } = i.getBoundingClientRect();
@@ -357,10 +357,10 @@ var B = class {
     return this.popupRef.value ? this.popupRef.value.active : !1;
   }
   renderSubmenu() {
-    const t = this.host.matches(":dir(rtl)");
+    const t = getComputedStyle(this.host).direction === "rtl";
     return this.isConnected ? c`
       <ug-popup
-        ${q(this.popupRef)}
+        ${B(this.popupRef)}
         placement=${t ? "left-start" : "right-start"}
         anchor="anchor"
         flip
@@ -374,9 +374,9 @@ var B = class {
       </ug-popup>
     ` : c` <slot name="submenu" hidden></slot> `;
   }
-}, a = class extends k {
+}, a = class extends C {
   constructor() {
-    super(...arguments), this.type = "normal", this.checked = !1, this.value = "", this.loading = !1, this.disabled = !1, this.hasSlotController = new M(this, "submenu"), this.submenuController = new B(this, this.hasSlotController), this.handleHostClick = (t) => {
+    super(...arguments), this.localize = new M(this), this.type = "normal", this.checked = !1, this.value = "", this.loading = !1, this.disabled = !1, this.hasSlotController = new T(this, "submenu"), this.submenuController = new j(this, this.hasSlotController), this.handleHostClick = (t) => {
       this.disabled && (t.preventDefault(), t.stopImmediatePropagation());
     }, this.handleMouseOver = (t) => {
       this.focus(), t.stopPropagation();
@@ -417,7 +417,7 @@ var B = class {
     return this.hasSlotController.test("submenu");
   }
   render() {
-    const t = this.matches(":dir(rtl)"), s = this.submenuController.isExpanded();
+    const t = this.localize.dir() === "rtl", s = this.submenuController.isExpanded();
     return c`
       <div
         id="anchor"
@@ -454,9 +454,9 @@ var B = class {
     `;
   }
 };
-a.styles = [D, z];
+a.styles = [D, Y];
 a.dependencies = {
-  "ug-icon": T,
+  "ug-icon": z,
   "ug-popup": E,
   "ug-spinner": P
 };
@@ -490,15 +490,15 @@ r([
 r([
   b("type")
 ], a.prototype, "handleTypeChange", 1);
-var K = Object.defineProperty, j = Object.getOwnPropertyDescriptor, F = (t, s, e, i) => {
-  for (var n = i > 1 ? void 0 : i ? j(s, e) : s, o = t.length - 1, l; o >= 0; o--)
+var F = Object.defineProperty, K = Object.getOwnPropertyDescriptor, W = (t, s, e, i) => {
+  for (var n = i > 1 ? void 0 : i ? K(s, e) : s, o = t.length - 1, l; o >= 0; o--)
     (l = t[o]) && (n = (i ? l(s, e, n) : l(n)) || n);
-  return i && n && K(s, e, n), n;
+  return i && n && F(s, e, n), n;
 };
 let y = class extends a {
 };
-y = F([
-  C("ug-menu-item")
+y = W([
+  k("ug-menu-item")
 ], y);
 export {
   y as UgMenuItem

@@ -1,15 +1,15 @@
-import { i as w, _ as n, n as u, S as y, c as S, k as h, t as T } from "../../chunks/chunk.NLWS5DN7.js";
-import { S as x } from "../../chunks/chunk.YJK4WDCI.js";
+import { i as w, S as y, c as S, x as h, _ as n, n as u, t as T } from "../../chunks/chunk.UYAO2JRR.js";
+import { S as x } from "../../chunks/chunk.U7QLU357.js";
 import { s as v } from "../../chunks/chunk.RWUUFNUL.js";
-import { S as k } from "../../chunks/chunk.AYP3HPB7.js";
+import { S as k } from "../../chunks/chunk.3HB7VQL2.js";
 import { L as A } from "../../chunks/chunk.WLV3FVBR.js";
 import { w as _ } from "../../chunks/chunk.CCJUT23E.js";
 import { c as E } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as p } from "../../chunks/class-map.js";
+import { e as p } from "../../chunks/class-map.js";
 import { r as g } from "../../chunks/state.js";
 import { t as C } from "../../chunks/event-options.js";
 import { e as b } from "../../chunks/query.js";
-import "../../chunks/chunk.O7VCMB7W.js";
+import "../../chunks/chunk.E6QAPUBK.js";
 var $ = w`
   :host {
     --indicator-color: var(--ug-color-primary-600);
@@ -246,7 +246,7 @@ var $ = w`
   }
 `, i = class extends y {
   constructor() {
-    super(...arguments), this.localize = new A(this), this.tabs = [], this.focusableTabs = [], this.panels = [], this.hasScrollControls = !1, this.shouldHideScrollStartButton = !1, this.shouldHideScrollEndButton = !1, this.placement = "top", this.activation = "auto", this.noScrollControls = !1, this.fixedScrollControls = !1, this.scrollOffset = 1;
+    super(...arguments), this.tabs = [], this.focusableTabs = [], this.panels = [], this.localize = new A(this), this.hasScrollControls = !1, this.shouldHideScrollStartButton = !1, this.shouldHideScrollEndButton = !1, this.placement = "top", this.activation = "auto", this.noScrollControls = !1, this.fixedScrollControls = !1, this.scrollOffset = 1;
   }
   connectedCallback() {
     const t = Promise.all([
@@ -255,20 +255,20 @@ var $ = w`
     ]);
     super.connectedCallback(), this.resizeObserver = new ResizeObserver(() => {
       this.repositionIndicator(), this.updateScrollControls();
-    }), this.mutationObserver = new MutationObserver((r) => {
-      r.some((o) => !["aria-labelledby", "aria-controls"].includes(o.attributeName)) && setTimeout(() => this.setAriaLabels()), r.some((o) => o.attributeName === "disabled") && this.syncTabsAndPanels();
+    }), this.mutationObserver = new MutationObserver((e) => {
+      e.some((o) => !["aria-labelledby", "aria-controls"].includes(o.attributeName)) && setTimeout(() => this.setAriaLabels()), e.some((o) => o.attributeName === "disabled") && this.syncTabsAndPanels();
     }), this.updateComplete.then(() => {
       this.syncTabsAndPanels(), this.mutationObserver.observe(this, { attributes: !0, childList: !0, subtree: !0 }), this.resizeObserver.observe(this.nav), t.then(() => {
         new IntersectionObserver((o, a) => {
-          var e;
-          o[0].intersectionRatio > 0 && (this.setAriaLabels(), this.setActiveTab((e = this.getActiveTab()) != null ? e : this.tabs[0], { emitEvents: !1 }), a.unobserve(o[0].target));
+          var r;
+          o[0].intersectionRatio > 0 && (this.setAriaLabels(), this.setActiveTab((r = this.getActiveTab()) != null ? r : this.tabs[0], { emitEvents: !1 }), a.unobserve(o[0].target));
         }).observe(this.tabGroup);
       });
     });
   }
   disconnectedCallback() {
-    var t, r;
-    super.disconnectedCallback(), (t = this.mutationObserver) == null || t.disconnect(), (r = this.resizeObserver) == null || r.unobserve(this.nav);
+    var t, e;
+    super.disconnectedCallback(), (t = this.mutationObserver) == null || t.disconnect(), this.nav && ((e = this.resizeObserver) == null || e.unobserve(this.nav));
   }
   getAllTabs() {
     return this.shadowRoot.querySelector('slot[name="nav"]').assignedElements();
@@ -286,18 +286,18 @@ var $ = w`
   handleKeyDown(t) {
     const o = t.target.closest("ug-tab");
     if ((o == null ? void 0 : o.closest("ug-tab-group")) === this && (["Enter", " "].includes(t.key) && o !== null && (this.setActiveTab(o, { scrollBehavior: "smooth" }), t.preventDefault()), ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(t.key))) {
-      const e = this.tabs.find((c) => c.matches(":focus")), l = this.matches(":dir(rtl)");
+      const r = this.tabs.find((c) => c.matches(":focus")), l = this.localize.dir() === "rtl";
       let s = null;
-      if ((e == null ? void 0 : e.tagName.toLowerCase()) === "ug-tab") {
+      if ((r == null ? void 0 : r.tagName.toLowerCase()) === "ug-tab") {
         if (t.key === "Home")
           s = this.focusableTabs[0];
         else if (t.key === "End")
           s = this.focusableTabs[this.focusableTabs.length - 1];
         else if (["top", "bottom"].includes(this.placement) && t.key === (l ? "ArrowRight" : "ArrowLeft") || ["start", "end"].includes(this.placement) && t.key === "ArrowUp") {
-          const c = this.tabs.findIndex((d) => d === e);
+          const c = this.tabs.findIndex((d) => d === r);
           s = this.findNextFocusableTab(c, "backward");
         } else if (["top", "bottom"].includes(this.placement) && t.key === (l ? "ArrowLeft" : "ArrowRight") || ["start", "end"].includes(this.placement) && t.key === "ArrowDown") {
-          const c = this.tabs.findIndex((d) => d === e);
+          const c = this.tabs.findIndex((d) => d === r);
           s = this.findNextFocusableTab(c, "forward");
         }
         if (!s)
@@ -320,31 +320,31 @@ var $ = w`
       behavior: "smooth"
     });
   }
-  setActiveTab(t, r) {
-    if (r = S({
+  setActiveTab(t, e) {
+    if (e = S({
       emitEvents: !0,
       scrollBehavior: "auto"
-    }, r), t !== this.activeTab && !t.disabled) {
+    }, e), t !== this.activeTab && !t.disabled) {
       const o = this.activeTab;
       this.activeTab = t, this.tabs.forEach((a) => {
         a.active = a === this.activeTab, a.tabIndex = a === this.activeTab ? 0 : -1;
       }), this.panels.forEach((a) => {
-        var e;
-        return a.active = a.name === ((e = this.activeTab) == null ? void 0 : e.panel);
-      }), this.syncIndicator(), ["top", "bottom"].includes(this.placement) && v(this.activeTab, this.nav, "horizontal", r.scrollBehavior), r.emitEvents && (o && this.emit("ug-tab-hide", { detail: { name: o.panel } }), this.emit("ug-tab-show", { detail: { name: this.activeTab.panel } }));
+        var r;
+        return a.active = a.name === ((r = this.activeTab) == null ? void 0 : r.panel);
+      }), this.syncIndicator(), ["top", "bottom"].includes(this.placement) && v(this.activeTab, this.nav, "horizontal", e.scrollBehavior), e.emitEvents && (o && this.emit("ug-tab-hide", { detail: { name: o.panel } }), this.emit("ug-tab-show", { detail: { name: this.activeTab.panel } }));
     }
   }
   setAriaLabels() {
     this.tabs.forEach((t) => {
-      const r = this.panels.find((o) => o.name === t.panel);
-      r && (t.setAttribute("aria-controls", r.getAttribute("id")), r.setAttribute("aria-labelledby", t.getAttribute("id")));
+      const e = this.panels.find((o) => o.name === t.panel);
+      e && (t.setAttribute("aria-controls", e.getAttribute("id")), e.setAttribute("aria-labelledby", t.getAttribute("id")));
     });
   }
   repositionIndicator() {
     const t = this.getActiveTab();
     if (!t)
       return;
-    const r = t.clientWidth, o = t.clientHeight, a = this.matches(":dir(rtl)"), e = this.getAllTabs(), s = e.slice(0, e.indexOf(t)).reduce(
+    const e = t.clientWidth, o = t.clientHeight, a = this.localize.dir() === "rtl", r = this.getAllTabs(), s = r.slice(0, r.indexOf(t)).reduce(
       (c, d) => ({
         left: c.left + d.clientWidth,
         top: c.top + d.clientHeight
@@ -354,7 +354,7 @@ var $ = w`
     switch (this.placement) {
       case "top":
       case "bottom":
-        this.indicator.style.width = `${r}px`, this.indicator.style.height = "auto", this.indicator.style.translate = a ? `${-1 * s.left}px` : `${s.left}px`;
+        this.indicator.style.width = `${e}px`, this.indicator.style.height = "auto", this.indicator.style.translate = a ? `${-1 * s.left}px` : `${s.left}px`;
         break;
       case "start":
       case "end":
@@ -366,18 +366,18 @@ var $ = w`
   syncTabsAndPanels() {
     this.tabs = this.getAllTabs(), this.focusableTabs = this.tabs.filter((t) => !t.disabled), this.panels = this.getAllPanels(), this.syncIndicator(), this.updateComplete.then(() => this.updateScrollControls());
   }
-  findNextFocusableTab(t, r) {
+  findNextFocusableTab(t, e) {
     let o = null;
-    const a = r === "forward" ? 1 : -1;
-    let e = t + a;
+    const a = e === "forward" ? 1 : -1;
+    let r = t + a;
     for (; t < this.tabs.length; ) {
-      if (o = this.tabs[e] || null, o === null) {
-        r === "forward" ? o = this.focusableTabs[0] : o = this.focusableTabs[this.focusableTabs.length - 1];
+      if (o = this.tabs[r] || null, o === null) {
+        e === "forward" ? o = this.focusableTabs[0] : o = this.focusableTabs[this.focusableTabs.length - 1];
         break;
       }
       if (!o.disabled)
         break;
-      e += a;
+      r += a;
     }
     return o;
   }
@@ -398,11 +398,11 @@ var $ = w`
   }
   /** Shows the specified tab panel. */
   show(t) {
-    const r = this.tabs.find((o) => o.panel === t);
-    r && this.setActiveTab(r, { scrollBehavior: "smooth" });
+    const e = this.tabs.find((o) => o.panel === t);
+    e && this.setActiveTab(e, { scrollBehavior: "smooth" });
   }
   render() {
-    const t = this.matches(":dir(rtl)");
+    const t = this.localize.dir() === "rtl";
     return h`
       <div
         part="base"
@@ -514,45 +514,45 @@ n([
 n([
   _("placement", { waitUntilFirstUpdate: !0 })
 ], i.prototype, "syncIndicator", 1);
-var B = (t, r) => {
+var z = (t, e) => {
   let o = 0;
   return function(...a) {
     window.clearTimeout(o), o = window.setTimeout(() => {
       t.call(this, ...a);
-    }, r);
+    }, e);
   };
-}, f = (t, r, o) => {
-  const a = t[r];
-  t[r] = function(...e) {
-    a.call(this, ...e), o.call(this, a, ...e);
+}, f = (t, e, o) => {
+  const a = t[e];
+  t[e] = function(...r) {
+    a.call(this, ...r), o.call(this, a, ...r);
   };
-}, L = "onscrollend" in window;
-if (!L) {
-  const t = /* @__PURE__ */ new Set(), r = /* @__PURE__ */ new WeakMap(), o = (e) => {
-    for (const l of e.changedTouches)
+}, B = "onscrollend" in window;
+if (!B) {
+  const t = /* @__PURE__ */ new Set(), e = /* @__PURE__ */ new WeakMap(), o = (r) => {
+    for (const l of r.changedTouches)
       t.add(l.identifier);
-  }, a = (e) => {
-    for (const l of e.changedTouches)
+  }, a = (r) => {
+    for (const l of r.changedTouches)
       t.delete(l.identifier);
   };
-  document.addEventListener("touchstart", o, !0), document.addEventListener("touchend", a, !0), document.addEventListener("touchcancel", a, !0), f(EventTarget.prototype, "addEventListener", function(e, l) {
+  document.addEventListener("touchstart", o, !0), document.addEventListener("touchend", a, !0), document.addEventListener("touchcancel", a, !0), f(EventTarget.prototype, "addEventListener", function(r, l) {
     if (l !== "scrollend")
       return;
-    const s = B(() => {
+    const s = z(() => {
       t.size ? s() : this.dispatchEvent(new Event("scrollend"));
     }, 100);
-    e.call(this, "scroll", s, { passive: !0 }), r.set(this, s);
-  }), f(EventTarget.prototype, "removeEventListener", function(e, l) {
+    r.call(this, "scroll", s, { passive: !0 }), e.set(this, s);
+  }), f(EventTarget.prototype, "removeEventListener", function(r, l) {
     if (l !== "scrollend")
       return;
-    const s = r.get(this);
-    s && e.call(this, "scroll", s, { passive: !0 });
+    const s = e.get(this);
+    s && r.call(this, "scroll", s, { passive: !0 });
   });
 }
-var z = Object.defineProperty, O = Object.getOwnPropertyDescriptor, I = (t, r, o, a) => {
-  for (var e = a > 1 ? void 0 : a ? O(r, o) : r, l = t.length - 1, s; l >= 0; l--)
-    (s = t[l]) && (e = (a ? s(r, o, e) : s(e)) || e);
-  return a && e && z(r, o, e), e;
+var L = Object.defineProperty, O = Object.getOwnPropertyDescriptor, I = (t, e, o, a) => {
+  for (var r = a > 1 ? void 0 : a ? O(e, o) : e, l = t.length - 1, s; l >= 0; l--)
+    (s = t[l]) && (r = (a ? s(e, o, r) : s(r)) || r);
+  return a && r && L(e, o, r), r;
 };
 let m = class extends i {
 };

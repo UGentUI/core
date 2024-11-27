@@ -1,18 +1,18 @@
 import { M as w } from "../../chunks/chunk.5EJHXPFX.js";
 import { l as f, u as m } from "../../chunks/chunk.RWUUFNUL.js";
-import { i as x, _ as s, n as g, S as k, k as v, t as C } from "../../chunks/chunk.NLWS5DN7.js";
-import { S as z } from "../../chunks/chunk.AYP3HPB7.js";
-import { s as d, g as r, b as n, a as h } from "../../chunks/chunk.3EPZX5HE.js";
+import { i as x, S as k, x as v, _ as s, n as g, t as C } from "../../chunks/chunk.UYAO2JRR.js";
+import { S as z } from "../../chunks/chunk.3HB7VQL2.js";
+import { g as r, a as n, s as h, b as d } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as y } from "../../chunks/chunk.B4BZKR24.js";
-import { H as S } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as P } from "../../chunks/chunk.WLV3FVBR.js";
-import { w as A } from "../../chunks/chunk.CCJUT23E.js";
-import { c as D } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as O } from "../../chunks/class-map.js";
-import { t as _ } from "../../chunks/if-defined.js";
+import { L as S } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as P } from "../../chunks/chunk.NYIIDP5N.js";
+import { w as $ } from "../../chunks/chunk.CCJUT23E.js";
+import { c as A } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as D } from "../../chunks/class-map.js";
+import { o as _ } from "../../chunks/if-defined.js";
 import { e as u } from "../../chunks/query.js";
-import "../../chunks/chunk.O7VCMB7W.js";
-var $ = x`
+import "../../chunks/chunk.E6QAPUBK.js";
+var O = x`
   :host {
     --width: 31rem;
     --header-spacing: var(--ug-spacing-large);
@@ -131,7 +131,7 @@ var $ = x`
   }
 `, a = class extends k {
   constructor() {
-    super(...arguments), this.hasSlotController = new S(this, "footer"), this.localize = new P(this), this.modal = new w(this), this.open = !1, this.label = "", this.noHeader = !1, this.handleDocumentKeyDown = (e) => {
+    super(...arguments), this.hasSlotController = new P(this, "footer"), this.localize = new S(this), this.modal = new w(this), this.open = !1, this.label = "", this.noHeader = !1, this.handleDocumentKeyDown = (e) => {
       e.key === "Escape" && this.modal.isActive() && this.open && (e.stopPropagation(), this.requestClose("keyboard"));
     };
   }
@@ -147,8 +147,8 @@ var $ = x`
       cancelable: !0,
       detail: { source: e }
     }).defaultPrevented) {
-      const t = r(this, "dialog.denyClose", { dir: this.localize.dir() });
-      n(this.panel, t.keyframes, t.options);
+      const o = r(this, "dialog.denyClose", { dir: this.localize.dir() });
+      n(this.panel, o.keyframes, o.options);
       return;
     }
     this.hide();
@@ -168,24 +168,24 @@ var $ = x`
       e && e.removeAttribute("autofocus"), await Promise.all([h(this.dialog), h(this.overlay)]), this.dialog.hidden = !1, requestAnimationFrame(() => {
         this.emit("ug-initial-focus", { cancelable: !0 }).defaultPrevented || (e ? e.focus({ preventScroll: !0 }) : this.panel.focus({ preventScroll: !0 })), e && e.setAttribute("autofocus", "");
       });
-      const o = r(this, "dialog.show", { dir: this.localize.dir() }), t = r(this, "dialog.overlay.show", { dir: this.localize.dir() });
+      const t = r(this, "dialog.show", { dir: this.localize.dir() }), o = r(this, "dialog.overlay.show", { dir: this.localize.dir() });
       await Promise.all([
-        n(this.panel, o.keyframes, o.options),
-        n(this.overlay, t.keyframes, t.options)
+        n(this.panel, t.keyframes, t.options),
+        n(this.overlay, o.keyframes, o.options)
       ]), this.emit("ug-after-show");
     } else {
       this.emit("ug-hide"), this.removeOpenListeners(), this.modal.deactivate(), await Promise.all([h(this.dialog), h(this.overlay)]);
-      const e = r(this, "dialog.hide", { dir: this.localize.dir() }), o = r(this, "dialog.overlay.hide", { dir: this.localize.dir() });
+      const e = r(this, "dialog.hide", { dir: this.localize.dir() }), t = r(this, "dialog.overlay.hide", { dir: this.localize.dir() });
       await Promise.all([
-        n(this.overlay, o.keyframes, o.options).then(() => {
+        n(this.overlay, t.keyframes, t.options).then(() => {
           this.overlay.hidden = !0;
         }),
         n(this.panel, e.keyframes, e.options).then(() => {
           this.panel.hidden = !0;
         })
       ]), this.dialog.hidden = !0, this.overlay.hidden = !1, this.panel.hidden = !1, m(this);
-      const t = this.originalTrigger;
-      typeof (t == null ? void 0 : t.focus) == "function" && setTimeout(() => t.focus()), this.emit("ug-after-hide");
+      const o = this.originalTrigger;
+      typeof (o == null ? void 0 : o.focus) == "function" && setTimeout(() => o.focus()), this.emit("ug-after-hide");
     }
   }
   /** Shows the dialog. */
@@ -202,7 +202,7 @@ var $ = x`
     return v`
       <div
         part="base"
-        class=${O({
+        class=${D({
       dialog: !0,
       "dialog--open": this.open,
       "dialog--has-footer": this.hasSlotController.test("footer")
@@ -250,7 +250,7 @@ var $ = x`
     `;
   }
 };
-a.styles = [D, $];
+a.styles = [A, O];
 a.dependencies = {
   "ug-icon-button": z
 };
@@ -273,7 +273,7 @@ s([
   g({ attribute: "no-header", type: Boolean, reflect: !0 })
 ], a.prototype, "noHeader", 2);
 s([
-  A("open", { waitUntilFirstUpdate: !0 })
+  $("open", { waitUntilFirstUpdate: !0 })
 ], a.prototype, "handleOpenChange", 1);
 d("dialog.show", {
   keyframes: [
@@ -301,10 +301,10 @@ d("dialog.overlay.hide", {
   keyframes: [{ opacity: 1 }, { opacity: 0 }],
   options: { duration: 250 }
 });
-var q = Object.defineProperty, L = Object.getOwnPropertyDescriptor, E = (e, o, t, l) => {
-  for (var i = l > 1 ? void 0 : l ? L(o, t) : o, c = e.length - 1, p; c >= 0; c--)
-    (p = e[c]) && (i = (l ? p(o, t, i) : p(i)) || i);
-  return l && i && q(o, t, i), i;
+var q = Object.defineProperty, L = Object.getOwnPropertyDescriptor, E = (e, t, o, l) => {
+  for (var i = l > 1 ? void 0 : l ? L(t, o) : t, c = e.length - 1, p; c >= 0; c--)
+    (p = e[c]) && (i = (l ? p(t, o, i) : p(i)) || i);
+  return l && i && q(t, o, i), i;
 };
 let b = class extends a {
 };

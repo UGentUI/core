@@ -1,14 +1,14 @@
-import { S as b } from "../../chunks/chunk.IXQOPD5K.js";
-import { i as d, _ as s, n, S as f, k as g, t as _ } from "../../chunks/chunk.NLWS5DN7.js";
-import { s as h, g as u } from "../../chunks/chunk.3EPZX5HE.js";
+import { S as m } from "../../chunks/chunk.UZSA65CO.js";
+import { i as d, S as f, x as g, _ as s, n, t as _ } from "../../chunks/chunk.UYAO2JRR.js";
+import { g as u, b as h } from "../../chunks/chunk.3EPZX5HE.js";
 import { L as v } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as w } from "../../chunks/chunk.O7VCMB7W.js";
+import { S as w } from "../../chunks/chunk.E6QAPUBK.js";
 import { c as L } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as C } from "../../chunks/class-map.js";
-import { r as m } from "../../chunks/state.js";
+import { e as C } from "../../chunks/class-map.js";
+import { r as b } from "../../chunks/state.js";
 import { e as p } from "../../chunks/query.js";
-import "../../chunks/chunk.H24ENZMO.js";
-var S = d`
+import "../../chunks/chunk.5J7BMMD5.js";
+var x = d`
   :host {
     --error-color: var(--ug-color-danger-600);
     --success-color: var(--ug-color-success-600);
@@ -127,10 +127,10 @@ var S = d`
     `;
   }
 };
-t.styles = [L, S];
+t.styles = [L, x];
 t.dependencies = {
   "ug-icon": w,
-  "ug-tooltip": b
+  "ug-tooltip": m
 };
 s([
   p('slot[name="copy-icon"]')
@@ -145,10 +145,10 @@ s([
   p("ug-tooltip")
 ], t.prototype, "tooltip", 2);
 s([
-  m()
+  b()
 ], t.prototype, "isCopying", 2);
 s([
-  m()
+  b()
 ], t.prototype, "status", 2);
 s([
   n()
@@ -191,14 +191,14 @@ h("copy.out", {
   ],
   options: { duration: 100 }
 });
-var x = Object.defineProperty, I = Object.getOwnPropertyDescriptor, k = (e, a, l, c) => {
+var S = Object.defineProperty, I = Object.getOwnPropertyDescriptor, $ = (e, a, l, c) => {
   for (var o = c > 1 ? void 0 : c ? I(a, l) : a, i = e.length - 1, r; i >= 0; i--)
     (r = e[i]) && (o = (c ? r(a, l, o) : r(o)) || o);
-  return c && o && x(a, l, o), o;
+  return c && o && S(a, l, o), o;
 };
 let y = class extends t {
 };
-y = k([
+y = $([
   _("ug-copy-button")
 ], y);
 export {

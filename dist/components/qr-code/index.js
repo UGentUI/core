@@ -1,8 +1,8 @@
-import { i as R, _ as O, n as j, S as B, k as U, t as V } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as R, S as B, x as U, _ as O, n as j, t as V } from "../../chunks/chunk.UYAO2JRR.js";
 import { w as J } from "../../chunks/chunk.CCJUT23E.js";
 import { c as I } from "../../chunks/chunk.TUVJKY7S.js";
 import { e as K } from "../../chunks/query.js";
-import { s as D } from "../../chunks/style-map.js";
+import { o as D } from "../../chunks/style-map.js";
 var W = R`
   :host {
     display: inline-block;
@@ -11,41 +11,41 @@ var W = R`
 let H = null;
 class N {
 }
-N.render = function(x, L) {
-  H(x, L);
+N.render = function(A, L) {
+  H(A, L);
 };
 self.QrCreator = N;
-(function(x) {
-  function L(d, n, o, l) {
-    var r = {}, t = x(o, n);
-    t.u(d), t.J(), l = l || 0;
-    var u = t.h(), i = t.h() + 2 * l;
+(function(A) {
+  function L(d, n, o, s) {
+    var r = {}, t = A(o, n);
+    t.u(d), t.J(), s = s || 0;
+    var u = t.h(), i = t.h() + 2 * s;
     return r.text = d, r.level = n, r.version = o, r.O = i, r.a = function(f, y) {
-      return f -= l, y -= l, 0 > f || f >= u || 0 > y || y >= u ? !1 : t.a(f, y);
+      return f -= s, y -= s, 0 > f || f >= u || 0 > y || y >= u ? !1 : t.a(f, y);
     }, r;
   }
-  function E(d, n, o, l, r, t, u, i, f, y) {
-    function M(s, h, e, a, c, C, z) {
-      s ? (d.lineTo(h + C, e + z), d.arcTo(h, e, a, c, t)) : d.lineTo(h, e);
+  function E(d, n, o, s, r, t, u, i, f, y) {
+    function M(l, h, e, a, c, C, z) {
+      l ? (d.lineTo(h + C, e + z), d.arcTo(h, e, a, c, t)) : d.lineTo(h, e);
     }
-    u ? d.moveTo(n + t, o) : d.moveTo(n, o), M(i, l, o, l, r, -t, 0), M(f, l, r, n, r, 0, -t), M(y, n, r, n, o, t, 0), M(u, n, o, l, o, 0, t);
+    u ? d.moveTo(n + t, o) : d.moveTo(n, o), M(i, s, o, s, r, -t, 0), M(f, s, r, n, r, 0, -t), M(y, n, r, n, o, t, 0), M(u, n, o, s, o, 0, t);
   }
-  function _(d, n, o, l, r, t, u, i, f, y) {
-    function M(s, h, e, a) {
-      d.moveTo(s + e, h), d.lineTo(
-        s,
+  function _(d, n, o, s, r, t, u, i, f, y) {
+    function M(l, h, e, a) {
+      d.moveTo(l + e, h), d.lineTo(
+        l,
         h
-      ), d.lineTo(s, h + a), d.arcTo(s, h, s + e, h, t);
+      ), d.lineTo(l, h + a), d.arcTo(l, h, l + e, h, t);
     }
-    u && M(n, o, t, t), i && M(l, o, -t, t), f && M(l, r, -t, -t), y && M(n, r, t, -t);
+    u && M(n, o, t, t), i && M(s, o, -t, t), f && M(s, r, -t, -t), y && M(n, r, t, -t);
   }
   function g(d, n) {
     var o = n.fill;
     if (typeof o == "string") d.fillStyle = o;
     else {
-      var l = o.type, r = o.colorStops;
-      if (o = o.position.map((u) => Math.round(u * n.size)), l === "linear-gradient") var t = d.createLinearGradient.apply(d, o);
-      else if (l === "radial-gradient") t = d.createRadialGradient.apply(d, o);
+      var s = o.type, r = o.colorStops;
+      if (o = o.position.map((u) => Math.round(u * n.size)), s === "linear-gradient") var t = d.createLinearGradient.apply(d, o);
+      else if (s === "radial-gradient") t = d.createRadialGradient.apply(d, o);
       else throw Error("Unsupported fill");
       r.forEach(([u, i]) => {
         t.addColorStop(u, i);
@@ -54,44 +54,44 @@ self.QrCreator = N;
   }
   function w(d, n) {
     r: {
-      var o = n.text, l = n.v, r = n.N, t = n.K, u = n.P;
+      var o = n.text, s = n.v, r = n.N, t = n.K, u = n.P;
       for (r = Math.max(1, r || 1), t = Math.min(40, t || 40); r <= t; r += 1) try {
-        var i = L(o, l, r, u);
+        var i = L(o, s, r, u);
         break r;
       } catch {
       }
       i = void 0;
     }
     if (!i) return null;
-    for (o = d.getContext("2d"), n.background && (o.fillStyle = n.background, o.fillRect(n.left, n.top, n.size, n.size)), l = i.O, t = n.size / l, o.beginPath(), u = 0; u < l; u += 1) for (r = 0; r < l; r += 1) {
-      var f = o, y = n.left + r * t, M = n.top + u * t, s = u, h = r, e = i.a, a = y + t, c = M + t, C = s - 1, z = s + 1, p = h - 1, v = h + 1, S = Math.floor(Math.min(0.5, Math.max(0, n.R)) * t), P = e(s, h), Q = e(C, p), $ = e(C, h);
+    for (o = d.getContext("2d"), n.background && (o.fillStyle = n.background, o.fillRect(n.left, n.top, n.size, n.size)), s = i.O, t = n.size / s, o.beginPath(), u = 0; u < s; u += 1) for (r = 0; r < s; r += 1) {
+      var f = o, y = n.left + r * t, M = n.top + u * t, l = u, h = r, e = i.a, a = y + t, c = M + t, C = l - 1, z = l + 1, p = h - 1, v = h + 1, S = Math.floor(Math.min(0.5, Math.max(0, n.R)) * t), P = e(l, h), Q = e(C, p), $ = e(C, h);
       C = e(C, v);
-      var m = e(s, v);
+      var m = e(l, v);
       v = e(z, v), h = e(
         z,
         h
-      ), z = e(z, p), s = e(s, p), y = Math.round(y), M = Math.round(M), a = Math.round(a), c = Math.round(c), P ? E(f, y, M, a, c, S, !$ && !s, !$ && !m, !h && !m, !h && !s) : _(f, y, M, a, c, S, $ && s && Q, $ && m && C, h && m && v, h && s && z);
+      ), z = e(z, p), l = e(l, p), y = Math.round(y), M = Math.round(M), a = Math.round(a), c = Math.round(c), P ? E(f, y, M, a, c, S, !$ && !l, !$ && !m, !h && !m, !h && !l) : _(f, y, M, a, c, S, $ && l && Q, $ && m && C, h && m && v, h && l && z);
     }
     return g(o, n), o.fill(), d;
   }
-  var A = { minVersion: 1, maxVersion: 40, ecLevel: "L", left: 0, top: 0, size: 200, fill: "#000", background: null, text: "no text", radius: 0.5, quiet: 0 };
+  var x = { minVersion: 1, maxVersion: 40, ecLevel: "L", left: 0, top: 0, size: 200, fill: "#000", background: null, text: "no text", radius: 0.5, quiet: 0 };
   H = function(d, n) {
     var o = {};
-    Object.assign(o, A, d), o.N = o.minVersion, o.K = o.maxVersion, o.v = o.ecLevel, o.left = o.left, o.top = o.top, o.size = o.size, o.fill = o.fill, o.background = o.background, o.text = o.text, o.R = o.radius, o.P = o.quiet, n instanceof HTMLCanvasElement ? ((n.width !== o.size || n.height !== o.size) && (n.width = o.size, n.height = o.size), n.getContext("2d").clearRect(0, 0, n.width, n.height), w(n, o)) : (d = document.createElement("canvas"), d.width = o.size, d.height = o.size, o = w(d, o), n.appendChild(o));
+    Object.assign(o, x, d), o.N = o.minVersion, o.K = o.maxVersion, o.v = o.ecLevel, o.left = o.left, o.top = o.top, o.size = o.size, o.fill = o.fill, o.background = o.background, o.text = o.text, o.R = o.radius, o.P = o.quiet, n instanceof HTMLCanvasElement ? ((n.width !== o.size || n.height !== o.size) && (n.width = o.size, n.height = o.size), n.getContext("2d").clearRect(0, 0, n.width, n.height), w(n, o)) : (d = document.createElement("canvas"), d.width = o.size, d.height = o.size, o = w(d, o), n.appendChild(o));
   };
 })(function() {
-  function x(n) {
+  function A(n) {
     var o = E.s(n);
     return { S: function() {
       return 4;
     }, b: function() {
       return o.length;
-    }, write: function(l) {
-      for (var r = 0; r < o.length; r += 1) l.put(o[r], 8);
+    }, write: function(s) {
+      for (var r = 0; r < o.length; r += 1) s.put(o[r], 8);
     } };
   }
   function L() {
-    var n = [], o = 0, l = {
+    var n = [], o = 0, s = {
       B: function() {
         return n;
       },
@@ -99,7 +99,7 @@ self.QrCreator = N;
         return (n[Math.floor(r / 8)] >>> 7 - r % 8 & 1) == 1;
       },
       put: function(r, t) {
-        for (var u = 0; u < t; u += 1) l.m((r >>> t - u - 1 & 1) == 1);
+        for (var u = 0; u < t; u += 1) s.m((r >>> t - u - 1 & 1) == 1);
       },
       f: function() {
         return o;
@@ -109,67 +109,67 @@ self.QrCreator = N;
         n.length <= t && n.push(0), r && (n[t] |= 128 >>> o % 8), o += 1;
       }
     };
-    return l;
+    return s;
   }
   function E(n, o) {
-    function l(s, h) {
-      for (var e = -1; 7 >= e; e += 1) if (!(-1 >= s + e || i <= s + e)) for (var a = -1; 7 >= a; a += 1) -1 >= h + a || i <= h + a || (u[s + e][h + a] = 0 <= e && 6 >= e && (a == 0 || a == 6) || 0 <= a && 6 >= a && (e == 0 || e == 6) || 2 <= e && 4 >= e && 2 <= a && 4 >= a);
+    function s(l, h) {
+      for (var e = -1; 7 >= e; e += 1) if (!(-1 >= l + e || i <= l + e)) for (var a = -1; 7 >= a; a += 1) -1 >= h + a || i <= h + a || (u[l + e][h + a] = 0 <= e && 6 >= e && (a == 0 || a == 6) || 0 <= a && 6 >= a && (e == 0 || e == 6) || 2 <= e && 4 >= e && 2 <= a && 4 >= a);
     }
-    function r(s, h) {
+    function r(l, h) {
       for (var e = i = 4 * n + 17, a = Array(e), c = 0; c < e; c += 1) {
         a[c] = Array(e);
         for (var C = 0; C < e; C += 1) a[c][C] = null;
       }
-      for (u = a, l(0, 0), l(i - 7, 0), l(0, i - 7), e = w.G(n), a = 0; a < e.length; a += 1) for (c = 0; c < e.length; c += 1) {
+      for (u = a, s(0, 0), s(i - 7, 0), s(0, i - 7), e = w.G(n), a = 0; a < e.length; a += 1) for (c = 0; c < e.length; c += 1) {
         C = e[a];
         var z = e[c];
         if (u[C][z] == null) for (var p = -2; 2 >= p; p += 1) for (var v = -2; 2 >= v; v += 1) u[C + p][z + v] = p == -2 || p == 2 || v == -2 || v == 2 || p == 0 && v == 0;
       }
       for (e = 8; e < i - 8; e += 1) u[e][6] == null && (u[e][6] = e % 2 == 0);
       for (e = 8; e < i - 8; e += 1) u[6][e] == null && (u[6][e] = e % 2 == 0);
-      for (e = w.w(t << 3 | h), a = 0; 15 > a; a += 1) c = !s && (e >> a & 1) == 1, u[6 > a ? a : 8 > a ? a + 1 : i - 15 + a][8] = c, u[8][8 > a ? i - a - 1 : 9 > a ? 15 - a : 14 - a] = c;
-      if (u[i - 8][8] = !s, 7 <= n) {
-        for (e = w.A(n), a = 0; 18 > a; a += 1) c = !s && (e >> a & 1) == 1, u[Math.floor(a / 3)][a % 3 + i - 8 - 3] = c;
-        for (a = 0; 18 > a; a += 1) c = !s && (e >> a & 1) == 1, u[a % 3 + i - 8 - 3][Math.floor(a / 3)] = c;
+      for (e = w.w(t << 3 | h), a = 0; 15 > a; a += 1) c = !l && (e >> a & 1) == 1, u[6 > a ? a : 8 > a ? a + 1 : i - 15 + a][8] = c, u[8][8 > a ? i - a - 1 : 9 > a ? 15 - a : 14 - a] = c;
+      if (u[i - 8][8] = !l, 7 <= n) {
+        for (e = w.A(n), a = 0; 18 > a; a += 1) c = !l && (e >> a & 1) == 1, u[Math.floor(a / 3)][a % 3 + i - 8 - 3] = c;
+        for (a = 0; 18 > a; a += 1) c = !l && (e >> a & 1) == 1, u[a % 3 + i - 8 - 3][Math.floor(a / 3)] = c;
       }
       if (f == null) {
-        for (s = d.I(n, t), e = L(), a = 0; a < y.length; a += 1) c = y[a], e.put(4, 4), e.put(c.b(), w.f(4, n)), c.write(e);
-        for (a = c = 0; a < s.length; a += 1) c += s[a].j;
+        for (l = d.I(n, t), e = L(), a = 0; a < y.length; a += 1) c = y[a], e.put(4, 4), e.put(c.b(), w.f(4, n)), c.write(e);
+        for (a = c = 0; a < l.length; a += 1) c += l[a].j;
         if (e.f() > 8 * c) throw Error("code length overflow. (" + e.f() + ">" + 8 * c + ")");
         for (e.f() + 4 <= 8 * c && e.put(0, 4); e.f() % 8 != 0; ) e.m(!1);
         for (; !(e.f() >= 8 * c) && (e.put(236, 8), !(e.f() >= 8 * c)); )
           e.put(17, 8);
         var S = 0;
-        for (c = a = 0, C = Array(s.length), z = Array(s.length), p = 0; p < s.length; p += 1) {
-          var P = s[p].j, Q = s[p].o - P;
+        for (c = a = 0, C = Array(l.length), z = Array(l.length), p = 0; p < l.length; p += 1) {
+          var P = l[p].j, Q = l[p].o - P;
           for (a = Math.max(a, P), c = Math.max(c, Q), C[p] = Array(P), v = 0; v < C[p].length; v += 1) C[p][v] = 255 & e.B()[v + S];
           for (S += P, v = w.C(Q), P = _(C[p], v.b() - 1).l(v), z[p] = Array(v.b() - 1), v = 0; v < z[p].length; v += 1) Q = v + P.b() - z[p].length, z[p][v] = 0 <= Q ? P.c(Q) : 0;
         }
-        for (v = e = 0; v < s.length; v += 1) e += s[v].o;
-        for (e = Array(e), v = S = 0; v < a; v += 1) for (p = 0; p < s.length; p += 1) v < C[p].length && (e[S] = C[p][v], S += 1);
-        for (v = 0; v < c; v += 1) for (p = 0; p < s.length; p += 1) v < z[p].length && (e[S] = z[p][v], S += 1);
+        for (v = e = 0; v < l.length; v += 1) e += l[v].o;
+        for (e = Array(e), v = S = 0; v < a; v += 1) for (p = 0; p < l.length; p += 1) v < C[p].length && (e[S] = C[p][v], S += 1);
+        for (v = 0; v < c; v += 1) for (p = 0; p < l.length; p += 1) v < z[p].length && (e[S] = z[p][v], S += 1);
         f = e;
       }
-      for (s = f, e = -1, a = i - 1, c = 7, C = 0, h = w.F(h), z = i - 1; 0 < z; z -= 2) for (z == 6 && --z; ; ) {
-        for (p = 0; 2 > p; p += 1) u[a][z - p] == null && (v = !1, C < s.length && (v = (s[C] >>> c & 1) == 1), h(a, z - p) && (v = !v), u[a][z - p] = v, --c, c == -1 && (C += 1, c = 7));
+      for (l = f, e = -1, a = i - 1, c = 7, C = 0, h = w.F(h), z = i - 1; 0 < z; z -= 2) for (z == 6 && --z; ; ) {
+        for (p = 0; 2 > p; p += 1) u[a][z - p] == null && (v = !1, C < l.length && (v = (l[C] >>> c & 1) == 1), h(a, z - p) && (v = !v), u[a][z - p] = v, --c, c == -1 && (C += 1, c = 7));
         if (a += e, 0 > a || i <= a) {
           a -= e, e = -e;
           break;
         }
       }
     }
-    var t = g[o], u = null, i = 0, f = null, y = [], M = { u: function(s) {
-      s = x(s), y.push(s), f = null;
-    }, a: function(s, h) {
-      if (0 > s || i <= s || 0 > h || i <= h) throw Error(s + "," + h);
-      return u[s][h];
+    var t = g[o], u = null, i = 0, f = null, y = [], M = { u: function(l) {
+      l = A(l), y.push(l), f = null;
+    }, a: function(l, h) {
+      if (0 > l || i <= l || 0 > h || i <= h) throw Error(l + "," + h);
+      return u[l][h];
     }, h: function() {
       return i;
     }, J: function() {
-      for (var s = 0, h = 0, e = 0; 8 > e; e += 1) {
+      for (var l = 0, h = 0, e = 0; 8 > e; e += 1) {
         r(!0, e);
         var a = w.D(M);
-        (e == 0 || s > a) && (s = a, h = e);
+        (e == 0 || l > a) && (l = a, h = e);
       }
       r(!1, h);
     } };
@@ -177,29 +177,29 @@ self.QrCreator = N;
   }
   function _(n, o) {
     if (typeof n.length > "u") throw Error(n.length + "/" + o);
-    var l = function() {
+    var s = function() {
       for (var t = 0; t < n.length && n[t] == 0; ) t += 1;
       for (var u = Array(n.length - t + o), i = 0; i < n.length - t; i += 1) u[i] = n[i + t];
       return u;
     }(), r = { c: function(t) {
-      return l[t];
+      return s[t];
     }, b: function() {
-      return l.length;
+      return s.length;
     }, multiply: function(t) {
-      for (var u = Array(r.b() + t.b() - 1), i = 0; i < r.b(); i += 1) for (var f = 0; f < t.b(); f += 1) u[i + f] ^= A.i(A.g(r.c(i)) + A.g(t.c(f)));
+      for (var u = Array(r.b() + t.b() - 1), i = 0; i < r.b(); i += 1) for (var f = 0; f < t.b(); f += 1) u[i + f] ^= x.i(x.g(r.c(i)) + x.g(t.c(f)));
       return _(u, 0);
     }, l: function(t) {
       if (0 > r.b() - t.b()) return r;
-      for (var u = A.g(r.c(0)) - A.g(t.c(0)), i = Array(r.b()), f = 0; f < r.b(); f += 1) i[f] = r.c(f);
-      for (f = 0; f < t.b(); f += 1) i[f] ^= A.i(A.g(t.c(f)) + u);
+      for (var u = x.g(r.c(0)) - x.g(t.c(0)), i = Array(r.b()), f = 0; f < r.b(); f += 1) i[f] = r.c(f);
+      for (f = 0; f < t.b(); f += 1) i[f] ^= x.i(x.g(t.c(f)) + u);
       return _(i, 0).l(t);
     } };
     return r;
   }
   E.s = function(n) {
-    for (var o = [], l = 0; l < n.length; l++) {
-      var r = n.charCodeAt(l);
-      128 > r ? o.push(r) : 2048 > r ? o.push(192 | r >> 6, 128 | r & 63) : 55296 > r || 57344 <= r ? o.push(224 | r >> 12, 128 | r >> 6 & 63, 128 | r & 63) : (l++, r = 65536 + ((r & 1023) << 10 | n.charCodeAt(l) & 1023), o.push(240 | r >> 18, 128 | r >> 12 & 63, 128 | r >> 6 & 63, 128 | r & 63));
+    for (var o = [], s = 0; s < n.length; s++) {
+      var r = n.charCodeAt(s);
+      128 > r ? o.push(r) : 2048 > r ? o.push(192 | r >> 6, 128 | r & 63) : 55296 > r || 57344 <= r ? o.push(224 | r >> 12, 128 | r >> 6 & 63, 128 | r & 63) : (s++, r = 65536 + ((r & 1023) << 10 | n.charCodeAt(s) & 1023), o.push(240 | r >> 18, 128 | r >> 12 & 63, 128 | r >> 6 & 63, 128 | r & 63));
     }
     return o;
   };
@@ -249,7 +249,7 @@ self.QrCreator = N;
       [6, 32, 58, 84, 110, 136, 162],
       [6, 26, 54, 82, 110, 138, 166],
       [6, 30, 58, 86, 114, 142, 170]
-    ], l = { w: function(r) {
+    ], s = { w: function(r) {
       for (var t = r << 10; 0 <= n(t) - n(1335); ) t ^= 1335 << n(t) - n(1335);
       return (r << 10 | t) ^ 21522;
     }, A: function(r) {
@@ -295,14 +295,14 @@ self.QrCreator = N;
           throw Error("bad maskPattern:" + r);
       }
     }, C: function(r) {
-      for (var t = _([1], 0), u = 0; u < r; u += 1) t = t.multiply(_([1, A.i(u)], 0));
+      for (var t = _([1], 0), u = 0; u < r; u += 1) t = t.multiply(_([1, x.i(u)], 0));
       return t;
     }, f: function(r, t) {
       if (r != 4 || 1 > t || 40 < t) throw Error("mode: " + r + "; type: " + t);
       return 10 > t ? 8 : 16;
     }, D: function(r) {
       for (var t = r.h(), u = 0, i = 0; i < t; i += 1) for (var f = 0; f < t; f += 1) {
-        for (var y = 0, M = r.a(i, f), s = -1; 1 >= s; s += 1) if (!(0 > i + s || t <= i + s)) for (var h = -1; 1 >= h; h += 1) 0 > f + h || t <= f + h || (s != 0 || h != 0) && M == r.a(i + s, f + h) && (y += 1);
+        for (var y = 0, M = r.a(i, f), l = -1; 1 >= l; l += 1) if (!(0 > i + l || t <= i + l)) for (var h = -1; 1 >= h; h += 1) 0 > f + h || t <= f + h || (l != 0 || h != 0) && M == r.a(i + l, f + h) && (y += 1);
         5 < y && (u += 3 + y - 5);
       }
       for (i = 0; i < t - 1; i += 1) for (f = 0; f < t - 1; f += 1) y = 0, r.a(i, f) && (y += 1), r.a(i + 1, f) && (y += 1), r.a(i, f + 1) && (y += 1), r.a(i + 1, f + 1) && (y += 1), (y == 0 || y == 4) && (u += 3);
@@ -311,11 +311,11 @@ self.QrCreator = N;
       for (f = y = 0; f < t; f += 1) for (i = 0; i < t; i += 1) r.a(i, f) && (y += 1);
       return u += Math.abs(100 * y / t / t - 50) / 5 * 10;
     } };
-    return l;
-  }(), A = function() {
-    for (var n = Array(256), o = Array(256), l = 0; 8 > l; l += 1) n[l] = 1 << l;
-    for (l = 8; 256 > l; l += 1) n[l] = n[l - 4] ^ n[l - 5] ^ n[l - 6] ^ n[l - 8];
-    for (l = 0; 255 > l; l += 1) o[n[l]] = l;
+    return s;
+  }(), x = function() {
+    for (var n = Array(256), o = Array(256), s = 0; 8 > s; s += 1) n[s] = 1 << s;
+    for (s = 8; 256 > s; s += 1) n[s] = n[s - 4] ^ n[s - 5] ^ n[s - 6] ^ n[s - 8];
+    for (s = 0; 255 > s; s += 1) o[n[s]] = s;
     return { g: function(r) {
       if (1 > r) throw Error("glog(" + r + ")");
       return o[r];
@@ -519,17 +519,17 @@ self.QrCreator = N;
       [18, 75, 47, 31, 76, 48],
       [34, 54, 24, 34, 55, 25],
       [20, 45, 15, 61, 46, 16]
-    ], l = { I: function(r, t) {
+    ], s = { I: function(r, t) {
       var u = n(r, t);
       if (typeof u > "u") throw Error("bad rs block @ typeNumber:" + r + "/errorCorrectLevel:" + t);
       r = u.length / 3, t = [];
-      for (var i = 0; i < r; i += 1) for (var f = u[3 * i], y = u[3 * i + 1], M = u[3 * i + 2], s = 0; s < f; s += 1) {
+      for (var i = 0; i < r; i += 1) for (var f = u[3 * i], y = u[3 * i + 1], M = u[3 * i + 2], l = 0; l < f; l += 1) {
         var h = M, e = {};
         e.o = y, e.j = h, t.push(e);
       }
       return t;
     } };
-    return l;
+    return s;
   }();
   return E;
 }());
@@ -556,13 +556,13 @@ var T = class extends B {
     );
   }
   render() {
-    var x;
+    var A;
     return U`
       <canvas
         part="base"
         class="qr-code"
         role="img"
-        aria-label=${((x = this.label) == null ? void 0 : x.length) > 0 ? this.label : this.value}
+        aria-label=${((A = this.label) == null ? void 0 : A.length) > 0 ? this.label : this.value}
         style=${D({
       width: `${this.size}px`,
       height: `${this.size}px`
@@ -599,9 +599,9 @@ O([
 O([
   J(["background", "errorCorrection", "fill", "radius", "size", "value"])
 ], T.prototype, "generate", 1);
-var Y = Object.defineProperty, Z = Object.getOwnPropertyDescriptor, F = (x, L, E, _) => {
-  for (var g = _ > 1 ? void 0 : _ ? Z(L, E) : L, w = x.length - 1, A; w >= 0; w--)
-    (A = x[w]) && (g = (_ ? A(L, E, g) : A(g)) || g);
+var Y = Object.defineProperty, Z = Object.getOwnPropertyDescriptor, F = (A, L, E, _) => {
+  for (var g = _ > 1 ? void 0 : _ ? Z(L, E) : L, w = A.length - 1, x; w >= 0; w--)
+    (x = A[w]) && (g = (_ ? x(L, E, g) : x(g)) || g);
   return _ && g && Y(L, E, g), g;
 };
 let G = class extends T {

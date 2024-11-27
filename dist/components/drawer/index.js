@@ -1,17 +1,17 @@
-import { i as k, _ as i, n as h, S as C, k as y, t as z } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as k, S as C, x as y, _ as i, n as h, t as z } from "../../chunks/chunk.UYAO2JRR.js";
 import { M as S } from "../../chunks/chunk.5EJHXPFX.js";
 import { l as f, u as m } from "../../chunks/chunk.RWUUFNUL.js";
-import { S as A } from "../../chunks/chunk.AYP3HPB7.js";
-import { s as o, g as l, b as d, a as c } from "../../chunks/chunk.3EPZX5HE.js";
+import { S as $ } from "../../chunks/chunk.3HB7VQL2.js";
+import { g as l, a as d, s as c, b as o } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as g } from "../../chunks/chunk.B4BZKR24.js";
-import { H as $ } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as D } from "../../chunks/chunk.WLV3FVBR.js";
+import { L as A } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as D } from "../../chunks/chunk.NYIIDP5N.js";
 import { w as x } from "../../chunks/chunk.CCJUT23E.js";
 import { c as O } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as P } from "../../chunks/class-map.js";
-import { t as v } from "../../chunks/if-defined.js";
+import { e as P } from "../../chunks/class-map.js";
+import { o as v } from "../../chunks/if-defined.js";
 import { e as w } from "../../chunks/query.js";
-import "../../chunks/chunk.O7VCMB7W.js";
+import "../../chunks/chunk.E6QAPUBK.js";
 var q = k`
   :host {
     --size: 25rem;
@@ -171,7 +171,7 @@ function _(e) {
 }
 var a = class extends C {
   constructor() {
-    super(...arguments), this.hasSlotController = new $(this, "footer"), this.localize = new D(this), this.modal = new S(this), this.open = !1, this.label = "", this.placement = "end", this.contained = !1, this.noHeader = !1, this.handleDocumentKeyDown = (e) => {
+    super(...arguments), this.hasSlotController = new D(this, "footer"), this.localize = new A(this), this.modal = new S(this), this.open = !1, this.label = "", this.placement = "end", this.contained = !1, this.noHeader = !1, this.handleDocumentKeyDown = (e) => {
       this.contained || e.key === "Escape" && this.modal.isActive() && this.open && (e.stopImmediatePropagation(), this.requestClose("keyboard"));
     };
   }
@@ -306,7 +306,7 @@ var a = class extends C {
   }
 };
 a.styles = [O, q];
-a.dependencies = { "ug-icon-button": A };
+a.dependencies = { "ug-icon-button": $ };
 i([
   w(".drawer")
 ], a.prototype, "drawer", 2);

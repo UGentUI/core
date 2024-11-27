@@ -1,0 +1,39 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Vite Dev</title>
+    <script type="module" src="lib/index.ts"></script>
+    <script type="module">
+        // import "/lib/components/app-container";
+        // import "/lib/components/icon";
+        import "/lib/components/autocomplete";
+        // import "/lib/components/button";
+        // import "/lib/components/dropdown";
+        // import "/lib/components/menu";
+        // import "/lib/components/menu-item";
+        // import "/lib/components/input";
+        // import {setBasePath} from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+        // setBasePath("lib");
+    </script>
+</head>
+<body>
+
+
+<ug-autocomplete autofilter class="language-autocomplete" size="medium">
+    <div slot="trigger">
+        huppeldepup
+    </div>
+
+    <ug-menu-item value="english">English</ug-menu-item>
+    <ug-menu-item value="mandarin">Mandarin</ug-menu-item>
+    <ug-menu-item value="hindi">Hindi</ug-menu-item>
+    <ug-menu-item value="spanish">Spanish</ug-menu-item>
+    <ug-menu-item value="french">French</ug-menu-item>
+
+</ug-autocomplete>
+
+
+</body>
+</html>

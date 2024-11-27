@@ -1,13 +1,13 @@
-import { i as g, _ as i, n as h, S as _, k as w, t as v } from "../../chunks/chunk.NLWS5DN7.js";
-import { s as b, a as p, g as u, b as c, c as m } from "../../chunks/chunk.3EPZX5HE.js";
+import { i as g, S as _, x as w, _ as i, n as h, t as v } from "../../chunks/chunk.UYAO2JRR.js";
+import { s as p, g as u, a as c, c as m, b } from "../../chunks/chunk.3EPZX5HE.js";
 import { w as y } from "../../chunks/chunk.B4BZKR24.js";
-import { L as k } from "../../chunks/chunk.WLV3FVBR.js";
-import { S as x } from "../../chunks/chunk.O7VCMB7W.js";
+import { L as x } from "../../chunks/chunk.WLV3FVBR.js";
+import { S as k } from "../../chunks/chunk.E6QAPUBK.js";
 import { w as D } from "../../chunks/chunk.CCJUT23E.js";
 import { c as S } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as O } from "../../chunks/class-map.js";
+import { e as $ } from "../../chunks/class-map.js";
 import { e as l } from "../../chunks/query.js";
-var $ = g`
+var O = g`
   :host {
     display: block;
   }
@@ -91,7 +91,7 @@ var $ = g`
   }
 `, s = class extends _ {
   constructor() {
-    super(...arguments), this.localize = new k(this), this.open = !1, this.disabled = !1;
+    super(...arguments), this.localize = new x(this), this.open = !1, this.disabled = !1;
   }
   firstUpdated() {
     this.body.style.height = this.open ? "auto" : "0", this.open && (this.details.open = !0), this.detailsObserver = new MutationObserver((e) => {
@@ -139,11 +139,11 @@ var $ = g`
       return this.open = !1, y(this, "ug-after-hide");
   }
   render() {
-    const e = this.matches(":dir(rtl)");
+    const e = this.localize.dir() === "rtl";
     return w`
       <details
         part="base"
-        class=${O({
+        class=${$({
       details: !0,
       "details--open": this.open,
       "details--disabled": this.disabled,
@@ -181,9 +181,9 @@ var $ = g`
     `;
   }
 };
-s.styles = [S, $];
+s.styles = [S, O];
 s.dependencies = {
-  "ug-icon": x
+  "ug-icon": k
 };
 i([
   l(".details")

@@ -1,17 +1,17 @@
-import { i as b, _ as r, n as a, S as f, k as u, t as _ } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as b, S as f, x as h, _ as r, n as a, t as _ } from "../../chunks/chunk.UYAO2JRR.js";
 import { d as y } from "../../chunks/chunk.GI7VDIWX.js";
 import { f as k } from "../../chunks/chunk.SI4ACBFK.js";
 import { F as x } from "../../chunks/chunk.2RCF7SLU.js";
-import { H as w } from "../../chunks/chunk.NYIIDP5N.js";
-import { L as $ } from "../../chunks/chunk.WLV3FVBR.js";
-import { w as h } from "../../chunks/chunk.CCJUT23E.js";
-import { c as C } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as d } from "../../chunks/class-map.js";
+import { L as w } from "../../chunks/chunk.WLV3FVBR.js";
+import { H as $ } from "../../chunks/chunk.NYIIDP5N.js";
+import { w as u } from "../../chunks/chunk.CCJUT23E.js";
+import { c as z } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as d } from "../../chunks/class-map.js";
 import { r as v } from "../../chunks/state.js";
-import { t as z } from "../../chunks/event-options.js";
+import { t as C } from "../../chunks/event-options.js";
 import { e as m } from "../../chunks/query.js";
-import { t as c } from "../../chunks/if-defined.js";
-import { F as T } from "../../chunks/live.js";
+import { o as c } from "../../chunks/if-defined.js";
+import { l as T } from "../../chunks/live.js";
 var F = b`
   :host {
     --thumb-size: 20px;
@@ -240,7 +240,7 @@ var F = b`
   }
 `, o = class extends f {
   constructor() {
-    super(...arguments), this.formControlController = new x(this), this.hasSlotController = new w(this, "help-text", "label"), this.localize = new $(this), this.hasFocus = !1, this.hasTooltip = !1, this.title = "", this.name = "", this.value = 0, this.label = "", this.helpText = "", this.disabled = !1, this.min = 0, this.max = 100, this.step = 1, this.tooltip = "top", this.tooltipFormatter = (t) => t.toString(), this.form = "", this.defaultValue = 0;
+    super(...arguments), this.formControlController = new x(this), this.hasSlotController = new $(this, "help-text", "label"), this.localize = new w(this), this.hasFocus = !1, this.hasTooltip = !1, this.title = "", this.name = "", this.value = 0, this.label = "", this.helpText = "", this.disabled = !1, this.min = 0, this.max = 100, this.step = 1, this.tooltip = "top", this.tooltipFormatter = (t) => t.toString(), this.form = "", this.defaultValue = 0;
   }
   /** Gets the validity state object */
   get validity() {
@@ -282,7 +282,7 @@ var F = b`
   }
   syncTooltip(t) {
     if (this.output !== null) {
-      const i = this.input.offsetWidth, l = this.output.offsetWidth, e = getComputedStyle(this.input).getPropertyValue("--thumb-size"), s = this.matches(":dir(rtl)"), p = i * t;
+      const i = this.input.offsetWidth, l = this.output.offsetWidth, e = getComputedStyle(this.input).getPropertyValue("--thumb-size"), s = this.localize.dir() === "rtl", p = i * t;
       if (s) {
         const n = `${i - p}px + ${t} * ${e}`;
         this.output.style.translate = `calc((${n} - ${l / 2}px - ${e} / 2))`;
@@ -339,7 +339,7 @@ var F = b`
   }
   render() {
     const t = this.hasSlotController.test("label"), i = this.hasSlotController.test("help-text"), l = this.label ? !0 : !!t, e = this.helpText ? !0 : !!i;
-    return u`
+    return h`
       <div
         part="form-control"
         class=${d({
@@ -395,7 +395,7 @@ var F = b`
               @invalid=${this.handleInvalid}
               @blur=${this.handleBlur}
             />
-            ${this.tooltip !== "none" && !this.disabled ? u`
+            ${this.tooltip !== "none" && !this.disabled ? h`
                   <output part="tooltip" class="range__tooltip">
                     ${typeof this.tooltipFormatter == "function" ? this.tooltipFormatter(this.value) : this.value}
                   </output>
@@ -415,7 +415,7 @@ var F = b`
     `;
   }
 };
-o.styles = [C, k, F];
+o.styles = [z, k, F];
 r([
   m(".range__control")
 ], o.prototype, "input", 2);
@@ -468,16 +468,16 @@ r([
   y()
 ], o.prototype, "defaultValue", 2);
 r([
-  z({ passive: !0 })
+  C({ passive: !0 })
 ], o.prototype, "handleThumbDragStart", 1);
 r([
-  h("value", { waitUntilFirstUpdate: !0 })
+  u("value", { waitUntilFirstUpdate: !0 })
 ], o.prototype, "handleValueChange", 1);
 r([
-  h("disabled", { waitUntilFirstUpdate: !0 })
+  u("disabled", { waitUntilFirstUpdate: !0 })
 ], o.prototype, "handleDisabledChange", 1);
 r([
-  h("hasTooltip", { waitUntilFirstUpdate: !0 })
+  u("hasTooltip", { waitUntilFirstUpdate: !0 })
 ], o.prototype, "syncRange", 1);
 var S = Object.defineProperty, V = Object.getOwnPropertyDescriptor, D = (t, i, l, e) => {
   for (var s = e > 1 ? void 0 : e ? V(i, l) : i, p = t.length - 1, n; p >= 0; p--)

@@ -1,4 +1,4 @@
-import { R as a } from "./chunk.NLWS5DN7.js";
+import { T as a } from "./chunk.UYAO2JRR.js";
 import { e as h, i as d, t as c } from "./directive.js";
 /**
  * @license
@@ -14,21 +14,21 @@ const u = h(class extends d {
     return " " + Object.keys(s).filter((e) => s[e]).join(" ") + " ";
   }
   update(s, [e]) {
-    var r, n;
+    var n, i;
     if (this.st === void 0) {
       this.st = /* @__PURE__ */ new Set(), s.strings !== void 0 && (this.nt = new Set(s.strings.join(" ").split(/\s/).filter((t) => t !== "")));
-      for (const t in e) e[t] && !((r = this.nt) != null && r.has(t)) && this.st.add(t);
+      for (const t in e) e[t] && !((n = this.nt) != null && n.has(t)) && this.st.add(t);
       return this.render(e);
     }
-    const i = s.element.classList;
-    for (const t of this.st) t in e || (i.remove(t), this.st.delete(t));
+    const r = s.element.classList;
+    for (const t of this.st) t in e || (r.remove(t), this.st.delete(t));
     for (const t in e) {
       const o = !!e[t];
-      o === this.st.has(t) || (n = this.nt) != null && n.has(t) || (o ? (i.add(t), this.st.add(t)) : (i.remove(t), this.st.delete(t)));
+      o === this.st.has(t) || (i = this.nt) != null && i.has(t) || (o ? (r.add(t), this.st.add(t)) : (r.remove(t), this.st.delete(t)));
     }
     return a;
   }
 });
 export {
-  u as R
+  u as e
 };

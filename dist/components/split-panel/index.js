@@ -1,9 +1,9 @@
-import { i as g, _ as a, n as h, S as y, k as w, t as x } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as g, S as y, x as w, _ as a, n as h, t as x } from "../../chunks/chunk.UYAO2JRR.js";
 import { c as p } from "../../chunks/chunk.HF7GESMZ.js";
 import { L as P } from "../../chunks/chunk.WLV3FVBR.js";
 import { w as c } from "../../chunks/chunk.CCJUT23E.js";
 import { c as b } from "../../chunks/chunk.TUVJKY7S.js";
-import { t as z } from "../../chunks/if-defined.js";
+import { o as z } from "../../chunks/if-defined.js";
 import { e as T } from "../../chunks/query.js";
 var C = g`
   :host {
@@ -113,7 +113,7 @@ var o = class extends y {
     return i / this.size * 100;
   }
   handleDrag(i) {
-    const e = this.matches(":dir(rtl)");
+    const e = this.localize.dir() === "rtl";
     this.disabled || (i.cancelable && i.preventDefault(), $(this, {
       onMove: (s, r) => {
         let t = this.vertical ? r : s;
@@ -146,7 +146,7 @@ var o = class extends y {
     this.detectSize();
   }
   render() {
-    const i = this.vertical ? "gridTemplateRows" : "gridTemplateColumns", e = this.vertical ? "gridTemplateColumns" : "gridTemplateRows", s = this.matches(":dir(rtl)"), r = `
+    const i = this.vertical ? "gridTemplateRows" : "gridTemplateColumns", e = this.vertical ? "gridTemplateColumns" : "gridTemplateRows", s = this.localize.dir() === "rtl", r = `
       clamp(
         0%,
         clamp(

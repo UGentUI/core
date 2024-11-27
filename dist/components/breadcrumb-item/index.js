@@ -1,11 +1,11 @@
-import { i as b, _ as a, n as p, S as f, k as s, t as c } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as b, S as f, x as s, _ as a, n as p, t as c } from "../../chunks/chunk.UYAO2JRR.js";
 import { H as h } from "../../chunks/chunk.NYIIDP5N.js";
 import { w as g } from "../../chunks/chunk.CCJUT23E.js";
 import { c as _ } from "../../chunks/chunk.TUVJKY7S.js";
-import { R as y } from "../../chunks/class-map.js";
-import { t as u } from "../../chunks/if-defined.js";
-import { r as v } from "../../chunks/state.js";
-import { e as x } from "../../chunks/query.js";
+import { e as y } from "../../chunks/class-map.js";
+import { o as u } from "../../chunks/if-defined.js";
+import { r as x } from "../../chunks/state.js";
+import { e as v } from "../../chunks/query.js";
 var w = b`
   :host {
     display: inline-flex;
@@ -160,10 +160,10 @@ var w = b`
 };
 e.styles = [_, w];
 a([
-  x("slot:not([name])")
+  v("slot:not([name])")
 ], e.prototype, "defaultSlot", 2);
 a([
-  v()
+  x()
 ], e.prototype, "renderType", 2);
 a([
   p()
@@ -177,14 +177,14 @@ a([
 a([
   g("href", { waitUntilFirstUpdate: !0 })
 ], e.prototype, "hrefChanged", 1);
-var C = Object.defineProperty, S = Object.getOwnPropertyDescriptor, T = (i, t, l, o) => {
+var C = Object.defineProperty, S = Object.getOwnPropertyDescriptor, $ = (i, t, l, o) => {
   for (var r = o > 1 ? void 0 : o ? S(t, l) : t, n = i.length - 1, m; n >= 0; n--)
     (m = i[n]) && (r = (o ? m(t, l, r) : m(r)) || r);
   return o && r && C(t, l, r), r;
 };
 let d = class extends e {
 };
-d = T([
+d = $([
   c("ug-breadcrumb-item")
 ], d);
 export {

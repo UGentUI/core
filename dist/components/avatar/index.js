@@ -1,10 +1,10 @@
-import { S as v } from "../../chunks/chunk.O7VCMB7W.js";
-import { w as p } from "../../chunks/chunk.CCJUT23E.js";
-import { c as g } from "../../chunks/chunk.TUVJKY7S.js";
-import { i as u, _ as t, n as s, S as m, k as i, t as f } from "../../chunks/chunk.NLWS5DN7.js";
-import { R as _ } from "../../chunks/class-map.js";
+import { i as v, S as p, x as i, _ as t, n as s, t as g } from "../../chunks/chunk.UYAO2JRR.js";
+import { S as u } from "../../chunks/chunk.E6QAPUBK.js";
+import { w as m } from "../../chunks/chunk.CCJUT23E.js";
+import { c as f } from "../../chunks/chunk.TUVJKY7S.js";
+import { e as _ } from "../../chunks/class-map.js";
 import { r as b } from "../../chunks/state.js";
-var y = u`
+var y = v`
   :host {
     display: inline-block;
 
@@ -67,7 +67,7 @@ var y = u`
     object-fit: cover;
     overflow: hidden;
   }
-`, a = class extends m {
+`, a = class extends p {
   constructor() {
     super(...arguments), this.hasError = !1, this.image = "", this.label = "", this.initials = "", this.loading = "eager", this.shape = "circle";
   }
@@ -112,9 +112,9 @@ var y = u`
     `;
   }
 };
-a.styles = [g, y];
+a.styles = [f, y];
 a.dependencies = {
-  "ug-icon": v
+  "ug-icon": u
 };
 t([
   b()
@@ -135,7 +135,7 @@ t([
   s({ reflect: !0 })
 ], a.prototype, "shape", 2);
 t([
-  p("image")
+  m("image")
 ], a.prototype, "handleImageChange", 1);
 var w = Object.defineProperty, E = Object.getOwnPropertyDescriptor, $ = (o, e, n, l) => {
   for (var r = l > 1 ? void 0 : l ? E(e, n) : e, c = o.length - 1, h; c >= 0; c--)
@@ -145,7 +145,7 @@ var w = Object.defineProperty, E = Object.getOwnPropertyDescriptor, $ = (o, e, n
 let d = class extends a {
 };
 d = $([
-  f("ug-avatar")
+  g("ug-avatar")
 ], d);
 export {
   d as UgAvatar

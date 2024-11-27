@@ -1,7 +1,7 @@
-import { i as m, _ as d, S as h, k as g, t as f } from "../../chunks/chunk.NLWS5DN7.js";
+import { i as m, S as d, x as h, _ as g, t as f } from "../../chunks/chunk.UYAO2JRR.js";
 import { c as p } from "../../chunks/chunk.TUVJKY7S.js";
 import { e as b } from "../../chunks/query.js";
-var k = m`
+var v = m`
   :host {
     display: block;
     position: relative;
@@ -16,7 +16,7 @@ var k = m`
   ::slotted(ug-divider) {
     --spacing: var(--ug-spacing-x-small);
   }
-`, u = class extends h {
+`, u = class extends d {
   connectedCallback() {
     super.connectedCallback(), this.setAttribute("role", "menu");
   }
@@ -76,7 +76,7 @@ var k = m`
     });
   }
   render() {
-    return g`
+    return h`
       <slot
         @slotchange=${this.handleSlotChange}
         @click=${this.handleClick}
@@ -86,14 +86,14 @@ var k = m`
     `;
   }
 };
-u.styles = [p, k];
-d([
+u.styles = [p, v];
+g([
   b("slot")
 ], u.prototype, "defaultSlot", 2);
-var v = Object.defineProperty, w = Object.getOwnPropertyDescriptor, y = (e, t, s, r) => {
+var k = Object.defineProperty, w = Object.getOwnPropertyDescriptor, y = (e, t, s, r) => {
   for (var n = r > 1 ? void 0 : r ? w(t, s) : t, a = e.length - 1, l; a >= 0; a--)
     (l = e[a]) && (n = (r ? l(t, s, n) : l(n)) || n);
-  return r && n && v(t, s, n), n;
+  return r && n && k(t, s, n), n;
 };
 let c = class extends u {
 };

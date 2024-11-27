@@ -1,5 +1,5 @@
 import { g as u } from "./chunk.LXDTFLWU.js";
-import { a as d } from "./chunk.NLWS5DN7.js";
+import { a as d } from "./chunk.UYAO2JRR.js";
 function* h(e = document.activeElement) {
   e != null && (yield e, "shadowRoot" in e && e.shadowRoot && e.shadowRoot.mode !== "closed" && (yield* d(h(e.shadowRoot.activeElement))));
 }

@@ -1,4 +1,4 @@
-import { i as o } from "./chunk.NLWS5DN7.js";
+import { i as o } from "./chunk.UYAO2JRR.js";
 var r = o`
   :host {
     display: inline-block;
