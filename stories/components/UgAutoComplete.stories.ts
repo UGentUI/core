@@ -7,6 +7,7 @@ import "/lib/components/menu-item";
 import "/lib/components/icon";
 import "/lib/components/dropdown";
 import "/lib/components/menu";
+import "/lib/components/spinner";
 
 const meta: Meta = {
   title: "Components/Autocomplete",
@@ -31,58 +32,22 @@ const meta: Meta = {
     },
     disabled: {
       control: "boolean",
-      description: "Disables the button.",
+      description: "Disables the control.",
       table: { category: "attributes", defaultValue: { summary: "false" } },
     },
     loading: {
       control: "boolean",
-      description: "Shows a loading spinnner.",
+      description: "Shows whether the search is still busy or not. (This has only effect when the search dropdown is visible).",
       table: { category: "attributes", defaultValue: { summary: "false" } },
     },
     label: {
       control: "text",
       description: "The button's label.",
-      table: {
-        category: "slots",
-        defaultValue: { summary: undefined },
+      table: { category: "attributes",  defaultValue: { summary: undefined },
       },
     },
-    search: {
-      control: "text",
-      description: "Initial search term. In most cases this won't be used, since it is the user who will enter ",
-      table: {
-        category: "slots",
-        defaultValue: { summary: undefined },
-      },
-    },
-    popupVisible: {
-      control: "boolean",
-      description: "Show the result menu or not. Note that only the change from false to true will trigger the popup to become visible." +
-          "A better approach to show the result menu is to use the method show() ",
-      table: { category: "attributes", defaultValue: { summary: "false" } },
-    },
-    // ugBlur: {
-    //   name: "ug-blur",
-    //   action: "ug-blur", // Logs the ug-blur event in the Actions panel
-    //   description: "Emitted when the button loses focus.",
-    //   table: {
-    //     type: { summary: undefined },
-    //     category: "events",
-    //     defaultValue: { summary: undefined },
-    //   },
-    //   control: false,
-    // },
-    // ugFocus: {
-    //   name: "ug-focus",
-    //   action: "ug-focus", // Logs the ug-focus event in the Actions panel
-    //   description: "Emitted when the button gains focus.",
-    //   table: {
-    //     type: { summary: undefined },
-    //     category: "events",
-    //     defaultValue: { summary: undefined },
-    //   },
-    //   control: false,
-    // },
+
+
     ugSearch: {
       name: "ug-search",
       action: "ug-search", // Logs the ug-focus event in the Actions panel
@@ -106,6 +71,21 @@ const meta: Meta = {
       },
       control: false,
     },
+
+    trigger: {
+      description: "contains the content (aka 'value') of the component. When the user clicks on it, it will be replaced" +
+          "by an input textfield. It is completely up to the user to render here something meaningful. When the component is not in 'edit mode' ",
+      table: { category: "slot"},
+    },
+    "no-results": {
+      description: "This slot is used in case you want to change the default behavior when no results are available after a search.",
+      table: { category: "slot"},
+    },
+    "loading": {
+      description: "This slot is used in case you want to change the default behavior when a search is in progress.",
+      table: { category: "slot"},
+    },
+
   }
 };
 
@@ -117,25 +97,18 @@ export const Autocomplete: Story = {
   args: {
     size: "medium",
   },
-  // decorators: [
-  //   (Story) => html`
-  //     <div style=" height: 200px;">
-  //       ${Story()}
-  //     </div>
-  //   `,
-  // ],
 
   render: (args) => {
     return html`
       
       <ug-autocomplete  
-          search="${args.search}"
           label="${args.label}"
           size="${args.size}"
           ?loading="${args.loading}"
-          ?popupVisible="${args.popupVisible}"
           ?disabled="${args.disabled}"
         >
+        <span slot="trigger">Current value</span>
+        
         <ug-menu-item value="english" >English</ug-menu-item>
         <ug-menu-item value="mandarin" >Mandarin</ug-menu-item>
         <ug-menu-item value="hindi" >Hindi</ug-menu-item>
@@ -154,12 +127,91 @@ export const Loading: Story = {
     controls: { disable: true },
     docs: {
       description: {
+        story: `when popupVisible a`,
+      },
+    },
+  },
+  // prettier-ignore
+  render: (args) => html`
+    <ug-autocomplete  loading searchterm="some value">
+      <span slot="trigger">Current value</span>
+    </ug-autocomplete>`,
+};
+
+export const LoadingCustom: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `When the loading attribute is given, we give an indication of the leading. The default skeletons can be replaced 
+        by the slot 'loading'`,
+      },
+    },
+  },
+
+  render: (args) => html`
+    <ug-autocomplete loading  searchterm="some value">
+      <span slot="trigger">Current value</span>
+      <span slot="loading">
+         One moment please... We're looking for it! <ug-spinner ></ug-spinner>
+      </span>
+    </ug-autocomplete>`,
+};
+
+
+export const FoundResults: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `Use the variant attribute to set the button’s variant.`,
+      },
+    },
+  },
+  render: (args) => html`
+    <ug-autocomplete  popupVisible searchterm="some value">
+      <span slot="trigger">Some Value</span>
+
+      <ug-menu-item value="english" >English</ug-menu-item>
+      <ug-menu-item value="mandarin" >Mandarin</ug-menu-item>
+      <ug-menu-item value="hindi" >Hindi</ug-menu-item>
+
+    </ug-autocomplete>`,
+};
+
+export const NoResults: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
         story: `Use the variant attribute to set the button’s variant.`,
       },
     },
   },
   // prettier-ignore
   render: (args) => html`
-    <ug-autocomplete loading popupVisible searchterm="some value">
+    <ug-autocomplete  popupVisible searchterm="some value">
+      <span slot="trigger">Some Value</span>
+    </ug-autocomplete>`,
+};
+
+export const NoResultsCustom: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `Use the variant attribute to set the button’s variant.`,
+      },
+    },
+  },
+  // prettier-ignore
+  render: (args) => html`
+    <ug-autocomplete  popupVisible searchterm="some value">
+      <span slot="trigger">Some Value</span>
+      <span slot="no-results">I'm sorry. We didn't find anything.</span>
     </ug-autocomplete>`,
 };

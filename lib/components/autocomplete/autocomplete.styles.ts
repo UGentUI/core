@@ -6,16 +6,15 @@ export default css`
         display: inline-block;
         box-sizing: border-box;
         width: 100%;
-        
-        
+
+
     }
 
     ug-dropdown {
         display: block;
         width: 100%;
-        
     }
-    
+
 
     ug-dropdown::part(panel) {
         display: block;
@@ -23,12 +22,21 @@ export default css`
     }
 
 
-    .default-loading-placeholder {
+    .loading-placeholder, .no-results {
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+    
+    .default-loading {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        margin: .5rem;
-        
+    }
+
+    .default-no-results {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .control {
@@ -37,48 +45,46 @@ export default css`
         border-width: 1px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        //align-items: center;
         //display: inline-flex;
-        flex: 1; 
-        
+        flex: 1;
+
     }
-    
-    .control:focus-within{
-        //border-color: red;
+
+    .control:focus-within {
+        border-color: var(--ug-input-border-color-focus);
+        box-shadow: 0 0 0 var(--ug-focus-ring-width) var(--ug-input-focus-ring-color);
+        //border-width: 5px;
         //border:none
     }
 
-    
+
     .base {
         width: 100%;
         display: inline-flex;
 
     }
 
-    
-    
+    .control input:focus {
+        outline: none;
+    }
 
     .control input {
-        padding-left: 1rem;
-        height: 100%;
-        width: 100%;
-        border: none;
+        flex: 1;
+        text-indent: .5rem;
     }
 
     .control .trigger {
+        flex: 1;
         display: flex;
         align-items: center;
         margin-left: 1rem;
-        height: 100%;
-        width: 100%;
         vertical-align: center;
-        margin-top:auto;
+        margin-top: auto;
     }
 
     .control .trigger:focus {
-        //border: solid red 1px
         outline: none;
-        box-shadow: 0px 0px 3px 3px #abc;
     }
 
 

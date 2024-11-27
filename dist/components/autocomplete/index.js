@@ -8,22 +8,21 @@ import { UgInput as v } from "../input/index.js";
 import { UgMenuItem as w } from "../menu-item/index.js";
 import { UgSkeleton as x } from "../skeleton/index.js";
 import { UgTextarea as k } from "../textarea/index.js";
-const $ = g`
+const T = g`
 
     :host {
         display: inline-block;
         box-sizing: border-box;
         width: 100%;
-        
-        
+
+
     }
 
     ug-dropdown {
         display: block;
         width: 100%;
-        
     }
-    
+
 
     ug-dropdown::part(panel) {
         display: block;
@@ -31,12 +30,21 @@ const $ = g`
     }
 
 
-    .default-loading-placeholder {
+    .loading-placeholder, .no-results {
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+    
+    .default-loading {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        margin: .5rem;
-        
+    }
+
+    .default-no-results {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .control {
@@ -45,48 +53,47 @@ const $ = g`
         border-width: 1px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        //align-items: center;
         //display: inline-flex;
-        flex: 1; 
-        
+        flex: 1;
+
     }
-    
-    .control:focus-within{
+
+    .control:focus-within {
         //border-color: red;
+        //border-width: 5px;
         //border:none
     }
 
-    
+
     .base {
         width: 100%;
         display: inline-flex;
 
     }
 
-    
-    
+    .control input:focus {
+        //outline: none;
+    }
 
     .control input {
-        padding-left: 1rem;
-        height: 100%;
-        width: 100%;
-        border: none;
+        flex: 1;
+        text-indent: .5rem;
     }
 
     .control .trigger {
+        flex: 1;
         display: flex;
         align-items: center;
         margin-left: 1rem;
-        height: 100%;
-        width: 100%;
         vertical-align: center;
-        margin-top:auto;
+        margin-top: auto;
     }
 
     .control .trigger:focus {
-        //border: solid red 1px
+    //border: solid red 1px
         outline: none;
-        box-shadow: 0px 0px 3px 3px #abc;
+        //box-shadow: 0px 0px 3px 3px #abc;
     }
 
 
@@ -117,38 +124,38 @@ const $ = g`
         }
 
 `;
-var D = Object.defineProperty, T = Object.getOwnPropertyDescriptor, s = (e, o, r, l) => {
-  for (var i = l > 1 ? void 0 : l ? T(o, r) : o, d = e.length - 1, h; d >= 0; d--)
-    (h = e[d]) && (i = (l ? h(o, r, i) : h(i)) || i);
-  return l && i && D(o, r, i), i;
+var $ = Object.defineProperty, D = Object.getOwnPropertyDescriptor, s = (e, o, r, i) => {
+  for (var l = i > 1 ? void 0 : i ? D(o, r) : o, d = e.length - 1, h; d >= 0; d--)
+    (h = e[d]) && (l = (i ? h(o, r, l) : h(l)) || l);
+  return i && l && $(o, r, l), l;
 };
 let t = class extends m {
   constructor() {
-    super(...arguments), this.value = "", this.hasFocus = !1, this.loading = !1, this.size = "medium", this.popupVisible = !1, this.threshold = 1, this.label = null, this.loadingPlaceholder = p`
-        <div class="default-loading-placeholder">
+    super(...arguments), this.value = "", this.hasFocus = !1, this.loading = !1, this.size = "medium", this.popupVisible = !1, this.threshold = 1, this.label = null, this.searchTerm = null, this.loadingPlaceholder = p`
+        <div class="default-loading">
             <ug-skeleton effect="pulse"></ug-skeleton>
             <ug-skeleton effect="pulse"></ug-skeleton>
             <ug-skeleton effect="pulse"></ug-skeleton>
         </div>
     `, this.noResultsPlaceholder = p`
-        <div class="default-empty-results-placeholder">
+        <div class="default-no-results">
             No items found
         </div>
     `;
   }
   updated(e) {
-    super.updated(e), this.popupVisible && this.show();
+    super.updated(e), this.popupVisible && this.show(), this.searchTerm && (this.hasFocus = !0, this.value = this.searchTerm.trim(), this.input.value = this.value);
   }
   handleUgInput(e) {
     const { value: o } = e.target;
-    this.hasFocus = !0, this.value = o, this.dispatchEvent(new CustomEvent("ug-search", { bubbles: !0 }));
+    this.hasFocus = !0, this.value = o, e = new CustomEvent("ug-search", { bubbles: !0, detail: o }), console.info("Dispatching event", e), this.dispatchEvent(e);
   }
   handleInputBlur() {
     this.dropdown.open || (this.hasFocus = !1, console.info("Blur input. window was not open, so focus becomes false", this.dropdown.open));
   }
   handleUgSelect(e) {
     let o = e.detail.item;
-    console.info("menuitem selected", o), this.dispatchEvent(new CustomEvent("ug-selected", o)), this.hasFocus = !1;
+    console.info("menuitem selected", o), this.dispatchEvent(new CustomEvent("ug-selected", { detail: o })), this.hasFocus = !1;
   }
   handleKeydown(e) {
     if (!this.shouldDisplayAutoComplete || e.ctrlKey || e.metaKey)
@@ -156,26 +163,27 @@ let t = class extends m {
     const o = this.visibleOptions;
     if (o.length === 0)
       return;
-    const r = o[0], l = o[o.length - 1];
+    const r = o[0], i = o[o.length - 1];
     switch (e.key) {
       case "Tab":
       case "Escape":
-        this.hasFocus = !1;
+        this.hasFocus = !1, this.dispatchEvent(new CustomEvent("ug-edit-cancelled"));
         break;
       case "ArrowDown":
         e.preventDefault(), this.menu.setCurrentItem(r), r.focus();
         break;
       case "ArrowUp":
-        e.preventDefault(), this.menu.setCurrentItem(l), l.focus();
+        e.preventDefault(), this.menu.setCurrentItem(i), i.focus();
         break;
     }
     this.hasFocus || setTimeout(() => {
     }, 500);
   }
   handleUgFocus(e) {
-    console.info("handleUgFocus", event), this.value.length >= this.threshold && (this.hasFocus = !0, this.show(), console.info("searching ", e), this.dispatchEvent(new CustomEvent("ug-autocomplete-search")));
+    console.info("handleUgFocus", event), this.value.length >= this.threshold && (this.hasFocus = !0, console.info("searching ", e), this.dispatchEvent(new CustomEvent("ug-autocomplete-search")));
   }
   handleUgAfterHide(e) {
+    this.dispatchEvent(new CustomEvent("ug-edit-cancelled"));
   }
   show() {
     var e;
@@ -199,10 +207,10 @@ let t = class extends m {
     return this.visibleOptions.length > 0;
   }
   get shouldDisplayLoadingText() {
-    return this.loading && (this.loadingPlaceholder || this.hasNamedSlot("loading-placeholder"));
+    return this.loading && (this.loadingPlaceholder || this.hasNamedSlot("loading"));
   }
   get shouldDisplayEmptyText() {
-    return !this.hasResults && !this.loading && (this.noResultsPlaceholder || this.hasNamedSlot("no-results-placeholder"));
+    return !this.hasResults && !this.loading && (this.noResultsPlaceholder || this.hasNamedSlot("no-results"));
   }
   get shouldDisplayTrigger() {
     return !this.hasFocus;
@@ -262,17 +270,17 @@ let t = class extends m {
                                     aria-hidden=${e ? "false" : "true"}
                                     style="${n({ display: e ? "block" : "none" })}"
                             >
-                                <slot name="loading-placeholder"> ${this.loadingPlaceholder}</slot>
+                                <slot name="loading"> ${this.loadingPlaceholder}</slot>
                             </div>
 
                             <div
-                                    part="empty-text"
-                                    id="empty-text"
-                                    class="empty-text"
+                                    part="no-results"
+                                    id="no-results"
+                                    class="no-results"
                                     aria-hidden=${this.shouldDisplayEmptyText ? "false" : "true"}
                                     style="${n({ display: this.shouldDisplayEmptyText ? "block" : "none" })}"
                             >
-                                <slot name="empty-text">${this.noResultsPlaceholder}</slot>
+                                <slot name="no-results">${this.noResultsPlaceholder}</slot>
                             </div>
 
                             <div aria-hidden="true" style=${n({ width: `${this.clientWidth}px` })}></div>
@@ -282,7 +290,7 @@ let t = class extends m {
         `;
   }
 };
-t.styles = $;
+t.styles = T;
 t.dependencies = {
   "ug-skeleton": x,
   "ug-input": v,
@@ -327,9 +335,12 @@ s([
 s([
   a({ type: String, reflect: !0 })
 ], t.prototype, "label", 2);
+s([
+  a({ type: String, reflect: !0 })
+], t.prototype, "searchTerm", 2);
 t = s([
   f("ug-autocomplete")
 ], t);
 export {
-  t as default
+  t as UgAutocomplete
 };
