@@ -283,7 +283,7 @@ export class UgAutocomplete extends LitElement {
         }
     }
 
-    private handleTriggerBlur(event: any): void {
+    private handleTriggerBlur(): void {
         if (!this.inputVisible) {
             this.hasFocus = false
         }
