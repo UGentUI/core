@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "@shoelace-style/shoelace": "^2.17.1",
+    "@storybook/addon-actions": "^8.4.5",
+    "@ugent-ui/core": "^1.0.0-beta.1",
     "@ugent-ui/css-reset": "^1.0.0-beta.9",
     "@ugent-ui/design-tokens": "^1.0.0-beta.15",
     "fs-extra": "^11.2.0",

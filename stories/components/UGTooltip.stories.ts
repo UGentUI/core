@@ -413,3 +413,54 @@ export const Hoist: Story = {
 </style>
     `,
 };
+
+
+export const TriggeredByClickWithEvents: Story = {
+    ...Tooltip,
+  args: {
+      ...Tooltip.args,
+      trigger: "click",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `This story demonstrates how the Tooltip handles events like show, afterShow and hide in hover state.`,
+      },
+    },
+  },
+  render: (args) => html`
+    <ug-tooltip 
+        @click="${action('sl-Show')}"
+        @blur="${action('sl-Hide')}"
+        @sl-show="${action('sl-show')}"
+        @sl-after-show="${action('sl-after-show')}"
+        @sl-hide="${action('sl-hide')}"
+      trigger="${args.trigger}"
+><ug-button>I do things when you click me!</ug-button></ug-tooltip>`,
+};
+
+export const TriggeredByHoverWithEvents: Story = {
+    ...Tooltip,
+  args: {
+      ...Tooltip.args,
+      trigger: "hover",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `This story demonstrates how the Tooltip handles events like show, afterShow and hide in hover state.`,
+      },
+    },
+  },
+  render: (args) => html`
+<ug-tooltip 
+    @hover="${action('sl-Show')}"
+    @focus="${action('sl-Show')}"
+    @blur="${action('sl-Hide')}"
+    @sl-show="${action('sl-show')}"
+    @sl-after-show="${action('sl-after-show')}"
+    @sl-hide="${action('sl-hide')}"
+    @sl-after-hide="${action('sl-after-hide')}"
+      trigger="${args.trigger}"
+><ug-button>I do things when you hover over me!</ug-button></ug-tooltip>`,
+};
