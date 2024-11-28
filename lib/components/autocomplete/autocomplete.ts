@@ -99,54 +99,57 @@ export class UgAutocomplete extends LitElement {
 
     handleSearchInput(event: CustomEvent) {
         const {value} = event.target as UgInput;
-        // this.hasFocus = true;
         this.searchTerm = value
 
-        if (this.shouldDisplayInput) {
+        if (this.meetsInputThreshold() ) {
             this.showDropdown()
+            this.dispatchEvent(new CustomEvent('ug-search', {bubbles: true, detail: value}));
         }
 
-
-        event = new CustomEvent('ug-search', {bubbles: true,detail : value})
-        // console.info("Dispatching event",event)
-        this.dispatchEvent(event);
     }
 
     handleInputBlur() {
         if (!this.inputVisible) {
-            console.info("Blur input caused by hiding the input. transferring focus to trigger again")
+            //Blur input caused by hiding the input. transferring focus to trigger again
             this.trigger.focus()
+        } else {
+            if (this.dropdownVisible) {
+                //Input Blur because the focus moved to the dropdown menu --> nothing to do; let user navigate the dropdown
+            } else {
+                //Input Blur while dropdown was not visible --> canceling edit !!
+                this.inputVisible = false;
+            }
         }
     }
 
     handleUgSelect(event: CustomEvent): void {
         let selectedItem = event.detail.item
-        this.dispatchEvent(new CustomEvent("ug-selected", {detail:selectedItem}));
+        this.dispatchEvent(new CustomEvent("ug-selected", {detail: selectedItem}));
         this.inputVisible = false
         this.searchTerm = ''
         this.hideDropdown()
         setTimeout(() => {
             this.trigger.focus()
 
-        },0)
+        }, 0)
 
 
     }
 
     handleInputKeydown(event: KeyboardEvent) {
-        console.info('Keydown on input' )
-        if (event.key=='Escape') {
+        if (event.key == 'Escape') {
             this.inputVisible = false
             this.searchTerm = ''
             this.trigger.focus()
             this.hideDropdown()
             this.dispatchEvent(new CustomEvent("ug-edit-cancelled"))
             return;
+        } else if (event.key == 'Tab') {
+            this.inputVisible = false
+            this.searchTerm = ''
+            this.dispatchEvent(new CustomEvent("ug-edit-cancelled"))
+            return
         }
-
-    // if (!this.shouldDisplayDropdown || event.ctrlKey || event.metaKey) {
-    //         return;
-    //     }
 
         const options = this.visibleOptions;
 
@@ -173,35 +176,31 @@ export class UgAutocomplete extends LitElement {
                 break;
         }
 
-        if (!this.hasFocus) {
-            setTimeout(() => {
-
-                // this.trigger.focus()
-            }, 500)
-        }
     }
 
+    meetsInputThreshold() {
+        return this.input.value?.length >= this.threshold
+    }
 
     handleUgFocus(_event: CustomEvent) {
         console.info("handleUgFocus", event)
-        if (this.input.value?.length >= this.threshold) {
+        if (this.meetsInputThreshold()) {
             this.hasFocus = true;
-            // this.show();
             console.info("searching ", _event)
             this.dispatchEvent(new CustomEvent('ug-autocomplete-search'))
         }
     }
 
 
-
     handleUgAfterHide(_event: CustomEvent) {
-        console.info("dropdown was hidden. showdropdown", this.dropdownVisible)
+        // console.info("dropdown was hidden. showdropdown", this.dropdownVisible)
         if (this.dropdownVisible) {
             //dropdown was hidden without selecting (esc pressed?)
             //cancel input and transfer focus back to trigger
             this.dropdownVisible = false;
             this.searchTerm = ''
             this.inputVisible = false
+            this.dispatchEvent(new CustomEvent("ug-edit-cancelled"))
             if (this.hasFocus) {
                 setTimeout(() => {
                     this.trigger.focus()
@@ -210,7 +209,6 @@ export class UgAutocomplete extends LitElement {
             return
         }
 
-        this.dispatchEvent(new CustomEvent("ug-edit-cancelled"))
     }
 
     showDropdown() {
@@ -218,16 +216,15 @@ export class UgAutocomplete extends LitElement {
 
         this.dropdownVisible = true;
         this.dropdown?.show();
-        console.trace("autocomplete: dropdown was shown")
-        this.dispatchEvent(new CustomEvent("ug-autocomplete-show"))
+        this.dispatchEvent(new CustomEvent("ug-dropdown-show"))
     }
 
     hideDropdown() {
-        this.dropdownVisible = false
-        this.dropdown?.hide();
-
-        console.trace("autocomplete: dropdown was hidden()")
-        this.dispatchEvent(new CustomEvent("ug-autocomplete-hidden"))
+        if (this.dropdownVisible) {
+            this.dropdownVisible = false
+            this.dropdown?.hide();
+            this.dispatchEvent(new CustomEvent("ug-dropdown-hidden"))
+        }
     }
 
     reset() {
@@ -262,16 +259,8 @@ export class UgAutocomplete extends LitElement {
         return this.inputVisible;
     }
 
-    // get shouldDisplayDropdown() {
-    //     return (
-    //         this.hasFocus && this.inputVisible &&
-    //         ((this.input.value?.length >= this.threshold && this.hasResults) || this.shouldDisplayLoadingText || this.shouldDisplayEmptyText)
-    //     );
-    // }
-
     private hasNamedSlot(name: string) {
         return this.querySelector(`:scope > [slot="${name}"]`) !== null;
-
     }
 
     private handleTriggerFocus() {
@@ -288,20 +277,21 @@ export class UgAutocomplete extends LitElement {
     }
 
     private handleTriggerKeydown(event: KeyboardEvent): void {
-        console.info("HandleTriggerKeydown", event)
         if (event.key === 'Enter' || event.key === ' ') {
             this.handleTriggerClick();
             event.preventDefault(); // To prevent scrolling when Space is pressed
-        // } else if (event.key === 'Tab') {
-        //     this.hasFocus = false
         }
     }
 
     private handleTriggerBlur(event: any): void {
-        console.info("HandleTriggerBlur", event)
         if (!this.inputVisible) {
             this.hasFocus = false
         }
+    }
+
+    dispatchEvent(event: any): boolean {
+        console.info("autocomplete is fires event", event)
+        return super.dispatchEvent(event)
     }
 
     render() {
@@ -329,7 +319,7 @@ export class UgAutocomplete extends LitElement {
                         <slot name="trigger"></slot>
                     </div>
 
-                    <ug-dropdown  @ug-hide=${this.handleUgAfterHide}>
+                    <ug-dropdown @ug-hide=${this.handleUgAfterHide}>
                         <ug-menu @ug-select="${this.handleUgSelect}">
                             <slot
                                     style="${styleMap({display: shouldDisplayLoadingText ? 'none' : 'block'})}"
