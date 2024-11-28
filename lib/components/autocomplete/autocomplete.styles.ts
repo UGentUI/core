@@ -65,13 +65,30 @@ export default css`
 
     }
 
-    .control input:focus {
+    .control .fix-wrapper {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+
+        font-family: var(--ug-input-font-family);
+        font-weight: var(--ug-input-font-weight);
+        letter-spacing: var(--ug-input-letter-spacing);
+    }
+    
+    
+    .control  input:focus {
         outline: none;
     }
 
     .control input {
         flex: 1;
         text-indent: .5rem;
+        border: none;
+        font-family: var(--ug-input-font-family);
+        font-weight: var(--ug-input-font-weight);
+        letter-spacing: var(--ug-input-letter-spacing);
+        color: var(--ug-input-color);
     }
 
     .control .trigger {
@@ -81,6 +98,8 @@ export default css`
         margin-left: 1rem;
         vertical-align: center;
         margin-top: auto;
+        margin-bottom: auto;
+        color: var(--ug-input-color);
     }
 
     .control .trigger:focus {
@@ -94,6 +113,12 @@ export default css`
         height: var(--ug-input-height-small);
         border-color: var(--ug-input-border-color);
     }
+    
+    .control--small .fix-wrapper  * {
+        //margin-inline-start: var(--ug-input-spacing-small);
+        //margin-inline-end: var(--ug-input-spacing-small);
+    }
+
 
     .control--medium {
         border-radius: var(--ug-input-border-radius-medium);
@@ -102,11 +127,23 @@ export default css`
         border-color: var(--ug-input-border-color);
     }
 
+    .control--medium .fix-wrapper .prefix {
+        margin-inline-start: var(--ug-input-spacing-medium);
+    }
+    .control--medium .fix-wrapper .suffix {
+        margin-inline-end: var(--ug-input-spacing-medium);
+    }
+
+
     .control--large {
         border-radius: var(--ug-input-border-radius-large);
         font-size: var(--ug-input-font-size-large);
         height: var(--ug-input-height-large);
         border-color: var(--ug-input-border-color);
+    }
+    .control--large .fix-wrapper * {
+        //margin-inline-start: var(--ug-input-spacing-large);
+        //margin-inline-end: var(--ug-input-spacing-large);
     }
 
 

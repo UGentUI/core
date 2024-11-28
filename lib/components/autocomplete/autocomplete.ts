@@ -10,6 +10,7 @@ import {UgInput} from "../input";
 import {UgMenuItem} from "../menu-item";
 import {UgSkeleton} from "../skeleton";
 import {UgTextarea} from "../textarea";
+import {UgIconButton} from "../icon-button";
 
 @customElement('ug-autocomplete')
 export class UgAutocomplete extends LitElement {
@@ -21,7 +22,8 @@ export class UgAutocomplete extends LitElement {
         'ug-menu': UgMenu,
         'ug-menu-item': UgMenuItem,
         'ug-dropdown': UgDropdown,
-        'ug-textarea': UgTextarea
+        'ug-textarea': UgTextarea,
+        'ug-icon-button': UgIconButton
     };
 
     //The menu where we render options, loading placeholder and noResults placeholder
@@ -48,6 +50,11 @@ export class UgAutocomplete extends LitElement {
     @property({type: Boolean, reflect: true}) loading: boolean = false;
 
     /**
+     * Tells whether this component should show a clear icon or not
+     */
+    @property({type: Boolean, reflect: true}) clearable: boolean = false;
+
+    /**
      * Tells whether this component should behave as if the data is still loading
      */
     @property({reflect: true, type: String}) size: 'small' | 'medium' | 'large' = 'medium';
@@ -57,7 +64,7 @@ export class UgAutocomplete extends LitElement {
      * Note that other component interactions may cause the menu to be hidden, while this property will not be affected.
      * So, if you just want to show the after an interaction, you might want to use the method call {@link show()}
      */
-    @property({type: Boolean}) dropdownVisible: boolean = false;
+    @state() dropdownVisible: boolean = false;
 
     /**
      * the number of characters that should be entered before the menu will be shown and the searchEntered event will be
@@ -70,6 +77,10 @@ export class UgAutocomplete extends LitElement {
 
     // @property({type: String, reflect: true}) searchTerm: string | null = null;
     @state() searchTerm: string | null = null;
+
+    //if true, a focus traverse from input to menu is allowed.
+    //if false, such a focus traverse will be blocked
+    allowFocusTraverse = false
 
     loadingPlaceholder: TemplateResult = html`
         <div class="default-loading">
@@ -166,16 +177,22 @@ export class UgAutocomplete extends LitElement {
             case 'ArrowDown':
                 event.preventDefault();
                 this.menu.setCurrentItem(firstItem);
+                this.allowFocusTraverse = true
                 firstItem.focus();
                 break;
 
             case 'ArrowUp':
                 event.preventDefault();
                 this.menu.setCurrentItem(lastItem);
+                this.allowFocusTraverse = true
                 lastItem.focus();
                 break;
         }
 
+    }
+
+    handleClearClick(): void {
+        this.dispatchEvent(new CustomEvent('ug-clear'))
     }
 
     meetsInputThreshold() {
@@ -183,10 +200,10 @@ export class UgAutocomplete extends LitElement {
     }
 
     handleUgFocus(_event: CustomEvent) {
-        console.info("handleUgFocus", event)
+        // console.info("handleUgFocus", event)
         if (this.meetsInputThreshold()) {
             this.hasFocus = true;
-            console.info("searching ", _event)
+            // console.info("searching ", _event)
             this.dispatchEvent(new CustomEvent('ug-autocomplete-search'))
         }
     }
@@ -208,6 +225,7 @@ export class UgAutocomplete extends LitElement {
             }
             return
         }
+        this.allowFocusTraverse = false
 
     }
 
@@ -241,6 +259,14 @@ export class UgAutocomplete extends LitElement {
 
     get hasResults() {
         return this.visibleOptions.length > 0;
+    }
+
+    get shouldDisplayPrefixSlot() {
+        return this.hasNamedSlot('prefix')
+    }
+
+    get shouldDisplaySuffixSlot() {
+        return this.hasNamedSlot('suffix')
     }
 
     get shouldDisplayLoadingText() {
@@ -277,7 +303,9 @@ export class UgAutocomplete extends LitElement {
     }
 
     private handleTriggerKeydown(event: KeyboardEvent): void {
+        console.info('triggerKeydown')
         if (event.key === 'Enter' || event.key === ' ') {
+            console.info('triggerKeydown ENTER')
             this.handleTriggerClick();
             event.preventDefault(); // To prevent scrolling when Space is pressed
         }
@@ -294,6 +322,30 @@ export class UgAutocomplete extends LitElement {
         return super.dispatchEvent(event)
     }
 
+    connectedCallback() {
+        super.connectedCallback();
+        this.addEventListener('focusin', this.preventMenuFocus);
+    }
+
+    disconnectedCallback() {
+        this.removeEventListener('focusin', this.preventMenuFocus);
+        super.disconnectedCallback();
+    }
+
+    private preventMenuFocus = (event: FocusEvent) => {
+        console.info("prevent", event)
+
+        // // Otherwise, prevent focus on menu items
+        if (event.target instanceof HTMLElement &&
+            event.target.closest('ug-menu-item') && !this.allowFocusTraverse) {
+            this.input.focus();
+            event.preventDefault();
+        //
+            console.info("preventing menuFocus?", event)
+        //
+        }
+    }
+
     render() {
         const {shouldDisplayLoadingText} = this
 
@@ -301,22 +353,31 @@ export class UgAutocomplete extends LitElement {
             <label>${this.label}</label>
             <div part="base" class="base">
                 <div class="control control--${this.size}">
-                    <input style="${styleMap({display: this.shouldDisplayInput ? 'block' : 'none'})}"
-                           @ug-focus=${this.handleUgFocus}
-                           @input=${this.handleSearchInput}
-                           @blur=${this.handleInputBlur}
-                           @keydown=${this.handleInputKeydown}
-                           .value=${this.searchTerm}
-                    >
-
-                    <div tabindex="0" class="trigger"
-                         style="${styleMap({display: this.shouldDisplayTrigger ? 'flex' : 'none'})}"
-                         @click="${this.handleTriggerClick}"
+                    <div class="fix-wrapper"
+                         tabindex="0"
                          @focus="${this.handleTriggerFocus}"
                          @keydown=${this.handleTriggerKeydown}
                          @blur=${this.handleTriggerBlur}
                     >
-                        <slot name="trigger"></slot>
+                        ${this.shouldDisplayPrefixSlot ? html`<div class="prefix"> <slot  name="prefix" ></slot></div>` : ''}
+                        <input style="${styleMap({display: this.shouldDisplayInput ? 'block' : 'none'})}"
+                               @ug-focus=${this.handleUgFocus}
+                               @input=${this.handleSearchInput}
+                               @blur=${this.handleInputBlur}
+                               @keydown=${this.handleInputKeydown}
+                               .value=${this.searchTerm}
+                        >
+    
+                        <div  class="trigger"
+                             style="${styleMap({display: this.shouldDisplayTrigger ? 'flex' : 'none'})}"
+                             @click="${this.handleTriggerClick}"
+                        >
+                            <slot name="trigger"></slot>
+                        </div>
+                        
+                        ${this.clearable?  html`<ug-icon-button class="clearbutton" name="x-circle-fill"   @click="${this.handleClearClick}" ></ug-icon-button>` : '' }
+
+                        ${this.shouldDisplaySuffixSlot ? html`<div class="suffix"> <slot  name="suffix" ></slot></div>` : ''}
                     </div>
 
                     <ug-dropdown @ug-hide=${this.handleUgAfterHide}>

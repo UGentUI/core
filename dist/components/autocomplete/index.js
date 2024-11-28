@@ -1,14 +1,15 @@
-import { i as c, r as f, x as p, n as u, t as m } from "../../chunks/chunk.UYAO2JRR.js";
-import { r as g } from "../../chunks/state.js";
+import { i as g, r as f, x as n, n as u, t as m } from "../../chunks/chunk.UYAO2JRR.js";
+import { r as h } from "../../chunks/state.js";
 import { e as d } from "../../chunks/query.js";
-import { o as n } from "../../chunks/style-map.js";
-import { UgMenu as b } from "../menu/index.js";
-import { UgDropdown as y } from "../dropdown/index.js";
-import { UgInput as v } from "../input/index.js";
-import { UgMenuItem as w } from "../menu-item/index.js";
-import { UgSkeleton as T } from "../skeleton/index.js";
-import { UgTextarea as x } from "../textarea/index.js";
-const $ = c`
+import { o as a } from "../../chunks/style-map.js";
+import { UgMenu as v } from "../menu/index.js";
+import { UgDropdown as b } from "../dropdown/index.js";
+import { UgInput as w } from "../input/index.js";
+import { UgMenuItem as y } from "../menu-item/index.js";
+import { UgSkeleton as x } from "../skeleton/index.js";
+import { UgTextarea as T } from "../textarea/index.js";
+import { UgIconButton as k } from "../icon-button/index.js";
+const E = g`
 
     :host {
         display: inline-block;
@@ -73,13 +74,30 @@ const $ = c`
 
     }
 
-    .control input:focus {
+    .control .fix-wrapper {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+
+        font-family: var(--ug-input-font-family);
+        font-weight: var(--ug-input-font-weight);
+        letter-spacing: var(--ug-input-letter-spacing);
+    }
+    
+    
+    .control  input:focus {
         outline: none;
     }
 
     .control input {
         flex: 1;
         text-indent: .5rem;
+        border: none;
+        font-family: var(--ug-input-font-family);
+        font-weight: var(--ug-input-font-weight);
+        letter-spacing: var(--ug-input-letter-spacing);
+        color: var(--ug-input-color);
     }
 
     .control .trigger {
@@ -89,6 +107,8 @@ const $ = c`
         margin-left: 1rem;
         vertical-align: center;
         margin-top: auto;
+        margin-bottom: auto;
+        color: var(--ug-input-color);
     }
 
     .control .trigger:focus {
@@ -102,6 +122,12 @@ const $ = c`
         height: var(--ug-input-height-small);
         border-color: var(--ug-input-border-color);
     }
+    
+    .control--small .fix-wrapper  * {
+        //margin-inline-start: var(--ug-input-spacing-small);
+        //margin-inline-end: var(--ug-input-spacing-small);
+    }
+
 
     .control--medium {
         border-radius: var(--ug-input-border-radius-medium);
@@ -110,11 +136,23 @@ const $ = c`
         border-color: var(--ug-input-border-color);
     }
 
+    .control--medium .fix-wrapper .prefix {
+        margin-inline-start: var(--ug-input-spacing-medium);
+    }
+    .control--medium .fix-wrapper .suffix {
+        margin-inline-end: var(--ug-input-spacing-medium);
+    }
+
+
     .control--large {
         border-radius: var(--ug-input-border-radius-large);
         font-size: var(--ug-input-font-size-large);
         height: var(--ug-input-height-large);
         border-color: var(--ug-input-border-color);
+    }
+    .control--large .fix-wrapper * {
+        //margin-inline-start: var(--ug-input-spacing-large);
+        //margin-inline-end: var(--ug-input-spacing-large);
     }
 
 
@@ -123,38 +161,40 @@ const $ = c`
         }
 
 `;
-var k = Object.defineProperty, E = Object.getOwnPropertyDescriptor, s = (e, i, l, o) => {
-  for (var r = o > 1 ? void 0 : o ? E(i, l) : i, a = e.length - 1, h; a >= 0; a--)
-    (h = e[a]) && (r = (o ? h(i, l, r) : h(r)) || r);
-  return o && r && k(i, l, r), r;
+var $ = Object.defineProperty, D = Object.getOwnPropertyDescriptor, i = (e, s, l, r) => {
+  for (var o = r > 1 ? void 0 : r ? D(s, l) : s, p = e.length - 1, c; p >= 0; p--)
+    (c = e[p]) && (o = (r ? c(s, l, o) : c(o)) || o);
+  return r && o && $(s, l, o), o;
 };
 let t = class extends f {
   constructor() {
-    super(...arguments), this.hasFocus = !1, this.inputVisible = !1, this.loading = !1, this.size = "medium", this.dropdownVisible = !1, this.threshold = 1, this.label = null, this.searchTerm = null, this.loadingPlaceholder = p`
+    super(...arguments), this.hasFocus = !1, this.inputVisible = !1, this.loading = !1, this.clearable = !1, this.size = "medium", this.dropdownVisible = !1, this.threshold = 1, this.label = null, this.searchTerm = null, this.allowFocusTraverse = !1, this.loadingPlaceholder = n`
         <div class="default-loading">
             <ug-skeleton effect="pulse"></ug-skeleton>
             <ug-skeleton effect="pulse"></ug-skeleton>
             <ug-skeleton effect="pulse"></ug-skeleton>
         </div>
-    `, this.noResultsPlaceholder = p`
+    `, this.noResultsPlaceholder = n`
         <div class="default-no-results">
             No items found
         </div>
-    `;
+    `, this.preventMenuFocus = (e) => {
+      console.info("prevent", e), e.target instanceof HTMLElement && e.target.closest("ug-menu-item") && !this.allowFocusTraverse && (this.input.focus(), e.preventDefault(), console.info("preventing menuFocus?", e));
+    };
   }
   updated(e) {
     super.updated(e), this.dropdownVisible && this.showDropdown(), this.searchTerm && (this.hasFocus = !0, this.inputVisible = !0);
   }
   handleSearchInput(e) {
-    const { value: i } = e.target;
-    this.searchTerm = i, this.meetsInputThreshold() && (this.showDropdown(), this.dispatchEvent(new CustomEvent("ug-search", { bubbles: !0, detail: i })));
+    const { value: s } = e.target;
+    this.searchTerm = s, this.meetsInputThreshold() && (this.showDropdown(), this.dispatchEvent(new CustomEvent("ug-search", { bubbles: !0, detail: s })));
   }
   handleInputBlur() {
     this.inputVisible ? this.dropdownVisible || (this.inputVisible = !1) : this.trigger.focus();
   }
   handleUgSelect(e) {
-    let i = e.detail.item;
-    this.dispatchEvent(new CustomEvent("ug-selected", { detail: i })), this.inputVisible = !1, this.searchTerm = "", this.hideDropdown(), setTimeout(() => {
+    let s = e.detail.item;
+    this.dispatchEvent(new CustomEvent("ug-selected", { detail: s })), this.inputVisible = !1, this.searchTerm = "", this.hideDropdown(), setTimeout(() => {
       this.trigger.focus();
     }, 0);
   }
@@ -166,26 +206,29 @@ let t = class extends f {
       this.inputVisible = !1, this.searchTerm = "", this.dispatchEvent(new CustomEvent("ug-edit-cancelled"));
       return;
     }
-    const i = this.visibleOptions;
-    if (i.length === 0)
+    const s = this.visibleOptions;
+    if (s.length === 0)
       return;
-    const l = i[0], o = i[i.length - 1];
+    const l = s[0], r = s[s.length - 1];
     switch (e.key) {
       case "Tab":
       case "ArrowDown":
-        e.preventDefault(), this.menu.setCurrentItem(l), l.focus();
+        e.preventDefault(), this.menu.setCurrentItem(l), this.allowFocusTraverse = !0, l.focus();
         break;
       case "ArrowUp":
-        e.preventDefault(), this.menu.setCurrentItem(o), o.focus();
+        e.preventDefault(), this.menu.setCurrentItem(r), this.allowFocusTraverse = !0, r.focus();
         break;
     }
+  }
+  handleClearClick() {
+    this.dispatchEvent(new CustomEvent("ug-clear"));
   }
   meetsInputThreshold() {
     var e;
     return ((e = this.input.value) == null ? void 0 : e.length) >= this.threshold;
   }
   handleUgFocus(e) {
-    console.info("handleUgFocus", event), this.meetsInputThreshold() && (this.hasFocus = !0, console.info("searching ", e), this.dispatchEvent(new CustomEvent("ug-autocomplete-search")));
+    this.meetsInputThreshold() && (this.hasFocus = !0, this.dispatchEvent(new CustomEvent("ug-autocomplete-search")));
   }
   handleUgAfterHide(e) {
     if (this.dropdownVisible) {
@@ -194,6 +237,7 @@ let t = class extends f {
       });
       return;
     }
+    this.allowFocusTraverse = !1;
   }
   showDropdown() {
     var e;
@@ -215,6 +259,12 @@ let t = class extends f {
   }
   get hasResults() {
     return this.visibleOptions.length > 0;
+  }
+  get shouldDisplayPrefixSlot() {
+    return this.hasNamedSlot("prefix");
+  }
+  get shouldDisplaySuffixSlot() {
+    return this.hasNamedSlot("suffix");
   }
   get shouldDisplayLoadingText() {
     return this.loading && (this.loadingPlaceholder || this.hasNamedSlot("loading"));
@@ -240,7 +290,7 @@ let t = class extends f {
     });
   }
   handleTriggerKeydown(e) {
-    (e.key === "Enter" || e.key === " ") && (this.handleTriggerClick(), e.preventDefault());
+    console.info("triggerKeydown"), (e.key === "Enter" || e.key === " ") && (console.info("triggerKeydown ENTER"), this.handleTriggerClick(), e.preventDefault());
   }
   handleTriggerBlur() {
     this.inputVisible || (this.hasFocus = !1);
@@ -248,34 +298,49 @@ let t = class extends f {
   dispatchEvent(e) {
     return console.info("autocomplete is fires event", e), super.dispatchEvent(e);
   }
+  connectedCallback() {
+    super.connectedCallback(), this.addEventListener("focusin", this.preventMenuFocus);
+  }
+  disconnectedCallback() {
+    this.removeEventListener("focusin", this.preventMenuFocus), super.disconnectedCallback();
+  }
   render() {
     const { shouldDisplayLoadingText: e } = this;
-    return p`
+    return n`
             <label>${this.label}</label>
             <div part="base" class="base">
                 <div class="control control--${this.size}">
-                    <input style="${n({ display: this.shouldDisplayInput ? "block" : "none" })}"
-                           @ug-focus=${this.handleUgFocus}
-                           @input=${this.handleSearchInput}
-                           @blur=${this.handleInputBlur}
-                           @keydown=${this.handleInputKeydown}
-                           .value=${this.searchTerm}
-                    >
-
-                    <div tabindex="0" class="trigger"
-                         style="${n({ display: this.shouldDisplayTrigger ? "flex" : "none" })}"
-                         @click="${this.handleTriggerClick}"
+                    <div class="fix-wrapper"
+                         tabindex="0"
                          @focus="${this.handleTriggerFocus}"
                          @keydown=${this.handleTriggerKeydown}
                          @blur=${this.handleTriggerBlur}
                     >
-                        <slot name="trigger"></slot>
+                        ${this.shouldDisplayPrefixSlot ? n`<div class="prefix"> <slot  name="prefix" ></slot></div>` : ""}
+                        <input style="${a({ display: this.shouldDisplayInput ? "block" : "none" })}"
+                               @ug-focus=${this.handleUgFocus}
+                               @input=${this.handleSearchInput}
+                               @blur=${this.handleInputBlur}
+                               @keydown=${this.handleInputKeydown}
+                               .value=${this.searchTerm}
+                        >
+    
+                        <div  class="trigger"
+                             style="${a({ display: this.shouldDisplayTrigger ? "flex" : "none" })}"
+                             @click="${this.handleTriggerClick}"
+                        >
+                            <slot name="trigger"></slot>
+                        </div>
+                        
+                        ${this.clearable ? n`<ug-icon-button class="clearbutton" name="x-circle-fill"   @click="${this.handleClearClick}" ></ug-icon-button>` : ""}
+
+                        ${this.shouldDisplaySuffixSlot ? n`<div class="suffix"> <slot  name="suffix" ></slot></div>` : ""}
                     </div>
 
                     <ug-dropdown @ug-hide=${this.handleUgAfterHide}>
                         <ug-menu @ug-select="${this.handleUgSelect}">
                             <slot
-                                    style="${n({ display: e ? "none" : "block" })}"
+                                    style="${a({ display: e ? "none" : "block" })}"
                             >
                             </slot>
 
@@ -284,7 +349,7 @@ let t = class extends f {
                                     id="loading-placeholder"
                                     class="loading-placeholder"
                                     aria-hidden=${e ? "false" : "true"}
-                                    style="${n({ display: e ? "block" : "none" })}"
+                                    style="${a({ display: e ? "block" : "none" })}"
                             >
                                 <slot name="loading"> ${this.loadingPlaceholder}</slot>
                             </div>
@@ -294,67 +359,71 @@ let t = class extends f {
                                     id="no-results"
                                     class="no-results"
                                     aria-hidden=${this.shouldDisplayEmptyText ? "false" : "true"}
-                                    style="${n({ display: this.shouldDisplayEmptyText ? "block" : "none" })}"
+                                    style="${a({ display: this.shouldDisplayEmptyText ? "block" : "none" })}"
                             >
                                 <slot name="no-results">${this.noResultsPlaceholder}</slot>
                             </div>
 
-                            <div aria-hidden="true" style=${n({ width: `${this.clientWidth}px` })}></div>
+                            <div aria-hidden="true" style=${a({ width: `${this.clientWidth}px` })}></div>
                         </ug-menu>
                     </ug-dropdown>
                 </div>
         `;
   }
 };
-t.styles = $;
+t.styles = E;
 t.dependencies = {
-  "ug-skeleton": T,
-  "ug-input": v,
-  "ug-menu": b,
-  "ug-menu-item": w,
-  "ug-dropdown": y,
-  "ug-textarea": x
+  "ug-skeleton": x,
+  "ug-input": w,
+  "ug-menu": v,
+  "ug-menu-item": y,
+  "ug-dropdown": b,
+  "ug-textarea": T,
+  "ug-icon-button": k
 };
-s([
+i([
   d("ug-menu")
 ], t.prototype, "menu", 2);
-s([
+i([
   d("ug-dropdown")
 ], t.prototype, "dropdown", 2);
-s([
+i([
   d("slot:not([name])")
 ], t.prototype, "defaultSlot", 2);
-s([
+i([
   d(".control input")
 ], t.prototype, "input", 2);
-s([
+i([
   d(".control .trigger")
 ], t.prototype, "trigger", 2);
-s([
-  g()
+i([
+  h()
 ], t.prototype, "hasFocus", 2);
-s([
-  g()
+i([
+  h()
 ], t.prototype, "inputVisible", 2);
-s([
+i([
   u({ type: Boolean, reflect: !0 })
 ], t.prototype, "loading", 2);
-s([
+i([
+  u({ type: Boolean, reflect: !0 })
+], t.prototype, "clearable", 2);
+i([
   u({ reflect: !0, type: String })
 ], t.prototype, "size", 2);
-s([
-  u({ type: Boolean })
+i([
+  h()
 ], t.prototype, "dropdownVisible", 2);
-s([
+i([
   u({ type: Number, reflect: !0 })
 ], t.prototype, "threshold", 2);
-s([
+i([
   u({ type: String, reflect: !0 })
 ], t.prototype, "label", 2);
-s([
-  g()
+i([
+  h()
 ], t.prototype, "searchTerm", 2);
-t = s([
+t = i([
   m("ug-autocomplete")
 ], t);
 export {

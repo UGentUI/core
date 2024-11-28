@@ -5,6 +5,7 @@ import { UgInput } from '../input';
 import { UgMenuItem } from '../menu-item';
 import { UgSkeleton } from '../skeleton';
 import { UgTextarea } from '../textarea';
+import { UgIconButton } from '../icon-button';
 export declare class UgAutocomplete extends LitElement {
     static styles: CSSResultGroup;
     static dependencies: {
@@ -14,6 +15,7 @@ export declare class UgAutocomplete extends LitElement {
         'ug-menu-item': typeof UgMenuItem;
         'ug-dropdown': typeof UgDropdown;
         'ug-textarea': typeof UgTextarea;
+        'ug-icon-button': typeof UgIconButton;
     };
     menu: UgMenu;
     dropdown: UgDropdown;
@@ -26,6 +28,10 @@ export declare class UgAutocomplete extends LitElement {
      * Tells whether this component should behave as if the data is still loading
      */
     loading: boolean;
+    /**
+     * Tells whether this component should show a clear icon or not
+     */
+    clearable: boolean;
     /**
      * Tells whether this component should behave as if the data is still loading
      */
@@ -43,6 +49,7 @@ export declare class UgAutocomplete extends LitElement {
     threshold: number;
     label: string | null;
     searchTerm: string | null;
+    allowFocusTraverse: boolean;
     loadingPlaceholder: TemplateResult;
     noResultsPlaceholder: TemplateResult;
     updated(changedProperties: Map<string | number | symbol, unknown>): void;
@@ -50,6 +57,7 @@ export declare class UgAutocomplete extends LitElement {
     handleInputBlur(): void;
     handleUgSelect(event: CustomEvent): void;
     handleInputKeydown(event: KeyboardEvent): void;
+    handleClearClick(): void;
     meetsInputThreshold(): boolean;
     handleUgFocus(_event: CustomEvent): void;
     handleUgAfterHide(_event: CustomEvent): void;
@@ -59,6 +67,8 @@ export declare class UgAutocomplete extends LitElement {
     get options(): UgMenuItem[];
     get visibleOptions(): UgMenuItem[];
     get hasResults(): boolean;
+    get shouldDisplayPrefixSlot(): boolean;
+    get shouldDisplaySuffixSlot(): boolean;
     get shouldDisplayLoadingText(): false | TemplateResult;
     get shouldDisplayEmptyText(): false | TemplateResult;
     get shouldDisplayTrigger(): boolean;
@@ -69,6 +79,9 @@ export declare class UgAutocomplete extends LitElement {
     private handleTriggerKeydown;
     private handleTriggerBlur;
     dispatchEvent(event: any): boolean;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    private preventMenuFocus;
     render(): TemplateResult<1>;
 }
 declare global {

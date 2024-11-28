@@ -60,6 +60,13 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
                 category: "attributes", defaultValue: {summary: undefined},
             },
         },
+        clearable: {
+            control: "boolean",
+            description: "Show or hide a clear icon-button",
+            table: {
+                category: "attributes", defaultValue: {summary: false},
+            },
+        },
 
         ugEditStarted: {
             name: "ug-edit-started",
@@ -102,6 +109,16 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
             },
             control: false,
         },
+        ugClear: {
+            name: "ug-clear",
+            description: "Emitted when the user did click on the clear icon-button.",
+            table: {
+                type: {summary: undefined},
+                category: "events",
+                defaultValue: {summary: undefined},
+            },
+            control: false,
+        },
 
         slotTrigger: {
             name: "trigger",
@@ -125,6 +142,18 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
             control: false,
 
         },
+        "slotPrefix": {
+            name:'prefix',
+            description: "If you want to insert something before the trigger / input, use this slot. (this works just like <ug-input>",
+            table: {category: "slot"},
+            control: false,
+        },
+        "slotSuffix": {
+            name:'prefix',
+            description: "If you want to insert something before the trigger / input, use this slot. (this works just like <ug-input>",
+            table: {category: "slot"},
+            control: false,
+        },
 
     }
 };
@@ -147,6 +176,7 @@ export const Autocomplete: Story = {
         size="${args.size}"
         ?loading="${args.loading}"
         ?disabled="${args.disabled}"
+        ?clearable="${args.clearable}"
         threshold="${args.threshold}"
 >
     <span slot="trigger">Current value</span>
