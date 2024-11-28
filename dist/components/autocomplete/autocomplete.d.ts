@@ -20,8 +20,8 @@ export declare class UgAutocomplete extends LitElement {
     defaultSlot: HTMLSlotElement;
     input: HTMLInputElement;
     trigger: HTMLElement;
-    private value;
     private hasFocus;
+    private inputVisible;
     /**
      * Tells whether this component should behave as if the data is still loading
      */
@@ -35,7 +35,7 @@ export declare class UgAutocomplete extends LitElement {
      * Note that other component interactions may cause the menu to be hidden, while this property will not be affected.
      * So, if you just want to show the after an interaction, you might want to use the method call {@link show()}
      */
-    popupVisible: boolean;
+    dropdownVisible: boolean;
     /**
      * the number of characters that should be entered before the menu will be shown and the searchEntered event will be
      * fired
@@ -46,14 +46,15 @@ export declare class UgAutocomplete extends LitElement {
     loadingPlaceholder: TemplateResult;
     noResultsPlaceholder: TemplateResult;
     updated(changedProperties: Map<string | number | symbol, unknown>): void;
-    handleUgInput(event: CustomEvent): void;
+    handleSearchInput(event: CustomEvent): void;
     handleInputBlur(): void;
     handleUgSelect(event: CustomEvent): void;
-    handleKeydown(event: KeyboardEvent): void;
+    handleInputKeydown(event: KeyboardEvent): void;
+    meetsInputThreshold(): boolean;
     handleUgFocus(_event: CustomEvent): void;
     handleUgAfterHide(_event: CustomEvent): void;
-    show(): void;
-    hide(): void;
+    showDropdown(): void;
+    hideDropdown(): void;
     reset(): void;
     get options(): UgMenuItem[];
     get visibleOptions(): UgMenuItem[];
@@ -62,11 +63,12 @@ export declare class UgAutocomplete extends LitElement {
     get shouldDisplayEmptyText(): false | TemplateResult;
     get shouldDisplayTrigger(): boolean;
     get shouldDisplayInput(): boolean;
-    get shouldDisplayAutoComplete(): boolean | TemplateResult;
     private hasNamedSlot;
     private handleTriggerFocus;
     private handleTriggerClick;
     private handleTriggerKeydown;
+    private handleTriggerBlur;
+    dispatchEvent(event: any): boolean;
     render(): TemplateResult<1>;
 }
 declare global {
