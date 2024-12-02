@@ -9,7 +9,6 @@ const meta: Meta = {
     component: "ug-tooltip",
     parameters: {
         docs: {
-        docs: {
             subtitle: "Tooltips display additional information based on a specific action.",
 
             description: {
@@ -26,7 +25,12 @@ const meta: Meta = {
         content: {
             control: "text",
             description: "The tooltip's content. If you need to display HTML, use the content slot instead.",
-            defaultValue: "",
+            defaultValue: {
+                summary: "",
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         placement: {
@@ -46,19 +50,34 @@ const meta: Meta = {
                 "bottom",
                 "right",
             ],
-            defaultValue: "top",
+            defaultValue: {
+                summary: "top",
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         disabled: {
             control: "boolean",
             description: "Disables the tooltip so it won't show when triggered.",
-            defaultValue: false,
+            defaultValue: {
+                summary: false,
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         distance: {
             control: "number",
             description: "The distance in pixels from which to offset the tooltip away from its target.",
-            defaultValue: 8,
+            defaultValue: {
+                summary: 8,
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         trigger: {
@@ -70,29 +89,50 @@ const meta: Meta = {
                 "focus",
                 "manual",
             ],
-            defaultValue: "hover",
+            defaultValue: {
+                summary: "hover",
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         open: {
             control: "boolean",
             description: "Tooltips can be controlled programmatically by setting the trigger attribute to manual. Use the open attribute to control when the tooltip is shown. You can use this in lieu of the show/hide methods.",
-            defaultValue: false,
+            defaultValue: {
+                summary: false,
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         skidding: {
             control: "number",
             description: "The distance in pixels from which to offset the tooltip along its target.",
-            defaultValue: 0,
+            defaultValue: {
+                summary: 0,
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         hoist: {
             control: "boolean",
             description: "Tooltips will be clipped if they're inside a container that has overflow: auto|hidden|scroll. The hoist attribute forces the tooltip to use a fixed positioning strategy, allowing it to break out of the container. In this case, the tooltip will be positioned relative to its containing block, which is usually the viewport unless an ancestor uses a transform, perspective, or filter. Refer to this page for more details.",
-            defaultValue: false,
+            defaultValue: {
+                summary: true,
+            },
+            table: {
+                category: "Properties",
+            },
         },
 
         updateComplete: {
             table: {
+                category: "Properties",
                 disable: true,
             },
             description:
@@ -105,7 +145,7 @@ const meta: Meta = {
             description: "Emitted when the tooltip begins to show.",
             table: {
                 category: "Events",
-                defaultValue: { summary: "-" },
+                defaultValue: { summary: undefined },
             },
         },
         slAfterShow: {
@@ -113,7 +153,7 @@ const meta: Meta = {
             description: "Emitted after the tooltip has shown and all animations are complete.",
             table: {
                 category: "Events",
-                defaultValue: { summary: "-" },
+                defaultValue: { summary: undefined },
             },
         },
         slHide: {
@@ -121,7 +161,7 @@ const meta: Meta = {
             description: "Emitted when the tooltip begins to hide.",
             table: {
                 category: "Events",
-                defaultValue: { summary: "-" },
+                defaultValue: { summary: undefined },
             },
         },
         slAfterHide: {
@@ -129,7 +169,7 @@ const meta: Meta = {
             description: "Emitted after the tooltip has hidden and all animations are complete.",
             table: {
                 category: "Events",
-                defaultValue: { summary: "-" },
+                defaultValue: { summary: undefined },
             },
         },
 
@@ -138,16 +178,16 @@ const meta: Meta = {
             description: "Shows the tooltip.",
             table: {
                 category: "Methods",
-                type: { summary: "void" },
-                defaultValue: { summary: "-" },
+                type: { summary: undefined },
+                defaultValue: { summary: undefined },
             },
         },
         hide: {
             description: "Hides the tooltip.",
             table: {
                 category: "Methods",
-                type: { summary: "void" },
-                defaultValue: { summary: "-" },
+                type: { summary: undefined },
+                defaultValue: { summary: undefined },
             },
         },
 
@@ -195,30 +235,30 @@ export const Tooltip: Story = {
         open: false,
         skidding: 0,
         trigger: "hover focus",
-        hoist: false,
+        hoist: true,
         "--max-width": "200px",
         "--hide-delay": "0ms",
         "--show-delay": "0ms",
     },
     render: (args) => {
         return html`<ug-tooltip 
-      content="${args.content}"
-      placement="${args.placement}"
-      ?disabled="${args.disabled}"
-      ?open="${args.open}"
-      distance="${args.distance}"
-      skidding="${args.skidding}"
-      trigger="${args.trigger}"
-      ?hoist="${args.hoist}"
+              content="${args.content}"
+              placement="${args.placement}"
+              ?disabled="${args.disabled}"
+              ?open="${args.open}"
+              distance="${args.distance}"
+              skidding="${args.skidding}"
+              trigger="${args.trigger}"
+              ?hoist="${args.hoist}"
  
-      @sl-Show="${action('sl-Show')}"
-      @sl-AfterShow="${action('sl-AfterShow')}"
-      @sl-Hide="${action('sl-Hide')}"
+              @sl-Show="${action('sl-Show')}"
+              @sl-AfterShow="${action('sl-AfterShow')}"
+              @sl-Hide="${action('sl-Hide')}"
 
-      style="--max-width: ${args["--max-width"]}; --hide-delay: ${args["--hide-delay"]}; --show-delay: ${args["--show-delay"]}"
-        >
-      <ug-button>Hover Me</ug-button>
-    </ug-tooltip>`;
+              style="--max-width: ${args["--max-width"]}; --hide-delay: ${args["--hide-delay"]}; --show-delay: ${args["--show-delay"]}"
+                >
+              <ug-button>Hover Me</ug-button>
+            </ug-tooltip>`;
     },
 };
 
@@ -236,6 +276,7 @@ export const Positions: Story = {
             },
             note: 'The divs are added for margining, without a margin the way the tooltip behaves sometimes changes'
         },
+        controls: { disable: true },
     },
     render: (args) =>
         html`<style>
@@ -250,7 +291,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Top Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -258,7 +299,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Top-start Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -266,7 +307,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Top-end Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -274,7 +315,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Right Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -282,7 +323,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Right-start Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -290,7 +331,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Right-end Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -298,7 +339,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Bottom Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -306,7 +347,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Bottom-start Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -314,7 +355,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Bottom-end Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -322,7 +363,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Left Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -330,7 +371,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Left-start Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
 <div class="tooltip-container">
@@ -338,7 +379,7 @@ export const Positions: Story = {
       ?open="${args.open}"
       trigger="${args.trigger}"
       >
-    <ug-button>Left-end Tooltip Button</ug-button>
+    <ug-button>Tooltip Button</ug-button>
   </ug-tooltip>
 </div>
     `,
@@ -429,15 +470,27 @@ export const TriggeredByClickWithEvents: Story = {
             },
         },
     },
-    render: (args) => html`
-    <ug-tooltip 
-        @click="${action('sl-Show')}"
-        @blur="${action('sl-Hide')}"
-        @sl-show="${action('sl-show')}"
-        @sl-after-show="${action('sl-after-show')}"
-        @sl-hide="${action('sl-hide')}"
-      trigger="${args.trigger}"
-><ug-button>I do things when you click me!</ug-button></ug-tooltip>`,
+    render: (args) => html`<ug-tooltip 
+              content="${args.content}"
+              placement="${args.placement}"
+              ?disabled="${args.disabled}"
+              ?open="${args.open}"
+              distance="${args.distance}"
+              skidding="${args.skidding}"
+              ?hoist="${args.hoist}"
+              trigger="${args.trigger}"
+
+                @transitionstart="${action('sl-Show')}"
+                @blur="${action('sl-Hide')}"
+                @sl-show="${action('sl-show')}"
+                @sl-after-show="${action('sl-after-show')}"
+                @sl-hide="${action('sl-hide')}"
+
+              style="--max-width: ${args["--max-width"]}; --hide-delay: ${args["--hide-delay"]}; --show-delay: ${args["--show-delay"]}"
+                >
+              <ug-button>I do things when you click me!</ug-button>
+            </ug-tooltip>`,
+
 };
 
 export const TriggeredByHoverWithEvents: Story = {
@@ -454,14 +507,14 @@ export const TriggeredByHoverWithEvents: Story = {
         },
     },
     render: (args) => html`
-<ug-tooltip 
-    @hover="${action('sl-Show')}"
-    @focus="${action('sl-Show')}"
-    @blur="${action('sl-Hide')}"
-    @sl-show="${action('sl-show')}"
-    @sl-after-show="${action('sl-after-show')}"
-    @sl-hide="${action('sl-hide')}"
-    @sl-after-hide="${action('sl-after-hide')}"
-      trigger="${args.trigger}"
-><ug-button>I do things when you hover over me!</ug-button></ug-tooltip>`,
+        <ug-tooltip
+        @hover="${action('sl-Show')}"
+        @focus="${action('sl-Show')}"
+        @blur="${action('sl-Hide')}"
+        @sl-show="${action('sl-show')}"
+        @sl-after-show="${action('sl-after-show')}"
+        @sl-hide="${action('sl-hide')}"
+        @sl-after-hide="${action('sl-after-hide')}"
+        trigger="${args.trigger}"
+        ><ug-button>I do things when you hover over me!</ug-button></ug-tooltip>`,
 };
