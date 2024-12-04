@@ -19,15 +19,9 @@ Since visually hidden content can receive focus when tabbing, the element will b
 
 The <ug-visually-hidden> component is used to provide content that is visually hidden but accessible to screen readers. It is ideal for improving accessibility in applications by ensuring non-visual users can access critical information. Below are just a few examples of scenario's where it's use is justified`
             },
-            source: {
-                state: 'open', // Ensures all code blocks are open by default
-            },
         },
     }
 };
-
-console.log(meta.parameters.docs.source.state);
-
 
 export default meta;
 
