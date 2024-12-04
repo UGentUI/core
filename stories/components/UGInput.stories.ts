@@ -13,6 +13,6 @@ type Story = StoryObj;
 
 export const Input: Story = {
   render: () => {
-    return html`<ug-input label="test" disabled value="sdfsf"> </ug-input>`;
+    return html`<ug-input label="test" > </ug-input>`;
   }
 };
