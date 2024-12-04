@@ -1,20 +1,20 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/alert";
-import "/lib/components/icon";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/alert';
+import '/lib/components/icon';
 
 const meta: Meta = {
-  title: "Components/Alert",
-  component: "UgAlert",
+  title: 'Components/Alert',
+  component: 'UgAlert',
   parameters: {
     docs: {
       subtitle:
-        "Alerts are used to display important messages inline or as toast notifications.",
-    },
+        'Alerts are used to display important messages inline or as toast notifications.'
+    }
   },
   argTypes: {
     open: {
-      control: "boolean",
+      control: 'boolean',
       description:
         "Alerts will not be visible if the open attribute is not present.",
       table: { category: "properties", defaultValue: { summary: "false" } },
@@ -51,7 +51,7 @@ export const Alert: Story = {
     <ug-icon slot="icon" name="info-circle"></ug-icon>
     This is a standard alert. You can customize its content and even the icon.
 </ug-alert>`;
-  },
+  }
 };
 
 export const Variants: Story = {

@@ -1,14 +1,14 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/badge";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/badge';
 
 const meta: Meta = {
-  title: "Components/Badge",
-  component: "ug-badge",
+  title: 'Components/Badge',
+  component: 'ug-badge',
   parameters: {
     docs: {
       subtitle:
-        "A compact UI element for highlighting key information such as notifications, statuses, or counts.",
+        'A compact UI element for highlighting key information such as notifications, statuses, or counts.',
       description: {
         component: `
 ### Overview
@@ -63,10 +63,10 @@ If the badge updates dynamically (e.g., notification count), use ARIA live regio
 ### Related components
 
 ...
-        `,
-      },
-    },
-  },
+        `
+      }
+    }
+  }
 };
 
 export default meta;
@@ -74,7 +74,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Badge: Story = {
-  render: (args) => {
+  render: () => {
     return html`<ug-badge>Badge</ug-badge>`;
-  },
+  }
 };

@@ -1,10 +1,10 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/animation";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/animation';
 
 const meta: Meta = {
-  title: "Components/Animation",
-  component: "ug-animation",
+  title: 'Components/Animation',
+  component: 'ug-animation'
 };
 
 export default meta;
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Animation: Story = {
-  render: (args) => {
+  render: () => {
     return html`<div class="animation-overview">
         <ug-animation name="bounce" duration="2000" play
           ><div class="box"></div
@@ -37,5 +37,5 @@ export const Animation: Story = {
           margin: 1.5rem;
         }
       </style> `;
-  },
+  }
 };
