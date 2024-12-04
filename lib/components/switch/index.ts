@@ -1,12 +1,11 @@
+import SlSwitch from '@shoelace-style/shoelace/dist/components/switch/switch.component.js';
+import { customElement } from 'lit/decorators.js';
 
-import SlSwitch from "@shoelace-style/shoelace/dist/components/switch/switch.component.js";
-import { customElement } from "lit/decorators.js";
-
-@customElement("ug-switch")
+@customElement('ug-switch')
 export class UgSwitch extends SlSwitch {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    "ug-switch": UgSwitch;
+    'ug-switch': UgSwitch;
   }
 }

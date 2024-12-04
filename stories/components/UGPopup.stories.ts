@@ -1,10 +1,10 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/popup";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/popup';
 
 const meta: Meta = {
-  title: "Components/Popup",
-  component: "ug-popup",
+  title: 'Components/Popup',
+  component: 'ug-popup'
 };
 
 export default meta;
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Popup: Story = {
-  render: (args) => {
+  render: () => {
     return html`<span id="external-anchor"></span>
 
       <ug-popup anchor="external-anchor" placement="top" active>
@@ -35,5 +35,5 @@ export const Popup: Story = {
           border-radius: var(--ug-border-radius-medium);
         }
       </style>`;
-  },
+  }
 };

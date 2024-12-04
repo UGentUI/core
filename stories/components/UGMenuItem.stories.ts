@@ -1,13 +1,13 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/menu";
-import "/lib/components/menu-item";
-import "/lib/components/menu-label";
-import "/lib/components/divider";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/menu';
+import '/lib/components/menu-item';
+import '/lib/components/menu-label';
+import '/lib/components/divider';
 
 const meta: Meta = {
-  title: "Components/MenuItem",
-  component: "ug-menu-item",
+  title: 'Components/MenuItem',
+  component: 'ug-menu-item'
 };
 
 export default meta;
@@ -15,7 +15,7 @@ export default meta;
 type Story = StoryObj;
 
 export const MenuItem: Story = {
-  render: (args) => {
+  render: () => {
     return html`<ug-menu style="max-width: 200px;">
       <ug-menu-item>Option 1</ug-menu-item>
       <ug-menu-item>Option 2</ug-menu-item>
@@ -33,5 +33,5 @@ export const MenuItem: Story = {
         <ug-icon slot="suffix" name="heart"></ug-icon>
       </ug-menu-item>
     </ug-menu>`;
-  },
+  }
 };
