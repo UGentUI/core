@@ -6,6 +6,7 @@ export default css`
         display: inline-block;
         box-sizing: border-box;
         width: 100%;
+    }
 
 
     }
@@ -48,7 +49,12 @@ export default css`
         //align-items: center;
         //display: inline-flex;
         flex: 1;
-
+    }
+    
+    .control.input--disabled {
+        background-color: var(--ug-input-background-color-disabled);
+        border-color: var(--ug-input-border-color-disabled);
+        opacity: 0.5;
     }
 
     .control:focus-within {

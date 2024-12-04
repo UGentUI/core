@@ -55,6 +55,11 @@ export class UgAutocomplete extends LitElement {
     @property({type: Boolean, reflect: true}) clearable: boolean = false;
 
     /**
+     * Tells whether this component is disabled (which means clear and typing is not allowed)
+     */
+    @property({type: Boolean, reflect: true}) disabled: boolean = false;
+
+    /**
      * Tells whether this component should behave as if the data is still loading
      */
     @property({reflect: true, type: String}) size: 'small' | 'medium' | 'large' = 'medium';
@@ -106,6 +111,9 @@ export class UgAutocomplete extends LitElement {
             this.hasFocus = true
             this.inputVisible = true
         }
+        // if (this.size == null || this.size == '') {
+        //     this.size = 'medium'
+        // }
     }
 
     handleSearchInput(event: CustomEvent) {
@@ -129,6 +137,7 @@ export class UgAutocomplete extends LitElement {
             } else {
                 //Input Blur while dropdown was not visible --> canceling edit !!
                 this.inputVisible = false;
+                this.dispatchEvent(new CustomEvent("ug-edit-cancelled"))
             }
         }
     }
@@ -192,6 +201,8 @@ export class UgAutocomplete extends LitElement {
     }
 
     handleClearClick(): void {
+        if (this.disabled) return
+
         this.dispatchEvent(new CustomEvent('ug-clear'))
     }
 
@@ -290,20 +301,24 @@ export class UgAutocomplete extends LitElement {
     }
 
     private handleTriggerFocus() {
+        if (this.disabled) return;
         this.hasFocus = true
     }
 
     private handleTriggerClick(): void {
+        if (this.disabled) return;
         this.hasFocus = true
         this.inputVisible = true
         setTimeout(() => {
             this.input.focus()
+            this.dispatchEvent(new CustomEvent('ug-edit-started', {bubbles: true}));
         })
 
     }
 
     private handleTriggerKeydown(event: KeyboardEvent): void {
-        console.info('triggerKeydown')
+        //console.info('triggerKeydown')
+        if (this.inputVisible) return;
         if (event.key === 'Enter' || event.key === ' ') {
             console.info('triggerKeydown ENTER')
             this.handleTriggerClick();
@@ -318,7 +333,7 @@ export class UgAutocomplete extends LitElement {
     }
 
     dispatchEvent(event: any): boolean {
-        console.info("autocomplete is fires event", event)
+        // console.info("autocomplete fires event", event)
         return super.dispatchEvent(event)
     }
 
@@ -333,34 +348,34 @@ export class UgAutocomplete extends LitElement {
     }
 
     private preventMenuFocus = (event: FocusEvent) => {
-        console.info("prevent", event)
-
-        // // Otherwise, prevent focus on menu items
+        // Otherwise, prevent focus on menu items
         if (event.target instanceof HTMLElement &&
             event.target.closest('ug-menu-item') && !this.allowFocusTraverse) {
             this.input.focus();
             event.preventDefault();
-        //
-            console.info("preventing menuFocus?", event)
-        //
         }
     }
 
+    get disabledClass() {
+        return this.disabled ? 'input--disabled' : '';
+    }
+
     render() {
+
         const {shouldDisplayLoadingText} = this
 
         return html`
             <label>${this.label}</label>
             <div part="base" class="base">
-                <div class="control control--${this.size}">
+                <div class="control control--${this.size} ${this.disabledClass}"   >
                     <div class="fix-wrapper"
-                         tabindex="0"
+                         tabIndex=${this.disabled ? -1 : 0}
                          @focus="${this.handleTriggerFocus}"
                          @keydown=${this.handleTriggerKeydown}
                          @blur=${this.handleTriggerBlur}
                     >
                         ${this.shouldDisplayPrefixSlot ? html`<div class="prefix"> <slot  name="prefix" ></slot></div>` : ''}
-                        <input style="${styleMap({display: this.shouldDisplayInput ? 'block' : 'none'})}"
+                        <input style="${styleMap({display: this.shouldDisplayInput ? 'block' : 'none'})}" role="textbox"
                                @ug-focus=${this.handleUgFocus}
                                @input=${this.handleSearchInput}
                                @blur=${this.handleInputBlur}
@@ -375,7 +390,7 @@ export class UgAutocomplete extends LitElement {
                             <slot name="trigger"></slot>
                         </div>
                         
-                        ${this.clearable?  html`<ug-icon-button class="clearbutton" name="x-circle-fill"   @click="${this.handleClearClick}" ></ug-icon-button>` : '' }
+                        ${this.clearable && !this.disabled ?  html`<ug-icon-button class="clearbutton" name="x-circle-fill"   @click="${this.handleClearClick}" ></ug-icon-button>` : '' }
 
                         ${this.shouldDisplaySuffixSlot ? html`<div class="suffix"> <slot  name="suffix" ></slot></div>` : ''}
                     </div>
