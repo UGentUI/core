@@ -12,9 +12,6 @@ const meta: Meta = {
       subtitle:
         "Tooltips display additional information based on a specific action.",
 
-      subtitle:
-        "Tooltips display additional information based on a specific action.",
-
       description: {
         component:
           "A tooltip's target is its first child element, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use display: contents so they won't interfere with how elements are positioned in a flex or grid layout.",
@@ -38,8 +35,6 @@ const meta: Meta = {
 
     placement: {
       control: "select",
-      description:
-        "The preferred placement of the tooltip. Note that the actual placement may vary as needed to keep the tooltip inside of the viewport. Use the placement attribute to set the preferred placement of the tooltip.",
       description:
         "The preferred placement of the tooltip. Note that the actual placement may vary as needed to keep the tooltip inside of the viewport. Use the placement attribute to set the preferred placement of the tooltip.",
       options: [
@@ -396,10 +391,7 @@ export const Positions: Story = {
 
 export const Disabled: Story = {
   ...Tooltip,
-  ...Tooltip,
   args: {
-    ...Tooltip.args,
-    disabled: true,
     ...Tooltip.args,
     disabled: true,
   },
