@@ -16,22 +16,22 @@ const meta: Meta = {
     open: {
       control: 'boolean',
       description:
-        "Alerts will not be visible if the open attribute is not present.",
-      table: { category: "properties", defaultValue: { summary: "false" } },
+        'Alerts will not be visible if the open attribute is not present.',
+      table: { category: 'properties', defaultValue: { summary: 'false' } }
     },
     variant: {
-      control: "select",
-      options: ["primary", "success", "neutral", "warning", "danger"],
+      control: 'select',
+      options: ['primary', 'success', 'neutral', 'warning', 'danger'],
       description: "Set the variant attribute to change the alert's variant.",
-      table: { category: "properties", defaultValue: { summary: "primary" } },
+      table: { category: 'properties', defaultValue: { summary: 'primary' } }
     },
     closable: {
-      control: "boolean",
+      control: 'boolean',
       description:
-        "Add the closable attribute to show a close button that will hide the alert.",
-      table: { category: "properties", defaultValue: { summary: "false" } },
-    },
-  },
+        'Add the closable attribute to show a close button that will hide the alert.',
+      table: { category: 'properties', defaultValue: { summary: 'false' } }
+    }
+  }
 };
 
 export default meta;
@@ -41,8 +41,8 @@ type Story = StoryObj;
 export const Alert: Story = {
   args: {
     open: true,
-    variant: "primary",
-    closable: false,
+    variant: 'primary',
+    closable: false
   },
   render: (args) => {
     // prettier-ignore
@@ -60,9 +60,9 @@ export const Variants: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: `Set the variant attribute to change the alert’s variant.`,
-      },
-    },
+        story: `Set the variant attribute to change the alert’s variant.`
+      }
+    }
   },
   // prettier-ignore
   render: (args) => html`
@@ -102,13 +102,13 @@ export const Variants: Story = {
     <ug-icon slot="icon" name="exclamation-octagon"></ug-icon>
     <strong>Your account has been deleted</strong><br />
     We're very sorry to see you go!
-</ug-alert>`,
+</ug-alert>`
 };
 
 export const Closable: Story = {
   ...Alert,
   args: {
     ...Alert.args,
-    closable: true,
-  },
+    closable: true
+  }
 };
