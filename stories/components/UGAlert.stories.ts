@@ -65,7 +65,7 @@ export const Variants: Story = {
     }
   },
   // prettier-ignore
-  render: (args) => html`
+  render: () => html`
 <ug-alert variant="primary" open>
     <ug-icon slot="icon" name="info-circle"></ug-icon>
     <strong>This is super informative</strong><br />
