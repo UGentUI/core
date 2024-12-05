@@ -189,44 +189,12 @@ const meta: Meta = {
       description: "Hides the tooltip.",
       table: {
         category: "Methods",
-        type: { summary: undefined },
-        defaultValue: { summary: undefined },
-      },
-    },
-
-    // CSS Custom Properties
-    "--max-width": {
-      description:
-        "The maximum width of the tooltip before its content will wrap.",
-      table: {
-        category: "CSS Custom Properties",
-        defaultValue: { summary: "undefined" },
-      },
-    },
-    "--hide-delay": {
-      description:
-        "The amount of time to wait before hiding the tooltip when hovering.",
-      table: {
-        category: "CSS Custom Properties",
-        defaultValue: { summary: "undefined" },
-      },
-    },
-    "--show-delay": {
-      description:
-        "The amount of time to wait before showing the tooltip when hovering.",
-      table: {
-        category: "CSS Custom Properties",
-        defaultValue: { summary: "undefined" },
+        type: { summary: "void" },
+        defaultValue: { summary: "-" },
       },
     },
   },
 };
-
-//TODO: style elements
-//You can control the size of tooltip arrows by overriding the --sl-tooltip-arrow-size design token. To remove them, set the value to 0 as shown below.
-//--sl-tooltip-arrow-size: 0;
-//Use the --max-width custom property to change the width the tooltip can grow to before wrapping occurs.
-//--max-width
 
 export default meta;
 
@@ -242,9 +210,6 @@ export const Tooltip: Story = {
     skidding: 0,
     trigger: "hover focus",
     hoist: true,
-    "--max-width": "200px",
-    "--hide-delay": "0ms",
-    "--show-delay": "0ms",
   },
   render: (args) => {
     return html`<ug-tooltip
@@ -256,12 +221,10 @@ export const Tooltip: Story = {
       skidding="${args.skidding}"
       trigger="${args.trigger}"
       ?hoist="${args.hoist}"
-      @sl-Show="${action("sl-Show")}"
-      @sl-AfterShow="${action("sl-AfterShow")}"
-      @sl-Hide="${action("sl-Hide")}"
-      style="--max-width: ${args["--max-width"]}; --hide-delay: ${args[
-        "--hide-delay"
-      ]}; --show-delay: ${args["--show-delay"]}"
+      @ug-Show="${action("ug-Show")}"
+      @ug-AfterShow="${action("ug-AfterShow")}"
+      @ug-Hide="${action("ug-Hide")}"
+      @ug-AfterHide="${action("ug-AfterHide")}"
     >
       <ug-button>Hover Me</ug-button>
     </ug-tooltip>`;
