@@ -87,7 +87,6 @@ const meta: Meta = {
       },
     },
 
-
     trigger: {
       control: "select",
       description:
@@ -100,7 +99,6 @@ const meta: Meta = {
         category: "Properties",
       },
     },
-
 
     open: {
       control: "boolean",
@@ -138,7 +136,6 @@ const meta: Meta = {
       },
     },
 
-
     updateComplete: {
       table: {
         category: "Properties",
@@ -147,7 +144,6 @@ const meta: Meta = {
       description:
         "A read-only promise that resolves when the component has finished updating. (Non-configurable property.)",
     },
-
 
     // Event handling
     ugShow: {
@@ -161,7 +157,6 @@ const meta: Meta = {
     ugAfterShow: {
       action: "ug-after-show",
       description:
-       
         "Emitted after the tooltip has shown and all animations are complete.",
       table: {
         category: "Events",
@@ -222,7 +217,6 @@ export const Tooltip: Story = {
     hoist: true,
   },
   render: (args) => {
-    return html`<ug-tooltip
     return html`<ug-tooltip
       content="${args.content}"
       placement="${args.placement}"
