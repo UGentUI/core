@@ -211,23 +211,25 @@ export const Tooltip: Story = {
     trigger: "hover focus",
     hoist: true,
   },
+  // prettier-ignore
   render: (args) => {
-    return html`<ug-tooltip
-      content="${args.content}"
-      placement="${args.placement}"
-      ?disabled="${args.disabled}"
-      ?open="${args.open}"
-      distance="${args.distance}"
-      skidding="${args.skidding}"
-      trigger="${args.trigger}"
-      ?hoist="${args.hoist}"
-      @ug-Show="${action("ug-Show")}"
-      @ug-AfterShow="${action("ug-AfterShow")}"
-      @ug-Hide="${action("ug-Hide")}"
-      @ug-AfterHide="${action("ug-AfterHide")}"
-    >
-      <ug-button>Hover Me</ug-button>
-    </ug-tooltip>`;
+    return html`
+<ug-tooltip 
+  content="${args.content}"
+  placement="${args.placement}"
+  ?disabled="${args.disabled}"
+  ?open="${args.open}"
+  distance="${args.distance}"
+  skidding="${args.skidding}"
+  trigger="${args.trigger}"
+  ?hoist="${args.hoist}"
+  @ug-Show="${action("ug-Show")}"
+  @ug-AfterShow="${action("ug-AfterShow")}"
+  @ug-Hide="${action("ug-Hide")}"
+  @ug-AfterHide="${action("ug-AfterHide")}"
+  >
+    <ug-button>Hover Me</ug-button>
+</ug-tooltip>`;
   },
 };
 
@@ -243,24 +245,25 @@ export const ManualTrigger: Story = {
       },
     },
   },
+  // prettier-ignore
   render: (args) => {
     return html`
-      <ug-button style="margin-right: 4rem;">Toggle Manually</ug-button>
+<ug-button style="margin-right: 4rem;">Toggle Manually</ug-button>
 
-      <ug-tooltip
-        content="This is an avatar"
-        trigger="manual"
-        class="manual-tooltip"
-      >
-        <ug-avatar label="User"></ug-avatar>
-      </ug-tooltip>
+<ug-tooltip
+  content="This is an avatar"
+  trigger="manual"
+  class="manual-tooltip"
+>
+  <ug-avatar label="User"></ug-avatar>
+</ug-tooltip>
 
-      <script>
-        const tooltip = document.querySelector(".manual-tooltip");
-        const toggle = tooltip.previousElementSibling;
+<script>
+  const tooltip = document.querySelector(".manual-tooltip");
+  const toggle = tooltip.previousElementSibling;
 
-        toggle.addEventListener("click", () => (tooltip.open = !tooltip.open));
-      </script>
+  toggle.addEventListener("click", () => (tooltip.open = !tooltip.open));
+</script>
     `;
   },
 };
@@ -281,111 +284,112 @@ export const Positions: Story = {
     },
     controls: { disable: true },
   },
+  // prettier-ignore
   render: (args) =>
     html`
-      <div class="tooltip-placement-example">
-        <div class="tooltip-placement-example-row">
-          <ug-tooltip content="top-start" placement="top-start">
-            <ug-button></ug-button>
-          </ug-tooltip>
+<div class="tooltip-placement-example">
+  <div class="tooltip-placement-example-row">
+    <ug-tooltip content="top-start" placement="top-start">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="top" placement="top">
-            <ug-button></ug-button>
-          </ug-tooltip>
+    <ug-tooltip content="top" placement="top">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="top-end" placement="top-end">
-            <ug-button></ug-button>
-          </ug-tooltip>
-        </div>
+    <ug-tooltip content="top-end" placement="top-end">
+      <ug-button></ug-button>
+    </ug-tooltip>
+  </div>
 
-        <div class="tooltip-placement-example-row">
-          <ug-tooltip content="left-start" placement="left-start">
-            <ug-button></ug-button>
-          </ug-tooltip>
+  <div class="tooltip-placement-example-row">
+    <ug-tooltip content="left-start" placement="left-start">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="right-start" placement="right-start">
-            <ug-button></ug-button>
-          </ug-tooltip>
-        </div>
+    <ug-tooltip content="right-start" placement="right-start">
+      <ug-button></ug-button>
+    </ug-tooltip>
+  </div>
 
-        <div class="tooltip-placement-example-row">
-          <ug-tooltip content="left" placement="left">
-            <ug-button></ug-button>
-          </ug-tooltip>
+  <div class="tooltip-placement-example-row">
+    <ug-tooltip content="left" placement="left">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="right" placement="right">
-            <ug-button></ug-button>
-          </ug-tooltip>
-        </div>
+    <ug-tooltip content="right" placement="right">
+      <ug-button></ug-button>
+    </ug-tooltip>
+  </div>
 
-        <div class="tooltip-placement-example-row">
-          <ug-tooltip content="left-end" placement="left-end">
-            <ug-button></ug-button>
-          </ug-tooltip>
+  <div class="tooltip-placement-example-row">
+    <ug-tooltip content="left-end" placement="left-end">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="right-end" placement="right-end">
-            <ug-button></ug-button>
-          </ug-tooltip>
-        </div>
+    <ug-tooltip content="right-end" placement="right-end">
+      <ug-button></ug-button>
+    </ug-tooltip>
+  </div>
 
-        <div class="tooltip-placement-example-row">
-          <ug-tooltip content="bottom-start" placement="bottom-start">
-            <ug-button></ug-button>
-          </ug-tooltip>
+  <div class="tooltip-placement-example-row">
+    <ug-tooltip content="bottom-start" placement="bottom-start">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="bottom" placement="bottom">
-            <ug-button></ug-button>
-          </ug-tooltip>
+    <ug-tooltip content="bottom" placement="bottom">
+      <ug-button></ug-button>
+    </ug-tooltip>
 
-          <ug-tooltip content="bottom-end" placement="bottom-end">
-            <ug-button></ug-button>
-          </ug-tooltip>
-        </div>
-      </div>
+    <ug-tooltip content="bottom-end" placement="bottom-end">
+      <ug-button></ug-button>
+    </ug-tooltip>
+  </div>
+</div>
 
-      <style>
-        .tooltip-placement-example {
-          width: 500px;
-          min-width: 500px;
-          margin: auto;
-          margin: 5rem;
-          text-align: center;
-        }
+<style>
+  .tooltip-placement-example {
+    width: 500px;
+    min-width: 500px;
+    margin: auto;
+    margin: 5rem;
+    text-align: center;
+  }
 
-        .tooltip-placement-example-row:after {
-          content: "";
-          display: table;
-          clear: both;
-        }
+  .tooltip-placement-example-row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
-        .tooltip-placement-example ug-button {
-          float: left;
-          width: 2.5rem;
-          margin-right: 0.25rem;
-          margin-bottom: 0.25rem;
-        }
+  .tooltip-placement-example ug-button {
+    float: left;
+    width: 2.5rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
 
-        .tooltip-placement-example-row:nth-child(1)
-          ug-tooltip:first-child
-          ug-button,
-        .tooltip-placement-example-row:nth-child(5)
-          ug-tooltip:first-child
-          ug-button {
-          margin-left: calc(40px + 0.25rem);
-        }
+  .tooltip-placement-example-row:nth-child(1)
+    ug-tooltip:first-child
+    ug-button,
+  .tooltip-placement-example-row:nth-child(5)
+    ug-tooltip:first-child
+    ug-button {
+    margin-left: calc(40px + 0.25rem);
+  }
 
-        .tooltip-placement-example-row:nth-child(2)
-          ug-tooltip:nth-child(2)
-          ug-button,
-        .tooltip-placement-example-row:nth-child(3)
-          ug-tooltip:nth-child(2)
-          ug-button,
-        .tooltip-placement-example-row:nth-child(4)
-          ug-tooltip:nth-child(2)
-          ug-button {
-          margin-left: calc((40px * 3) + (0.25rem * 3));
-        }
-      </style>
+  .tooltip-placement-example-row:nth-child(2)
+    ug-tooltip:nth-child(2)
+    ug-button,
+  .tooltip-placement-example-row:nth-child(3)
+    ug-tooltip:nth-child(2)
+    ug-button,
+  .tooltip-placement-example-row:nth-child(4)
+    ug-tooltip:nth-child(2)
+    ug-button {
+    margin-left: calc((40px * 3) + (0.25rem * 3));
+  }
+</style>
     `,
 };
 
@@ -432,31 +436,32 @@ export const Hoist: Story = {
       },
     },
   },
+  // prettier-ignore
   render: () =>
     html`
-      <div class="tooltip-hoist">
-        <ug-tooltip content="This is a tooltip">
-          <ug-button>No Hoist</ug-button>
-        </ug-tooltip>
+<div class="tooltip-hoist">
+  <ug-tooltip content="This is a tooltip">
+    <ug-button>No Hoist</ug-button>
+  </ug-tooltip>
 
-        <ug-tooltip content="This is a tooltip" hoist>
-          <ug-button>Hoist</ug-button>
-        </ug-tooltip>
-      </div>
+  <ug-tooltip content="This is a tooltip" hoist>
+    <ug-button>Hoist</ug-button>
+  </ug-tooltip>
+</div>
 
-      <style>
-        .tooltip-hoist {
-          position: relative;
-          border: solid 2px var(--ug-panel-border-color);
-          overflow: hidden;
-          padding: var(--ug-spacing-medium);
-          background-color: aliceblue;
-        }
+<style>
+  .tooltip-hoist {
+    position: relative;
+    border: solid 2px var(--ug-panel-border-color);
+    overflow: hidden;
+    padding: var(--ug-spacing-medium);
+    background-color: aliceblue;
+  }
 
-        .tooltip-hoist ug-button {
-          margin: 1rem;
-        }
-      </style>
+  .tooltip-hoist ug-button {
+    margin: 1rem;
+  }
+</style>
     `,
 };
 
@@ -473,15 +478,16 @@ export const HTMLInTooltips: Story = {
     },
   },
 
+  // prettier-ignore
   render: (args) => html`
-    <ug-tooltip>
-      <div slot="content">
-        I'm not <strong>just</strong> a tooltip, I'm a <em>tooltip</em> with
-        HTML!
-      </div>
+<ug-tooltip>
+  <div slot="content">
+    I'm not <strong>just</strong> a tooltip, I'm a <em>tooltip</em> with
+    HTML!
+  </div>
 
-      <ug-button>Hover me</ug-button>
-    </ug-tooltip>
+  <ug-button>Hover me</ug-button>
+</ug-tooltip>
   `,
 };
 
@@ -498,15 +504,18 @@ export const TriggeredByClickWithEvents: Story = {
       },
     },
   },
-  render: (args) => html` <ug-tooltip
-    @blur="${action("ug-Hide")}"
-    @ug-show="${action("ug-show")}"
-    @ug-after-show="${action("ug-after-show")}"
-    @ug-hide="${action("ug-hide")}"
-    @ug-after-hide="${action("ug-after-hide")}"
-    trigger="${args.trigger}"
-    ><ug-button>I do things when you click me!</ug-button></ug-tooltip
-  >`,
+  // prettier-ignore
+  render: (args) => html`
+<ug-tooltip
+  @blur="${action("ug-Hide")}"
+  @ug-show="${action("ug-show")}"
+  @ug-after-show="${action("ug-after-show")}"
+  @ug-hide="${action("ug-hide")}"
+  @ug-after-hide="${action("ug-after-hide")}"
+  trigger="${args.trigger}"
+  >
+  <ug-button>I do things when you click me!</ug-button>
+</ug-tooltip>`,
 };
 
 export const TriggeredByHoverWithEvents: Story = {
@@ -522,15 +531,18 @@ export const TriggeredByHoverWithEvents: Story = {
       },
     },
   },
-  render: (args) => html` <ug-tooltip
-    @hover="${action("ug-Show")}"
-    @focus="${action("ug-Show")}"
-    @blur="${action("ug-Hide")}"
-    @ug-show="${action("ug-show")}"
-    @ug-after-show="${action("ug-after-show")}"
-    @ug-hide="${action("ug-hide")}"
-    @ug-after-hide="${action("ug-after-hide")}"
-    trigger="${args.trigger}"
-    ><ug-button>I do things when you hover over me!</ug-button></ug-tooltip
-  >`,
+  // prettier-ignore
+  render: (args) => html`
+<ug-tooltip
+  @hover="${action("ug-Show")}"
+  @focus="${action("ug-Show")}"
+  @blur="${action("ug-Hide")}"
+  @ug-show="${action("ug-show")}"
+  @ug-after-show="${action("ug-after-show")}"
+  @ug-hide="${action("ug-hide")}"
+  @ug-after-hide="${action("ug-after-hide")}"
+  trigger="${args.trigger}"
+  >
+  <ug-button>I do things when you hover over me!</ug-button>
+</ug-tooltip>`,
 };
