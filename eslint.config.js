@@ -28,7 +28,11 @@ export default [
     rules: {
       ...eslintPlugin.configs.recommended.rules,
       ...eslintPlugin.configs['recommended-requiring-type-checking'].rules,
-      'prettier/prettier': 'error'
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: "auto",
+        }      ]
     }
   }
 ];
