@@ -468,6 +468,31 @@ export const Hoist: Story = {
     `,
 };
 
+export const HTMLInTooltips: Story = {
+  ...Tooltip,
+  args: {
+    ...Tooltip.args,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the content slot to create tooltips with HTML content. Tooltips are designed only for text and presentational elements. Avoid placing interactive content, such as buttons, links, and form controls, in a tooltip.`,
+      },
+    },
+  },
+
+  render: (args) => html`
+    <ug-tooltip>
+      <div slot="content">
+        I'm not <strong>just</strong> a tooltip, I'm a <em>tooltip</em> with
+        HTML!
+      </div>
+
+      <ug-button>Hover me</ug-button>
+    </ug-tooltip>
+  `,
+};
+
 export const TriggeredByClickWithEvents: Story = {
   ...Tooltip,
   args: {
