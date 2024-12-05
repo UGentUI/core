@@ -12,6 +12,9 @@ const meta: Meta = {
       subtitle:
         "Tooltips display additional information based on a specific action.",
 
+      subtitle:
+        "Tooltips display additional information based on a specific action.",
+
       description: {
         component:
           "A tooltip's target is its first child element, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use display: contents so they won't interfere with how elements are positioned in a flex or grid layout.",
@@ -35,6 +38,8 @@ const meta: Meta = {
 
     placement: {
       control: "select",
+      description:
+        "The preferred placement of the tooltip. Note that the actual placement may vary as needed to keep the tooltip inside of the viewport. Use the placement attribute to set the preferred placement of the tooltip.",
       description:
         "The preferred placement of the tooltip. Note that the actual placement may vary as needed to keep the tooltip inside of the viewport. Use the placement attribute to set the preferred placement of the tooltip.",
       options: [
@@ -82,6 +87,7 @@ const meta: Meta = {
       },
     },
 
+
     trigger: {
       control: "select",
       description:
@@ -94,6 +100,7 @@ const meta: Meta = {
         category: "Properties",
       },
     },
+
 
     open: {
       control: "boolean",
@@ -131,6 +138,7 @@ const meta: Meta = {
       },
     },
 
+
     updateComplete: {
       table: {
         category: "Properties",
@@ -140,34 +148,36 @@ const meta: Meta = {
         "A read-only promise that resolves when the component has finished updating. (Non-configurable property.)",
     },
 
+
     // Event handling
-    slShow: {
-      action: "sl-show",
+    ugShow: {
+      action: "ug-show",
       description: "Emitted when the tooltip begins to show.",
       table: {
         category: "Events",
         defaultValue: { summary: undefined },
       },
     },
-    slAfterShow: {
-      action: "sl-after-show",
+    ugAfterShow: {
+      action: "ug-after-show",
       description:
+       
         "Emitted after the tooltip has shown and all animations are complete.",
       table: {
         category: "Events",
         defaultValue: { summary: undefined },
       },
     },
-    slHide: {
-      action: "sl-hide",
+    ugHide: {
+      action: "ug-hide",
       description: "Emitted when the tooltip begins to hide.",
       table: {
         category: "Events",
         defaultValue: { summary: undefined },
       },
     },
-    slAfterHide: {
-      action: "sl-after-hide",
+    ugAfterHide: {
+      action: "ug-after-hide",
       description:
         "Emitted after the tooltip has hidden and all animations are complete.",
       table: {
@@ -212,6 +222,7 @@ export const Tooltip: Story = {
     hoist: true,
   },
   render: (args) => {
+    return html`<ug-tooltip
     return html`<ug-tooltip
       content="${args.content}"
       placement="${args.placement}"
@@ -391,7 +402,11 @@ export const Positions2: Story = {
 
 export const Positions: Story = {
   ...Tooltip,
+  ...Tooltip,
   args: {
+    ...Tooltip.args,
+    trigger: "click",
+    open: true,
     ...Tooltip.args,
     trigger: "click",
     open: true,
@@ -402,11 +417,17 @@ export const Positions: Story = {
         story: `Use the position attribute to change a tooltip's position.`,
       },
       note: "The divs are added for margining, without a margin the way the tooltip behaves sometimes changes",
+      note: "The divs are added for margining, without a margin the way the tooltip behaves sometimes changes",
     },
     controls: { disable: true },
   },
   render: (args) =>
     html`<style>
+        .tooltip-container {
+          margin: 2rem;
+          text-align: center;
+        }
+      </style>
         .tooltip-container {
           margin: 2rem;
           text-align: center;
@@ -537,7 +558,10 @@ export const Positions: Story = {
 
 export const Disabled: Story = {
   ...Tooltip,
+  ...Tooltip,
   args: {
+    ...Tooltip.args,
+    disabled: true,
     ...Tooltip.args,
     disabled: true,
   },
@@ -619,26 +643,15 @@ export const TriggeredByClickWithEvents: Story = {
       },
     },
   },
-  render: (args) => html`<ug-tooltip
-    content="${args.content}"
-    placement="${args.placement}"
-    ?disabled="${args.disabled}"
-    ?open="${args.open}"
-    distance="${args.distance}"
-    skidding="${args.skidding}"
-    ?hoist="${args.hoist}"
+  render: (args) => html` <ug-tooltip
+    @blur="${action("ug-Hide")}"
+    @ug-show="${action("ug-show")}"
+    @ug-after-show="${action("ug-after-show")}"
+    @ug-hide="${action("ug-hide")}"
+    @ug-after-hide="${action("ug-after-hide")}"
     trigger="${args.trigger}"
-    @transitionstart="${action("sl-Show")}"
-    @blur="${action("sl-Hide")}"
-    @sl-show="${action("sl-show")}"
-    @sl-after-show="${action("sl-after-show")}"
-    @sl-hide="${action("sl-hide")}"
-    style="--max-width: ${args["--max-width"]}; --hide-delay: ${args[
-      "--hide-delay"
-    ]}; --show-delay: ${args["--show-delay"]}"
-  >
-    <ug-button>I do things when you click me!</ug-button>
-  </ug-tooltip>`,
+    ><ug-button>I do things when you click me!</ug-button></ug-tooltip
+  >`,
 };
 
 export const TriggeredByHoverWithEvents: Story = {
@@ -655,13 +668,13 @@ export const TriggeredByHoverWithEvents: Story = {
     },
   },
   render: (args) => html` <ug-tooltip
-    @hover="${action("sl-Show")}"
-    @focus="${action("sl-Show")}"
-    @blur="${action("sl-Hide")}"
-    @sl-show="${action("sl-show")}"
-    @sl-after-show="${action("sl-after-show")}"
-    @sl-hide="${action("sl-hide")}"
-    @sl-after-hide="${action("sl-after-hide")}"
+    @hover="${action("ug-Show")}"
+    @focus="${action("ug-Show")}"
+    @blur="${action("ug-Hide")}"
+    @ug-show="${action("ug-show")}"
+    @ug-after-show="${action("ug-after-show")}"
+    @ug-hide="${action("ug-hide")}"
+    @ug-after-hide="${action("ug-after-hide")}"
     trigger="${args.trigger}"
     ><ug-button>I do things when you hover over me!</ug-button></ug-tooltip
   >`,
