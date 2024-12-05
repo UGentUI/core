@@ -1,10 +1,10 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/resize-observer";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/resize-observer';
 
 const meta: Meta = {
-  title: "Components/ResizeObserver",
-  component: "ug-resize-observer",
+  title: 'Components/ResizeObserver',
+  component: 'ug-resize-observer'
 };
 
 export default meta;
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj;
 
 export const ResizeObserver: Story = {
-  render: (args) => {
+  render: () => {
     return html`<div class="resize-observer-overview">
         <ug-resize-observer>
           <div>Resize this box and watch the console 👉</div>
@@ -20,10 +20,10 @@ export const ResizeObserver: Story = {
       </div>
 
       <script>
-        const container = document.querySelector(".resize-observer-overview");
-        const resizeObserver = container.querySelector("ug-resize-observer");
+        const container = document.querySelector('.resize-observer-overview');
+        const resizeObserver = container.querySelector('ug-resize-observer');
 
-        resizeObserver.addEventListener("ug-resize", (event) => {
+        resizeObserver.addEventListener('ug-resize', (event) => {
           console.log(event.detail);
         });
       </script>
@@ -38,5 +38,5 @@ export const ResizeObserver: Story = {
           padding: 4rem 2rem;
         }
       </style>`;
-  },
+  }
 };
