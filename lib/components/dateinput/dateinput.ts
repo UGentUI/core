@@ -101,7 +101,7 @@ export class UgDateinput extends LitElement {
 
   @property({ type: String, reflect: true }) label: string | null = null;
 
-  @property({ type: String, reflect: true }) value: string | null = null;
+  @property({ type: String, reflect: true }) value: string = '';
 
   /**
    * Tells whether this component should render a 'picker' or not. (defaults to true)
@@ -117,6 +117,9 @@ export class UgDateinput extends LitElement {
 
   private maskitoInstance?: Maskito;
 
+  @state()
+  private internalValue: string = '';
+
   updated(changedProperties: Map<string | number | symbol, unknown>) {
     if (
       changedProperties.has('dateMode') ||
@@ -125,24 +128,53 @@ export class UgDateinput extends LitElement {
       void this.initializeMask();
     }
 
-    if (this.value) {
+    let updateInput = false;
+
+    if (changedProperties.has('value')) {
+      if (this.internalValue !== this.value) {
+        // The property has been changed from 'outside' (so the user isn't typing etc. We must update the inputfield accordingly.
+        updateInput = true;
+        //update the internal value. By comparing value and internalValue, we know who did update the value property
+        this.internalValue = this.value;
+      } else {
+        // The change came from the user, entering in the input. We must not update (and possibly clear) that input because of that.
+        // In other words: The value of this component WILL become null in case of an invalid date, but the entered text should not be cleared
+        updateInput = false;
+      }
+    }
+
+    if (this.value == '' || this.value == null) {
+      //no value at all --> clear everything
+      //update valueAsIso8601
+      this.valueAsIso8601 = '';
+
+      //update maskedString (displayValue), only if the user isn't typing in it
+      if (updateInput) {
+        this.inputComponent.value = '';
+      }
+    } else {
+      //there is a value available. Check if it is parsable to a date or not.
       let date: Date = parse(this.value, this.format, new Date());
       if (!isNaN(date.getTime())) {
         //update valueAsIso8601
         this.valueAsIso8601 = formatISO(date, { representation: 'date' });
 
         //update maskedString (display value)
-        this.inputComponent.value = formatDateToMask(
-          date,
-          this.dateMode,
-          this.dateSeparator
-        );
+        if (updateInput) {
+          this.inputComponent.value = formatDateToMask(
+            date,
+            this.dateMode,
+            this.dateSeparator
+          );
+        }
       } else {
         //update valueAsIso8601
         this.valueAsIso8601 = '';
 
         //update maskedString (displayValue)
-        this.inputComponent.value = '';
+        if (updateInput) {
+          this.inputComponent.value = '';
+        }
       }
     }
 
@@ -215,8 +247,8 @@ export class UgDateinput extends LitElement {
     this.dispatchEvent(new CustomEvent(event.type));
   };
 
-  private handleInputInput = () => {
-    // event.stopPropagation();
+  private handleInputInput = (event: Event) => {
+    event.stopPropagation();
     this.tryToUpdateValue();
     // this.dispatchEvent(new CustomEvent(event.type));
   };
@@ -227,11 +259,18 @@ export class UgDateinput extends LitElement {
   };
 
   private handleCalendarDatePicked = () => {
+    //the native date input (and datepicker) use always the iso8601 format.
     let isoDate = (this.dateInput as unknown as HTMLInputElement).value;
-    let date = parseISO(isoDate);
 
     let currentValue = this.value;
-    let newValue = format(date, this.format);
+    let newValue;
+    if (isoDate) {
+      let date = parseISO(isoDate);
+      newValue = format(date, this.format);
+    } else {
+      newValue = '';
+    }
+
     this.value = newValue;
 
     if (currentValue != newValue) {
@@ -321,6 +360,8 @@ export class UgDateinput extends LitElement {
       this.value = '';
       this.valueAsIso8601 = '';
     }
+
+    this.internalValue = this.value;
 
     if (currentDate != this.value) {
       this.dispatchEvent(
