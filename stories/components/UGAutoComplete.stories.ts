@@ -56,14 +56,6 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
         'Shows whether the search is still busy or not. (This has only effect when the search dropdown is visible).',
       table: { category: 'properties', defaultValue: { summary: 'false' } }
     },
-    label: {
-      control: 'text',
-      description: "The button's label.",
-      table: {
-        category: 'properties',
-        defaultValue: { summary: undefined }
-      }
-    },
     clearable: {
       control: 'boolean',
       description: 'Show or hide a clear icon-button',
@@ -72,7 +64,6 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
         defaultValue: { summary: 'false' }
       }
     },
-
     ugEditStarted: {
       name: 'ug-edit-started',
       description:
@@ -134,35 +125,35 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
       description:
         "contains the content (aka 'value') of the component. When the user clicks on it, it will be replaced" +
         "by an input textfield. It is completely up to the user to render here something meaningful. When the component is not in 'edit mode' ",
-      table: { category: 'slot' },
+      table: { type: { summary: 'HTML' }, category: 'slot' },
       control: false
     },
     'slotNo-results': {
       name: 'no-results',
       description:
         'This slot is used in case you want to change the default behavior when no results are available after a search.',
-      table: { category: 'slot' },
+      table: { type: { summary: 'HTML' }, category: 'slot' },
       control: false
     },
     slotLoading: {
       name: 'loading',
       description:
         'This slot is used in case you want to change the default behavior when a search is in progress.',
-      table: { category: 'slot' },
+      table: { type: { summary: 'HTML' }, category: 'slot' },
       control: false
     },
     slotPrefix: {
       name: 'prefix',
       description:
         'If you want to insert something before the trigger / input, use this slot. (this works just like <ug-input>',
-      table: { category: 'slot' },
+      table: { type: { summary: 'HTML' }, category: 'slot' },
       control: false
     },
     slotSuffix: {
       name: 'prefix',
       description:
         'If you want to insert something before the trigger / input, use this slot. (this works just like <ug-input>',
-      table: { category: 'slot' },
+      table: { type: { summary: 'HTML' }, category: 'slot' },
       control: false
     }
   }
@@ -176,7 +167,9 @@ const Autocomplete_Base: Story = {
   args: {
     size: 'medium',
     threshold: 0,
-    disabled: false
+    disabled: false,
+    loading: false,
+    clearable: false
   },
 
   parameters: {
@@ -184,28 +177,27 @@ const Autocomplete_Base: Story = {
   },
 
   render: (args) => {
+    // prettier-ignore
     return html`
-      <ug-autocomplete
-        label="${args.label}"
-        size="${args.size}"
-        ?loading="${args.loading}"
-        ?disabled="${args.disabled}"
-        ?clearable="${args.clearable}"
-        threshold="${args.threshold}"
-        @ug-edit-started="${action('ug-edit-started')}"
-        @ug-edit-cancelled="${action('ug-edit-cancelled')}"
-        @ug-search="${action('ug-search')}"
-        @ug-selected="${action('ug-selected')}"
-        @ug-clear="${action('ug-clear')}"
-      >
-        <span slot="trigger">Current value</span>
-
-        <ug-menu-item value="english">English</ug-menu-item>
-        <ug-menu-item value="mandarin">Mandarin</ug-menu-item>
-        <ug-menu-item value="hindi">Hindi</ug-menu-item>
-        <ug-menu-item value="spanish">Spanish</ug-menu-item>
-        <ug-menu-item value="french">French</ug-menu-item>
-      </ug-autocomplete>
+<ug-autocomplete
+    size="${args.size}"
+    ?loading="${args.loading}"
+    ?disabled="${args.disabled}"
+    ?clearable="${args.clearable}"
+    threshold="${args.threshold}"
+    @ug-edit-started="${action('ug-edit-started')}"
+    @ug-edit-cancelled="${action('ug-edit-cancelled')}"
+    @ug-search="${action('ug-search')}"
+    @ug-selected="${action('ug-selected')}"
+    @ug-clear="${action('ug-clear')}"
+    >
+    <span slot="trigger">Current value</span>
+    <ug-menu-item value="english">English</ug-menu-item>
+    <ug-menu-item value="mandarin">Mandarin</ug-menu-item>
+    <ug-menu-item value="hindi">Hindi</ug-menu-item>
+    <ug-menu-item value="spanish">Spanish</ug-menu-item>
+    <ug-menu-item value="french">French</ug-menu-item>
+</ug-autocomplete>
     `;
   }
 };
@@ -285,26 +277,24 @@ export const LoadingCustom: Story = {
     //await new Promise((resolve) => setTimeout(resolve, 500));
     // autoComplate.removeAttribute("loading")
   },
-
+  // prettier-ignore
   render: (args) =>
-    html` <ug-autocomplete
-      label="${args.label}"
-      size="${args.size}"
-      ?loading="${args.loading}"
-      ?disabled="${args.disabled}"
-      ?clearable="${args.clearable}"
-      threshold="${args.threshold}"
-      @ug-edit-started="${action('ug-edit-started')}"
-      @ug-edit-cancelled="${action('ug-edit-cancelled')}"
-      @ug-search="${action('ug-search')}"
-      @ug-selected="${action('ug-selected')}"
-      @ug-clear="${action('ug-clear')}"
+    html`
+<ug-autocomplete
+    size="${args.size}"
+    ?loading="${args.loading}"
+    ?disabled="${args.disabled}"
+    ?clearable="${args.clearable}"
+    threshold="${args.threshold}"
+    @ug-edit-started="${action('ug-edit-started')}"
+    @ug-edit-cancelled="${action('ug-edit-cancelled')}"
+    @ug-search="${action('ug-search')}"
+    @ug-selected="${action('ug-selected')}"
+    @ug-clear="${action('ug-clear')}"
     >
-      <span slot="trigger">Current value</span>
-      <span slot="loading">
-        One moment please... We're looking for it! <ug-spinner></ug-spinner>
-      </span>
-    </ug-autocomplete>`
+    <span slot="trigger">Current value</span>
+    <span slot="loading">One moment please... We're looking for it! <ug-spinner></ug-spinner></span>
+</ug-autocomplete>`
 };
 
 export const FoundResults: Story = {
@@ -371,22 +361,23 @@ Note that this will not be the case when the loading was added. In that case the
     await new Promise((resolve) => setTimeout(resolve, 500));
     autoComplate.removeAttribute('loading');
   },
+  // prettier-ignore
   render: (args) =>
-    html` <ug-autocomplete
-      label="${args.label}"
-      size="${args.size}"
-      ?loading="${args.loading}"
-      ?disabled="${args.disabled}"
-      ?clearable="${args.clearable}"
-      threshold="${args.threshold}"
-      @ug-edit-started="${action('ug-edit-started')}"
-      @ug-edit-cancelled="${action('ug-edit-cancelled')}"
-      @ug-search="${action('ug-search')}"
-      @ug-selected="${action('ug-selected')}"
-      @ug-clear="${action('ug-clear')}"
+    html`
+<ug-autocomplete
+    size="${args.size}"
+    ?loading="${args.loading}"
+    ?disabled="${args.disabled}"
+    ?clearable="${args.clearable}"
+    threshold="${args.threshold}"
+    @ug-edit-started="${action('ug-edit-started')}"
+    @ug-edit-cancelled="${action('ug-edit-cancelled')}"
+    @ug-search="${action('ug-search')}"
+    @ug-selected="${action('ug-selected')}"
+    @ug-clear="${action('ug-clear')}"
     >
-      <span slot="trigger">Current value</span>
-    </ug-autocomplete>`
+    <span slot="trigger">Current value</span>
+</ug-autocomplete>`
 };
 
 export const NoResultsCustom: Story = {
@@ -419,21 +410,22 @@ Note that this will not be the case when the loading was added. In that case the
     await new Promise((resolve) => setTimeout(resolve, 500));
     autoComplate.removeAttribute('loading');
   },
+  // prettier-ignore
   render: (args) =>
-    html` <ug-autocomplete
-      label="${args.label}"
-      size="${args.size}"
-      ?loading="${args.loading}"
-      ?disabled="${args.disabled}"
-      ?clearable="${args.clearable}"
-      threshold="${args.threshold}"
-      @ug-edit-started="${action('ug-edit-started')}"
-      @ug-edit-cancelled="${action('ug-edit-cancelled')}"
-      @ug-search="${action('ug-search')}"
-      @ug-selected="${action('ug-selected')}"
-      @ug-clear="${action('ug-clear')}"
+    html`
+<ug-autocomplete
+    size="${args.size}"
+    ?loading="${args.loading}"
+    ?disabled="${args.disabled}"
+    ?clearable="${args.clearable}"
+    threshold="${args.threshold}"
+    @ug-edit-started="${action('ug-edit-started')}"
+    @ug-edit-cancelled="${action('ug-edit-cancelled')}"
+    @ug-search="${action('ug-search')}"
+    @ug-selected="${action('ug-selected')}"
+    @ug-clear="${action('ug-clear')}"
     >
-      <span slot="trigger">Current value</span>
-      <span slot="no-results">I'm sorry. We didn't find anything.</span>
-    </ug-autocomplete>`
+    <span slot="trigger">Current value</span>
+    <span slot="no-results">I'm sorry. We didn't find anything.</span>
+</ug-autocomplete>`
 };
