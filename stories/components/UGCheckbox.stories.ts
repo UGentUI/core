@@ -4,6 +4,11 @@ import { userEvent, within } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 import '/lib/components/checkbox';
 
+// Utility function to remove default attributes
+const removeDefaultAttributes = (code: string): string => {
+  return code.replace(/\s*(help-text=""|name=""|size="medium")/g, '');
+};
+
 const meta: Meta = {
   title: 'Components/Checkbox',
   component: 'ug-checkbox',
@@ -13,6 +18,14 @@ const meta: Meta = {
     }
   },
   argTypes: {
+    label: {
+      control: 'text',
+      description: "The checkbox's label.",
+      table: {
+        category: 'slots',
+        defaultValue: { summary: undefined }
+      }
+    },
     name: {
       control: 'text',
       description:
@@ -183,31 +196,37 @@ type Story = StoryObj;
 
 export const Checkbox: Story = {
   args: {
+    name: '',
     size: 'medium',
     disabled: false,
     checked: false,
     required: false,
     helpText: '',
-    name: 'Checkbox'
+    label: 'Checkbox'
   },
   parameters: {
     docs: {
       disable: false,
       description: {
         story: `A default checkbox.`
+      },
+      source: {
+        format: true,
+        transform: (code: string) => removeDefaultAttributes(code)
       }
     }
   },
   // prettier-ignore
   render: (args) => {
     return html`<ug-checkbox
+      name="${args.name}"
       size="${args.size}"
       ?disabled="${args.disabled}"
       ?checked="${args.checked}"
       ?required="${args.required}"
       help-text="${args.helpText}"
     >
-    ${args.name}
+    ${args.label}
 </ug-checkbox>`;
   }
 };
@@ -242,7 +261,8 @@ export const Disabled: Story = {
         story: `Use the disabled attribute to disable a checkbox.`
       },
       source: {
-        code: `<ug-checkbox disabled>Disabled Button</ug-checkbox>`
+        format: true,
+        transform: (code: string) => removeDefaultAttributes(code)
       }
     },
     controls: {
@@ -256,7 +276,7 @@ export const Disabled: Story = {
       ?checked="${args.checked}"
       ?required="${args.required}"
       help-text="${args.helpText}"
-      >${args.name}</ug-checkbox
+      >${args.label}</ug-checkbox
     >`
 };
 
@@ -272,7 +292,8 @@ export const HelpText: Story = {
         story: `Add descriptive help text to a switch with the help-text attribute. For help texts that contain HTML, use the help-text slot instead.`
       },
       source: {
-        code: `<ug-checkbox help-text="What should the user know about the checkbox?">Label</ug-checkbox>`
+        format: true,
+        transform: (code: string) => removeDefaultAttributes(code)
       }
     }
   },
@@ -283,11 +304,12 @@ export const HelpText: Story = {
       ?checked="${args.checked}"
       ?required="${args.required}"
       help-text="${args.helpText}"
-      >${args.name}</ug-checkbox
+      >${args.label}</ug-checkbox
     >`
 };
 
 export const CheckboxWithEvents: Story = {
+  tags: ['!autodocs'],
   args: {
     ...Checkbox.args
   },
