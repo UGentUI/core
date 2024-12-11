@@ -1,10 +1,10 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/skeleton";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/skeleton';
 
 const meta: Meta = {
-  title: "Components/Skeleton",
-  component: "ug-skeleton",
+  title: 'Components/Skeleton',
+  component: 'ug-skeleton'
 };
 
 export default meta;
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Skeleton: Story = {
-  render: (args) => {
+  render: () => {
     return html`<div class="skeleton-overview">
         <header>
           <ug-skeleton></ug-skeleton>
@@ -56,5 +56,5 @@ export const Skeleton: Story = {
           width: 80%;
         }
       </style> `;
-  },
+  }
 };

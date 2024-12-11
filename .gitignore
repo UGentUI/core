@@ -21,4 +21,9 @@ node_modules
 *.sw?
 
 *storybook.log
-/.vs
+
+# Vite development
+index.html 
+
+# Storybook
+storybook-static
