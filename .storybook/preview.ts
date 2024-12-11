@@ -31,6 +31,21 @@ const preview: Preview = {
     },
     docs: {
       toc: true
+    },
+    html: {
+      removeComments: true,
+      transform: (code: string) => {
+        // Remove the <div id="root-inner"> and its corresponding closing </div> tag
+        return code.replace(
+          /<div\s+id="root-inner"\s*>[\s\S]*?<\/div>/g,
+          (match) => {
+            // Remove only the outer <div id="root-inner"> tags, preserve inner content
+            return match
+              .replace(/<div\s+id="root-inner"\s*>/, '')
+              .replace(/<\/div>$/, '');
+          }
+        );
+      }
     }
   },
   tags: ['autodocs'],
