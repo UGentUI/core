@@ -272,6 +272,9 @@ export const Tooltip: Story = {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -451,6 +454,9 @@ export const Disabled: Story = {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -470,6 +476,9 @@ export const TriggeredByClick: Story = {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -489,6 +498,9 @@ export const OpenByDefault: Story = {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
