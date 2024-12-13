@@ -7,8 +7,21 @@ const meta: Meta = {
   component: "ug-textarea",
   parameters: {
     docs: {
+      toc: {
+        /* options */
+      },
       subtitle:
         "Textareas collect data from the user and allow multiple lines of text.",
+      //Hide unused variables
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code.replace(
+            /\s*(name=""|value=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|minlength=""|maxlength=""|autocapitalize=""|autocorrect=""|autocomplete=""|enterkeyhint=""|inputmode=""|spellcheck="")/g,
+            ""
+          );
+        },
+      },
     },
   },
   argTypes: {
@@ -237,7 +250,7 @@ const meta: Meta = {
         category: "properties",
       },
     },
-    defaultValue: {
+    /*defaultValue: {
       description: "The default value of the form control.",
       control: { type: "text" },
       table: {
@@ -245,7 +258,7 @@ const meta: Meta = {
         defaultValue: { summary: "''" },
         category: "properties",
       },
-    },
+    },*/
     validity: {
       description: "Gets the validity state object. Readonly",
       control: { type: "null" },
@@ -432,6 +445,25 @@ const meta: Meta = {
         defaultValue: { summary: "-" },
       },
     },
+    //Slots
+    labelSlot: {
+      name: "label",
+      description:
+        "The textarea’s label. Alternatively, you can use the label attribute.",
+      control: "text",
+      table: {
+        category: "Slots",
+      },
+    },
+    "help-text-slot": {
+      name: "help-text",
+      description:
+        "Text that describes how to use the input. Alternatively, you can use the help-text attribute.",
+      control: "text",
+      table: {
+        category: "Slots",
+      },
+    },
   },
 };
 
@@ -439,188 +471,88 @@ export default meta;
 
 type Story = StoryObj;
 
-export const MyDefault: Story = {
+export const Default: Story = {
+  args: {
+    name: "example-textarea",
+    value: "Initial value",
+    size: "large",
+    filled: false,
+    label: "Textarea Label",
+    helpText: "This is help text.",
+    placeholder: "Enter your text here...",
+    rows: 4,
+    resize: "vertical",
+    disabled: false,
+    readonly: false,
+    required: false,
+    spellcheck: true,
+    form: "",
+    minlength: undefined,
+    maxlength: undefined,
+    autocapitalize: undefined,
+    autocorrect: undefined,
+    autocomplete: undefined,
+    autofocus: false,
+    enterkeyhint: undefined,
+    inputmode: undefined,
+    //defaultValue: "",
+  },
+  render: ({ ...args }) => html`<ug-textarea
+    name=${args.name}
+    value=${args.maxlength}
+    size=${args.size}
+    ?filled=${args.filled}
+    label=${args.label}
+    help-text=${args["help-text"]}
+    placeholder=${args.placeholder}
+    rows=${args.rows}
+    resize=${args.resize}
+    ?disabled=${args.disabled}
+    ?readonly=${args.readonly}
+    form=${args.form}
+    ?required=${args.required}
+    ${args.minlength !== undefined ? `minlength="${args.minlength}"` : ""}
+    ${args.maxlength !== undefined ? `maxlength="${args.maxlength}"` : ""}
+    autocapitalize=${args.autocapitalize}
+    autocorrect=${args.autocorrect}
+    autocomplete=${args.autocomplete}
+    ?autofocus=${args.autofocus}
+    enterkeyhint=${args.enterkeyhint}
+    ?spellcheck=${args.spellcheck}
+    inputmode=${args.inputmode}
+  ></ug-textarea> `, //      /*defaultValue=${args.defaultValue}*/ Removed because it didn't work correctly
+};
+
+export const Minimal: Story = {
+  ...Default,
   args: {
     name: "",
     value: "",
     size: "medium",
     filled: false,
     label: "",
-    "help-text": "",
+    helpText: "",
     placeholder: "",
     rows: 4,
     resize: "vertical",
     disabled: false,
     readonly: false,
-    form: "",
     required: false,
+    spellcheck: true,
+    form: "",
     minlength: undefined,
     maxlength: undefined,
-    autocapitalize: "off",
-    autocorrect: "",
-    autocomplete: "",
+    autocapitalize: undefined,
+    autocorrect: undefined,
+    autocomplete: undefined,
     autofocus: false,
-    enterkeyhint: "enter",
-    spellcheck: true,
-    inputmode: "text",
+    enterkeyhint: undefined,
+    inputmode: undefined,
     defaultValue: "",
   },
-
-  parameters: {
-    docs: {
-      source: {
-        code: `
-<ug-textarea
-  name="${args.name}"
-  value="${args.value}"
-  size="${args.size}"
-  ?filled="${args.filled}"
-  label="${args.label}"
-  helpText="${args["help-text"]}"
-  placeholder="${args.placeholder}"
-  rows="${args.rows}"
-  resize="${args.resize}"
-  disabled="${args.disabled}"
-  readonly="${args.readonly}"
-  form="${args.form}"
-  required="${args.required}"
-  minlength="${args.minlength}"
-  maxlength="${args.maxlength}"
-  autocapitalize="${args.autocapitalize}"
-  autocorrect="${args.autocorrect}"
-  autocomplete="${args.autocomplete}"
-  autofocus="${args.autofocus}"
-  enterkeyhint="${args.enterkeyhint}"
-  spellcheck="${args.spellcheck}"
-  inputmode="${args.inputmode}"
-  defaultValue="${args.defaultValue}"
-></ug-textarea>
-        `,
-      },
-    },
-  },
-  //prettier-ignore
-  render: ({ ...args }) => html`<ug-textarea
-  name=${args.name} 
-  value=${args.value}
-      size=${args.size}
-      ?filled=${args.filled}
-      label=${args.label}
-      helpText=${args["help-text"]}
-      placeholder=${args.placeholder}
-      rows=${args.rows}
-      resize=${args.resize}
-      disabled=${args.disabled}
-      readonly=${args.readonly}
-      form=${args.form}
-      required=${args.required}
-      minlength=${args.minlength}
-      maxlength=${args.maxlength}
-      autocapitalize=${args.autocapitalize}
-      autocorrect=${args.autocorrect}
-      autocomplete=${args.autocomplete}
-      autofocus=${args.autofocus}
-      enterkeyhint=${args.enterkeyhint}
-      spellcheck=${args.spellcheck}
-      inputmode=${args.inputmode}
-      defaultValue=${args.defaultValue}
-    ></ug-textarea>
-  `,
 };
 
-const Template = (args) => {
-  const attrs = {
-    ...(args.name && { name: args.name }),
-    ...(args.value && { value: args.value }),
-    ...(args.size !== "medium" && { size: args.size }), // Only add `size` if it's not 'medium'
-    ...(args.filled && { filled: args.filled }),
-    ...(args.label && { label: args.label }),
-    ...(args["help-text"] && { "help-text": args["help-text"] }),
-    ...(args.placeholder && { placeholder: args.placeholder }),
-    ...(args.rows !== 4 && { rows: args.rows }), // Default is 4
-    ...(args.resize !== "vertical" && { resize: args.resize }), // Default is vertical
-    ...(args.disabled && { disabled: args.disabled }),
-    ...(args.readonly && { readonly: args.readonly }),
-    ...(args.form && { form: args.form }),
-    ...(args.required && { required: args.required }),
-    ...(args.minlength && { minlength: args.minlength }),
-    ...(args.maxlength && { maxlength: args.maxlength }),
-    ...(args.autocapitalize && { autocapitalize: args.autocapitalize }),
-    ...(args.autocorrect && { autocorrect: args.autocorrect }),
-    ...(args.autocomplete && { autocomplete: args.autocomplete }),
-    ...(args.autofocus && { autofocus: args.autofocus }),
-    ...(args.enterkeyhint && { enterkeyhint: args.enterkeyhint }),
-    ...(args.spellcheck !== true && { spellcheck: args.spellcheck }), // Default is true
-    ...(args.inputmode && { inputmode: args.inputmode }),
-    ...(args.defaultValue && { "default-value": args.defaultValue }),
-  };
-
-  // Create the ug-textarea element
-  const textarea = document.createElement("ug-textarea");
-
-  // Spread attributes onto the element
-  Object.entries(attrs).forEach(([key, value]) => {
-    textarea.setAttribute(key, value);
-  });
-
-  return textarea;
-};
-
-export const Default = Template.bind({});
-Default.args = {
-  name: "example-textarea",
-  value: "Initial value",
-  size: "medium",
-  filled: false,
-  label: "Textarea Label",
-  helpText: "This is help text.",
-  placeholder: "Enter your text here...",
-  rows: 4,
-  resize: "vertical",
-  disabled: false,
-  readonly: false,
-  required: false,
-  spellcheck: true,
-  form: "",
-  minlength: undefined,
-  maxlength: undefined,
-  autocapitalize: undefined,
-  autocorrect: undefined,
-  autocomplete: undefined,
-  autofocus: false,
-  enterkeyhint: undefined,
-  inputmode: undefined,
-  defaultValue: "",
-};
-
-export const Minimal = Template.bind({});
-Minimal.args = {
-  name: "",
-  value: "",
-  size: "medium",
-  filled: false,
-  label: "",
-  helpText: "",
-  placeholder: "",
-  rows: 4,
-  resize: "vertical",
-  disabled: false,
-  readonly: false,
-  required: false,
-  spellcheck: true,
-  form: "",
-  minlength: undefined,
-  maxlength: undefined,
-  autocapitalize: undefined,
-  autocorrect: undefined,
-  autocomplete: undefined,
-  autofocus: false,
-  enterkeyhint: undefined,
-  inputmode: undefined,
-  defaultValue: "",
-};
-
-export const Labels1: Story = {
+export const Labels: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
@@ -632,20 +564,6 @@ export const Labels1: Story = {
       description: {
         story: `Use the \`label\` attribute to give the textarea an accessible label. For labels that contain HTML, use the \`label\` slot instead.`,
       },
-    },
-  },
-};
-
-export const Labels: Story = Template.bind({});
-Labels.args = {
-  ...Minimal.args,
-  label: "Comments",
-};
-Labels.parameters = {
-  controls: {},
-  docs: {
-    description: {
-      story: `Use the \`label\` attribute to give the textarea an accessible label. For labels that contain HTML, use the \`label\` slot instead.`,
     },
   },
 };
@@ -781,4 +699,26 @@ export const ExpandWithContent: Story = {
       },
     },
   },
+};
+
+export const LabelSlot: Story = {
+  args: {
+    labelSlot: "Custom Label",
+  },
+  render: ({ ...args }) => html`
+    <my-textarea>
+      <span slot="label">${args.labelSlot}</span>
+    </my-textarea>
+  `,
+};
+
+export const HelpTextSlot: Story = {
+  args: {
+    helpTextSlot: "Custom help text to provide better guidance.",
+  },
+  render: ({ ...args }) => html`
+    <my-textarea>
+      <span slot="help-text">${args.helpTextSlot}</span>
+    </my-textarea>
+  `,
 };
