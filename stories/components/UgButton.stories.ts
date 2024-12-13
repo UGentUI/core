@@ -252,7 +252,7 @@ export const Disabled: Story = {
         story: `Use the disabled attribute to disable a button.`,
       },
       source: {
-        code: `<ug-button variant="primary" disabled>Disabled Button</ug-button`,
+        code: `<ug-button variant="primary" disabled>Disabled Button</ug-button>`,
       },
     },
     controls: {
