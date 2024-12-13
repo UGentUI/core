@@ -9,6 +9,9 @@ const meta: Meta = {
   component: "ug-button",
   parameters: {
     docs: {
+      toc: {
+        /* options */
+      },
       subtitle: "Buttons represent actions that are available to the user",
     },
   },
