@@ -9,7 +9,7 @@ const meta: Meta = {
   parameters: {
     docs: {
       subtitle:
-        "Trees allow you to display a hierarchical list of selectable tree items. Items with children can be expanded and collapsed as desired by the user. TODO: If this page doesn't load, please try going to a story and then back to docs"
+        "Trees allow you to display a hierarchical list of selectable [tree items](./components-treeitem--docs). Items with children can be expanded and collapsed as desired by the user. TODO: If this page doesn't load, please try going to a story and then back to docs"
     }
   },
 
