@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/datetimeinput';
 import { action } from '@storybook/addon-actions';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { parameters } from '@storybook/addon-interactions/preview';
 
 const meta: Meta = {
   title: 'Components/Datetimeinput',
@@ -43,41 +44,36 @@ On top of that, it contains an input mask which helps the user entering a date w
     clearable: {
       control: 'boolean',
       description: 'Show or hide a clear icon-button',
-      table: {
-        category: 'properties'
-      }
+      table: { category: 'properties', defaultValue: { summary: 'false' } }
+    },
+    showPicker: {
+      control: 'boolean',
+      description: 'Show or hide the picker icon',
+      table: { category: 'properties', defaultValue: { summary: 'true' } }
     },
     dateMode: {
       control: 'select',
       options: ['dd/mm/yyyy', 'mm/dd/yyyy', 'yyyy/mm/dd'],
       description: `Defines the order of the 3 parts of a date: day, month and year. Note that the '/' in those options DO NOT have any meaning. It is only used to differentiate the parts in the input mask. <br>
-                   To specify the separator, you should use the dateSeparator property`,
-      table: {
-        category: 'properties'
-      }
+                   To specify the separator, you should use the <code>dateSeparator</code> property`,
+      table: { category: 'properties', defaultValue: { summary: 'dd/mm/yyyy' } }
     },
     dateSeparator: {
       control: 'text',
       description: `A character that is being used te separate the day, month and year in the input mask`,
-      table: {
-        category: 'properties'
-      }
+      table: { category: 'properties', defaultValue: { summary: '/' } }
     },
     timeMode: {
       control: 'select',
       options: ['HH:MM', 'HH:MM:SS'],
       description: `Defines the order of the 2 or three parts of a time: hour, minutes and/or seconds. Note that the ':' in those options DO NOT have any meaning. It is only used to differentiate the parts in the input mask. <br>
-                   To specify the separator, you should use the timeSeparator property`,
-      table: {
-        category: 'properties'
-      }
+                   To specify the separator in the visible ui, you should use the <code>timeSeparator</code> property`,
+      table: { category: 'properties', defaultValue: { summary: 'HH:MM' } }
     },
     timeSeparator: {
       control: 'text',
       description: `A character that is being used te separate the hour, minutes and/or seconds in the input mask`,
-      table: {
-        category: 'properties'
-      }
+      table: { category: 'properties', defaultValue: { summary: ':' } }
     },
     datetimeSeparator: {
       control: 'text',
@@ -91,14 +87,14 @@ On top of that, it contains an input mask which helps the user entering a date w
       description: `The date-fns format that is being used to format/parse the value of this component. So, the value of this component will always be 
       in this format. <br> 
 It is important to understand that this format DOES NOT specify how the date is displayed. It only specifies the format of control.value.<br>
-The format of the display is completely specified by <i>dateMode</i> and <i>dateSeparator</i>`,
+The format of the display is completely specified by <code>dateMode</code>, <code>dateSeparator</code>, <code>timeMode</code>, <code>TimeSeparator</code> and <code>datetimeSeparator</code>`,
       table: {
         category: 'properties'
       }
     },
     timezone: {
       control: 'text',
-      description: `When timezone is specified, the local date, entered by the user, will be transformed to the given timezone before it is formatted as a 'value'`,
+      description: `When timezone is specified, the local date, entered by the user, will be transformed to the given timezone before it is formatted as a 'value'. Otherwise, the local timezone will be used.`,
       table: {
         category: 'properties',
         defaultValue: {
@@ -210,6 +206,7 @@ export const Datetimeinput: Story = {
         datetimeSeparator="${ifDefined(args.datetimeSeparator)}"
         ?disabled="${args.disabled}"
         ?clearable="${args.clearable}"
+        ?showpicker="${args.showPicker}"
         @ug-change="${action('ug-change')}"
         @ug-input="${action('ug-input')}"
         @ug-focus="${action('ug-focus')}"
@@ -251,7 +248,7 @@ export const DatetimeInUTC: Story = {
     }
   },
   args: {
-    // size: 'small',
+    label: 'datetimeinput',
     value: '2024-12-07T14:55+00:00',
     format: "yyyy-MM-dd'T'HH:mmXXX",
     dateMode: 'dd/mm/yyyy',

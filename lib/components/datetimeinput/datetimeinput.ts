@@ -16,61 +16,6 @@ import {
 } from './datatimeinput.types.ts';
 
 /**
- * Creates a string value which matches the used dateMode and dateSeparator.
- * It is used to create the display value of a given dateValue
- * @param date
- * @param timeSeparator
- * @param dateMode
- * @param dateSeparator
- * @param timeMode
- * @param timeMode
- * @param dateTimeSeparator
- */
-function formatDateToMask(
-  date: Date,
-  dateSeparator: string,
-  dateMode: DateMode,
-  timeMode: TimeMode,
-  dateTimeSeparator: string
-): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = String(date.getFullYear());
-
-  const hour = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  const seconds = String(date.getSeconds()).padStart(2, '0');
-
-  // Split the dateMode to determine the order of components
-  const dateModeParts = dateMode.toLowerCase().split('/') as Array<DatePart>;
-  const timeModeParts = timeMode.split(':') as Array<TimePart>;
-
-  // Create an object to map mode parts to their values
-  const dateComponents: DateComponents = {
-    dd: day,
-    mm: month,
-    yyyy: year
-  };
-
-  const timeComponents: TimeComponents = {
-    HH: hour,
-    MM: minutes,
-    SS: seconds
-  };
-
-  // Construct the date string based on the specified mode
-  const formattedDate = dateModeParts
-    .map((part: DatePart) => dateComponents[part])
-    .join(dateSeparator);
-
-  const formattedTime = timeModeParts
-    .map((part: TimePart) => timeComponents[part])
-    .join(':'); //timeseperator is always ':'
-
-  return formattedDate + dateTimeSeparator + formattedTime;
-}
-
-/**
  * This component can edit datetime. The internal date representation is always local time.
  * (We do however create an UTCDate internally before apply the date-fns function to format to the desired outputted value. See https://stackoverflow.com/questions/58561169/date-fns-how-do-i-format-to-utc)
  * So, when entering or picking a datetime, it is always local time which is being entered/picked.
@@ -83,9 +28,10 @@ export class UgDatetimeinput extends LitElement {
   };
 
   /**
+   * @attr
    * Tells whether this component should show a clear icon or not
    */
-  @property({ type: Boolean }) clearable: boolean = false;
+  @property({ type: Boolean, reflect: true }) clearable: boolean = false;
 
   /**
    * Tells whether this component is disabled or not
@@ -95,10 +41,10 @@ export class UgDatetimeinput extends LitElement {
   /**
    * Tells whether this component should behave as if the data is still loading
    */
-  @property({ reflect: true, type: String }) size!:
+  @property({ reflect: true, type: String }) size:
     | 'small'
     | 'medium'
-    | 'large';
+    | 'large' = 'medium';
 
   @property({ reflect: true, type: String }) dateSeparator: string = '/';
 
@@ -122,10 +68,10 @@ export class UgDatetimeinput extends LitElement {
    * The separator that will be used in the input mask is defined by 'dateSeparator'
    *
    */
-  @property({ type: String })
+  @property({ reflect: true, type: String })
   dateMode: DateMode = 'dd/mm/yyyy';
 
-  @property({ type: String })
+  @property({ attribute: 'timemode', reflect: true, type: String })
   timeMode: TimeMode = 'HH:MM';
 
   @property({ reflect: true, type: String }) format: string =
@@ -135,9 +81,9 @@ export class UgDatetimeinput extends LitElement {
    * When timezone is specified, the local date, entered by the user, will be transformed to the given timezone before
    * it is formatted as a 'value'
    */
-  @property({ reflect: true, type: String }) timezone: string | null = null;
+  @property({ reflect: true, type: String }) timezone!: string | null;
 
-  @property({ type: String, reflect: true }) label: string | null = null;
+  @property({ type: String, reflect: true }) label!: string | null;
   /**
    * The value as it will be outputted to clients (both in ug-change events and when users do a '.value' on this component)
    * As of the standard in form elements, this is always a string
@@ -149,7 +95,7 @@ export class UgDatetimeinput extends LitElement {
   /**
    * Tells whether this component should render a 'picker' or not. (defaults to true)
    */
-  @property({ type: Boolean, reflect: true }) showPicker: boolean = true;
+  @property({ type: Boolean, reflect: false }) showPicker: boolean = true;
 
   @query('ug-input') private inputComponent!: UgInput;
 
@@ -159,7 +105,9 @@ export class UgDatetimeinput extends LitElement {
   @state()
   private localDatetimeValue: string | null = null;
 
-  //this is the format the native datetime-local input uses
+  //One of these formats is used for creating datestrings to be used by the native datetime-local input.
+  //depending on the timeMode one with of without seconds will be used. This way, the picker will
+  //only show seconds when it is effectively used.
   private localDatetimeFormatWithoutSeconds: string = "yyyy-MM-dd'T'HH:mm";
   private localDatetimeFormatWithSeconds: string = "yyyy-MM-dd'T'HH:mm:ss";
 
@@ -168,38 +116,7 @@ export class UgDatetimeinput extends LitElement {
 
   private maskitoInstance?: Maskito;
 
-  /**
-   * It is not recommended to declare defaults together with reflected @Properties
-   * Those should be handled in a lifcylemethod, such as connectedCallback()
-   */
-  connectedCallback() {
-    super.connectedCallback();
-
-    if (!this.hasAttribute('size')) {
-      this.size = 'medium';
-    }
-
-    if (this.hasAttribute('datemode')) {
-      this.dateMode = this.getAttribute('datemode') as DateMode;
-    }
-
-    if (this.hasAttribute('timemode')) {
-      this.timeMode = this.getAttribute('timemode') as TimeMode;
-    }
-
-    if (this.hasAttribute('format')) {
-      this.format = this.getAttribute('format') as string;
-    }
-  }
-
   updated(changedProperties: Map<string | number | symbol, unknown>) {
-    if (
-      changedProperties.has('dateMode') ||
-      changedProperties.has('dateSeparator')
-    ) {
-      void this.initializeMask();
-    }
-
     let updateInput = false;
 
     if (changedProperties.has('value')) {
@@ -213,6 +130,14 @@ export class UgDatetimeinput extends LitElement {
         // In other words: The value of this component WILL become null in case of an invalid date, but the entered text should not be cleared
         updateInput = false;
       }
+    } else if (
+      changedProperties.has('dateMode') ||
+      changedProperties.has('dateSeparator') ||
+      changedProperties.has('timeMode') ||
+      changedProperties.has('timeSeparator') ||
+      changedProperties.has('datetimeSeparator')
+    ) {
+      updateInput = true;
     }
 
     if (this.value == null || this.value == '') {
@@ -221,13 +146,6 @@ export class UgDatetimeinput extends LitElement {
         this.inputComponent.value = '';
       }
     } else {
-      //
-      // parseInTimeZone(
-      //   dateStringWithOffset,
-      //   'UTC',
-      //   "yyyy-MM-dd'T'HH:mmXX"
-      // )
-
       let incomingValueAsLocalDate;
       if (this.timezone) {
         incomingValueAsLocalDate = parse(this.value, this.format, new Date());
@@ -240,21 +158,21 @@ export class UgDatetimeinput extends LitElement {
 
         this.localDatetimeValue = format(
           incomingValueAsLocalDate,
-          this.useseconds
+          this.useSeconds
             ? this.localDatetimeFormatWithSeconds
             : this.localDatetimeFormatWithoutSeconds
         );
 
         if (updateInput) {
           //update maskedString (display value)
-          let formattedForInput = formatDateToMask(
+          this.inputComponent.value = formatDateToMask(
             incomingValueAsLocalDate,
             this.dateSeparator,
             this.dateMode,
+            this.timeSeparator,
             this.timeMode,
             this.datetimeSeparator
           );
-          this.inputComponent.value = formattedForInput;
         }
       } else {
         //update valueAsIso8601
@@ -274,12 +192,12 @@ export class UgDatetimeinput extends LitElement {
     return this.hasNamedSlot('prefix');
   }
 
-  get useseconds(): boolean {
+  get useSeconds(): boolean {
     return this.timeMode == 'HH:MM:SS';
   }
 
   get shouldShowSuffixSlot(): boolean {
-    return this.hasNamedSlot('prefix');
+    return this.hasNamedSlot('suffix');
   }
 
   private hasNamedSlot(name: string) {
@@ -452,28 +370,29 @@ export class UgDatetimeinput extends LitElement {
         @ug-blur="${this.handleInputBlur}"
         @ug-input="${this.handleInputInput}"
       >
-        ${
-          this.shouldShowPrefixSlot
-            ? html` <div class="prefix">
-                <slot name="prefix"></slot>
-              </div>`
-            : ''
-        }
+        ${this.shouldShowPrefixSlot
+          ? html` <div class="prefix">
+              <slot name="prefix"></slot>
+            </div>`
+          : ''}
 
         <div slot="suffix">
-          ${
-            this.shouldShowPrefixSlot ? html` <slot name="prefix"></slot> ` : ''
-          }
-
-          <input style="visibility: hidden; width: 0; height: 0;" /
+          ${this.shouldShowSuffixSlot
+            ? html` <slot name="suffix"></slot> `
+            : ''}
+          ${this.showPicker
+            ? html`
+            <input style="visibility: hidden; width: 0; height: 0;" /
             .value="${this.localDatetimeValue}"
             type="datetime-local"
             @change="${this.handleCalendarDatePicked}"
-          />
-          <ug-icon
-            name="calendar"
-            @click="${this.handleCalendarClick}"
-          ></ug-icon>
+            />
+            <ug-icon
+              name="calendar"
+              @click="${this.handleCalendarClick}"
+            ></ug-icon>
+          `
+            : ''}
         </div>
       </ug-input>
     `;
@@ -518,6 +437,61 @@ export class UgDatetimeinput extends LitElement {
       }
     }
   }
+}
+
+/**
+ * Creates a string value which matches the used dateMode and dateSeparator.
+ * It is used to create the display value of a given dateValue
+ * @param date
+ * @param dateMode
+ * @param dateSeparator
+ * @param timeMode
+ * @param timeMode
+ * @param dateTimeSeparator
+ */
+function formatDateToMask(
+  date: Date,
+  dateSeparator: string,
+  dateMode: DateMode,
+  timeSeparator: string,
+  timeMode: TimeMode,
+  dateTimeSeparator: string
+): string {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = String(date.getFullYear());
+
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  // Split the dateMode to determine the order of components
+  const dateModeParts = dateMode.toLowerCase().split('/') as Array<DatePart>;
+  const timeModeParts = timeMode.split(':') as Array<TimePart>;
+
+  // Create an object to map mode parts to their values
+  const dateComponents: DateComponents = {
+    dd: day,
+    mm: month,
+    yyyy: year
+  };
+
+  const timeComponents: TimeComponents = {
+    HH: hour,
+    MM: minutes,
+    SS: seconds
+  };
+
+  // Construct the date string based on the specified mode
+  const formattedDate = dateModeParts
+    .map((part: DatePart) => dateComponents[part])
+    .join(dateSeparator);
+
+  const formattedTime = timeModeParts
+    .map((part: TimePart) => timeComponents[part])
+    .join(timeSeparator);
+
+  return formattedDate + dateTimeSeparator + formattedTime;
 }
 
 declare global {
