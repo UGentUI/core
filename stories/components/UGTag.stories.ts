@@ -91,7 +91,7 @@ export default meta;
 type Story = StoryObj;
 
 // Transform code that makes it more readable
-const customTransform = (code: string): string => {
+const removeDefaultAttributes = (code: string): string => {
   return code
     .replace(/\s*(variant="neutral"|size="medium")/g, '')
     .replace(/pill=""/g, 'pill')
@@ -109,15 +109,18 @@ export const Default = {
     docs: {
       source: {
         format: true,
-        transform: customTransform // Use the custom transform function here
+        transform: removeDefaultAttributes // Use the custom transform function here
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
   render: (args) => {
     return html`
 <ug-tag
-        .variant="${args.variant}"
+        variant="${args.variant}"
         size="${args.size}"
         ?pill="${args.pill}"
         ?removable="${args.removable}"
@@ -140,8 +143,11 @@ export const Variants: Story = {
       },
       source: {
         format: true,
-        transform: customTransform // Use the custom transform function here
+        transform: removeDefaultAttributes // Use the custom transform function here
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -197,8 +203,11 @@ export const Sizes: Story = {
       },
       source: {
         format: true,
-        transform: customTransform // Use the custom transform function here
+        transform: removeDefaultAttributes // Use the custom transform function here
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -241,8 +250,11 @@ export const Pill: Story = {
       },
       source: {
         format: true,
-        transform: customTransform // Use the custom transform function here
+        transform: removeDefaultAttributes // Use the custom transform function here
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -278,8 +290,11 @@ export const Removable: Story = {
       },
       source: {
         format: true,
-        transform: customTransform // Use the custom transform function here
+        transform: removeDefaultAttributes // Use the custom transform function here
       }
+    },
+    html: {
+      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
