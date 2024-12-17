@@ -2,6 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/switch';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Switch',
@@ -40,14 +41,12 @@ const meta: Meta = {
     size: {
       name: 'size',
       description: 'The switch’s size.',
+      control: 'select',
+      options: ['small', 'medium', 'large'],
       table: {
         category: 'Properties',
         type: { summary: "'small' | 'medium' | 'large'" },
         defaultValue: { summary: "'medium'" }
-      },
-      control: {
-        type: 'select',
-        options: ['small', 'medium', 'large']
       },
       defaultValue: {
         summary: 'medium'
@@ -157,7 +156,7 @@ const meta: Meta = {
         type: { summary: 'string | slot' },
         defaultValue: { summary: "''" }
       },
-      control: 'text'
+      control: false
     },
     //Events
     'ug-blur': {
@@ -167,7 +166,8 @@ const meta: Meta = {
         category: 'Events',
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     'ug-change': {
       name: 'ug-change',
@@ -176,7 +176,8 @@ const meta: Meta = {
         category: 'Events',
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     'ug-input': {
       name: 'ug-input',
@@ -185,7 +186,8 @@ const meta: Meta = {
         category: 'Events',
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     'ug-focus': {
       name: 'ug-focus',
@@ -194,7 +196,8 @@ const meta: Meta = {
         category: 'Events',
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     'ug-invalid': {
       name: 'ug-invalid',
@@ -204,7 +207,8 @@ const meta: Meta = {
         category: 'Events',
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     }
   }
 };
@@ -213,10 +217,15 @@ export default meta;
 
 type Story = StoryObj;
 
+// Transform code that makes it more readable
+const removeDefaultAttributes = (code: string): string => {
+  return code.replace(/\s*(size="medium")/g, '');
+};
+
 export const Default: Story = {
   args: {
-    name: 'switch1',
-    value: 'on',
+    name: '',
+    value: '',
     size: 'medium',
     disabled: false,
     checked: false,
@@ -240,4 +249,136 @@ export const Default: Story = {
       ></ug-switch>
     `;
   }
+};
+
+export const Checked: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    checked: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>checked</code> attribute to activate the switch.`
+      },
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    disabled: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>disabled</code> attribute to disable the switch.`
+      },
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
+    }
+  }
+};
+
+export const Sizes: Story = {
+  ...Default,
+  args: {
+    ...Default.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>size</code> attribute to change a switch’s size.`
+      },
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
+    }
+  },
+
+  // prettier-ignore
+  render: (args) => {
+    return html`
+<ug-switch size="small">Small</ug-switch>
+<br />
+<ug-switch size="medium">Medium</ug-switch>
+<br />
+<ug-switch size="large">Large</ug-switch>
+`
+  }
+};
+
+export const HelpText: Story = {
+  ...Default,
+  args: {
+    ...Default.args,
+    helpText: 'What should the user know about the switch?'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add descriptive help text to a switch with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
+      },
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
+    }
+  }
+};
+
+export const HelpTextSlot: Story = {
+  ...Default,
+  args: {
+    ...Default.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add descriptive help text to a switch with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
+      },
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
+    }
+  },
+  // prettier-ignore
+  render: (args) => {
+    return html`
+  <ug-switch>
+    <div slot="help-text">This is helpful text for the switch, maybe it has a <a href=".">link</a>.</div>
+  </ug-switch>
+    `;}
+};
+
+export const SwitchWithEvents: Story = {
+  ...Default,
+  args: {
+    ...Default.args
+  },
+  // prettier-ignore
+  render: (args) => {
+    return html`
+<ug-switch 
+
+        @ug-blur="${action('ug-blur')}"
+        @ug-change="${action('ug-change')}"
+        @ug-input="${action('ug-input')}"
+        @ug-focus="${action('ug-focus')}"
+        @ug-invalid="${action('ug-invalid')}"
+      >
+  Interactive Switch
+</ug-switch>
+    `;}
 };
