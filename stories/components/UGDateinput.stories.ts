@@ -7,18 +7,15 @@ const meta: Meta = {
   title: 'Components/Dateinput',
   component: 'ug-dateinput',
   parameters: {
-    // layout: 'fullscreen',
     docs: {
       description: {
         component: `
-<p>
 This component is based on the <ug-input> web component. It contains the same events, properties, etc.
-<br>
 On top of that, it contains an input mask which helps the user entering a date in the right format.   
-</p>
-<p>This component handles focus behavior, showing / hiding the dropdown and firing the corresponding events.<br>
+
+This component handles focus behavior, showing / hiding the dropdown and firing the corresponding events.<br>
 It is up to you to implement the (asynchronous) loading behavior, and adding the <ug-menu-item>'s as a result of that.
-</p>`,
+`,
         story: `(start typing to show the dropdown)`
       }
     }
@@ -46,21 +43,29 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
     clearable: {
       control: 'boolean',
       description: 'Show or hide a clear icon-button',
-      table: {
-        category: 'properties'
-      }
+      table: { category: 'properties', defaultValue: { summary: 'false' } }
     },
     dateMode: {
       control: 'select',
       options: ['dd/mm/yyyy', 'mm/dd/yyyy', 'yyyy/mm/dd'],
-      description: `Defines the order of the 3 parts of a date: day, month and year. Note that the '/' in those options DO NOT have any meaning. It is only used to differentiate the parts in the input mask. <br>
-                   To specify the separator, you should use the dateSeparator property`,
+      reflection: {
+        reflected: true,
+        attributeName: 'datemode'
+      },
+      description: `Defines the order of the 3 parts of a date: day, month and year. 
+
+Note that the '/' in those options ***do not*** have any meaning. It is only used to differentiate the parts in the input mask. <br>
+To specify the separator, you should use the dateSeparator property`,
       table: {
         category: 'properties'
       }
     },
     dateSeparator: {
       control: 'text',
+      reflection: {
+        reflected: true,
+        attributeName: 'dateseparator'
+      },
       description: `A character that is being used te separate the day, month and year in the input mask`,
       table: {
         category: 'properties'
@@ -68,10 +73,14 @@ It is up to you to implement the (asynchronous) loading behavior, and adding the
     },
     format: {
       control: 'text',
-      description: `The date-fns format that is being used to format/parse the value of this component. So, the value of this component will always be 
-      in this format. <br> 
-It is important to understand that this format DOES NOT specify how the date is displayed. It only specifies the format of control.value.<br>
-The format of the display is completely specified by <i>dateMode</i> and <i>dateSeparator</i>`,
+      reflection: {
+        reflected: true,
+        attributeName: 'format'
+      },
+      description: `
+The date-fns format that is being used to format/parse the value of this component. So, the value of this component will always be in this format. <br> 
+It is important to understand that this format ***does not*** specify how the date is displayed. It only specifies the format of \`\`control.value\`\`.<br>
+The format of the display is completely specified by *dateMode* and *dateSeparator*`,
       table: {
         category: 'properties'
       }
@@ -79,6 +88,10 @@ The format of the display is completely specified by <i>dateMode</i> and <i>date
 
     value: {
       control: 'text',
+      reflection: {
+        reflected: true,
+        attributeName: 'value'
+      },
       description: `The value of this formcontrol. Note that it is not necessarily the same as the value you can see in the browser.`,
       table: {
         category: 'properties'
