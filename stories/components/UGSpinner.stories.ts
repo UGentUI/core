@@ -4,7 +4,14 @@ import '/lib/components/spinner';
 
 const meta: Meta = {
   title: 'Components/Spinner',
-  component: 'ug-spinner'
+  component: 'ug-spinner',
+
+  parameters: {
+    docs: {
+      subtitle:
+        'Spinners are used to show the progress of an indeterminate operation.'
+    }
+  }
 };
 
 export default meta;
