@@ -32,7 +32,6 @@ const meta: Meta = {
                   When multiple is enabled, the value attribute will be a space-delimited list 
                   of values based on the options selected, and the value property will be an array. 
                   For this reason, values must not contain spaces.`,
-      type: { name: 'string | string[]' },
       table: {
         category: 'Properties',
         type: { summary: 'string | string[]' }
@@ -42,7 +41,6 @@ const meta: Meta = {
       name: 'Default Value',
       description:
         'The default value of the form control. Primarily used for resetting the form control.',
-      type: { name: 'string | string[]' },
       defaultValue: '',
       table: {
         category: 'Properties',
@@ -227,9 +225,6 @@ const meta: Meta = {
       name: 'Get Tag',
       description:
         'A function that customizes the tags to be rendered when multiple=true. The function should return either a Lit TemplateResult or a string containing trusted HTML of the symbol to render at the specified value.',
-      type: {
-        name: '(option: SlOption, index: number) => TemplateResult | string | HTMLElement'
-      },
       table: {
         category: 'Properties',
         type: {
@@ -446,7 +441,8 @@ const meta: Meta = {
         type: { summary: '<ug-option> | <ug-divider>' }
       }
     },
-    label: {
+    labelSlot: {
+      name: 'label',
       description:
         'The input’s label. Alternatively, you can use the `label` attribute.',
       table: {
