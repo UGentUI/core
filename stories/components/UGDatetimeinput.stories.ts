@@ -2,8 +2,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/datetimeinput';
 import { action } from '@storybook/addon-actions';
+import { expect, userEvent } from '@storybook/test';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { parameters } from '@storybook/addon-interactions/preview';
+import { assertDefined } from '../utils/storybook-utils';
 
 const meta: Meta = {
   title: 'Components/Datetimeinput',
@@ -45,6 +46,13 @@ On top of that, it contains an input mask which helps the user entering a date w
       control: 'boolean',
       description: 'Show or hide a clear icon-button',
       table: { category: 'properties', defaultValue: { summary: 'false' } }
+    },
+    placeholderwhiletyping: {
+      attributes: ['placeholderwhiletyping'],
+      name: 'placeholderWhileTyping',
+      control: 'boolean',
+      description: 'Keep showing the placeholder while typing',
+      table: { category: 'properties', defaultValue: { summary: 'true' } }
     },
     showPicker: {
       control: 'boolean',
@@ -183,37 +191,31 @@ export default meta;
 type Story = StoryObj;
 
 export const Datetimeinput: Story = {
-  args: {
-    dateMode: 'dd/mm/yyyy',
-    dateSeparator: '/',
-    datetimeSeparator: ',',
-    value: '2024-12-07T14:55:20',
-    format: "yyyy-MM-dd'T'HH:mm:ss"
-  },
-
+  args: {},
+  // prettier-ignore
   render: (args) => {
     return html`
-      <ug-datetimeinput
-        size="${ifDefined(args.size)}"
-        value="${ifDefined(args.value)}"
-        timemode="${ifDefined(args.timeMode)}"
-        datemode="${ifDefined(args.dateMode)}"
-        dateSeparator="${ifDefined(args.dateSeparator)}"
-        timeSeparator="${ifDefined(args.timeSeparator)}"
-        format="${ifDefined(args.format)}"
-        label="${ifDefined(args.label)}"
-        timezone="${ifDefined(args.timezone)}"
-        datetimeSeparator="${ifDefined(args.datetimeSeparator)}"
-        ?disabled="${args.disabled}"
-        ?clearable="${args.clearable}"
-        ?showpicker="${args.showPicker}"
-        @ug-change="${action('ug-change')}"
-        @ug-input="${action('ug-input')}"
-        @ug-focus="${action('ug-focus')}"
-        @ug-blur="${action('ug-blur')}"
-        @ug-clear="${action('ug-clear')}"
-      >
-      </ug-datetimeinput>
+<ug-datetimeinput
+  size="${ifDefined(args.size)}"
+  value="${ifDefined(args.value)}"
+  timemode="${ifDefined(args.timeMode)}"
+  datemode="${ifDefined(args.dateMode)}"
+  dateSeparator="${ifDefined(args.dateSeparator)}"
+  timeSeparator="${ifDefined(args.timeSeparator)}"
+  format="${ifDefined(args.format)}"
+  label="${ifDefined(args.label)}"
+  timezone="${ifDefined(args.timezone)}"
+  datetimeSeparator="${ifDefined(args.datetimeSeparator)}"
+  ?placeholderwhiletyping="${args.placeholderwhiletyping}"
+  ?disabled="${args.disabled}"
+  ?clearable="${args.clearable}"
+  ?showpicker="${args.showPicker}"
+  @ug-change="${action('ug-change')}"
+  @ug-input="${action('ug-input')}"
+  @ug-focus="${action('ug-focus')}"
+  @ug-blur="${action('ug-blur')}"
+  @ug-clear="${action('ug-clear')}"
+></ug-datetimeinput>
     `;
   }
 };
@@ -255,5 +257,59 @@ export const DatetimeInUTC: Story = {
     dateSeparator: '/',
     datetimeSeparator: ', ',
     timezone: 'UTC'
+  }
+};
+
+export const DatetimeWithEvents: Story = {
+  ...Datetimeinput,
+  parameters: {
+    docs: {
+      description: {
+        story: ``
+      }
+    }
+  },
+  args: {
+    label: 'My datetimeinput',
+    value: '',
+    format: "yyyy-MM-dd'T'HH:mm",
+    dateMode: 'dd/mm/yyyy',
+    dateSeparator: '/',
+    datetimeSeparator: ', '
+  },
+
+  play: async ({ canvasElement }) => {
+    let datetimeinput = canvasElement.querySelector('ug-datetimeinput')!;
+    await datetimeinput.updateComplete;
+    let shadowRoot = datetimeinput.shadowRoot!;
+    let ugInput = shadowRoot.querySelector('ug-input');
+    await expect(ugInput).toBeTruthy();
+    await ugInput?.updateComplete;
+
+    await expect(datetimeinput.value, 'Value should be empty at start').toEqual(
+      ''
+    );
+
+    const input = ugInput?.shadowRoot?.querySelector(
+      'input'
+    ) as HTMLInputElement | null;
+    assertDefined(input, 'Input should be present');
+
+    await userEvent.type(input, '07/1');
+    await expect(datetimeinput.value, 'No value when incomplete date').toEqual(
+      ''
+    );
+
+    await userEvent.type(input, '2/1976');
+    await expect(
+      datetimeinput.value,
+      'No value with complete date, but incomplete time'
+    ).toEqual('');
+
+    await userEvent.type(input, ', 1533');
+    await expect(
+      datetimeinput.value,
+      'value with complete date and time'
+    ).toEqual('1976-12-07T15:33');
   }
 };

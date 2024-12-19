@@ -1,8 +1,11 @@
 import { html, LitElement } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { UgInput } from '../input';
-import { maskitoDateTimeOptionsGenerator } from '@maskito/kit';
-import { Maskito } from '@maskito/core';
+import {
+  maskitoDateTimeOptionsGenerator,
+  maskitoWithPlaceholder
+} from '@maskito/kit';
+import { Maskito, type MaskitoOptions } from '@maskito/core';
 import { format, parse, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import {
@@ -37,6 +40,16 @@ export class UgDatetimeinput extends LitElement {
    * Tells whether this component is disabled or not
    */
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
+
+  /**
+   * Tells whether this component is disabled or not
+   */
+  @property({
+    attribute: 'placeholderwhiletyping',
+    type: Boolean,
+    reflect: true
+  })
+  placeholderWhileTyping: boolean = true;
 
   /**
    * Tells whether this component should behave as if the data is still loading
@@ -130,13 +143,17 @@ export class UgDatetimeinput extends LitElement {
         // In other words: The value of this component WILL become null in case of an invalid date, but the entered text should not be cleared
         updateInput = false;
       }
-    } else if (
+    }
+
+    if (
       changedProperties.has('dateMode') ||
       changedProperties.has('dateSeparator') ||
       changedProperties.has('timeMode') ||
       changedProperties.has('timeSeparator') ||
-      changedProperties.has('datetimeSeparator')
+      changedProperties.has('datetimeSeparator') ||
+      changedProperties.has('placeholderWhileTyping')
     ) {
+      void this.initializeMask();
       updateInput = true;
     }
 
@@ -251,13 +268,9 @@ export class UgDatetimeinput extends LitElement {
     return returnedDate;
   };
 
-  firstUpdated() {
-    void this.initializeMask();
-  }
-
   private async initializeMask() {
     // Find the native input element
-
+    console.info('Initializing mask');
     //wait until the input is fully rendered and initialized
     await this.inputComponent.updateComplete;
 
@@ -266,18 +279,30 @@ export class UgDatetimeinput extends LitElement {
 
     if (nativeInput) {
       // Create mask options
-      const dateMaskOptions = maskitoDateTimeOptionsGenerator({
+      let dateMaskOptions = maskitoDateTimeOptionsGenerator({
         dateMode: this.dateMode,
         timeMode: this.timeMode,
         dateSeparator: this.dateSeparator,
         dateTimeSeparator: this.datetimeSeparator
       });
 
+      let maskToUse: MaskitoOptions;
+      if (this.placeholderWhileTyping) {
+        maskToUse = {
+          ...dateMaskOptions,
+          ...maskitoWithPlaceholder(this.placeholder)
+        };
+      } else {
+        maskToUse = {
+          ...dateMaskOptions
+        };
+      }
+
       // Create and apply the mask
       if (this.maskitoInstance) {
         this.maskitoInstance.destroy();
       }
-      this.maskitoInstance = new Maskito(nativeInput, dateMaskOptions);
+      this.maskitoInstance = new Maskito(nativeInput, maskToUse);
     }
   }
 
@@ -359,10 +384,12 @@ export class UgDatetimeinput extends LitElement {
   render() {
     return html`
       <ug-input
+        spellcheck="false"
         label="${this.label}"
         size="${this.size}"
         ?disabled="${this.disabled}"
         ?clearable="${this.clearable}"
+        ?placeholderwhiletyping="${this.placeholderWhileTyping}"
         placeholder="${this.placeholder}"
         @ug-change="${this.handleInputChange}"
         @ug-clear="${this.handleInputClear}"
