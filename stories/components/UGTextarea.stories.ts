@@ -17,7 +17,7 @@ const meta: Meta = {
         format: true,
         transform: (code: string) => {
           return code.replace(
-            /\s*(name=""|value=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|minlength=""|maxlength=""|autocapitalize=""|autocorrect=""|autocomplete=""|enterkeyhint=""|inputmode=""|spellcheck="")/g,
+            /\s*(value=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|minlength=""|maxlength=""|autocapitalize=""|autocorrect=""|autocomplete=""|inputmode=""|spellcheck="")/g,
             ''
           );
         }
@@ -25,13 +25,12 @@ const meta: Meta = {
     }
   },
   argTypes: {
-    name: {
-      description:
-        'The name of the textarea, submitted as a name/value pair with form data.',
-      control: { type: 'text' },
+    rows: {
+      description: 'The number of rows to display by default.',
+      control: { type: 'number' },
       table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: "''" },
+        type: { summary: 'number' },
+        defaultValue: { summary: '4' },
         category: 'properties'
       }
     },
@@ -59,15 +58,6 @@ const meta: Meta = {
       },
       defaultValue: 'medium' // For actual functionality in Storybook preview
     },
-    filled: {
-      description: 'Draws a filled textarea.',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' },
-        category: 'properties'
-      }
-    },
     label: {
       description: "The textarea's label. Use the label slot for HTML content.",
       control: { type: 'text' },
@@ -94,15 +84,6 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
-      }
-    },
-    rows: {
-      description: 'The number of rows to display by default.',
-      control: { type: 'number' },
-      table: {
-        type: { summary: 'number' },
-        defaultValue: { summary: '4' },
         category: 'properties'
       }
     },
@@ -207,19 +188,6 @@ const meta: Meta = {
         category: 'properties'
       }
     },
-    enterkeyhint: {
-      description:
-        'Customizes the label or icon of the Enter key on virtual keyboards.',
-      control: { type: 'radio' },
-      options: ['enter', 'done', 'go', 'next', 'previous', 'search', 'send'],
-      table: {
-        type: {
-          summary:
-            "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send'"
-        },
-        category: 'properties'
-      }
-    },
     spellcheck: {
       description: 'Enables spell checking on the textarea.',
       control: { type: 'boolean' },
@@ -247,33 +215,6 @@ const meta: Meta = {
           summary:
             "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'"
         },
-        category: 'properties'
-      }
-    },
-    /*defaultValue: {
-      description: "The default value of the form control.",
-      control: { type: "text" },
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "''" },
-        category: "properties",
-      },
-    },*/
-    validity: {
-      description: 'Gets the validity state object. Readonly',
-      control: { type: 'null' },
-      table: {
-        type: { summary: 'ValidityState' },
-        defaultValue: { summary: '-' },
-        category: 'properties'
-      }
-    },
-    validationMessage: {
-      description: 'Gets the validation message. Readonly.',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        defaultValue: { summary: '-' },
         category: 'properties'
       }
     },
@@ -343,41 +284,12 @@ const meta: Meta = {
     },
 
     // Methods
-    focus: {
-      name: 'focus()',
-      description: 'Sets focus on the textarea.',
-      table: {
-        category: 'Methods',
-        type: { summary: '(options: FocusOptions) => void' },
-        defaultValue: { summary: '-' }
-      }
-    },
-    blur: {
-      name: 'blur()',
-      description: 'Removes focus from the textarea.',
-      table: {
-        category: 'Methods',
-        type: { summary: '() => void' },
-        defaultValue: { summary: '-' }
-      }
-    },
     select: {
       name: 'select()',
       description: 'Selects all the text in the textarea.',
       table: {
         category: 'Methods',
         type: { summary: '() => void' },
-        defaultValue: { summary: '-' }
-      }
-    },
-    scrollPosition: {
-      name: 'scrollPosition()',
-      description: 'Gets or sets the textarea’s scroll position.',
-      table: {
-        category: 'Methods',
-        type: {
-          summary: '(position: { top?: number; left?: number }) => void'
-        },
         defaultValue: { summary: '-' }
       }
     },
@@ -403,25 +315,6 @@ const meta: Meta = {
           summary:
             "(replacement: string, start: number, end: number, selectMode: 'select' | 'start' | 'end' | 'preserve') => void"
         },
-        defaultValue: { summary: '-' }
-      }
-    },
-    checkValidity: {
-      name: 'checkValidity()',
-      description:
-        'Checks for validity but does not show a validation message.',
-      table: {
-        category: 'Methods',
-        type: { summary: '() => boolean' },
-        defaultValue: { summary: '-' }
-      }
-    },
-    getForm: {
-      name: 'getForm()',
-      description: 'Gets the associated form, if one exists.',
-      table: {
-        category: 'Methods',
-        type: { summary: '() => HTMLFormElement | null' },
         defaultValue: { summary: '-' }
       }
     },
@@ -473,12 +366,10 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    name: 'example-textarea',
     value: 'Initial value',
     size: 'large',
-    filled: false,
     label: 'Textarea Label',
-    helpText: 'This is help text.',
+    'help-text': 'This is help text.',
     placeholder: 'Enter your text here...',
     rows: 4,
     resize: 'vertical',
@@ -493,16 +384,12 @@ export const Default: Story = {
     autocorrect: undefined,
     autocomplete: undefined,
     autofocus: false,
-    enterkeyhint: undefined,
     inputmode: undefined
-    //defaultValue: "",
   },
   render: ({ ...args }) =>
     html`<ug-textarea
-      name=${args.name}
       value=${args.maxlength}
       size=${args.size}
-      ?filled=${args.filled}
       label=${args.label}
       help-text=${args['help-text']}
       placeholder=${args.placeholder}
@@ -518,7 +405,6 @@ export const Default: Story = {
       autocorrect=${args.autocorrect}
       autocomplete=${args.autocomplete}
       ?autofocus=${args.autofocus}
-      enterkeyhint=${args.enterkeyhint}
       ?spellcheck=${args.spellcheck}
       inputmode=${args.inputmode}
     ></ug-textarea> ` //      /*defaultValue=${args.defaultValue}*/ Removed because it didn't work correctly
@@ -527,10 +413,8 @@ export const Default: Story = {
 export const Minimal: Story = {
   ...Default,
   args: {
-    name: '',
     value: '',
     size: 'medium',
-    filled: false,
     label: '',
     helpText: '',
     placeholder: '',
@@ -547,7 +431,6 @@ export const Minimal: Story = {
     autocorrect: undefined,
     autocomplete: undefined,
     autofocus: false,
-    enterkeyhint: undefined,
     inputmode: undefined,
     defaultValue: ''
   }
@@ -613,23 +496,6 @@ export const Placeholder: Story = {
     docs: {
       description: {
         story: `Use the \`placeholder\` attribute to add a placeholder.`
-      }
-    }
-  }
-};
-
-export const FilledTextareas: Story = {
-  ...Minimal,
-  args: {
-    ...Minimal.args,
-    placeholder: 'Type something',
-    filled: true
-  },
-  parameters: {
-    controls: {},
-    docs: {
-      description: {
-        story: `Add the \`filled\` attribute to draw a filled textarea.`
       }
     }
   }
