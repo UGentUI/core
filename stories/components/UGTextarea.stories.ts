@@ -1,254 +1,254 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/textarea";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/textarea';
 
 const meta: Meta = {
-  title: "Components/Textarea",
-  component: "ug-textarea",
+  title: 'Components/Textarea',
+  component: 'ug-textarea',
   parameters: {
     docs: {
       toc: {
         /* options */
       },
       subtitle:
-        "Textareas collect data from the user and allow multiple lines of text.",
+        'Textareas collect data from the user and allow multiple lines of text.',
       //Hide unused variables
       source: {
         format: true,
         transform: (code: string) => {
           return code.replace(
             /\s*(name=""|value=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|minlength=""|maxlength=""|autocapitalize=""|autocorrect=""|autocomplete=""|enterkeyhint=""|inputmode=""|spellcheck="")/g,
-            ""
+            ''
           );
-        },
-      },
-    },
+        }
+      }
+    }
   },
   argTypes: {
     name: {
       description:
-        "The name of the textarea, submitted as a name/value pair with form data.",
-      control: { type: "text" },
+        'The name of the textarea, submitted as a name/value pair with form data.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     value: {
       description:
-        "The current value of the textarea, submitted as a name/value pair with form data.",
-      control: { type: "text" },
+        'The current value of the textarea, submitted as a name/value pair with form data.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     size: {
       description: "The textarea's size.",
-      control: { type: "radio" },
-      options: ["small", "medium", "large"],
+      control: { type: 'radio' },
+      options: ['small', 'medium', 'large'],
       table: {
         type: { summary: "'small' | 'medium' | 'large'" },
-        defaultValue: { summary: "medium" },
-        category: "properties",
+        defaultValue: { summary: 'medium' },
+        category: 'properties'
       },
       canvas: {
-        defaultValue: "medium", // For actual functionality in Storybook preview
+        defaultValue: 'medium' // For actual functionality in Storybook preview
       },
-      defaultValue: "medium", // For actual functionality in Storybook preview
+      defaultValue: 'medium' // For actual functionality in Storybook preview
     },
     filled: {
-      description: "Draws a filled textarea.",
-      control: { type: "boolean" },
+      description: 'Draws a filled textarea.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'properties'
+      }
     },
     label: {
       description: "The textarea's label. Use the label slot for HTML content.",
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
-    "help-text": {
+    'help-text': {
       description:
         "The textarea's help text. Use the help-text slot for HTML content.",
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     placeholder: {
       description:
-        "Placeholder text to show as a hint when the input is empty.",
-      control: { type: "text" },
+        'Placeholder text to show as a hint when the input is empty.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     rows: {
-      description: "The number of rows to display by default.",
-      control: { type: "number" },
+      description: 'The number of rows to display by default.',
+      control: { type: 'number' },
       table: {
-        type: { summary: "number" },
-        defaultValue: { summary: "4" },
-        category: "properties",
-      },
+        type: { summary: 'number' },
+        defaultValue: { summary: '4' },
+        category: 'properties'
+      }
     },
     resize: {
-      description: "Controls how the textarea can be resized.",
-      control: { type: "radio" },
-      options: ["none", "vertical", "auto"],
+      description: 'Controls how the textarea can be resized.',
+      control: { type: 'radio' },
+      options: ['none', 'vertical', 'auto'],
       table: {
         type: { summary: "'none' | 'vertical' | 'auto'" },
-        defaultValue: { summary: "vertical" },
-        category: "properties",
-      },
+        defaultValue: { summary: 'vertical' },
+        category: 'properties'
+      }
     },
     disabled: {
-      description: "Disables the textarea.",
-      control: { type: "boolean" },
+      description: 'Disables the textarea.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'properties'
+      }
     },
     readonly: {
-      description: "Makes the textarea readonly.",
-      control: { type: "boolean" },
+      description: 'Makes the textarea readonly.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'properties'
+      }
     },
     form: {
-      description: "Associates the textarea with a form by its ID.",
-      control: { type: "text" },
+      description: 'Associates the textarea with a form by its ID.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
+        type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     required: {
-      description: "Makes the textarea a required field.",
-      control: { type: "boolean" },
+      description: 'Makes the textarea a required field.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' },
+        category: 'properties'
+      }
     },
     minlength: {
-      description: "The minimum length of input that will be considered valid.",
-      control: { type: "number" },
+      description: 'The minimum length of input that will be considered valid.',
+      control: { type: 'number' },
       table: {
-        type: { summary: "number" },
-        category: "properties",
-      },
+        type: { summary: 'number' },
+        category: 'properties'
+      }
     },
     maxlength: {
-      description: "The maximum length of input that will be considered valid.",
-      control: { type: "number" },
+      description: 'The maximum length of input that will be considered valid.',
+      control: { type: 'number' },
       table: {
-        type: { summary: "number" },
-        category: "properties",
-      },
+        type: { summary: 'number' },
+        category: 'properties'
+      }
     },
     autocapitalize: {
       description:
-        "Controls whether and how text input is automatically capitalized.",
-      control: { type: "radio" },
-      options: ["off", "none", "on", "sentences", "words", "characters"],
+        'Controls whether and how text input is automatically capitalized.',
+      control: { type: 'radio' },
+      options: ['off', 'none', 'on', 'sentences', 'words', 'characters'],
       table: {
         type: {
           summary:
-            "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'",
+            "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
         },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     autocorrect: {
       description:
         "Indicates whether the browser's autocorrect feature is on or off.",
-      control: { type: "text" },
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
-        category: "properties",
-      },
+        type: { summary: 'string' },
+        category: 'properties'
+      }
     },
     autocomplete: {
-      description: "Specifies the autocomplete behavior of the textarea.",
-      control: { type: "text" },
+      description: 'Specifies the autocomplete behavior of the textarea.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
-        category: "properties",
-      },
+        type: { summary: 'string' },
+        category: 'properties'
+      }
     },
     autofocus: {
       description:
-        "Indicates that the input should receive focus on page load.",
-      control: { type: "boolean" },
+        'Indicates that the input should receive focus on page load.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        category: 'properties'
+      }
     },
     enterkeyhint: {
       description:
-        "Customizes the label or icon of the Enter key on virtual keyboards.",
-      control: { type: "radio" },
-      options: ["enter", "done", "go", "next", "previous", "search", "send"],
+        'Customizes the label or icon of the Enter key on virtual keyboards.',
+      control: { type: 'radio' },
+      options: ['enter', 'done', 'go', 'next', 'previous', 'search', 'send'],
       table: {
         type: {
           summary:
-            "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send'",
+            "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send'"
         },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     spellcheck: {
-      description: "Enables spell checking on the textarea.",
-      control: { type: "boolean" },
+      description: 'Enables spell checking on the textarea.',
+      control: { type: 'boolean' },
       table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "true" },
-        category: "properties",
-      },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+        category: 'properties'
+      }
     },
     inputmode: {
-      description: "Specifies the type of data entry expected by the input.",
-      control: { type: "radio" },
+      description: 'Specifies the type of data entry expected by the input.',
+      control: { type: 'radio' },
       options: [
-        "none",
-        "text",
-        "decimal",
-        "numeric",
-        "tel",
-        "search",
-        "email",
-        "url",
+        'none',
+        'text',
+        'decimal',
+        'numeric',
+        'tel',
+        'search',
+        'email',
+        'url'
       ],
       table: {
         type: {
           summary:
-            "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'",
+            "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'"
         },
-        category: "properties",
-      },
+        category: 'properties'
+      }
     },
     /*defaultValue: {
       description: "The default value of the form control.",
@@ -260,211 +260,211 @@ const meta: Meta = {
       },
     },*/
     validity: {
-      description: "Gets the validity state object. Readonly",
-      control: { type: "null" },
+      description: 'Gets the validity state object. Readonly',
+      control: { type: 'null' },
       table: {
-        type: { summary: "ValidityState" },
-        defaultValue: { summary: "-" },
-        category: "properties",
-      },
+        type: { summary: 'ValidityState' },
+        defaultValue: { summary: '-' },
+        category: 'properties'
+      }
     },
     validationMessage: {
-      description: "Gets the validation message. Readonly.",
-      control: { type: "text" },
+      description: 'Gets the validation message. Readonly.',
+      control: { type: 'text' },
       table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "-" },
-        category: "properties",
-      },
+        type: { summary: 'string' },
+        defaultValue: { summary: '-' },
+        category: 'properties'
+      }
     },
     updateComplete: {
       description:
-        "A read-only promise that resolves when the component has finished updating. Readonly",
-      control: { type: "null" },
+        'A read-only promise that resolves when the component has finished updating. Readonly',
+      control: { type: 'null' },
       table: {
-        type: { summary: "Promise" },
-        defaultValue: { summary: "-" },
-        category: "properties",
-      },
+        type: { summary: 'Promise' },
+        defaultValue: { summary: '-' },
+        category: 'properties'
+      }
     },
 
     // Events
     ugBlur: {
-      name: "ug-blur",
-      description: "Emitted when the control loses focus.",
+      name: 'ug-blur',
+      description: 'Emitted when the control loses focus.',
       table: {
-        category: "Events",
-        type: { summary: "CustomEvent" },
-        defaultValue: { summary: "-" },
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: '-' }
       },
-      action: "ugBlur",
+      action: 'ugBlur'
     },
     ugChange: {
-      name: "ug-change",
+      name: 'ug-change',
       description:
         "Emitted when an alteration to the control's value is committed by the user.",
       table: {
-        category: "Events",
-        type: { summary: "CustomEvent" },
-        defaultValue: { summary: "-" },
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: '-' }
       },
-      action: "ugChange",
+      action: 'ugChange'
     },
     ugFocus: {
-      name: "ug-focus",
-      description: "Emitted when the control gains focus.",
+      name: 'ug-focus',
+      description: 'Emitted when the control gains focus.',
       table: {
-        category: "Events",
-        type: { summary: "CustomEvent" },
-        defaultValue: { summary: "-" },
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: '-' }
       },
-      action: "ugFocus",
+      action: 'ugFocus'
     },
     ugInput: {
-      name: "ug-input",
-      description: "Emitted when the control receives input.",
+      name: 'ug-input',
+      description: 'Emitted when the control receives input.',
       table: {
-        category: "Events",
-        type: { summary: "CustomEvent" },
-        defaultValue: { summary: "-" },
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: '-' }
       },
-      action: "ugInput",
+      action: 'ugInput'
     },
     ugInvalid: {
-      name: "ug-invalid",
+      name: 'ug-invalid',
       description:
-        "Emitted when the form control has been checked for validity and its constraints aren’t satisfied.",
+        'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
       table: {
-        category: "Events",
-        type: { summary: "CustomEvent" },
-        defaultValue: { summary: "-" },
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: '-' }
       },
-      action: "ugInvalid",
+      action: 'ugInvalid'
     },
 
     // Methods
     focus: {
-      name: "focus()",
-      description: "Sets focus on the textarea.",
+      name: 'focus()',
+      description: 'Sets focus on the textarea.',
       table: {
-        category: "Methods",
-        type: { summary: "(options: FocusOptions) => void" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '(options: FocusOptions) => void' },
+        defaultValue: { summary: '-' }
+      }
     },
     blur: {
-      name: "blur()",
-      description: "Removes focus from the textarea.",
+      name: 'blur()',
+      description: 'Removes focus from the textarea.',
       table: {
-        category: "Methods",
-        type: { summary: "() => void" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '() => void' },
+        defaultValue: { summary: '-' }
+      }
     },
     select: {
-      name: "select()",
-      description: "Selects all the text in the textarea.",
+      name: 'select()',
+      description: 'Selects all the text in the textarea.',
       table: {
-        category: "Methods",
-        type: { summary: "() => void" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '() => void' },
+        defaultValue: { summary: '-' }
+      }
     },
     scrollPosition: {
-      name: "scrollPosition()",
-      description: "Gets or sets the textarea’s scroll position.",
+      name: 'scrollPosition()',
+      description: 'Gets or sets the textarea’s scroll position.',
       table: {
-        category: "Methods",
+        category: 'Methods',
         type: {
-          summary: "(position: { top?: number; left?: number }) => void",
+          summary: '(position: { top?: number; left?: number }) => void'
         },
-        defaultValue: { summary: "-" },
-      },
+        defaultValue: { summary: '-' }
+      }
     },
     setSelectionRange: {
-      name: "setSelectionRange()",
+      name: 'setSelectionRange()',
       description:
-        "Sets the start and end positions of the text selection (0-based).",
+        'Sets the start and end positions of the text selection (0-based).',
       table: {
-        category: "Methods",
+        category: 'Methods',
         type: {
           summary:
-            "(selectionStart: number, selectionEnd: number, selectionDirection: 'forward' | 'backward' | 'none') => void",
+            "(selectionStart: number, selectionEnd: number, selectionDirection: 'forward' | 'backward' | 'none') => void"
         },
-        defaultValue: { summary: "-" },
-      },
+        defaultValue: { summary: '-' }
+      }
     },
     setRangeText: {
-      name: "setRangeText()",
-      description: "Replaces a range of text with a new string.",
+      name: 'setRangeText()',
+      description: 'Replaces a range of text with a new string.',
       table: {
-        category: "Methods",
+        category: 'Methods',
         type: {
           summary:
-            "(replacement: string, start: number, end: number, selectMode: 'select' | 'start' | 'end' | 'preserve') => void",
+            "(replacement: string, start: number, end: number, selectMode: 'select' | 'start' | 'end' | 'preserve') => void"
         },
-        defaultValue: { summary: "-" },
-      },
+        defaultValue: { summary: '-' }
+      }
     },
     checkValidity: {
-      name: "checkValidity()",
+      name: 'checkValidity()',
       description:
-        "Checks for validity but does not show a validation message.",
+        'Checks for validity but does not show a validation message.',
       table: {
-        category: "Methods",
-        type: { summary: "() => boolean" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '() => boolean' },
+        defaultValue: { summary: '-' }
+      }
     },
     getForm: {
-      name: "getForm()",
-      description: "Gets the associated form, if one exists.",
+      name: 'getForm()',
+      description: 'Gets the associated form, if one exists.',
       table: {
-        category: "Methods",
-        type: { summary: "() => HTMLFormElement | null" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '() => HTMLFormElement | null' },
+        defaultValue: { summary: '-' }
+      }
     },
     reportValidity: {
-      name: "reportValidity()",
+      name: 'reportValidity()',
       description:
-        "Checks for validity and shows the browser’s validation message if the control is invalid.",
+        'Checks for validity and shows the browser’s validation message if the control is invalid.',
       table: {
-        category: "Methods",
-        type: { summary: "() => boolean" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '() => boolean' },
+        defaultValue: { summary: '-' }
+      }
     },
     setCustomValidity: {
-      name: "setCustomValidity()",
+      name: 'setCustomValidity()',
       description:
-        "Sets a custom validation message. Pass an empty string to restore validity.",
+        'Sets a custom validation message. Pass an empty string to restore validity.',
       table: {
-        category: "Methods",
-        type: { summary: "(message: string) => void" },
-        defaultValue: { summary: "-" },
-      },
+        category: 'Methods',
+        type: { summary: '(message: string) => void' },
+        defaultValue: { summary: '-' }
+      }
     },
     //Slots
     labelSlot: {
-      name: "label",
+      name: 'label',
       description:
-        "The textarea’s label. Alternatively, you can use the label attribute.",
-      control: "text",
+        'The textarea’s label. Alternatively, you can use the label attribute.',
+      control: 'text',
       table: {
-        category: "Slots",
-      },
+        category: 'Slots'
+      }
     },
-    "help-text-slot": {
-      name: "help-text",
+    'help-text-slot': {
+      name: 'help-text',
       description:
-        "Text that describes how to use the input. Alternatively, you can use the help-text attribute.",
-      control: "text",
+        'Text that describes how to use the input. Alternatively, you can use the help-text attribute.',
+      control: 'text',
       table: {
-        category: "Slots",
-      },
-    },
-  },
+        category: 'Slots'
+      }
+    }
+  }
 };
 
 export default meta;
@@ -473,20 +473,20 @@ type Story = StoryObj;
 
 export const Default: Story = {
   args: {
-    name: "example-textarea",
-    value: "Initial value",
-    size: "large",
+    name: 'example-textarea',
+    value: 'Initial value',
+    size: 'large',
     filled: false,
-    label: "Textarea Label",
-    helpText: "This is help text.",
-    placeholder: "Enter your text here...",
+    label: 'Textarea Label',
+    helpText: 'This is help text.',
+    placeholder: 'Enter your text here...',
     rows: 4,
-    resize: "vertical",
+    resize: 'vertical',
     disabled: false,
     readonly: false,
     required: false,
     spellcheck: true,
-    form: "",
+    form: '',
     minlength: undefined,
     maxlength: undefined,
     autocapitalize: undefined,
@@ -494,52 +494,53 @@ export const Default: Story = {
     autocomplete: undefined,
     autofocus: false,
     enterkeyhint: undefined,
-    inputmode: undefined,
+    inputmode: undefined
     //defaultValue: "",
   },
-  render: ({ ...args }) => html`<ug-textarea
-    name=${args.name}
-    value=${args.maxlength}
-    size=${args.size}
-    ?filled=${args.filled}
-    label=${args.label}
-    help-text=${args["help-text"]}
-    placeholder=${args.placeholder}
-    rows=${args.rows}
-    resize=${args.resize}
-    ?disabled=${args.disabled}
-    ?readonly=${args.readonly}
-    form=${args.form}
-    ?required=${args.required}
-    ${args.minlength !== undefined ? `minlength="${args.minlength}"` : ""}
-    ${args.maxlength !== undefined ? `maxlength="${args.maxlength}"` : ""}
-    autocapitalize=${args.autocapitalize}
-    autocorrect=${args.autocorrect}
-    autocomplete=${args.autocomplete}
-    ?autofocus=${args.autofocus}
-    enterkeyhint=${args.enterkeyhint}
-    ?spellcheck=${args.spellcheck}
-    inputmode=${args.inputmode}
-  ></ug-textarea> `, //      /*defaultValue=${args.defaultValue}*/ Removed because it didn't work correctly
+  render: ({ ...args }) =>
+    html`<ug-textarea
+      name=${args.name}
+      value=${args.maxlength}
+      size=${args.size}
+      ?filled=${args.filled}
+      label=${args.label}
+      help-text=${args['help-text']}
+      placeholder=${args.placeholder}
+      rows=${args.rows}
+      resize=${args.resize}
+      ?disabled=${args.disabled}
+      ?readonly=${args.readonly}
+      form=${args.form}
+      ?required=${args.required}
+      ${args.minlength !== undefined ? `minlength="${args.minlength}"` : ''}
+      ${args.maxlength !== undefined ? `maxlength="${args.maxlength}"` : ''}
+      autocapitalize=${args.autocapitalize}
+      autocorrect=${args.autocorrect}
+      autocomplete=${args.autocomplete}
+      ?autofocus=${args.autofocus}
+      enterkeyhint=${args.enterkeyhint}
+      ?spellcheck=${args.spellcheck}
+      inputmode=${args.inputmode}
+    ></ug-textarea> ` //      /*defaultValue=${args.defaultValue}*/ Removed because it didn't work correctly
 };
 
 export const Minimal: Story = {
   ...Default,
   args: {
-    name: "",
-    value: "",
-    size: "medium",
+    name: '',
+    value: '',
+    size: 'medium',
     filled: false,
-    label: "",
-    helpText: "",
-    placeholder: "",
+    label: '',
+    helpText: '',
+    placeholder: '',
     rows: 4,
-    resize: "vertical",
+    resize: 'vertical',
     disabled: false,
     readonly: false,
     required: false,
     spellcheck: true,
-    form: "",
+    form: '',
     minlength: undefined,
     maxlength: undefined,
     autocapitalize: undefined,
@@ -548,107 +549,107 @@ export const Minimal: Story = {
     autofocus: false,
     enterkeyhint: undefined,
     inputmode: undefined,
-    defaultValue: "",
-  },
+    defaultValue: ''
+  }
 };
 
 export const Labels: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    label: "Comments",
+    label: 'Comments'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Use the \`label\` attribute to give the textarea an accessible label. For labels that contain HTML, use the \`label\` slot instead.`,
-      },
-    },
-  },
+        story: `Use the \`label\` attribute to give the textarea an accessible label. For labels that contain HTML, use the \`label\` slot instead.`
+      }
+    }
+  }
 };
 
 export const HelpText: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    label: "Feedback",
-    helpText: "Please tell us what you think.",
+    label: 'Feedback',
+    helpText: 'Please tell us what you think.'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Add descriptive help text to a textarea with the \`help-text\` attribute. For help texts that contain HTML, use the \`help-text\` slot instead.`,
-      },
-    },
-  },
+        story: `Add descriptive help text to a textarea with the \`help-text\` attribute. For help texts that contain HTML, use the \`help-text\` slot instead.`
+      }
+    }
+  }
 };
 
 export const Rows: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    rows: 2,
+    rows: 2
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Use the rows attribute to change the number of text rows that get shown.`,
-      },
-    },
-  },
+        story: `Use the rows attribute to change the number of text rows that get shown.`
+      }
+    }
+  }
 };
 
 export const Placeholder: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    placeholder: "Type something",
+    placeholder: 'Type something'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Use the \`placeholder\` attribute to add a placeholder.`,
-      },
-    },
-  },
+        story: `Use the \`placeholder\` attribute to add a placeholder.`
+      }
+    }
+  }
 };
 
 export const FilledTextareas: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    placeholder: "Type something",
-    filled: true,
+    placeholder: 'Type something',
+    filled: true
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Add the \`filled\` attribute to draw a filled textarea.`,
-      },
-    },
-  },
+        story: `Add the \`filled\` attribute to draw a filled textarea.`
+      }
+    }
+  }
 };
 
 export const Disabled: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    placeholder: "Type something",
-    diasbled: true,
+    placeholder: 'Type something',
+    diasbled: true
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Use the \`disabled\` attribute to disable a textarea.`,
-      },
-    },
-  },
+        story: `Use the \`disabled\` attribute to disable a textarea.`
+      }
+    }
+  }
 };
 
 export const Sizes: Story = {
@@ -663,62 +664,62 @@ export const Sizes: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: `Use the \`size\` attribute to change a textarea's size.`,
-      },
-    },
-  },
+        story: `Use the \`size\` attribute to change a textarea's size.`
+      }
+    }
+  }
 };
 
 export const PreventResizing: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    resize: "none",
+    resize: 'none'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `By default, textareas can be resized vertically by the user. To prevent resizing, set the \`resize\` attribute to \`none\`.`,
-      },
-    },
-  },
+        story: `By default, textareas can be resized vertically by the user. To prevent resizing, set the \`resize\` attribute to \`none\`.`
+      }
+    }
+  }
 };
 
 export const ExpandWithContent: Story = {
   ...Minimal,
   args: {
     ...Minimal.args,
-    resize: "auto",
+    resize: 'auto'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
-        story: `Textareas will automatically resize to expand to fit their content when \`resize\` is set to \`auto\`.`,
-      },
-    },
-  },
+        story: `Textareas will automatically resize to expand to fit their content when \`resize\` is set to \`auto\`.`
+      }
+    }
+  }
 };
 
 export const LabelSlot: Story = {
   args: {
-    labelSlot: "Custom Label",
+    labelSlot: 'Custom Label'
   },
   render: ({ ...args }) => html`
     <my-textarea>
       <span slot="label">${args.labelSlot}</span>
     </my-textarea>
-  `,
+  `
 };
 
 export const HelpTextSlot: Story = {
   args: {
-    helpTextSlot: "Custom help text to provide better guidance.",
+    helpTextSlot: 'Custom help text to provide better guidance.'
   },
   render: ({ ...args }) => html`
     <my-textarea>
       <span slot="help-text">${args.helpTextSlot}</span>
     </my-textarea>
-  `,
+  `
 };
