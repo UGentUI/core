@@ -500,34 +500,6 @@ export const Readonly: Story = {
   }
 };
 
-export const InvalidState: Story = {
-  render: () =>
-    html` <form id="feedback-form2">
-      <ug-textarea
-        id="feedback2"
-        label="Your Feedback"
-        help-text="Feedback must be at least 10 characters long."
-        placeholder="Write your feedback here..."
-        required
-        minlength="10"
-        @ug-input="${action('ug-input')}"
-        @ug-change="${action('ug-change')}"
-        @ug-focus="${action('ug-focus')}"
-        @ug-blur="${action('ug-blur')}"
-        @ug-invalid="${action('ug-invalid')}"
-      ></ug-textarea>
-      <ug-button type="submit" variant="primary">Submit</ug-button>
-    </form>`,
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story: `Use the \`size\` attribute to change a textarea's size.`
-      }
-    }
-  }
-};
-
 export const CustomValidity: Story = {
   render: () =>
     html` <form id="feedback-form">
