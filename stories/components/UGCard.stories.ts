@@ -117,7 +117,7 @@ export const CardWithImage: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Cards accept an image slot. The image is displayed atop the card and stretches to fit.`
+        story: `Cards accept an <code>image</code> slot. The image is displayed atop the card and stretches to fit.`
       },
       source: {
         format: true
