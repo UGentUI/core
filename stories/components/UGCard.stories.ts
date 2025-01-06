@@ -77,7 +77,7 @@ export const CardWithHeaderAndFooter: Story = {
         </div>
 
         This card has a header and a footer. You can put all sorts of things in
-        it!
+        them!
 
         <div slot="footer">
           <ug-rating></ug-rating>
