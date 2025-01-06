@@ -58,11 +58,11 @@ export const Card: Story = {
   }
 };
 
-export const CardWithHeader: Story = {
+export const CardWithHeaderAndFooter: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Headers can be used to display titles and more.`
+        story: `Headers can be used to display titles and more. Footers can be used to display actions, summaries, or other relevant content.`
       },
       source: {
         format: true
@@ -70,51 +70,14 @@ export const CardWithHeader: Story = {
     }
   },
   render: () => {
-    return html`<ug-card class="card-header">
+    return html`<ug-card class="card-header-footer">
         <div slot="header">
           Header Title
           <ug-icon-button name="gear" label="Settings"></ug-icon-button>
         </div>
 
-        This card has a header. You can put all sorts of things in it!
-      </ug-card>
-
-      <style>
-        .card-header {
-          max-width: 300px;
-        }
-
-        .card-header [slot='header'] {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-
-        .card-header h3 {
-          margin: 0;
-        }
-
-        .card-header ug-icon-button {
-          font-size: var(--ug-font-size-medium);
-        }
-      </style> `;
-  }
-};
-
-export const CardWithFooter: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: `Footers can be used to display actions, summaries, or other relevant content.`
-      },
-      source: {
-        format: true
-      }
-    }
-  },
-  render: () => {
-    return html`<ug-card class="card-footer">
-        This card has a footer. You can put all sorts of things in it!
+        This card has a header and a footer. You can put all sorts of things in
+        it!
 
         <div slot="footer">
           <ug-rating></ug-rating>
@@ -123,11 +86,25 @@ export const CardWithFooter: Story = {
       </ug-card>
 
       <style>
-        .card-footer {
+        .card-header-footer {
           max-width: 300px;
         }
 
-        .card-footer [slot='footer'] {
+        .card-header-footer [slot='header'] {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .card-header-footer h3 {
+          margin: 0;
+        }
+
+        .card-header-footer ug-icon-button {
+          font-size: var(--ug-font-size-medium);
+        }
+
+        .card-header-footer [slot='footer'] {
           display: flex;
           justify-content: space-between;
           align-items: center;
