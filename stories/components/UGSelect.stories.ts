@@ -23,7 +23,7 @@ const meta: Meta = {
     (Story) => {
       // Apply CSS without showing in code snippet
       const style = document.createElement('style');
-      // This breaks the zoom buttons in the toolbar
+      // This fixes the hoisting but breaks the zoom buttons in the toolbar
       style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
       document.head.appendChild(style);
       return Story();
@@ -309,7 +309,7 @@ export const Select: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'A default Select with hoisting enabled.'
+        story: 'A default Select with hoisting enabled for demo purposes.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -605,7 +605,6 @@ export const LazyLoadingOptions: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        // prettier-ignore
         story: `
 Lazy loading options is very hard to get right. \`<ug-select>\` largely follows how a native \`<select>\` works.
 
@@ -617,17 +616,15 @@ EX: \`<ug-select value="foo">\` will have a value of \`""\` until \`<ug-option v
 
 - If a \`<ug-select multiple>\` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the .value of the select.
 
-This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with \`<ug-select>\` and \`<ug-select multiple>\` when given initial value attributes.
-
 ⚠️ **Security Warning**: When dynamically adding options based on user input or external data, always sanitize the input to prevent XSS attacks. Never directly insert unsanitized content into option values or labels.
-
 `
       },
       source: { format: true }
     }
   },
   render: () => {
-    return html`<form id="lazy-options-example">
+    return html`
+      <form id="lazy-options-example">
         <div>
           <ug-select
             name="select-1"
@@ -687,7 +684,8 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
         <br /><br />
 
         <div style="display: flex; gap: 16px;">
-          <ug-button type="submit" variant="brand">Show FormData</ug-button>
+          <ug-button type="reset">Reset</ug-button>
+          <ug-button type="submit" variant="primary">Show FormData</ug-button>
         </div>
 
         <br />
@@ -734,7 +732,8 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
         const container = document.querySelector('#lazy-options-example');
         container.addEventListener('click', addFooOption);
         container.addEventListener('submit', handleLazySubmit);
-      </script> `;
+      </script>
+    `;
   }
 };
 
@@ -743,6 +742,7 @@ export const SelectWithEvents: Story = {
   args: {
     ...Select.args
   },
+  tags: ['!autodocs'],
   parameters: {
     controls: { disable: true }
   },
