@@ -100,3 +100,68 @@ export const CardWithHeader: Story = {
       </style> `;
   }
 };
+
+export const CardWithFooter: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Footers can be used to display actions, summaries, or other relevant content.`
+      },
+      source: {
+        format: true
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-card class="card-footer">
+        This card has a footer. You can put all sorts of things in it!
+
+        <div slot="footer">
+          <ug-rating></ug-rating>
+          <ug-button variant="primary">Preview</ug-button>
+        </div>
+      </ug-card>
+
+      <style>
+        .card-footer {
+          max-width: 300px;
+        }
+
+        .card-footer [slot='footer'] {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      </style> `;
+  }
+};
+
+export const CardWithImage: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Cards accept an image slot. The image is displayed atop the card and stretches to fit.`
+      },
+      source: {
+        format: true
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-card class="card-image">
+        <img
+          slot="image"
+          src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
+          alt="A kitten walks towards camera on top of pallet."
+        />
+        This is a kitten, but not just any kitten. This kitten likes walking
+        along pallets.
+      </ug-card>
+
+      <style>
+        .card-image {
+          max-width: 300px;
+        }
+      </style> `;
+  }
+};
