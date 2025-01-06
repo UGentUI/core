@@ -595,7 +595,14 @@ export const CustomValidity2: Story = {
         const form = document.getElementById('textarea-validation-custom');
         let textarea = form.querySelector('ug-textarea');
 
-        const profanityList = ['fuck', 'shit', 'crap'];
+        const profanityList = [
+          'fuck',
+          'shit',
+          'crap',
+          'jeepers',
+          'son of a biscuit',
+          'slut'
+        ];
         const politeList = ['please', 'thank you', 'welcome'];
 
         //Change this function to suit your needs
@@ -681,7 +688,14 @@ export const CustomValidity3: Story = {
         const form = document.getElementById('textarea-validation-custom-3');
         const textarea = form.querySelector('ug-textarea');
 
-        const profanityList = ['fuck', 'shit', 'crap'];
+        const profanityList = [
+          'fuck',
+          'shit',
+          'crap',
+          'jeepers',
+          'son of a biscuit',
+          'slut'
+        ];
         const politeList = ['please', 'thank you', 'welcome'];
 
         //Change this function to suit your needs
@@ -753,7 +767,11 @@ These validations enhance input quality and guide users toward more meaningful o
         await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
 
         // Type into the textarea (triggers ug-input)
-        await userEvent.type(textareaInput, 'Short', { delay: 100 });
+        await userEvent.type(
+          textareaInput,
+          'Quote from Macbeth (Act 1 Scene 3) by William Shakespeare\n',
+          { delay: 100 }
+        );
 
         // Blur the textarea (triggers ug-blur)
         await userEvent.tab();
@@ -769,7 +787,11 @@ These validations enhance input quality and guide users toward more meaningful o
         await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
 
         // Type into the textarea (triggers ug-input)
-        await userEvent.type(textareaInput, ' Fuck ', { delay: 100 });
+        await userEvent.type(
+          textareaInput,
+          'Aroint thee: go away, rump-fed runion: slut',
+          { delay: 100 }
+        );
 
         // Blur the textarea (triggers ug-blur)
         await userEvent.tab();
