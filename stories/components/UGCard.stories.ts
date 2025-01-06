@@ -1,6 +1,9 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/card';
+import '/lib/components/icon-button';
+import '/lib/components/rating';
+import '/lib/components/button';
 
 const meta: Meta = {
   title: 'Components/Card',
