@@ -2,27 +2,36 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { action } from '@storybook/addon-actions';
-import { userEvent, within } from '@storybook/test';
+import { userEvent, expect } from '@storybook/test';
 import '/lib/components/select';
 import '/lib/components/option';
 import '/lib/components/tag';
 import '/lib/components/icon';
 import '/lib/components/button';
+import '/lib/components/divider';
 
 const meta: Meta = {
   title: 'Components/Select',
   component: 'ug-select',
-
   parameters: {
     docs: {
       subtitle:
         'Selects allow you to choose items from a menu of predefined options.'
     }
   },
-
+  decorators: [
+    (Story) => {
+      // Apply CSS without showing in code snippet
+      const style = document.createElement('style');
+      // This breaks the zoom buttons in the toolbar
+      style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
+      document.head.appendChild(style);
+      return Story();
+    }
+  ],
   argTypes: {
     name: {
-      name: 'Name',
+      name: 'name',
       description:
         'The name of the select, submitted as a name/value pair with form data.',
       type: { name: 'string' },
@@ -34,18 +43,28 @@ const meta: Meta = {
       }
     },
     value: {
-      name: 'Value',
+      name: 'value',
       description: `The current value of the select, submitted as a name/value pair with form data. 
-                  When multiple is enabled, the value attribute will be a space-delimited list 
-                  of values based on the options selected, and the value property will be an array. 
-                  For this reason, values must not contain spaces.`,
+                    When multiple is enabled, the value attribute will be a space-delimited list 
+                    of values based on the options selected, and the value property will be an array. 
+                    For this reason, values must not contain spaces.`,
+      control: 'select',
+      options: [
+        'option-1',
+        'option-2',
+        'option-3',
+        'option-4',
+        'option-5',
+        'option-6'
+      ],
       table: {
         category: 'Properties',
-        type: { summary: 'string | string[]' }
+        type: { summary: 'string | string[]' },
+        defaultValue: { summary: "''" }
       }
     },
     size: {
-      name: 'Size',
+      name: 'size',
       description: "The select's size.",
       control: 'select',
       options: ['small', 'medium', 'large'],
@@ -56,19 +75,8 @@ const meta: Meta = {
         defaultValue: { summary: "'medium'" }
       }
     },
-    filled: {
-      name: 'Filled',
-      description: 'Draws a filled select.',
-      type: { name: 'boolean' },
-      defaultValue: false,
-      table: {
-        category: 'Properties',
-        type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
-      }
-    },
     placeholder: {
-      name: 'Placeholder',
+      name: 'placeholder',
       description:
         'Placeholder text to show as a hint when the select is empty.',
       type: { name: 'string' },
@@ -80,7 +88,7 @@ const meta: Meta = {
       }
     },
     multiple: {
-      name: 'Multiple',
+      name: 'multiple',
       description: 'Allows more than one option to be selected.',
       type: { name: 'boolean' },
       defaultValue: false,
@@ -91,7 +99,7 @@ const meta: Meta = {
       }
     },
     label: {
-      name: 'Label',
+      name: 'label',
       description:
         "The select's label. If you need to display HTML, use the label slot instead.",
       type: { name: 'string' },
@@ -103,7 +111,7 @@ const meta: Meta = {
       }
     },
     helpText: {
-      name: 'Help Text',
+      name: 'help-text',
       description:
         "The select's help text. If you need to display HTML, use the help-text slot instead.",
       type: { name: 'string' },
@@ -115,7 +123,7 @@ const meta: Meta = {
       }
     },
     clearable: {
-      name: 'Clearable',
+      name: 'clearable',
       description: 'Adds a clear button when the select is not empty.',
       type: { name: 'boolean' },
       defaultValue: false,
@@ -126,7 +134,7 @@ const meta: Meta = {
       }
     },
     disabled: {
-      name: 'Disabled',
+      name: 'disabled',
       description: 'Disables the select control.',
       type: { name: 'boolean' },
       defaultValue: false,
@@ -137,7 +145,7 @@ const meta: Meta = {
       }
     },
     required: {
-      name: 'Required',
+      name: 'required',
       description: "The select's required attribute.",
       type: { name: 'boolean' },
       defaultValue: false,
@@ -148,7 +156,7 @@ const meta: Meta = {
       }
     },
     hoist: {
-      name: 'Hoist',
+      name: 'hoist',
       description:
         'Enable this option to prevent the listbox from being clipped when the component is placed inside a container with overflow: auto|scroll.',
       type: { name: 'boolean' },
@@ -161,29 +169,37 @@ const meta: Meta = {
     },
 
     // Slots
-    default: {
+    defaultSlot: {
+      name: 'default',
+      control: false,
       description:
         'The listbox options. Must be `<ug-option>` elements. You can use `<ug-divider>` to group items visually.',
+
       table: {
         category: 'Slots',
-        type: { summary: '<ug-option> | <ug-divider>' }
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
       }
     },
     labelSlot: {
       name: 'label',
+      control: false,
       description:
         'The input’s label. Alternatively, you can use the `label` attribute.',
       table: {
         category: 'Slots',
-        type: { summary: 'HTML content' }
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
       }
     },
     'help-text': {
+      control: false,
       description:
         'Text that describes how to use the input. Alternatively, you can use the `help-text` attribute.',
       table: {
         category: 'Slots',
-        type: { summary: 'HTML content' }
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
       }
     },
 
@@ -281,27 +297,28 @@ export const Select: Story = {
   args: {
     name: '',
     size: 'medium',
-    filled: false,
     placeholder: '',
     multiple: false,
     label: '',
-    ['help-text']: '',
+    helpText: '',
     clearable: false,
     disabled: false,
     required: false,
-    hoist: false
+    hoist: true
   },
   parameters: {
     docs: {
+      description: {
+        story: 'A default Select with hoisting enabled.'
+      },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
-        },
         format: true
       }
     }
   },
   render: (args) => {
-    return html` <ug-select
+    return html`<ug-select
       name=${args.name !== '' ? args.name : undefined}
       size=${ifDefined(args.size)}
       value=${ifDefined(args.value)}
@@ -309,7 +326,7 @@ export const Select: Story = {
       placeholder=${ifDefined(args.placeholder)}
       ?multiple=${args.multiple}
       label=${ifDefined(args.label)}
-      help-text=${args['help-text']}
+      help-text=${ifDefined(args.helpText)}
       ?clearable=${args.clearable}
       ?disabled=${args.disabled}
       ?required=${args.required}
@@ -335,7 +352,8 @@ export const Labels: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the <code>label</code> attribute to give the select an accessible label. For labels that contain HTML, use the label slot instead.`
+        story:
+          'Use the `label` attribute to give the select an accessible label. For labels that contain HTML, use the label slot instead.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -350,13 +368,14 @@ export const HelpText: Story = {
   args: {
     ...Select.args,
     label: 'Experience',
-    'help-text': 'Please tell us your skill level.',
+    helpText: 'Please tell us your skill level.',
     hoist: true
   },
   parameters: {
     docs: {
       description: {
-        story: `Add descriptive help text to a select with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
+        story:
+          'Add descriptive help text to a select with the `help-text` attribute. For help texts that contain HTML, use the help-text slot instead.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -376,7 +395,7 @@ export const Placeholders: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the <code>placeholder</code> attribute to add a placeholder.`
+        story: 'Use the `placeholder` attribute to add a placeholder.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -396,7 +415,28 @@ export const Clearable: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the <code>clearable</code> attribute to make the control clearable. The clear button only appears when an option is selected.`
+        story:
+          'Use the `clearable` attribute to make the control clearable. The clear button only appears when an option is selected.'
+      },
+      source: {
+        transform: (code: string) => removeDefaultAttributes(code),
+        format: true
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  ...Select,
+  args: {
+    ...Select.args,
+    disabled: true,
+    value: 'option-1 option-2 option-3'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the `disabled` attribute to disable a select.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -412,13 +452,14 @@ export const Multiple: Story = {
     ...Select.args,
     clearable: true,
     multiple: true,
-    value: 'option-1 option-2 option-3',
-    hoist: true
+    hoist: true,
+    label: 'Select a Few'
   },
   parameters: {
     docs: {
       description: {
-        story: `To allow multiple options to be selected, use the <code>multiple</code> attribute. It’s a good practice to use <code>clearable</code> when this option is enabled. To set multiple values at once, set <code>value</code> to a space-delimited list of values.`
+        story:
+          'To allow multiple options to be selected, use the `multiple` attribute. It’s a good practice to use `clearable` when this option is enabled. To set multiple values at once, set `value` to a space-delimited list of values.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -428,16 +469,20 @@ export const Multiple: Story = {
   }
 };
 
-export const Disabled: Story = {
+export const SettingInitialValues: Story = {
   ...Select,
   args: {
     ...Select.args,
-    disabled: true
+    clearable: true,
+    multiple: true,
+    value: 'option-1 option-2 option-3',
+    hoist: true
   },
   parameters: {
     docs: {
       description: {
-        story: `Use the <code>disabled</code> attribute to disable a select.`
+        story:
+          'Use the `value` attribute to set the initial selection. When using `multiple`, the `value` *attribute* uses space-delimited values to select more than one option.'
       },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
@@ -455,7 +500,8 @@ export const GroupingOptions: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use <code><ug-divider></code> to group listbox items visually. You can also use <code><small></code> to provide labels, but they won’t be announced by most assistive devices.`
+        story:
+          'Use `<ug-divider >` to group listbox items visually. You can also use `<small>` to provide labels, but they won’t be announced by most assistive devices.'
       },
       source: { format: true }
     }
@@ -489,143 +535,66 @@ export const GroupingOptions: Story = {
 
 export const Sizes: Story = {
   ...Select,
-  args: {
-    ...Select.args,
-    hoist: true
-  },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: `Use the <code>size</code> attribute to change a select’s size. Note that size does not apply to listbox options.`
+        story:
+          'Use the`size` attribute to change a select’s size. Note that size does not apply to listbox options.'
       },
       source: {
-        transform: (code: string) => removeDefaultAttributes(code),
         format: true
       }
-    }
-  },
-  render: (args, context) => {
-    if (!Select.render) {
-      throw new Error('Select.render is not defined.');
-    }
-
-    return html`
-      <div style="margin-bottom: 1rem;">
-        ${Select.render({ ...args, size: 'small', label: 'Small' }, context)}
-      </div>
-      <div style="margin-bottom: 1rem;">
-        ${Select.render({ ...args, size: 'medium', label: 'Medium' }, context)}
-      </div>
-      <div style="margin-bottom: 1rem;">
-        ${Select.render({ ...args, size: 'large', label: 'Large' }, context)}
-      </div>
-    `;
-  }
-};
-
-//TODO: this story doesn't work
-export const Placement: Story = {
-  ...Select,
-  parameters: {
-    docs: {
-      description: {
-        story: `The preferred placement of the select’s listbox can be set with the <code>placement</code> attribute. Note that the actual position may vary to ensure the panel remains in the viewport. Valid placements are <code>top</code> and <code>bottom</code>.`
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
-      }
-    }
-  },
-  render: (args, context) => {
-    if (!Select.render) {
-      throw new Error('Select.render is not defined.');
-    }
-
-    return html`
-      ${Select.render(
-        {
-          ...args,
-          placement: 'top',
-          label: 'Placement set to top',
-          open: true
-        },
-        context
-      )}
-      ${Select.render(
-        {
-          ...args,
-          placement: 'bottom',
-          label: 'Placement set to bottom',
-          open: true
-        },
-        context
-      )}
-    `;
-  }
-};
-
-export const CustomTags: Story = {
-  ...Select,
-  parameters: {
-    docs: {
-      description: {
-        story: `When multiple options can be selected, you can provide custom tags by passing a function to the getTag property. Your function can return a string of HTML, a [Lit Template](https://lit.dev/docs/templates/overview/), or an [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The <code>getTag()</code> function will be called for each option. The first argument is an <code>\<ug-option\></code> element and the second argument is the tag’s index (its position in the tag list).
-
-Remember that custom tags are rendered in a shadow root. To style them, you can use the style attribute in your template or you can add your own [parts](https://shoelace.style/getting-started/customizing/#css-parts) and target them with the [::part()](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) selector.`
-      },
-      source: { format: true }
     }
   },
   render: () => {
     return html`
-      <ug-select
-        placeholder="Select one"
-        value="email phone"
-        multiple
-        clearable
-        class="custom-tag"
-        hoist
-      >
-        <ug-option value="email">
-          <ug-icon slot="prefix" name="envelope"></ug-icon>
-          Email
-        </ug-option>
-        <ug-option value="phone">
-          <ug-icon slot="prefix" name="telephone"></ug-icon>
-          Phone
-        </ug-option>
-        <ug-option value="chat">
-          <ug-icon slot="prefix" name="chat-dots"></ug-icon>
-          Chat
-        </ug-option>
+      <ug-select placeholder="Small" size="small">
+        <ug-option value="option-1">Option 1</ug-option>
+        <ug-option value="option-2">Option 2</ug-option>
+        <ug-option value="option-3">Option 3</ug-option>
       </ug-select>
 
-      <script type="module">
-        const select = document.querySelector('.custom-tag');
+      <br />
 
-        select.getTag = (option, index) => {
-          // Use the same icon used in the <ug-option>
-          const name = option.querySelector('ug-icon[slot="prefix"]').name;
+      <ug-select placeholder="Medium" size="medium">
+        <ug-option value="option-1">Option 1</ug-option>
+        <ug-option value="option-2">Option 2</ug-option>
+        <ug-option value="option-3">Option 3</ug-option>
+      </ug-select>
 
-          // You can return a string, a Lit Template, or an HTMLElement here
-          return litHtml\`
-            <ug-tag removable>
-              <ug-icon name="\${name}" style="padding-inline-end: .5rem;"></ug-icon>
-              \${option.getTextLabel()}
-            </ug-tag>
-          \`;
-        };
-      </script>
+      <br />
 
-      <style>
-        .docs-story :not(.sb-story *) {
-          transform: none;
-        }
-        .story--components-select--custom-tags-inner :not(.sb-story *) {
-          transform: none;
-        }
-      </style>
+      <ug-select placeholder="Large" size="large">
+        <ug-option value="option-1">Option 1</ug-option>
+        <ug-option value="option-2">Option 2</ug-option>
+        <ug-option value="option-3">Option 3</ug-option>
+      </ug-select>
+    `;
+  }
+};
+
+export const Placement: Story = {
+  ...Select,
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'The preferred placement of the select’s listbox can be set with the `placement` attribute. Note that the actual position may vary to ensure the panel remains in the viewport. Valid placements are `top` and `bottom`.'
+      },
+      source: {
+        format: true
+      }
+    }
+  },
+  render: () => {
+    return html`
+      <ug-select placeholder="Top" placement="top" hoist>
+        <ug-option value="option-1">Option 1</ug-option>
+        <ug-option value="option-2">Option 2</ug-option>
+        <ug-option value="option-3">Option 3</ug-option>
+      </ug-select>
     `;
   }
 };
@@ -633,9 +602,26 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 export const LazyLoadingOptions: Story = {
   ...Select,
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
-        story: `When multiple options can be selected, you can provide custom tags by passing a function to the getTag property. Your function can return a string of HTML, a Lit Template, or an HTMLElement. The getTag() function will be called for each option. The first argument is an <ug-option> element and the second argument is the tag’s index (its position in the tag list). Remember that custom tags are rendered in a shadow root. To style them, you can use the style attribute in your template or you can add your own parts and target them with the ::part() selector. Be sure you trust the content you are outputting! Passing unsanitized user input to <code>getTag()</code> can result in XSS vulnerabilities.`
+        // prettier-ignore
+        story: `
+Lazy loading options is very hard to get right. \`<ug-select>\` largely follows how a native \`<select>\` works.
+
+Here are the following conditions:
+
+- If a \`<ug-select>\` is created without any options, but is given a value attribute, its value will be \`""\`, and then when options are added, if any of the options have a value equal to the \`<ug-select>\` value, the value of the \`<ug-select>\` will equal that of the option.
+
+EX: \`<ug-select value="foo">\` will have a value of \`""\` until \`<ug-option value="foo">Foo</ug-option>\` connects, at which point its value will become \`"foo"\` when submitting.
+
+- If a \`<ug-select multiple>\` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the .value of the select.
+
+This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with \`<ug-select>\` and \`<ug-select multiple>\` when given initial value attributes.
+
+⚠️ **Security Warning**: When dynamically adding options based on user input or external data, always sanitize the input to prevent XSS attacks. Never directly insert unsanitized content into option values or labels.
+
+`
       },
       source: { format: true }
     }
@@ -647,7 +633,6 @@ export const LazyLoadingOptions: Story = {
             name="select-1"
             value="foo"
             label="Single select (with existing options)"
-            hoist
           >
             <ug-option value="bar">Bar</ug-option>
             <ug-option value="baz">Baz</ug-option>
@@ -756,32 +741,44 @@ export const LazyLoadingOptions: Story = {
 export const SelectWithEvents: Story = {
   ...Select,
   args: {
-    ...Select.args,
-    hoist: true
+    ...Select.args
   },
   parameters: {
-    docs: {
-      description: {
-        story: `An example of a story with select with interactions.`
-      },
-      source: { format: true },
-      autodocs: false
-    }
+    controls: { disable: true }
   },
   play: async ({ canvasElement }) => {
-    //Select <ug-select>
-    let select = canvasElement.querySelector('ug-select')!;
-    //Doesn't work?
-    await userEvent.click(select, { delay: 500 });
-    //Open the selector
-    await select.show();
+    const select = canvasElement.querySelector('ug-select');
 
-    // Select an option by its value
-    let option2 = canvasElement.querySelector('ug-option[value="option-2"]');
-    if (option2) {
-      await userEvent.hover(option2, { delay: 500 });
-      await userEvent.click(option2, { delay: 500 });
+    // Wait for element to be ready
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Find and click the trigger element within the shadow DOM
+    const trigger = select?.shadowRoot?.querySelector('.select__combobox');
+    if (trigger) {
+      await userEvent.click(trigger, { delay: 500 });
+    } else {
+      console.error('Could not find select trigger in shadow DOM');
     }
+
+    // Add a small delay to allow animation to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Verify the select is open
+    await expect(select).toHaveAttribute('open');
+
+    // Find and click option-2
+    const option = canvasElement.querySelector('ug-option[value="option-2"]');
+    if (option) {
+      await userEvent.click(option, { delay: 500 });
+    } else {
+      console.error('Could not find option element');
+    }
+
+    // Add a small delay to allow selection to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Verify the select has the correct value
+    await expect(select).toHaveProperty('value', 'option-2');
   },
   render: (args) =>
     html` <ug-select
@@ -792,15 +789,21 @@ export const SelectWithEvents: Story = {
       placeholder=${ifDefined(args.placeholder)}
       ?multiple=${args.multiple}
       label=${ifDefined(args.label)}
-      help-text=${args['help-text']}
+      help-text=${ifDefined(args.helpText)}
       ?clearable=${args.clearable}
       ?disabled=${args.disabled}
       ?required=${args.required}
       ?hoist=${args.hoist}
       @ug-change="${action('ug-change')}"
+      @ug-clear="${action('ug-clear')}"
       @ug-input="${action('ug-input')}"
       @ug-focus="${action('ug-focus')}"
       @ug-blur="${action('ug-blur')}"
+      @ug-show="${action('ug-show')}"
+      @ug-after-show="${action('ug-after-show')}"
+      @ug-hide="${action('ug-hide')}"
+      @ug-after-hide="${action('ug-after-hide')}"
+      @ug-invalid="${action('ug-invalid')}"
     >
       <ug-option value="option-1">Option 1</ug-option>
       <ug-option value="option-2">Option 2</ug-option>
@@ -815,67 +818,58 @@ export const SelectWithEventsAndMultiselect: Story = {
   ...Select,
   args: {
     ...Select.args,
-    hoist: true,
     value: 'option-1',
-    multiple: 'true'
+    multiple: true
   },
+  tags: ['!autodocs'],
   parameters: {
-    docs: {
-      description: {
-        story: `An example of a story with select with interactions.`
-      },
-      source: { format: true },
-      autodocs: false
-    }
+    controls: { disable: true }
   },
   play: async ({ canvasElement }) => {
-    //Select <ug-select>
-    let select = canvasElement.querySelector('ug-select')!;
-    //Doesn't work?
-    await userEvent.click(select, { delay: 500 });
-    //Open the selector
-    await select.show();
+    const select = canvasElement.querySelector('ug-select');
 
-    // Select an option by its value
-    let option2 = canvasElement.querySelector('ug-option[value="option-2"]');
-    if (option2) {
-      await userEvent.hover(option2, { delay: 500 });
-      await userEvent.click(option2, { delay: 500 });
+    // Wait for element to be ready
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Find and click the trigger element within the shadow DOM
+    const trigger = select?.shadowRoot?.querySelector('.select__combobox');
+    if (trigger) {
+      await userEvent.click(trigger, { delay: 500 });
+    } else {
+      console.error('Could not find select trigger in shadow DOM');
     }
 
-    //await new Promise((resolve) => setTimeout(resolve, 100));
+    // Add a small delay to allow animation to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
-    //setTimeout(100);
-    //Gebeurt niet? Waarschijnlijk racecondities?
-    await select.show();
+    // Verify the select is open
+    await expect(select).toHaveAttribute('open');
 
-    // Select an option by its value
-    let option3 = canvasElement.querySelector('ug-option[value="option-3"]');
-    if (option3) {
-      await userEvent.hover(option3, { delay: 500 });
-      await userEvent.click(option3, { delay: 500 });
+    // Find and click option-2
+    const option = canvasElement.querySelector('ug-option[value="option-2"]');
+    if (option) {
+      await userEvent.hover(option, { delay: 500 });
+      await userEvent.click(option, { delay: 500 });
+    } else {
+      console.error('Could not find option element');
     }
 
-    if (select && select.shadowRoot) {
-      const tagElement = select.shadowRoot.querySelector('ug-tag');
-      if (tagElement && tagElement.shadowRoot) {
-        const closeButton = tagElement.shadowRoot.querySelector(
-          'ug-icon-button'
-          //'button[part="remove-button"]'
-        );
-        if (closeButton) {
-          // You can now interact with the closeButton element
-          await userEvent.hover(closeButton, { delay: 50 });
-          await userEvent.click(closeButton, { delay: 500 });
-        } else {
-          console.error('Close button not found within ug-tag');
-        }
-      } else {
-        console.error(
-          'ug-tag with value "option-2" not found or does not have a shadowRoot'
-        );
-      }
+    // Add a small delay to allow selection to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Verify the select has the correct value
+    await expect(select).toHaveProperty('value', ['option-1', 'option-2']);
+
+    // Click the trigger again to close the select
+    if (trigger) {
+      await userEvent.click(trigger, { delay: 500 });
     }
+
+    // Add a small delay to allow animation to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Verify the select is closed
+    await expect(select).not.toHaveAttribute('open');
   },
   render: (args) =>
     html` <ug-select
@@ -886,15 +880,21 @@ export const SelectWithEventsAndMultiselect: Story = {
       placeholder=${ifDefined(args.placeholder)}
       ?multiple=${args.multiple}
       label=${ifDefined(args.label)}
-      help-text=${args['help-text']}
+      help-text=${ifDefined(args.helpText)}
       ?clearable=${args.clearable}
       ?disabled=${args.disabled}
       ?required=${args.required}
       ?hoist=${args.hoist}
       @ug-change="${action('ug-change')}"
+      @ug-clear="${action('ug-clear')}"
       @ug-input="${action('ug-input')}"
       @ug-focus="${action('ug-focus')}"
       @ug-blur="${action('ug-blur')}"
+      @ug-show="${action('ug-show')}"
+      @ug-after-show="${action('ug-after-show')}"
+      @ug-hide="${action('ug-hide')}"
+      @ug-after-hide="${action('ug-after-hide')}"
+      @ug-invalid="${action('ug-invalid')}"
     >
       <ug-option value="option-1">Option 1</ug-option>
       <ug-option value="option-2">Option 2</ug-option>
