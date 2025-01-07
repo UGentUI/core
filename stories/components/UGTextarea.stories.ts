@@ -242,6 +242,7 @@ const meta: Meta = {
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
       },
+      control: false,
       action: 'ugBlur'
     },
     ugChange: {
@@ -253,6 +254,7 @@ const meta: Meta = {
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
       },
+      control: false,
       action: 'ugChange'
     },
     ugFocus: {
@@ -263,6 +265,7 @@ const meta: Meta = {
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
       },
+      control: false,
       action: 'ugFocus'
     },
     ugInput: {
@@ -273,6 +276,7 @@ const meta: Meta = {
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
       },
+      control: false,
       action: 'ugInput'
     },
     ugInvalid: {
@@ -284,6 +288,7 @@ const meta: Meta = {
         type: { summary: 'CustomEvent' },
         defaultValue: { summary: '-' }
       },
+      control: false,
       action: 'ugInvalid'
     },
 
@@ -295,7 +300,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => void' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     setSelectionRange: {
       name: 'setSelectionRange()',
@@ -307,6 +313,7 @@ const meta: Meta = {
           summary:
             "(selectionStart: number, selectionEnd: number, selectionDirection: 'forward' | 'backward' | 'none') => void"
         },
+        control: false,
         defaultValue: { summary: '-' }
       }
     },
@@ -319,6 +326,7 @@ const meta: Meta = {
           summary:
             "(replacement: string, start: number, end: number, selectMode: 'select' | 'start' | 'end' | 'preserve') => void"
         },
+        control: false,
         defaultValue: { summary: '-' }
       }
     },
@@ -330,7 +338,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => boolean' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     setCustomValidity: {
       name: 'setCustomValidity()',
@@ -340,26 +349,27 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '(message: string) => void' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     //Slots
     labelSlot: {
       name: 'label',
       description:
         'The textarea’s label. Alternatively, you can use the label attribute.',
-      control: 'text',
       table: {
         category: 'Slots'
-      }
+      },
+      control: false
     },
     'help-text-slot': {
       name: 'help-text',
       description:
         'Text that describes how to use the input. Alternatively, you can use the help-text attribute.',
-      control: 'text',
       table: {
         category: 'Slots'
-      }
+      },
+      control: false
     }
   }
 };
