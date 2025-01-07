@@ -500,143 +500,78 @@ export const Readonly: Story = {
   }
 };
 
-export const CustomValidity: Story = {
-  render: () =>
-    html` <form id="feedback-form">
-        <ug-textarea
-          id="feedback"
-          label="Your Feedback"
-          help-text="Feedback must be at least 10 characters long."
-          placeholder="Write your feedback here..."
-          required
-          minlength="10"
-        ></ug-textarea>
-        <ug-button type="submit" variant="primary">Submit</ug-button>
-      </form>
-      <script>
-        const form = document.getElementById('feedback-form');
-        const textarea = document.getElementById('feedback');
-        textarea.setCustomValidity('Please provide at least 10 characters.');
-
-        textarea.setCustomValidity('Please provide at least 10 characters.');
-
-        /*form.addEventListener('submit', (event) => {
-          event.preventDefault();
-
-          textarea.setCustomValidity('Please provide at least 10 characters.');
-
-          /*if (!textarea.checkValidity()) {
-            textarea.setCustomValidity(
-              'Please provide at least 10 characters.'
-            );
-            textarea.reportValidity();
-          } else {
-            textarea.setCustomValidity('');
-            alert('Feedback submitted successfully!');
-          }
-        });*/
-      </script>`,
+export const HelpText: Story = {
+  ...Textarea,
+  args: {
+    ...Textarea.args,
+    label: 'Feedback',
+    'help-text': 'Please tell us what you think.'
+  },
   parameters: {
-    controls: { disable: true },
+    controls: {},
     docs: {
       description: {
-        story: `Use the \`size\` attribute to change a textarea's size.`
+        story: `Add descriptive help text to a textarea with the \`help-text\` attribute. For help texts that contain HTML, use the \`help-text\` slot instead.`
       }
     }
   }
 };
 
-export const CustomValidity2: Story = {
+export const SimpleCustomValidity: Story = {
   render: () =>
-    html` <form id="textarea-validation-custom">
+    html`<form class="input-validation-custom">
         <ug-textarea
-          id="feedback"
-          label="Profanity checker"
-          help-text="This text should be profanity free, but the profanity checker doesn't have a big vocabulary"
-          placeholder="Write your text here, be polite"
+          label="Type 'I agree to the terms and conditions'"
+          placeholder="Type something..."
           required
+          maxlength="50"
           @ug-input="${action('ug-input')}"
           @ug-change="${action('ug-change')}"
           @ug-focus="${action('ug-focus')}"
           @ug-blur="${action('ug-blur')}"
           @ug-invalid="${action('ug-invalid')}"
         ></ug-textarea>
+        <br />
         <ug-button type="submit" variant="primary">Submit</ug-button>
+        <ug-button type="reset" variant="default">Reset</ug-button>
       </form>
+
       <script type="module">
-        const form = document.getElementById('textarea-validation-custom');
-        let textarea = form.querySelector('ug-textarea');
-
-        const profanityList = [
-          'fuck',
-          'shit',
-          'crap',
-          'jeepers',
-          'son of a biscuit',
-          'slut'
-        ];
-        const politeList = ['please', 'thank you', 'welcome'];
-
-        //Change this function to suit your needs
-        function checkValidity(inputText) {
-          let hasProfanity = profanityList.some((word) =>
-            inputText.includes(word)
-          );
-
-          let isPolite = politeList.some((word) => inputText.includes(word));
-
-          if (hasProfanity) {
-            textarea.setCustomValidity('Please, no profanity');
-          } else if (isPolite) {
-            alert('Thank you for being so polite');
-            textarea.setCustomValidity('');
-          } else {
-            textarea.setCustomValidity('');
-          }
-
-          alert('Validity checked');
-        }
+        const form = document.querySelector('.input-validation-custom');
+        const textarea = form.querySelector('ug-textarea');
 
         // Wait for controls to be defined before attaching form listeners
         await Promise.all([
           customElements.whenDefined('ug-button'),
           customElements.whenDefined('ug-textarea')
         ]).then(() => {
-          //textarea = form.querySelector('ug-textarea');
           form.addEventListener('submit', (event) => {
             event.preventDefault();
-            alert('Submit event');
-            let inputText = textarea.value.toLowerCase();
-            alert('Validity checked: ' + inputText);
-            checkValidity(inputText);
+            alert('All fields are valid!');
           });
 
-          textarea.addEventListener('ug-textarea', () => {
-            let inputText = textarea.value.toLowerCase();
-            checkValidity(inputText);
+          textarea.addEventListener('ug-input', () => {
+            if (textarea.value === 'I agree to the terms and conditions') {
+              textarea.setCustomValidity('');
+            } else {
+              textarea.setCustomValidity(
+                "Hey, you're supposed to type 'I agree to the terms and conditions' before submitting this!"
+              );
+            }
           });
         });
       </script>`,
   parameters: {
-    controls: { disable: true },
     docs: {
       description: {
-        //prettier-ignore
-        story: `Form validation can be extended using the <code>setCustomValidity()</code> method. There can be a variety of reasons to do this, like
-
-1. **Prohibited Words**: Prevent users from including certain offensive or restricted words in their feedback.
-2. **No Repeated Characters/Words**: Disallow spam-like input with repeated characters or words.
-3. **Specific Formatting Requirements**: Validate that the input matches a required format, such as a JSON object, a list of dates or specific keywords.
-4. **Character Restrictions**: Restrict input to only alphanumeric characters or other specific rules.
-
-These validations enhance input quality and guide users toward more meaningful or valid responses, offering a tailored user experience for your application's needs.
-`
+        story: `This example demonstrates how to use the <code>setCustomValidity()</code> method for a custom validation on a <code>ug-textarea</code> input. 
+        The user is required to type "I agree to the terms and conditions" into the input field before submitting the form.`
       }
     }
   }
 };
 
-export const CustomValidity3: Story = {
+export const CustomValidityWithEvents: Story = {
   render: () =>
     html` <form
         id="textarea-validation-custom-3"
@@ -672,9 +607,11 @@ export const CustomValidity3: Story = {
 
         //Change this function to suit your needs
         function checkValidity(inputText) {
-          hasProfanity = profanityList.some((word) => inputText.includes(word));
+          let hasProfanity = profanityList.some((word) =>
+            inputText.includes(word)
+          );
 
-          isPolite = politeList.some((word) => inputText.includes(word));
+          let isPolite = politeList.some((word) => inputText.includes(word));
 
           if (hasProfanity) {
             textarea.setCustomValidity('Please, no profanity');
@@ -684,6 +621,7 @@ export const CustomValidity3: Story = {
           } else {
             textarea.setCustomValidity('');
           }
+          textarea.checkValidity(); // Ensure the validity state is re-evaluated
         }
 
         // Wait for controls to be defined before attaching form listeners
@@ -693,12 +631,12 @@ export const CustomValidity3: Story = {
         ]).then(() => {
           form.addEventListener('submit', (event) => {
             event.preventDefault();
-            inputText = textarea.value.toLowerCase();
+            let inputText = textarea.value.toLowerCase();
             checkValidity(inputText);
           });
 
-          textarea.addEventListener('ug-textarea', () => {
-            inputText = textarea.value.toLowerCase();
+          textarea.addEventListener('ug-input', () => {
+            let inputText = textarea.value.toLowerCase();
             checkValidity(inputText);
           });
         });
@@ -729,11 +667,19 @@ These validations enhance input quality and guide users toward more meaningful o
 
     const form = canvas.getByTestId('textarea-validation-custom-3');
 
-    if (textareaHost != null && textareaHost.shadowRoot != null) {
+    const ugSubmitButton = form.querySelector('ug-button');
+
+    if (
+      textareaHost != null &&
+      textareaHost.shadowRoot != null &&
+      ugSubmitButton != null &&
+      ugSubmitButton.shadowRoot != null
+    ) {
       // Access the shadow DOM
       const textareaInput = textareaHost.shadowRoot.querySelector('textarea');
+      const submitButton = ugSubmitButton.shadowRoot.querySelector('button');
 
-      if (textareaInput != null) {
+      if (textareaInput != null && submitButton != null) {
         // Focus on the textarea
         await userEvent.click(textareaInput);
         await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
@@ -769,7 +715,7 @@ These validations enhance input quality and guide users toward more meaningful o
         await userEvent.tab();
 
         // Submit the form with invalid input
-        await userEvent.click(form.querySelector('ug-button'));
+        await userEvent.click(submitButton);
 
         // Wait a moment to ensure the event is captured
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -781,127 +727,6 @@ These validations enhance input quality and guide users toward more meaningful o
       }
     }
   }
-};
-
-export const HelpText: Story = {
-  ...Textarea,
-  args: {
-    ...Textarea.args,
-    label: 'Feedback',
-    'help-text': 'Please tell us what you think.'
-  },
-  parameters: {
-    controls: {},
-    docs: {
-      description: {
-        story: `Add descriptive help text to a textarea with the \`help-text\` attribute. For help texts that contain HTML, use the \`help-text\` slot instead.`
-      }
-    }
-  }
-};
-
-export const TextareaWithEvents: Story = {
-  ...Textarea,
-  args: {
-    ...Textarea.args,
-    placeholder: 'Type something...',
-    maxlength: 6
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: `An example of a story of a textarea with interactions.`
-      },
-      source: { format: true },
-      autodocs: false
-    }
-  },
-  play: async ({ canvasElement }) => {
-    //Select <ug-select>
-    const canvas = within(canvasElement);
-
-    // Locate the shadow DOM host
-    const textareaHost = canvas.getByPlaceholderText('Type something...');
-
-    const form = canvas.getByTestId('textarea-events');
-
-    if (textareaHost != null && textareaHost.shadowRoot != null) {
-      // Access the shadow DOM
-      const textareaInput = textareaHost.shadowRoot.querySelector('textarea');
-
-      if (textareaInput != null) {
-        // Focus on the textarea
-        await userEvent.click(textareaInput);
-        await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
-
-        // Type into the textarea (triggers ug-input)
-        await userEvent.type(textareaInput, 'Short', { delay: 100 });
-
-        // Blur the textarea (triggers ug-blur)
-        await userEvent.tab();
-
-        // Add a listener for the ug-invalid event
-        let invalidEventTriggered = false;
-        textareaInput.addEventListener('ug-invalid', () => {
-          invalidEventTriggered = true;
-        });
-
-        // Submit the form with invalid input
-        await userEvent.click(form.querySelector('ug-button'));
-
-        // Wait a moment to ensure the event is captured
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        // Assert that the invalid event was triggered
-        if (!invalidEventTriggered) {
-          throw new Error('The ug-invalid event was not triggered.');
-        }
-      }
-    }
-  },
-  render: (args) =>
-    html`<form data-testid="textarea-events">
-        <ug-textarea
-          value=${ifDefined(args.value)}
-          size=${ifDefined(args.size)}
-          label=${args.label}
-          help-text=${args['help-text']}
-          placeholder=${args.placeholder}
-          rows=${args.rows}
-          resize=${args.resize}
-          ?disabled=${args.disabled}
-          ?readonly=${args.readonly}
-          form=${args.form}
-          ?required=${args.required}
-          minlength=${ifDefined(args.minlength)}
-          maxlength=${ifDefined(args.maxlength)}
-          autocapitalize=${ifDefined(args.autocapitalize)}
-          autocorrect=${ifDefined(args.autocorrect)}
-          autocomplete=${ifDefined(args.autocomplete)}
-          ?autofocus=${args.autofocus}
-          spellcheck=${args.spellcheck}
-          inputmode=${ifDefined(args.inputmode)}
-          @ug-input="${action('ug-input')}"
-          @ug-change="${action('ug-change')}"
-          @ug-focus="${action('ug-focus')}"
-          @ug-blur="${action('ug-blur')}"
-          @ug-invalid="${action('ug-invalid')}"
-        ></ug-textarea>
-        <ug-button type="submit" variant="primary">Submit</ug-button>
-      </form>
-
-      <script>
-        const form = document.getElementById('textarea-events');
-        form.addEventListener('submit', (event) => {
-          event.preventDefault(); // Prevent navigation
-          const feedback = form.querySelector('ug-textarea');
-          if (feedback.checkValidity()) {
-            alert('Feedback submitted successfully!');
-          } else {
-            alert('Please fill in the required feedback correctly.');
-          }
-        });
-      </script> `
 };
 
 /*
