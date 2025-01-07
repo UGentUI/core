@@ -30,7 +30,7 @@ const preview: Preview = {
       },
     },
   },
-  tags: ["autodocs"],
+  tags: ["autodocs", "autodocs"],
   globalTypes: {
     theme: {
       description: "Global theme for components",
