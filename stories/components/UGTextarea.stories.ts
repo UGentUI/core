@@ -415,7 +415,7 @@ export const Textarea: Story = {
 };
 
 export const Sizes: Story = {
-  render: () => `
+  render: () => html`
     <ug-textarea placeholder="Small" size="small"></ug-textarea>
     <br />
     <ug-textarea placeholder="Medium" size="medium"></ug-textarea>
@@ -562,6 +562,7 @@ export const SimpleCustomValidity: Story = {
         });
       </script>`,
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `This example demonstrates how to use the <code>setCustomValidity()</code> method for a custom validation on a <code>ug-textarea</code> input. 
@@ -582,6 +583,8 @@ export const CustomValidityWithEvents: Story = {
           label="Profanity checker"
           help-text="This text should be profanity free, but the profanity checker doesn't have a big vocabulary"
           placeholder="Type something..."
+          value="Quote from Macbeth (Act 1 Scene 3) by William Shakespeare
+Aroint thee: go away, rump-fed runion:"
           required
           @ug-input="${action('ug-input')}"
           @ug-change="${action('ug-change')}"
@@ -680,36 +683,58 @@ These validations enhance input quality and guide users toward more meaningful o
       const submitButton = ugSubmitButton.shadowRoot.querySelector('button');
 
       if (textareaInput != null && submitButton != null) {
+        let inputEventTriggered = false;
+        let blurEventTriggered = false;
+        let focusEventTriggered = false;
+        let invalidEventTriggered = false;
+
+        // Define the event handlers
+        const handleInput = () => {
+          inputEventTriggered = true;
+        };
+        const handleBlur = () => {
+          blurEventTriggered = true;
+        };
+        const handleFocus = () => {
+          focusEventTriggered = true;
+        };
+        const handleInvalid = () => {
+          invalidEventTriggered = true;
+        };
+
+        //TEST INPUT EVENT
+
+        // Add a listener for the ug-focus event
+        textareaHost.addEventListener('ug-focus', handleFocus, { once: true });
+
         // Focus on the textarea
         await userEvent.click(textareaInput);
         await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
 
-        // Type into the textarea (triggers ug-input)
-        await userEvent.type(
-          textareaInput,
-          'Quote from Macbeth (Act 1 Scene 3) by William Shakespeare\n',
-          { delay: 100 }
-        );
+        //TEST BLUR EFFECT
+
+        // Add a listener for the ug-blur event
+        textareaHost.addEventListener('ug-blur', handleBlur, { once: true });
 
         // Blur the textarea (triggers ug-blur)
         await userEvent.tab();
 
+        //TEST INVALID AND INPUT EFFECT
+
         // Add a listener for the ug-invalid event
-        let invalidEventTriggered = false;
-        textareaInput.addEventListener('ug-invalid', () => {
-          invalidEventTriggered = true;
+        textareaHost.addEventListener('ug-invalid', handleInvalid, {
+          once: true
         });
+
+        // Add a listener for the ug-input event
+        textareaHost.addEventListener('ug-input', handleInput, { once: true });
 
         // Focus on the textarea
         await userEvent.click(textareaInput);
         await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
 
         // Type into the textarea (triggers ug-input)
-        await userEvent.type(
-          textareaInput,
-          'Aroint thee: go away, rump-fed runion: slut',
-          { delay: 100 }
-        );
+        await userEvent.type(textareaInput, ' slut', { delay: 100 });
 
         // Blur the textarea (triggers ug-blur)
         await userEvent.tab();
@@ -720,6 +745,20 @@ These validations enhance input quality and guide users toward more meaningful o
         // Wait a moment to ensure the event is captured
         await new Promise((resolve) => setTimeout(resolve, 100));
 
+        //TEST THAT THE EVENTS HAVE FIRED
+
+        // Assert that the invalid event was triggered
+        if (!inputEventTriggered) {
+          throw new Error('The ug-input event was not triggered.');
+        }
+        // Assert that the invalid event was triggered
+        if (!blurEventTriggered) {
+          throw new Error('The ug-blur event was not triggered.');
+        }
+        // Assert that the invalid event was triggered
+        if (!focusEventTriggered) {
+          throw new Error('The ug-focus event was not triggered.');
+        }
         // Assert that the invalid event was triggered
         if (!invalidEventTriggered) {
           throw new Error('The ug-invalid event was not triggered.');
