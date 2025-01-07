@@ -23,7 +23,10 @@ node_modules
 *storybook.log
 
 # Vite development
-index.html 
+#index.html 
 
 # Storybook
 storybook-static
+
+#Cursor
+.cursorrules
