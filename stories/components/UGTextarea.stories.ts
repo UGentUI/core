@@ -35,7 +35,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '4' },
-        category: 'properties'
+        category: 'properties: afmetingen'
       }
     },
     value: {
@@ -45,7 +45,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
+        category: 'properties: value'
       }
     },
     size: {
@@ -55,7 +55,7 @@ const meta: Meta = {
       table: {
         type: { summary: "'small' | 'medium' | 'large'" },
         defaultValue: { summary: 'medium' },
-        category: 'properties'
+        category: 'properties: afmetingen'
       },
       canvas: {
         defaultValue: 'medium' // For actual functionality in Storybook preview
@@ -68,7 +68,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
+        category: 'properties: basis'
       }
     },
     'help-text': {
@@ -78,7 +78,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
+        category: 'properties: basis'
       }
     },
     placeholder: {
@@ -88,7 +88,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
+        category: 'properties: value'
       }
     },
     resize: {
@@ -98,7 +98,7 @@ const meta: Meta = {
       table: {
         type: { summary: "'none' | 'vertical' | 'auto'" },
         defaultValue: { summary: 'vertical' },
-        category: 'properties'
+        category: 'properties: afmetingen'
       }
     },
     disabled: {
@@ -107,7 +107,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties'
+        category: 'properties: States en validatie'
       }
     },
     readonly: {
@@ -116,7 +116,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties'
+        category: 'properties: States en validatie'
       }
     },
     form: {
@@ -125,7 +125,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties'
+        category: 'properties: basis'
       }
     },
     required: {
@@ -134,7 +134,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties'
+        category: 'properties: States en validatie'
       }
     },
     minlength: {
@@ -142,7 +142,7 @@ const meta: Meta = {
       control: { type: 'number' },
       table: {
         type: { summary: 'number' },
-        category: 'properties'
+        category: 'properties: Constraints'
       }
     },
     maxlength: {
@@ -150,7 +150,7 @@ const meta: Meta = {
       control: { type: 'number' },
       table: {
         type: { summary: 'number' },
-        category: 'properties'
+        category: 'properties: Constraints'
       }
     },
     autocapitalize: {
@@ -163,7 +163,7 @@ const meta: Meta = {
           summary:
             "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
         },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
     autocorrect: {
@@ -172,7 +172,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         type: { summary: 'string' },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
     autocomplete: {
@@ -180,7 +180,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         type: { summary: 'string' },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
     autofocus: {
@@ -189,7 +189,7 @@ const meta: Meta = {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
     spellcheck: {
@@ -198,7 +198,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
     inputmode: {
@@ -219,10 +219,10 @@ const meta: Meta = {
           summary:
             "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'"
         },
-        category: 'properties'
+        category: 'properties: Keyboard en autofill'
       }
     },
-    updateComplete: {
+    /*updateComplete: {
       description:
         'A read-only promise that resolves when the component has finished updating. Readonly',
       control: { type: 'null' },
@@ -231,7 +231,7 @@ const meta: Meta = {
         defaultValue: { summary: '-' },
         category: 'properties'
       }
-    },
+    },*/
 
     // Events
     ugBlur: {
@@ -370,25 +370,25 @@ type Story = StoryObj;
 
 export const Textarea: Story = {
   args: {
-    rows: 4,
-    resize: 'vertical',
-    disabled: false,
-    placeholder: '',
-    readonly: false,
-    required: false,
-    value: '',
-    form: '',
     label: '',
     'help-text': '',
+    form: '',
+    value: '',
+    placeholder: '',
+    rows: 4,
     size: 'medium',
-    spellcheck: true,
+    resize: 'vertical',
+    disabled: false,
+    readonly: false,
+    required: false,
     minlength: undefined,
     maxlength: undefined,
+    inputmode: undefined,
     autocapitalize: undefined,
     autocorrect: undefined,
     autocomplete: undefined,
     autofocus: false,
-    inputmode: undefined
+    spellcheck: true
   },
   render: ({ ...args }) =>
     html`<ug-textarea
