@@ -5,6 +5,7 @@ const config: StorybookConfig = {
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'
   ],
+
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -12,10 +13,12 @@ const config: StorybookConfig = {
     '@whitespace/storybook-addon-html',
     '@storybook/addon-a11y'
   ],
+
   framework: {
     name: '@storybook/web-components-vite',
     options: {}
   },
+
   features: {
     backgroundsStoryGlobals: true
   }
