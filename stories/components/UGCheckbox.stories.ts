@@ -101,7 +101,7 @@ const meta: Meta = {
       table: { category: 'slots', defaultValue: { summary: undefined } }
     },
     'help-text': {
-      control: 'text',
+      control: false,
       description:
         'Text that describes how to use the checkbox. Alternatively, you can use the help-text attribute.',
       table: { category: 'slots', defaultValue: { summary: undefined } }
