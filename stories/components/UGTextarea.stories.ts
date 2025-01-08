@@ -35,7 +35,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '4' },
-        category: 'properties: afmetingen'
+        category: 'properties: dimensions'
       }
     },
     value: {
@@ -55,7 +55,7 @@ const meta: Meta = {
       table: {
         type: { summary: "'small' | 'medium' | 'large'" },
         defaultValue: { summary: 'medium' },
-        category: 'properties: afmetingen'
+        category: 'properties: dimensions'
       },
       canvas: {
         defaultValue: 'medium' // For actual functionality in Storybook preview
@@ -98,7 +98,7 @@ const meta: Meta = {
       table: {
         type: { summary: "'none' | 'vertical' | 'auto'" },
         defaultValue: { summary: 'vertical' },
-        category: 'properties: afmetingen'
+        category: 'properties: dimensions'
       }
     },
     disabled: {
