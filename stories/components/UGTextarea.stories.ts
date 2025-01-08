@@ -107,7 +107,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties: States en validatie'
+        category: 'properties: States and validatie'
       }
     },
     readonly: {
@@ -116,7 +116,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties: States en validatie'
+        category: 'properties: States and validatie'
       }
     },
     form: {
@@ -134,7 +134,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties: States en validatie'
+        category: 'properties: States and validatie'
       }
     },
     minlength: {
@@ -156,14 +156,14 @@ const meta: Meta = {
     autocapitalize: {
       description:
         'Controls whether and how text input is automatically capitalized.',
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: ['off', 'none', 'on', 'sentences', 'words', 'characters'],
       table: {
         type: {
           summary:
             "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
         },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     autocorrect: {
@@ -172,7 +172,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         type: { summary: 'string' },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     autocomplete: {
@@ -180,7 +180,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         type: { summary: 'string' },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     autofocus: {
@@ -189,7 +189,7 @@ const meta: Meta = {
       control: { type: 'boolean' },
       table: {
         type: { summary: 'boolean' },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     spellcheck: {
@@ -198,12 +198,12 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     inputmode: {
       description: 'Specifies the type of data entry expected by the input.',
-      control: { type: 'radio' },
+      control: { type: 'select' },
       options: [
         'none',
         'text',
@@ -219,7 +219,7 @@ const meta: Meta = {
           summary:
             "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'"
         },
-        category: 'properties: Keyboard en autofill'
+        category: 'properties: Keyboard and autofill'
       }
     },
     /*updateComplete: {
