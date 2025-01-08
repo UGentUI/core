@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/switch';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Switch',
@@ -12,7 +13,16 @@ const meta: Meta = {
       toc: {
         /* options */
       },
-      subtitle: 'Switches allow the user to toggle an option on or off.'
+      subtitle: 'Switches allow the user to toggle an option on or off.',
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code.replace(
+            /\s*(name=""|value=""|size="medium"|form=""|help-text="")/g,
+            ''
+          );
+        }
+      }
     }
   },
   argTypes: {
@@ -303,18 +313,18 @@ export const Sizes: Story = {
         format: true,
         transform: removeDefaultAttributes // Use the custom transform function here
       }
-    }
+    },
+    controls: false
   },
 
-  // prettier-ignore
   render: (args) => {
     return html`
-<ug-switch size="small">Small</ug-switch>
-<br />
-<ug-switch size="medium">Medium</ug-switch>
-<br />
-<ug-switch size="large">Large</ug-switch>
-`
+      <ug-switch size="small">Small</ug-switch>
+      <br />
+      <ug-switch size="medium">Medium</ug-switch>
+      <br />
+      <ug-switch size="large">Large</ug-switch>
+    `;
   }
 };
 
@@ -353,13 +363,16 @@ export const HelpTextSlot: Story = {
       }
     }
   },
-  // prettier-ignore
   render: (args) => {
     return html`
-  <ug-switch>
-    <div slot="help-text">This is helpful text for the switch, maybe it has a <a href=".">link</a>.</div>
-  </ug-switch>
-    `;}
+      <ug-switch>
+        <div slot="help-text">
+          This is helpful text for the switch, maybe it has a
+          <a href=".">link</a>.
+        </div>
+      </ug-switch>
+    `;
+  }
 };
 
 export const SwitchWithEvents: Story = {
@@ -367,18 +380,82 @@ export const SwitchWithEvents: Story = {
   args: {
     ...Default.args
   },
-  // prettier-ignore
   render: (args) => {
     return html`
-<ug-switch 
-
+      <ug-switch
+        name="${args.name}"
+        value="${args.value}"
+        size="${args.size}"
+        ?disabled="${args.disabled}"
+        ?checked="${args.checked}"
+        ?defaultChecked="${args.defaultChecked}"
+        form="${ifDefined(args.form)}"
+        ?required="${args.required}"
+        help-text="${ifDefined(args.helpText)}"
         @ug-blur="${action('ug-blur')}"
         @ug-change="${action('ug-change')}"
         @ug-input="${action('ug-input')}"
         @ug-focus="${action('ug-focus')}"
         @ug-invalid="${action('ug-invalid')}"
       >
-  Interactive Switch
-</ug-switch>
-    `;}
+        Interactive Switch
+      </ug-switch>
+    `;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Select the switch and form
+    const switchHost = canvas.getByText('Interactive Switch');
+
+    if (!switchHost || !switchHost.shadowRoot) {
+      throw new Error('Switch host or its shadowRoot not found.');
+    }
+
+    // Access the internal switch element inside the Shadow DOM
+    const switchElement = switchHost.shadowRoot.querySelector('label');
+
+    if (!switchElement) {
+      throw new Error('switchElement not found.');
+    }
+
+    // Track event triggers
+    let changeEventTriggered = false;
+    let focusEventTriggered = false;
+    let blurEventTriggered = false;
+
+    // Add event listeners
+    switchHost.addEventListener('ug-change', () => {
+      changeEventTriggered = true;
+    });
+    switchHost.addEventListener('ug-focus', () => {
+      focusEventTriggered = true;
+    });
+    switchHost.addEventListener('ug-blur', () => {
+      blurEventTriggered = true;
+    });
+
+    // Toggle the switch (triggers ug-change and ug-focus)
+    await userEvent.click(switchElement);
+
+    await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
+
+    if (!changeEventTriggered) {
+      throw new Error('Change event was not triggered as expected.');
+    }
+
+    if (!focusEventTriggered) {
+      throw new Error('Focus event was not triggered as expected.');
+    }
+
+    // Blur the switch (triggers ug-blur)
+    await userEvent.tab();
+
+    if (!blurEventTriggered) {
+      throw new Error('Blur event was not triggered as expected.');
+    }
+
+    // Toggle the switch (triggers ug-change and ug-focus)
+    await userEvent.click(switchElement);
+  }
 };
