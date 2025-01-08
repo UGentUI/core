@@ -31,68 +31,69 @@ const meta: Meta = {
       control: 'text',
       description:
         'The name of the checkbox, submitted as a name/value pair with form data.',
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     value: {
       control: false,
       description:
         'The current value of the checkbox, submitted as a name/value pair with form data.',
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
       description: 'The checkbox’s size.',
-      table: { category: 'properties', defaultValue: { summary: 'medium' } }
+      table: { category: 'attributes', defaultValue: { summary: 'medium' } }
     },
     disabled: {
       control: 'boolean',
       description: 'Disables the checkbox.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+      table: { category: 'attributes', defaultValue: { summary: 'false' } }
     },
     checked: {
       control: 'boolean',
       description: 'Draws the checkbox in a checked state.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+      table: { category: 'attributes', defaultValue: { summary: 'false' } }
     },
     indeterminate: {
       control: 'boolean',
       description:
         'Draws the checkbox in an indeterminate state. This is usually applied to checkboxes that represents a “select all/none” behavior when associated checkboxes have a mix of checked and unchecked states.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+      table: { category: 'attributes', defaultValue: { summary: 'false' } }
     },
     defaultChecked: {
       control: 'boolean',
       description:
         'The default value of the form control. Primarily used for resetting the form control.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+      table: { category: 'attributes', defaultValue: { summary: 'false' } }
     },
     form: {
       control: false,
       description:
         'By default, form controls are associated with the nearest containing &lt;form&gt; element. This attribute allows you to place the form control outside of a form and associate it with the form that has this id. The form must be in the same document or shadow root for this to work.',
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     required: {
       control: 'boolean',
       description: 'Makes the checkbox a required field.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+      table: { category: 'attributes', defaultValue: { summary: 'false' } }
     },
     helpText: {
+      name: 'help-text',
       control: 'text',
       description:
-        "The checkbox’s help text. If you need to display HTML, use the help-text slot instead. This property is different from its attribute 'help-text'",
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+        "The checkbox’s help text. If you need to display HTML, use the help-text slot instead. This attribute is different from its property 'helpText'.",
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     validity: {
       control: false,
       description: 'Gets the validity state object.',
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     validationMessage: {
       control: false,
       description: 'Gets the validation message.',
-      table: { category: 'properties', defaultValue: { summary: undefined } }
+      table: { category: 'attributes', defaultValue: { summary: undefined } }
     },
     // Slots
     label: {
