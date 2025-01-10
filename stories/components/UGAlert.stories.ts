@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/alert';
 import '/lib/components/icon';
 import { ifDefined } from 'lit/directives/if-defined.js';
-
+import { ugIcons } from './icons';
 const meta: Meta = {
   title: 'Components/Alert',
   component: 'UgAlert',
@@ -166,8 +166,24 @@ const meta: Meta = {
         type: { summary: 'slot' },
         defaultValue: { summary: '-' }
       },
-      control: 'text'
-    }
+      control: {
+        type: 'select',      
+        render: (selectedIcon) => html`<ug-icon slot="icon" name="${selectedIcon}"></ug-icon>`, // Render the selected icon
+
+      },
+      //options: ugIcons.map((icon) => `<ug-icon name="${icon.name}"></ug-icon>`), // Pre-rendered as strings
+
+
+
+      options: ugIcons.map((icon) => icon.name) || [], // Use plain names
+      render: (selectedIcon) => html`<ug-icon slot="icon" name="${selectedIcon}"></ug-icon>`, // Render the selected icon
+    
+
+      //options: ugIcons.map((icon) => icon.name) || [],
+      //      options: ugIcons.map((icon) => html`<ug-icon slot="icon" name="'+icon.name+'"></ug-icon>`) || []
+      //render: IconSelector
+
+    },
   }
 };
 
