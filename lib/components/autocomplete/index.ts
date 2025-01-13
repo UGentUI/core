@@ -1,1 +1,1 @@
-export * from "./autocomplete.ts";
+export * from './autocomplete.ts';
