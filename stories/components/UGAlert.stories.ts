@@ -528,7 +528,7 @@ export const CreatingToastsImperatively: Story = {
         message,
         variant = 'primary',
         icon = 'info-circle',
-        duration = 300000
+        duration = 3000
       ) {
         const alertCreatingToastsImperatively = Object.assign(
           document.createElement('ug-alert'),
@@ -551,7 +551,51 @@ export const CreatingToastsImperatively: Story = {
         count++;
         notify('This is a custom toast ' + count);
       });
-    </script> `
+    </script> `,
+  play: async () => {
+    const alertCreatingToastsImperativelyToastWrapper = document.querySelector(
+      '.alert-creating-toasts-imperatively-toast-wrapper'
+    );
+    const buttonCreatingToastsImperatively =
+      alertCreatingToastsImperativelyToastWrapper?.querySelector('ug-button');
+    let count = 0;
+
+    // Always escape HTML for text arguments!
+    function escapeHtml(html) {
+      const div = document.createElement('div');
+      div.textContent = html;
+      return div.innerHTML;
+    }
+
+    // Custom function to emit toast notifications
+    function notify(
+      message,
+      variant = 'primary',
+      icon = 'info-circle',
+      duration = 3000
+    ) {
+      const alertCreatingToastsImperatively = Object.assign(
+        document.createElement('ug-alert'),
+        {
+          variant,
+          closable: true,
+          duration: duration,
+          innerHTML: `
+  <ug-icon name="${icon}" slot="icon"></ug-icon>
+  ${escapeHtml(message)}
+`
+        }
+      );
+
+      document.body.append(alertCreatingToastsImperatively);
+      return alertCreatingToastsImperatively.toast();
+    }
+
+    buttonCreatingToastsImperatively?.addEventListener('click', () => {
+      count++;
+      notify('This is a custom toast ' + count);
+    });
+  }
 };
 
 export const TheToastStack: Story = {
