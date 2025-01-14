@@ -39,7 +39,7 @@ const meta: Meta = {
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
-      description: "The checkbox's size.",
+      description: 'The checkbox’s size.',
       table: { category: 'attributes', defaultValue: { summary: 'medium' } }
     },
     disabled: {
@@ -133,7 +133,7 @@ const meta: Meta = {
     label: {
       name: 'default',
       control: 'text',
-      description: "The checkbox's label.",
+      description: 'The checkbox’s label.',
       table: {
         category: 'slots',
         defaultValue: { summary: undefined }
