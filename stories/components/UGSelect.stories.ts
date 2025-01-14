@@ -10,13 +10,30 @@ import '/lib/components/icon';
 import '/lib/components/button';
 import '/lib/components/divider';
 
+function removeDefaultAttributes(code: string): string {
+  return code
+    .replace(
+      /\s*(name=""|size="medium"|placeholder=""|label=""|help-text=""|placeholder="")/g,
+      ''
+    )
+    .replace(/\s* hoist=""/g, ' hoist')
+    .replace(/\s* multiple=""/g, ' multiple')
+    .replace(/\s* clearable=""/g, ' clearable')
+    .replace(/\s* disabled=""/g, ' disabled')
+    .replace(/\s* required=""/g, ' required');
+}
+
 const meta: Meta = {
   title: 'Components/Select',
   component: 'ug-select',
   parameters: {
     docs: {
       subtitle:
-        'Selects allow you to choose items from a menu of predefined options.'
+        'Selects allow you to choose items from a menu of predefined options.',
+      source: {
+        transform: (code: string) => removeDefaultAttributes(code),
+        format: true
+      }
     }
   },
   decorators: [
@@ -30,6 +47,7 @@ const meta: Meta = {
     }
   ],
   argTypes: {
+    // Attributes (can ONLY be set via HTML)
     name: {
       name: 'name',
       description:
@@ -37,11 +55,24 @@ const meta: Meta = {
       type: { name: 'string' },
       defaultValue: '',
       table: {
-        category: 'Properties',
+        category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       }
     },
+    helpText: {
+      name: 'help-text',
+      description:
+        "The select's help text. If you need to display HTML, use the help-text slot instead.",
+      type: { name: 'string' },
+      defaultValue: '',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+    // Properties (can be set via both HTML and JavaScript)
     value: {
       name: 'value',
       description: `The current value of the select, submitted as a name/value pair with form data. 
@@ -68,10 +99,13 @@ const meta: Meta = {
       description: "The select's size.",
       control: 'select',
       options: ['small', 'medium', 'large'],
-      defaultValue: 'medium',
       table: {
         category: 'Properties',
-        type: { summary: "'small' | 'medium' | 'large'" },
+        type: {
+          summary: '"small" | "medium" | "large"',
+          detail:
+            'This is a reflected property that syncs with the size attribute.'
+        },
         defaultValue: { summary: "'medium'" }
       }
     },
@@ -91,10 +125,13 @@ const meta: Meta = {
       name: 'multiple',
       description: 'Allows more than one option to be selected.',
       type: { name: 'boolean' },
-      defaultValue: false,
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the multiple attribute.'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -102,18 +139,6 @@ const meta: Meta = {
       name: 'label',
       description:
         "The select's label. If you need to display HTML, use the label slot instead.",
-      type: { name: 'string' },
-      defaultValue: '',
-      table: {
-        category: 'Properties',
-        type: { summary: 'string' },
-        defaultValue: { summary: "''" }
-      }
-    },
-    helpText: {
-      name: 'help-text',
-      description:
-        "The select's help text. If you need to display HTML, use the help-text slot instead.",
       type: { name: 'string' },
       defaultValue: '',
       table: {
@@ -140,7 +165,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the disabled attribute.'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -151,7 +180,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the required attribute.'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -163,7 +196,9 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -286,13 +321,6 @@ export default meta;
 
 type Story = StoryObj;
 
-function removeDefaultAttributes(code: string): string {
-  return code.replace(
-    /\s*(name=""|size="medium"|placeholder=""|label=""|help-text=""|placeholder="")/g,
-    ''
-  );
-}
-
 export const Select: Story = {
   args: {
     name: '',
@@ -310,10 +338,6 @@ export const Select: Story = {
     docs: {
       description: {
         story: 'A default Select with hoisting enabled for demo purposes.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   },
@@ -354,10 +378,6 @@ export const Labels: Story = {
       description: {
         story:
           'Use the `label` attribute to give the select an accessible label. For labels that contain HTML, use the label slot instead.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -376,10 +396,6 @@ export const HelpText: Story = {
       description: {
         story:
           'Add descriptive help text to a select with the `help-text` attribute. For help texts that contain HTML, use the help-text slot instead.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -396,10 +412,6 @@ export const Placeholders: Story = {
     docs: {
       description: {
         story: 'Use the `placeholder` attribute to add a placeholder.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -417,10 +429,6 @@ export const Clearable: Story = {
       description: {
         story:
           'Use the `clearable` attribute to make the control clearable. The clear button only appears when an option is selected.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -437,10 +445,6 @@ export const Disabled: Story = {
     docs: {
       description: {
         story: 'Use the `disabled` attribute to disable a select.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -460,10 +464,6 @@ export const Multiple: Story = {
       description: {
         story:
           'To allow multiple options to be selected, use the `multiple` attribute. It’s a good practice to use `clearable` when this option is enabled. To set multiple values at once, set `value` to a space-delimited list of values.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -483,10 +483,6 @@ export const SettingInitialValues: Story = {
       description: {
         story:
           'Use the `value` attribute to set the initial selection. When using `multiple`, the `value` *attribute* uses space-delimited values to select more than one option.'
-      },
-      source: {
-        transform: (code: string) => removeDefaultAttributes(code),
-        format: true
       }
     }
   }
@@ -502,8 +498,7 @@ export const GroupingOptions: Story = {
       description: {
         story:
           'Use `<ug-divider >` to group listbox items visually. You can also use `<small>` to provide labels, but they won’t be announced by most assistive devices.'
-      },
-      source: { format: true }
+      }
     }
   },
   render: (args) => {
@@ -618,8 +613,7 @@ EX: \`<ug-select value="foo">\` will have a value of \`""\` until \`<ug-option v
 
 ⚠️ **Security Warning**: When dynamically adding options based on user input or external data, always sanitize the input to prevent XSS attacks. Never directly insert unsanitized content into option values or labels.
 `
-      },
-      source: { format: true }
+      }
     }
   },
   render: () => {
