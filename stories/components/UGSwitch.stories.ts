@@ -5,23 +5,27 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/test';
 
+const removeDefaultAttributes = (code: string) => {
+  return (
+    code
+      // Remove empty/default attributes
+      .replace(/\s*(name=""|value=""|size="medium"|form=""|help-text="")/g, '')
+      // Convert boolean attributes to their proper form
+      .replace(/\s*required=""/g, ' required')
+      .replace(/\s*disabled=""/g, ' disabled')
+      .replace(/\s*checked=""/g, ' checked')
+  );
+};
+
 const meta: Meta = {
   title: 'Components/Switch',
   component: 'ug-switch',
   parameters: {
     docs: {
-      toc: {
-        /* options */
-      },
       subtitle: 'Switches allow the user to toggle an option on or off.',
       source: {
         format: true,
-        transform: (code: string) => {
-          return code.replace(
-            /\s*(name=""|value=""|size="medium"|form=""|help-text="")/g,
-            ''
-          );
-        }
+        transform: removeDefaultAttributes
       }
     }
   },
@@ -31,7 +35,7 @@ const meta: Meta = {
       description:
         'The name of the switch, submitted as a name/value pair with form data.',
       table: {
-        category: 'Properties',
+        category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       },
@@ -55,7 +59,11 @@ const meta: Meta = {
       options: ['small', 'medium', 'large'],
       table: {
         category: 'Properties',
-        type: { summary: "'small' | 'medium' | 'large'" },
+        type: {
+          summary: "'small' | 'medium' | 'large'",
+          detail:
+            'This is a reflected property that syncs with the size attribute.'
+        },
         defaultValue: { summary: "'medium'" }
       },
       defaultValue: {
@@ -67,7 +75,11 @@ const meta: Meta = {
       description: 'Disables the switch.',
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the disabled attribute.'
+        },
         defaultValue: { summary: 'false' }
       },
       control: 'boolean'
@@ -77,7 +89,11 @@ const meta: Meta = {
       description: 'Draws the switch in a checked state.',
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the checked attribute.'
+        },
         defaultValue: { summary: 'false' }
       },
       control: 'boolean'
@@ -98,7 +114,7 @@ const meta: Meta = {
       description:
         'Allows associating the switch with a form outside of the nearest containing <form> element.',
       table: {
-        category: 'Properties',
+        category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       },
@@ -109,17 +125,21 @@ const meta: Meta = {
       description: 'Makes the switch a required field.',
       table: {
         category: 'Properties',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the required attribute.'
+        },
         defaultValue: { summary: 'false' }
       },
       control: 'boolean'
     },
     helpText: {
-      name: 'helpText',
+      name: 'help-text',
       description:
         'The switch’s help text. If you need to display HTML, use the help-text slot instead.',
       table: {
-        category: 'Properties',
+        category: 'Attributes',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       },
@@ -130,8 +150,8 @@ const meta: Meta = {
       description: 'Gets the validity state object.',
       table: {
         category: 'Properties',
-        type: { summary: '-' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -140,8 +160,8 @@ const meta: Meta = {
       description: 'Gets the validation message.',
       table: {
         category: 'Properties',
-        type: { summary: '-' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -151,20 +171,20 @@ const meta: Meta = {
         'A read-only promise that resolves when the component has finished updating.',
       table: {
         category: 'Properties',
-        type: { summary: '-' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
     //Slots
     helpTextSlot: {
-      name: 'helpText',
+      name: 'help-text',
       description:
         'Text that describes how to use the switch. Alternatively, you can use the help-text attribute.',
       table: {
         category: 'Slots',
-        type: { summary: 'string | slot' },
-        defaultValue: { summary: "''" }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -175,7 +195,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -185,7 +205,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -195,7 +215,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -205,7 +225,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -216,7 +236,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     }
@@ -226,11 +246,6 @@ const meta: Meta = {
 export default meta;
 
 type Story = StoryObj;
-
-// Transform code that makes it more readable
-const removeDefaultAttributes = (code: string): string => {
-  return code.replace(/\s*(size="medium")/g, '');
-};
 
 export const Default: Story = {
   args: {
@@ -271,10 +286,6 @@ export const Checked: Story = {
     docs: {
       description: {
         story: `Use the <code>checked</code> attribute to activate the switch.`
-      },
-      source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
       }
     }
   }
@@ -290,10 +301,6 @@ export const Disabled: Story = {
     docs: {
       description: {
         story: `Use the <code>disabled</code> attribute to disable the switch.`
-      },
-      source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
       }
     }
   }
@@ -308,16 +315,12 @@ export const Sizes: Story = {
     docs: {
       description: {
         story: `Use the <code>size</code> attribute to change a switch’s size.`
-      },
-      source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
       }
     },
     controls: false
   },
 
-  render: (args) => {
+  render: () => {
     return html`
       <ug-switch size="small">Small</ug-switch>
       <br />
@@ -338,10 +341,6 @@ export const HelpText: Story = {
     docs: {
       description: {
         story: `Add descriptive help text to a switch with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
-      },
-      source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
       }
     }
   }
@@ -356,14 +355,10 @@ export const HelpTextSlot: Story = {
     docs: {
       description: {
         story: `Add descriptive help text to a switch with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
-      },
-      source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
       }
     }
   },
-  render: (args) => {
+  render: () => {
     return html`
       <ug-switch>
         <div slot="help-text">
@@ -379,6 +374,10 @@ export const SwitchWithEvents: Story = {
   ...Default,
   args: {
     ...Default.args
+  },
+  tags: ['!autodocs'],
+  parameters: {
+    controls: { disable: true }
   },
   render: (args) => {
     return html`
