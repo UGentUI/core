@@ -10,6 +10,8 @@ import '@shoelace-style/shoelace/dist/themes/light.css';
 import { userEvent, within } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 
+import type { UgAlert } from '../../lib/components/alert';
+
 const meta: Meta = {
   title: 'Components/Alert',
   component: 'UgAlert',
@@ -344,10 +346,10 @@ export const Duration: Story = {
     </style>`,
   play: async () => {
     const durationContainer = document.querySelector('.alert-duration');
-    const buttonDuration = durationContainer.querySelector('ug-button');
-    const alertDuration = durationContainer.querySelector('ug-alert');
+    const buttonDuration = durationContainer?.querySelector('ug-button');
+    const alertDuration = durationContainer?.querySelector('ug-alert');
 
-    buttonDuration.addEventListener('click', () => alertDuration.show());
+    buttonDuration?.addEventListener('click', () => alertDuration?.show());
   }
 };
 
@@ -393,12 +395,12 @@ export const Countdown: Story = {
   play: async () => {
     const alertCountdownContainer = document.querySelector('.alert-countdown');
     const alertCountdownButton =
-      alertCountdownContainer.querySelector('ug-button');
+      alertCountdownContainer?.querySelector('ug-button');
     const alertCountdownAlert =
-      alertCountdownContainer.querySelector('ug-alert');
+      alertCountdownContainer?.querySelector('ug-alert');
 
-    alertCountdownButton.addEventListener('click', () =>
-      alertCountdownAlert.show()
+    alertCountdownButton?.addEventListener('click', () =>
+      alertCountdownAlert?.show()
     );
   }
 };
@@ -476,13 +478,13 @@ You should always use the <code>closable</code> attribute so users can dismiss t
     const alertToastContainer = document.querySelector('.alert-toast');
     ['primary', 'success', 'neutral', 'warning', 'danger'].forEach(
       (variant) => {
-        const button = alertToastContainer.querySelector(
+        const button = alertToastContainer?.querySelector(
           `ug-button[variant="${variant}"]`
         );
-        const alert = alertToastContainer.querySelector(
+        const alert = alertToastContainer?.querySelector(
           `ug-alert[variant="${variant}"]`
-        );
-        button?.addEventListener('click', () => alert.toast());
+        ) as UgAlert;
+        button?.addEventListener('click', () => alert?.toast());
       }
     );
   }
