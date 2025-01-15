@@ -5,9 +5,8 @@ import '/lib/components/button';
 import '/lib/components/menu';
 import '/lib/components/menu-item';
 import '/lib/components/divider';
-import { UgDropdown } from '../../dist/components/dropdown';
 
-const meta: Meta<typeof UgDropdown> = {
+const meta: Meta = {
   title: 'Components/Dropdown',
   component: 'ug-dropdown',
   parameters: {
@@ -20,6 +19,15 @@ const meta: Meta<typeof UgDropdown> = {
     }
   },
   argTypes: {
+    open: {
+      description:
+        'Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you can use the <code>show()</code> and <code>hide()</code> methods and this attribute will reflect the dropdown’s open state.',
+      control: 'boolean',
+      table: {
+        category: 'attributes',
+        defaultValue: { summary: 'false' }
+      }
+    },
     placement: {
       control: 'select',
       options: [
@@ -47,21 +55,12 @@ const meta: Meta<typeof UgDropdown> = {
         defaultValue: { summary: 'bottom-start' }
       }
     },
-    open: {
-      description:
-        'Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you can use the <code>show()</code> and <code>hide()</code> methods and this attribute will reflect the dropdown’s open state.',
-      control: 'boolean',
-      table: {
-        category: 'attributes',
-        defaultValue: { summary: false }
-      }
-    },
     disabled: {
       description: 'Disables the dropdown so the panel will not open.',
       control: 'boolean',
       table: {
         category: 'attributes',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     stayOpenOnSelect: {
@@ -70,7 +69,7 @@ const meta: Meta<typeof UgDropdown> = {
       control: 'boolean',
       table: {
         category: 'attributes',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     distance: {
@@ -97,7 +96,7 @@ const meta: Meta<typeof UgDropdown> = {
       control: 'boolean',
       table: {
         category: 'attributes',
-        defaultValue: { summary: false }
+        defaultValue: { summary: 'false' }
       }
     },
     sync: {
@@ -112,6 +111,104 @@ const meta: Meta<typeof UgDropdown> = {
         },
         defaultValue: { summary: undefined }
       }
+    },
+    defaultSlot: {
+      control: 'text',
+      description: 'The dropdown’s main content.',
+      table: {
+        category: 'slots',
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    triggerSlot: {
+      control: 'text',
+      description: 'The dropdown’s trigger, usually a <ug-button> element.',
+      table: {
+        category: 'slots',
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    ugShow: {
+      name: 'ug-show',
+      action: 'ug-show', // Logs the ug-show event in the Actions panel
+      description: 'Emitted when the dropdown opens.',
+      table: {
+        type: { summary: undefined },
+        category: 'events',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    ugAfterShow: {
+      name: 'ug-after-show',
+      action: 'ug-after-show', // Logs the ug-after-show event in the Actions panel
+      description:
+        'Emitted after the dropdown opens and all animations are complete.',
+      table: {
+        type: { summary: undefined },
+        category: 'events',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    ugHide: {
+      name: 'ug-hide',
+      action: 'ug-hide', // Logs the ug-hide event in the Actions panel
+      description: 'Emitted when the dropdown closes.',
+      table: {
+        type: { summary: undefined },
+        category: 'events',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    ugAfterHide: {
+      name: 'ug-after-hide',
+      action: 'ug-after-hide', // Logs the ug-after-hide event in the Actions panel
+      description:
+        'Emitted after the dropdown closes and all animations are complete.',
+      table: {
+        type: { summary: undefined },
+        category: 'events',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    show: {
+      name: 'show()',
+      action: 'show', // Logs the show event in the Actions panel
+      description: 'Shows the dropdown panel.',
+      table: {
+        type: { summary: undefined },
+        category: 'methods',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    hide: {
+      name: 'hide()',
+      action: 'hide', // Logs the hide event in the Actions panel
+      description: 'Hides the dropdown panel.',
+      table: {
+        type: { summary: undefined },
+        category: 'methods',
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    reposition: {
+      name: 'reposition()',
+      action: 'reposition', // Logs the reposition event in the Actions panel
+      description:
+        'Instructs the dropdown menu to reposition. Useful when the position or size of the trigger changes when the menu is activated.',
+      table: {
+        type: { summary: undefined },
+        category: 'methods',
+        defaultValue: { summary: undefined }
+      },
+      control: false
     }
   }
 };
@@ -129,7 +226,8 @@ export const DefaultDropdown: Story = {
     distance: 0,
     skidding: 0,
     hoist: false,
-    sync: undefined
+    sync: undefined,
+    triggerSlot: `Dropdown`
   },
   parameters: {
     docs: {
@@ -139,8 +237,8 @@ export const DefaultDropdown: Story = {
       }
     }
   },
-  render: (args) => {
-    return html`<ug-dropdown
+  render: (args) =>
+    html`<ug-dropdown
       placement="${args.placement}"
       open="${args.open}"
       disabled="${args.disabled}"
@@ -150,7 +248,9 @@ export const DefaultDropdown: Story = {
       hoist="${args.hoist}"
       sync="${args.sync}"
     >
-      <ug-button slot="trigger" caret>Dropdown</ug-button>
+      ${args.triggerSlot
+        ? html`<ug-button slot="trigger" caret>${args.triggerSlot}</ug-button>`
+        : ''}
       <ug-menu>
         <ug-menu-item>Dropdown Item 1</ug-menu-item>
         <ug-menu-item>Dropdown Item 2</ug-menu-item>
@@ -168,6 +268,80 @@ export const DefaultDropdown: Story = {
           <ug-icon slot="suffix" name="heart"></ug-icon>
         </ug-menu-item>
       </ug-menu>
-    </ug-dropdown>`;
-  }
+    </ug-dropdown>`
+};
+
+function exampleMenu(triggerLabel: string) {
+  return html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>
+    <ug-menu>
+      <ug-menu-item>Cut</ug-menu-item>
+      <ug-menu-item>Copy</ug-menu-item>
+      <ug-menu-item>Paste</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item>Find</ug-menu-item>
+      <ug-menu-item>Replace</ug-menu-item>
+    </ug-menu>`;
+}
+
+export const Placements: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `The preferred placement of the dropdown can be set with the placement attribute. Note that the actual position may vary to ensure the panel remains in the viewport.`
+      }
+    }
+  },
+  render: () =>
+    html`<style>
+        .placements {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-around;
+          padding: 10px;
+        }
+        .dropdown {
+          margin: 10px;
+        }
+      </style>
+      <div class="placements">
+        <ug-dropdown class="dropdown" placement="bottom">
+          ${exampleMenu('bottom')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="bottom-start">
+          ${exampleMenu('bottom-start')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="bottom-end">
+          ${exampleMenu('bottom-end')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="right">
+          ${exampleMenu('right')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="right-start">
+          ${exampleMenu('right-start')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="right-end">
+          ${exampleMenu('right-end')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="left">
+          ${exampleMenu('left')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="left-start">
+          ${exampleMenu('left-start')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="left-end">
+          ${exampleMenu('left-end')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="top"
+          >${exampleMenu('top')}</ug-dropdown
+        >
+        <ug-dropdown class="dropdown" placement="top-start">
+          ${exampleMenu('top-start')}
+        </ug-dropdown>
+        <ug-dropdown class="dropdown" placement="top-end">
+          ${exampleMenu('top-end')}
+        </ug-dropdown>
+      </div>`
 };
