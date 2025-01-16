@@ -21,9 +21,10 @@
     "./dist/components/**/*.js"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "concurrently \"tailwindcss -i tw-input.css -o ./lib/styles/tw.css --watch \"  \"twlit --input ./lib/styles/tw.css --output ./lib/styles/tw.js\" \"vite\" ",
+    "build": "npx tailwindcss -c ./tailwind.config.js -i tw-input.css -o ./lib/styles/tw.css tsc  & twlit --input ./lib/styles/tw.css --output ./lib/styles/tw.js & vite build",
     "preview": "vite preview",
+    "pdg": "node scripts/convert-tail",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -48,15 +49,17 @@
     "@typescript-eslint/eslint-plugin": "^8.5.0",
     "@typescript-eslint/parser": "^8.5.0",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
     "eslint": "^9.10.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-storybook": "^0.9.0",
-    "prettier": "^3.4.1",
     "postcss": "^8.4.47",
+    "prettier": "^3.4.1",
     "rollup-plugin-copy": "^3.5.0",
     "storybook": "^8.3.5",
     "tailwindcss": "^3.4.15",
+    "twlit": "^0.0.1-alpha.37",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^4.2.3"
