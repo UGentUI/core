@@ -5,6 +5,56 @@ import '/lib/components/button';
 import '/lib/components/menu';
 import '/lib/components/menu-item';
 import '/lib/components/divider';
+import { action } from '@storybook/addon-actions';
+
+const PLACEMENT_OPTIONS = [
+  'top',
+  'top-start',
+  'top-end',
+  'bottom',
+  'bottom-start',
+  'bottom-end',
+  'right',
+  'right-start',
+  'right-end',
+  'left',
+  'left-start',
+  'left-end'
+];
+
+const SYNC_OPTIONS = ['width', 'height', 'both', undefined];
+
+function longDropdownContent(triggerLabel: string) {
+  return html`${triggerLabel
+      ? html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>`
+      : html`<ug-button slot="trigger" caret>Dropdown</ug-button>`}
+    <ug-menu>
+      <ug-menu-item>Dropdown Item 1</ug-menu-item>
+      <ug-menu-item>Dropdown Item 2</ug-menu-item>
+      <ug-menu-item>Dropdown Item 3</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item type="checkbox" checked>Checkbox</ug-menu-item>
+      <ug-menu-item disabled>Disabled</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item>
+        Prefix
+        <ug-icon slot="prefix" name="gift"></ug-icon>
+      </ug-menu-item>
+      <ug-menu-item>
+        Suffix Icon
+        <ug-icon slot="suffix" name="heart"></ug-icon>
+      </ug-menu-item>
+    </ug-menu>`;
+}
+
+function shortDropdownContent(triggerLabel: string) {
+  return html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>
+    <ug-menu>
+      <ug-menu-item>Cut</ug-menu-item>
+      <ug-menu-item>Copy</ug-menu-item>
+      <ug-menu-item>Paste</ug-menu-item>
+    </ug-menu>`;
+}
 
 const meta: Meta = {
   title: 'Components/Dropdown',
@@ -30,27 +80,13 @@ const meta: Meta = {
     },
     placement: {
       control: 'select',
-      options: [
-        'top',
-        'top-start',
-        'top-end',
-        'bottom',
-        'bottom-start',
-        'bottom-end',
-        'right',
-        'right-start',
-        'right-end',
-        'left',
-        'left-start',
-        'left-end'
-      ],
+      options: PLACEMENT_OPTIONS,
       description:
         'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.',
       table: {
         category: 'attributes',
         type: {
-          summary:
-            'top | top-start | top-end | bottom | bottom-start | bottom-end | right | right-start | right-end | left | left-start | left-end'
+          summary: PLACEMENT_OPTIONS.join(' | ')
         },
         defaultValue: { summary: 'bottom-start' }
       }
@@ -101,13 +137,13 @@ const meta: Meta = {
     },
     sync: {
       control: 'select',
-      options: ['width', 'height', 'both', undefined],
+      options: SYNC_OPTIONS,
       description:
         'Syncs the popup width or height to that of the trigger element.',
       table: {
         category: 'attributes',
         type: {
-          summary: 'width, height, both, undefined'
+          summary: SYNC_OPTIONS.map((v) => '' + v).join(' | ')
         },
         defaultValue: { summary: undefined }
       }
@@ -240,48 +276,17 @@ export const DefaultDropdown: Story = {
   render: (args) =>
     html`<ug-dropdown
       placement="${args.placement}"
-      open="${args.open}"
-      disabled="${args.disabled}"
-      stay-open-on-select="${args.stayOpenOnSelect}"
+      ?open="${args.open}"
+      ?disabled="${args.disabled}"
+      ?stay-open-on-select="${args.stayOpenOnSelect}"
       distance="${args.distance}"
       skidding="${args.skidding}"
-      hoist="${args.hoist}"
+      ?hoist="${args.hoist}"
       sync="${args.sync}"
     >
-      ${args.triggerSlot
-        ? html`<ug-button slot="trigger" caret>${args.triggerSlot}</ug-button>`
-        : ''}
-      <ug-menu>
-        <ug-menu-item>Dropdown Item 1</ug-menu-item>
-        <ug-menu-item>Dropdown Item 2</ug-menu-item>
-        <ug-menu-item>Dropdown Item 3</ug-menu-item>
-        <ug-divider></ug-divider>
-        <ug-menu-item type="checkbox" checked>Checkbox</ug-menu-item>
-        <ug-menu-item disabled>Disabled</ug-menu-item>
-        <ug-divider></ug-divider>
-        <ug-menu-item>
-          Prefix
-          <ug-icon slot="prefix" name="gift"></ug-icon>
-        </ug-menu-item>
-        <ug-menu-item>
-          Suffix Icon
-          <ug-icon slot="suffix" name="heart"></ug-icon>
-        </ug-menu-item>
-      </ug-menu>
+      ${longDropdownContent(`${args.triggerSlot}`)}
     </ug-dropdown>`
 };
-
-function exampleMenu(triggerLabel: string) {
-  return html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>
-    <ug-menu>
-      <ug-menu-item>Cut</ug-menu-item>
-      <ug-menu-item>Copy</ug-menu-item>
-      <ug-menu-item>Paste</ug-menu-item>
-      <ug-divider></ug-divider>
-      <ug-menu-item>Find</ug-menu-item>
-      <ug-menu-item>Replace</ug-menu-item>
-    </ug-menu>`;
-}
 
 export const Placements: Story = {
   args: {},
@@ -300,48 +305,48 @@ export const Placements: Story = {
           flex-direction: column;
           align-items: center;
           justify-content: space-around;
-          padding: 10px;
+          padding: 120px;
         }
         .dropdown {
           margin: 10px;
         }
       </style>
       <div class="placements">
-        <ug-dropdown class="dropdown" placement="bottom">
-          ${exampleMenu('bottom')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="bottom-start">
-          ${exampleMenu('bottom-start')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="bottom-end">
-          ${exampleMenu('bottom-end')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="right">
-          ${exampleMenu('right')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="right-start">
-          ${exampleMenu('right-start')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="right-end">
-          ${exampleMenu('right-end')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="left">
-          ${exampleMenu('left')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="left-start">
-          ${exampleMenu('left-start')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="left-end">
-          ${exampleMenu('left-end')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="top"
-          >${exampleMenu('top')}</ug-dropdown
+        ${PLACEMENT_OPTIONS.map(
+          (placement) =>
+            html`<ug-dropdown class="dropdown" placement="${placement}">
+              ${shortDropdownContent(placement)}
+            </ug-dropdown>`
+        )}
+      </div>`
+};
+
+export const DropdownWithEvents: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `This story demonstrates how the Dropdown handles events like ug-show, ug-after-show, ug-hide, ug-after-hide`
+      }
+    }
+  },
+  render: () =>
+    html`<style>
+        .dropdown {
+          margin: 10px;
+        }
+      </style>
+      <div>
+        <ug-dropdown
+          class="dropdown"
+          placement="bottom-start"
+          @ug-show="${action('ug-show')}"
+          @ug-after-show="${action('ug-after-show')}"
+          @ug-hide="${action('ug-hide')}"
+          @ug-after-hide="${action('ug-after-hide')}"
         >
-        <ug-dropdown class="dropdown" placement="top-start">
-          ${exampleMenu('top-start')}
-        </ug-dropdown>
-        <ug-dropdown class="dropdown" placement="top-end">
-          ${exampleMenu('top-end')}
+          ${shortDropdownContent('Dropdown')}
         </ug-dropdown>
       </div>`
 };
