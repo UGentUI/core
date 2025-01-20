@@ -1,18 +1,24 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/input';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 function removeDefaultAttributes(code: string): string {
   return code
     .replace(
-      /\s*(name=""|size="medium"|placeholder=""|label=""|help-text=""|placeholder="")/g,
+      /\s*(type="text"|size="medium"|name=""|value=""|label=""|default-value=""|form=""|pattern=""|autocapitalize="off"|autocorrect="off"|autocomplete=""|enterkeyhint="enter"|inputmode="text"|help-text=""|placeholder="")/g,
       ''
     )
-    .replace(/\s* hoist=""/g, ' hoist')
-    .replace(/\s* multiple=""/g, ' multiple')
+    .replace(/\s* filled=""/g, ' filled')
+    .replace(/\s* pill=""/g, ' pill')
     .replace(/\s* clearable=""/g, ' clearable')
     .replace(/\s* disabled=""/g, ' disabled')
-    .replace(/\s* required=""/g, ' required');
+    .replace(/\s* readonly=""/g, ' readonly')
+    .replace(/\s* password-toggle=""/g, ' password-toggle')
+    .replace(/\s* password-visible=""/g, ' password-visible')
+    .replace(/\s* no-spin-buttons=""/g, ' no-spin-buttons')
+    .replace(/\s* required=""/g, ' required')
+    .replace(/\s* no-spin-buttons=""/g, ' no-spin-buttons');
 }
 
 const meta: Meta = {
@@ -638,11 +644,11 @@ export const Input: Story = {
       form="${args.form}"
       ?required="${args.required}"
       pattern="${args.pattern}"
-      minlength="${args.minlength}"
-      maxlength="${args.maxlength}"
-      min="${args.min}"
-      max="${args.max}"
-      step="${args.step}"
+      minlength="${ifDefined(args.minlength)}"
+      maxlength="${ifDefined(args.maxlength)}"
+      min="${ifDefined(args.min)}"
+      max="${ifDefined(args.max)}"
+      step="${ifDefined(args.step)}"
       autocapitalize="${args.autocapitalize}"
       autocorrect="${args.autocorrect}"
       autocomplete="${args.autocomplete}"
