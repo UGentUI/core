@@ -771,3 +771,170 @@ export const Disabled: Story = {
     }
   }
 };
+
+export const Sizes: Story = {
+  ...Input,
+  args: {
+    ...Input.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>size</code> attribute to change an input’s size.`
+      }
+    }
+  },
+  render: (args, context) => html`
+    <h4>Small</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'small' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Medium</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'medium' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Large</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'large' }, context)
+      : html`<div>No render available</div>`}
+  `
+};
+
+export const Pill: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    pill: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>pill</code> attribute to give inputs rounded edges.`
+      }
+    }
+  },
+  render: (args, context) => html`
+    <h4>Small</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'small' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Medium</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'medium' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Large</h4>
+    ${Input.render
+      ? Input.render({ ...args, size: 'large' }, context)
+      : html`<div>No render available</div>`}
+  `
+};
+
+export const InputTypes: Story = {
+  ...Input,
+  args: {
+    ...Input.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `The <code>type</code> attribute controls the type of input the browser renders.`
+      }
+    }
+  },
+  render: (args, context) => html`
+    <h4>Date</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'date', placeholder: 'Date' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Datetime-local</h4>
+    ${Input.render
+      ? Input.render(
+          { ...args, type: 'datetime-local', placeholder: 'Datetime-local' },
+          context
+        )
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Email</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'email', placeholder: 'Email' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Number</h4>
+    ${Input.render
+      ? Input.render(
+          { ...args, type: 'number', placeholder: 'number' },
+          context
+        )
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Password</h4>
+    ${Input.render
+      ? Input.render(
+          { ...args, type: 'password', placeholder: 'password' },
+          context
+        )
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Search</h4>
+    ${Input.render
+      ? Input.render(
+          { ...args, type: 'search', placeholder: 'search' },
+          context
+        )
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Tel</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'tel', placeholder: 'tel' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Text</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'text', placeholder: 'text' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Time</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'time', placeholder: 'time' }, context)
+      : html`<div>No render available</div>`}
+    <br />
+    <h4>Url</h4>
+    ${Input.render
+      ? Input.render({ ...args, type: 'url', placeholder: 'url' }, context)
+      : html`<div>No render available</div>`}
+  `
+};
+
+export const PrefixAndSuffixIcons: Story = {
+  args: {},
+
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>prefix</code> and <code>suffix</code> slots to add icons.`
+      }
+    },
+    controls: false
+  },
+  render: () => {
+    return html`<ug-input placeholder="Small" size="small">
+        <ug-icon name="house" slot="prefix"></ug-icon>
+        <ug-icon name="chat" slot="suffix"></ug-icon>
+      </ug-input>
+      <br />
+      <ug-input placeholder="Medium" size="medium">
+        <ug-icon name="house" slot="prefix"></ug-icon>
+        <ug-icon name="chat" slot="suffix"></ug-icon>
+      </ug-input>
+      <br />
+      <ug-input placeholder="Large" size="large">
+        <ug-icon name="house" slot="prefix"></ug-icon>
+        <ug-icon name="chat" slot="suffix"></ug-icon>
+      </ug-input>`;
+  }
+};
