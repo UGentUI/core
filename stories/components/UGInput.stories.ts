@@ -2,6 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/input';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { Value } from 'sass';
 
 function removeDefaultAttributes(code: string): string {
   return code
@@ -657,5 +658,116 @@ export const Input: Story = {
       ?spellcheck="${args.spellcheck}"
       inputmode="${args.inputmode}"
     ></ug-input>`;
+  }
+};
+
+export const Labels: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    label: 'What is your name?'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>label</code> attribute to give the input an accessible label. For labels that contain HTML, use the <code>label</code> slot instead.`
+      }
+    }
+  }
+};
+
+export const HelpText: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    label: 'Nickname',
+    helpText: 'What would you like people to call you?'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add descriptive help text to an input with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
+      }
+    }
+  }
+};
+
+export const Placeholders: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    placeholder: 'Type something'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>placeholder</code> attribute to add a placeholder.`
+      }
+    }
+  }
+};
+
+export const Clearable: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    value: 'Look at the cross symbol on the right of this text',
+    clearable: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add the <code>clearable</code> attribute to add a clear button when the input has content.`
+      }
+    }
+  }
+};
+
+export const TogglePassword: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    type: 'password',
+    placeholder: 'Password Toggle',
+    passwordToggle: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add the <code>password-toggle</code> attribute to add a toggle button that will show the password when activated.`
+      }
+    }
+  }
+};
+
+export const FilledInputs: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    placeholder: 'I am a different color',
+    filled: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add the <code>filled</code> attribute to draw a filled input.`
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  ...Input,
+  args: {
+    ...Input.args,
+    placeholder: 'Disabled',
+    disabled: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>disabled</code> attribute to disable an input.`
+      }
+    }
   }
 };
