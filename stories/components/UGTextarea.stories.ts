@@ -2,9 +2,9 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/textarea';
 import '/lib/components/button';
-import { userEvent, within } from '@storybook/test';
-import { action } from '@storybook/addon-actions';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { userEvent } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Textarea',
@@ -20,22 +20,41 @@ const meta: Meta = {
       source: {
         format: true,
         transform: (code: string) => {
-          return code.replace(
-            /\s*(value=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|spellcheck="true")/g,
-            ''
-          );
+          return code
+            .replace(
+              /\s*(value=""|name=""|size="medium"|label=""|help-text=""|placeholder=""|rows="4"|resize="vertical"|form=""|spellcheck="true")/g,
+              ''
+            )
+            .replace(/\s* required=""/g, ' required')
+            .replace(/\s* disabled=""/g, ' disabled')
+            .replace(/\s* readonly=""/g, ' readonly');
         }
+      }
+    },
+    html: {
+      transform: (code: string) => {
+        return code;
       }
     }
   },
   argTypes: {
+    name: {
+      description:
+        'The name of the textarea, submitted as a name/value pair with form data.',
+      control: { type: 'text' },
+      table: {
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" },
+        category: 'Basic Attributes'
+      }
+    },
     rows: {
       description: 'The number of rows to display by default.',
       control: { type: 'number' },
       table: {
         type: { summary: 'number' },
         defaultValue: { summary: '4' },
-        category: 'properties: dimensions'
+        category: 'Basic Attributes'
       }
     },
     value: {
@@ -45,7 +64,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties: value'
+        category: 'Value Management'
       }
     },
     size: {
@@ -53,14 +72,15 @@ const meta: Meta = {
       control: { type: 'radio' },
       options: ['small', 'medium', 'large'],
       table: {
-        type: { summary: "'small' | 'medium' | 'large'" },
+        type: {
+          summary: "'small' | 'medium' | 'large'",
+          detail:
+            'This is a reflected property that syncs with the size attribute'
+        },
         defaultValue: { summary: 'medium' },
-        category: 'properties: dimensions'
+        category: 'Appearance and Layout'
       },
-      canvas: {
-        defaultValue: 'medium' // For actual functionality in Storybook preview
-      },
-      defaultValue: 'medium' // For actual functionality in Storybook preview
+      defaultValue: 'medium'
     },
     label: {
       description: "The textarea's label. Use the label slot for HTML content.",
@@ -68,17 +88,18 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties: basis'
+        category: 'Accessibility'
       }
     },
-    'help-text': {
+    helpText: {
+      name: 'help-text',
       description:
         "The textarea's help text. Use the help-text slot for HTML content.",
       control: { type: 'text' },
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties: basis'
+        category: 'Accessibility'
       }
     },
     placeholder: {
@@ -88,7 +109,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'string' },
         defaultValue: { summary: "''" },
-        category: 'properties: value'
+        category: 'Value Management'
       }
     },
     resize: {
@@ -98,34 +119,46 @@ const meta: Meta = {
       table: {
         type: { summary: "'none' | 'vertical' | 'auto'" },
         defaultValue: { summary: 'vertical' },
-        category: 'properties: dimensions'
+        category: 'Appearance and Layout'
       }
     },
     disabled: {
       description: 'Disables the textarea.',
       control: { type: 'boolean' },
       table: {
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the disabled attribute'
+        },
         defaultValue: { summary: 'false' },
-        category: 'properties: States and validatie'
+        category: 'State Attributes'
       }
     },
     readonly: {
       description: 'Makes the textarea readonly.',
       control: { type: 'boolean' },
       table: {
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the readonly attribute'
+        },
         defaultValue: { summary: 'false' },
-        category: 'properties: States and validatie'
+        category: 'State Attributes'
       }
     },
     form: {
       description: 'Associates the textarea with a form by its ID.',
       control: { type: 'text' },
       table: {
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+          detail:
+            'This is a reflected property that syncs with the form attribute'
+        },
         defaultValue: { summary: "''" },
-        category: 'properties: basis'
+        category: 'Form Association'
       }
     },
     required: {
@@ -134,7 +167,7 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' },
-        category: 'properties: States and validatie'
+        category: 'State Attributes'
       }
     },
     minlength: {
@@ -142,7 +175,8 @@ const meta: Meta = {
       control: { type: 'number' },
       table: {
         type: { summary: 'number' },
-        category: 'properties: Constraints'
+        defaultValue: { summary: undefined },
+        category: 'Validation'
       }
     },
     maxlength: {
@@ -150,46 +184,8 @@ const meta: Meta = {
       control: { type: 'number' },
       table: {
         type: { summary: 'number' },
-        category: 'properties: Constraints'
-      }
-    },
-    autocapitalize: {
-      description:
-        'Controls whether and how text input is automatically capitalized.',
-      control: { type: 'select' },
-      options: ['off', 'none', 'on', 'sentences', 'words', 'characters'],
-      table: {
-        type: {
-          summary:
-            "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
-        },
-        category: 'properties: Keyboard and autofill'
-      }
-    },
-    autocorrect: {
-      description:
-        "Indicates whether the browser's autocorrect feature is on or off.",
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        category: 'properties: Keyboard and autofill'
-      }
-    },
-    autocomplete: {
-      description: 'Specifies the autocomplete behavior of the textarea.',
-      control: { type: 'text' },
-      table: {
-        type: { summary: 'string' },
-        category: 'properties: Keyboard and autofill'
-      }
-    },
-    autofocus: {
-      description:
-        'Indicates that the input should receive focus on page load.',
-      control: { type: 'boolean' },
-      table: {
-        type: { summary: 'boolean' },
-        category: 'properties: Keyboard and autofill'
+        defaultValue: { summary: undefined },
+        category: 'Validation'
       }
     },
     spellcheck: {
@@ -198,49 +194,17 @@ const meta: Meta = {
       table: {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'true' },
-        category: 'properties: Keyboard and autofill'
+        category: 'Behavioral Attributes'
       }
     },
-    inputmode: {
-      description: 'Specifies the type of data entry expected by the input.',
-      control: { type: 'select' },
-      options: [
-        'none',
-        'text',
-        'decimal',
-        'numeric',
-        'tel',
-        'search',
-        'email',
-        'url'
-      ],
-      table: {
-        type: {
-          summary:
-            "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url'"
-        },
-        category: 'properties: Keyboard and autofill'
-      }
-    },
-    /*updateComplete: {
-      description:
-        'A read-only promise that resolves when the component has finished updating. Readonly',
-      control: { type: 'null' },
-      table: {
-        type: { summary: 'Promise' },
-        defaultValue: { summary: '-' },
-        category: 'properties'
-      }
-    },*/
-
     // Events
     ugBlur: {
       name: 'ug-blur',
       description: 'Emitted when the control loses focus.',
       table: {
         category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false,
       action: 'ugBlur'
@@ -251,8 +215,8 @@ const meta: Meta = {
         "Emitted when an alteration to the control's value is committed by the user.",
       table: {
         category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false,
       action: 'ugChange'
@@ -262,8 +226,8 @@ const meta: Meta = {
       description: 'Emitted when the control gains focus.',
       table: {
         category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false,
       action: 'ugFocus'
@@ -273,8 +237,8 @@ const meta: Meta = {
       description: 'Emitted when the control receives input.',
       table: {
         category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false,
       action: 'ugInput'
@@ -285,8 +249,8 @@ const meta: Meta = {
         'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
       table: {
         category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false,
       action: 'ugInvalid'
@@ -299,7 +263,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '() => void' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -313,9 +277,9 @@ const meta: Meta = {
           summary:
             "(selectionStart: number, selectionEnd: number, selectionDirection: 'forward' | 'backward' | 'none') => void"
         },
-        control: false,
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     setRangeText: {
       name: 'setRangeText()',
@@ -326,9 +290,9 @@ const meta: Meta = {
           summary:
             "(replacement: string, start: number, end: number, selectMode: 'select' | 'start' | 'end' | 'preserve') => void"
         },
-        control: false,
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     reportValidity: {
       name: 'reportValidity()',
@@ -337,7 +301,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '() => boolean' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -348,7 +312,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '(message: string) => void' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -358,7 +322,9 @@ const meta: Meta = {
       description:
         'The textarea’s label. Alternatively, you can use the label attribute.',
       table: {
-        category: 'Slots'
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -367,7 +333,9 @@ const meta: Meta = {
       description:
         'Text that describes how to use the input. Alternatively, you can use the help-text attribute.',
       table: {
-        category: 'Slots'
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     }
@@ -380,32 +348,36 @@ type Story = StoryObj;
 
 export const Textarea: Story = {
   args: {
-    label: '',
-    'help-text': '',
-    form: '',
+    name: '',
+    rows: 4,
     value: '',
     placeholder: '',
-    rows: 4,
-    size: 'medium',
-    resize: 'vertical',
     disabled: false,
     readonly: false,
     required: false,
     minlength: undefined,
     maxlength: undefined,
-    inputmode: undefined,
-    autocapitalize: undefined,
-    autocorrect: undefined,
-    autocomplete: undefined,
-    autofocus: false,
+    form: '',
+    size: 'medium',
+    resize: 'vertical',
+    label: '',
+    helpText: '',
     spellcheck: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'A default textarea.'
+      }
+    }
   },
   render: ({ ...args }) =>
     html`<ug-textarea
+      name=${ifDefined(args.name)}
       value=${ifDefined(args.value)}
       size=${ifDefined(args.size)}
       label=${args.label}
-      help-text=${args['help-text']}
+      help-text=${args.helpText}
       placeholder=${args.placeholder}
       rows=${args.rows}
       resize=${args.resize}
@@ -415,12 +387,8 @@ export const Textarea: Story = {
       ?required=${args.required}
       minlength=${ifDefined(args.minlength)}
       maxlength=${ifDefined(args.maxlength)}
-      autocapitalize=${ifDefined(args.autocapitalize)}
-      autocorrect=${ifDefined(args.autocorrect)}
       autocomplete=${ifDefined(args.autocomplete)}
-      ?autofocus=${args.autofocus}
       spellcheck=${args.spellcheck}
-      inputmode=${ifDefined(args.inputmode)}
     ></ug-textarea> `
 };
 
@@ -481,7 +449,7 @@ export const Disabled: Story = {
   args: {
     ...Textarea.args,
     placeholder: 'Type something',
-    diasbled: true
+    disabled: true
   },
   parameters: {
     controls: {},
@@ -515,297 +483,13 @@ export const HelpText: Story = {
   args: {
     ...Textarea.args,
     label: 'Feedback',
-    'help-text': 'Please tell us what you think.'
+    helpText: 'Please tell us what you think.'
   },
   parameters: {
     controls: {},
     docs: {
       description: {
         story: `Add descriptive help text to a textarea with the \`help-text\` attribute. For help texts that contain HTML, use the \`help-text\` slot instead.`
-      }
-    }
-  }
-};
-
-export const SimpleCustomValidity: Story = {
-  render: () =>
-    html`<form class="input-validation-custom">
-        <ug-textarea
-          label="Type 'I agree to the terms and conditions'"
-          placeholder="Type something..."
-          required
-          maxlength="50"
-          @ug-input="${action('ug-input')}"
-          @ug-change="${action('ug-change')}"
-          @ug-focus="${action('ug-focus')}"
-          @ug-blur="${action('ug-blur')}"
-          @ug-invalid="${action('ug-invalid')}"
-        ></ug-textarea>
-        <br />
-        <ug-button type="submit" variant="primary">Submit</ug-button>
-        <ug-button type="reset" variant="default">Reset</ug-button>
-      </form>
-
-      <script type="module">
-        const form = document.querySelector('.input-validation-custom');
-        const textarea = form.querySelector('ug-textarea');
-
-        // Wait for controls to be defined before attaching form listeners
-        await Promise.all([
-          customElements.whenDefined('ug-button'),
-          customElements.whenDefined('ug-textarea')
-        ]).then(() => {
-          form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            alert('All fields are valid!');
-          });
-
-          textarea.addEventListener('ug-input', () => {
-            if (textarea.value === 'I agree to the terms and conditions') {
-              textarea.setCustomValidity('');
-            } else {
-              textarea.setCustomValidity(
-                "Hey, you're supposed to type 'I agree to the terms and conditions' before submitting this!"
-              );
-            }
-          });
-        });
-      </script>`,
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story: `This example demonstrates how to use the <code>setCustomValidity()</code> method for a custom validation on a <code>ug-textarea</code> input. 
-        The user is required to type "I agree to the terms and conditions" into the input field before submitting the form.`
-      }
-    }
-  }
-};
-
-export const CustomValidityWithEvents: Story = {
-  render: () =>
-    html` <form
-        id="textarea-validation-custom-3"
-        data-testid="textarea-validation-custom-3"
-      >
-        <ug-textarea
-          id="feedback"
-          label="Profanity checker"
-          help-text="This text should be profanity free, but the profanity checker doesn't have a big vocabulary"
-          placeholder="Type something..."
-          value="Quote from Macbeth (Act 1 Scene 3) by William Shakespeare
-Aroint thee: go away, rump-fed runion:"
-          required
-          @ug-input="${action('ug-input')}"
-          @ug-change="${action('ug-change')}"
-          @ug-focus="${action('ug-focus')}"
-          @ug-blur="${action('ug-blur')}"
-          @ug-invalid="${action('ug-invalid')}"
-        ></ug-textarea>
-        <ug-button type="submit" variant="primary">Submit</ug-button>
-      </form>
-      <script type="module">
-        const form = document.getElementById('textarea-validation-custom-3');
-        const textarea = form.querySelector('ug-textarea');
-
-        const profanityList = [
-          'fuck',
-          'shit',
-          'crap',
-          'jeepers',
-          'son of a biscuit',
-          'slut'
-        ];
-        const politeList = ['please', 'thank you', 'welcome'];
-
-        //Change this function to suit your needs
-        function checkValidity(inputText) {
-          let hasProfanity = profanityList.some((word) =>
-            inputText.includes(word)
-          );
-
-          let isPolite = politeList.some((word) => inputText.includes(word));
-
-          if (hasProfanity) {
-            textarea.setCustomValidity('Please, no profanity');
-          } else if (isPolite) {
-            alert('Thank you for being so polite');
-            textarea.setCustomValidity('');
-          } else {
-            textarea.setCustomValidity('');
-          }
-          textarea.checkValidity(); // Ensure the validity state is re-evaluated
-        }
-
-        // Wait for controls to be defined before attaching form listeners
-        await Promise.all([
-          customElements.whenDefined('ug-button'),
-          customElements.whenDefined('ug-textarea')
-        ]).then(() => {
-          form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            let inputText = textarea.value.toLowerCase();
-            checkValidity(inputText);
-          });
-
-          textarea.addEventListener('ug-input', () => {
-            let inputText = textarea.value.toLowerCase();
-            checkValidity(inputText);
-          });
-        });
-      </script>`,
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        //prettier-ignore
-        story: `Form validation can be extended using the <code>setCustomValidity()</code> method. There can be a variety of reasons to do this, like
-
-1. **Prohibited Words**: Prevent users from including certain offensive or restricted words in their feedback.
-2. **No Repeated Characters/Words**: Disallow spam-like input with repeated characters or words.
-3. **Specific Formatting Requirements**: Validate that the input matches a required format, such as a JSON object, a list of dates or specific keywords.
-4. **Character Restrictions**: Restrict input to only alphanumeric characters or other specific rules.
-
-These validations enhance input quality and guide users toward more meaningful or valid responses, offering a tailored user experience for your application's needs.
-`
-      }
-    }
-  },
-  play: async ({ canvasElement }) => {
-    //Select <ug-select>
-    const canvas = within(canvasElement);
-
-    // Locate the shadow DOM host
-    const textareaHost = canvas.getByPlaceholderText('Type something...');
-
-    const form = canvas.getByTestId('textarea-validation-custom-3');
-
-    const ugSubmitButton = form.querySelector('ug-button');
-
-    if (
-      textareaHost != null &&
-      textareaHost.shadowRoot != null &&
-      ugSubmitButton != null &&
-      ugSubmitButton.shadowRoot != null
-    ) {
-      // Access the shadow DOM
-      const textareaInput = textareaHost.shadowRoot.querySelector('textarea');
-      const submitButton = ugSubmitButton.shadowRoot.querySelector('button');
-
-      if (textareaInput != null && submitButton != null) {
-        let inputEventTriggered = false;
-        let blurEventTriggered = false;
-        let focusEventTriggered = false;
-        let invalidEventTriggered = false;
-
-        // Define the event handlers
-        const handleInput = () => {
-          inputEventTriggered = true;
-        };
-        const handleBlur = () => {
-          blurEventTriggered = true;
-        };
-        const handleFocus = () => {
-          focusEventTriggered = true;
-        };
-        const handleInvalid = () => {
-          invalidEventTriggered = true;
-        };
-
-        //TEST INPUT EVENT
-
-        // Add a listener for the ug-focus event
-        textareaHost.addEventListener('ug-focus', handleFocus, { once: true });
-
-        // Focus on the textarea
-        await userEvent.click(textareaInput);
-        await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
-
-        //TEST BLUR EFFECT
-
-        // Add a listener for the ug-blur event
-        textareaHost.addEventListener('ug-blur', handleBlur, { once: true });
-
-        // Blur the textarea (triggers ug-blur)
-        await userEvent.tab();
-
-        //TEST INVALID AND INPUT EFFECT
-
-        // Add a listener for the ug-invalid event
-        textareaHost.addEventListener('ug-invalid', handleInvalid, {
-          once: true
-        });
-
-        // Add a listener for the ug-input event
-        textareaHost.addEventListener('ug-input', handleInput, { once: true });
-
-        // Focus on the textarea
-        await userEvent.click(textareaInput);
-        await new Promise((r) => setTimeout(r, 500)); // Allow for focus animations/delays
-
-        // Type into the textarea (triggers ug-input)
-        await userEvent.type(textareaInput, ' slut', { delay: 100 });
-
-        // Blur the textarea (triggers ug-blur)
-        await userEvent.tab();
-
-        // Submit the form with invalid input
-        await userEvent.click(submitButton);
-
-        // Wait a moment to ensure the event is captured
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        //TEST THAT THE EVENTS HAVE FIRED
-
-        // Assert that the invalid event was triggered
-        if (!inputEventTriggered) {
-          throw new Error('The ug-input event was not triggered.');
-        }
-        // Assert that the invalid event was triggered
-        if (!blurEventTriggered) {
-          throw new Error('The ug-blur event was not triggered.');
-        }
-        // Assert that the invalid event was triggered
-        if (!focusEventTriggered) {
-          throw new Error('The ug-focus event was not triggered.');
-        }
-        // Assert that the invalid event was triggered
-        if (!invalidEventTriggered) {
-          throw new Error('The ug-invalid event was not triggered.');
-        }
-      }
-    }
-  }
-};
-
-/*
-export const Rows: Story = {
-  ...Textarea,
-  args: {
-    ...Textarea.args,
-    rows: 2
-  },
-  parameters: {
-    controls: {},
-    docs: {
-      description: {
-        story: `Use the rows attribute to change the number of text rows that get shown.`
-      }
-    }
-  }
-};
-
-export const Placeholder: Story = {
-  ...Textarea,
-  args: {
-    ...Textarea.args,
-    placeholder: 'Type something'
-  },
-  parameters: {
-    controls: {},
-    docs: {
-      description: {
-        story: `Use the \`placeholder\` attribute to add a placeholder.`
       }
     }
   }
@@ -821,30 +505,59 @@ export const ExpandWithContent: Story = {
     controls: {},
     docs: {
       description: {
-        story: `Textareas will automatically resize to expand to fit their content when \`resize\` is set to \`auto\`.`
+        story:
+          'Textareas will automatically resize to expand to fit their content when`resize` is set to `auto`.'
       }
     }
   }
 };
 
-export const LabelSlot: Story = {
-  args: {
-    labelSlot: 'Custom Label'
+export const TextareaWithEvents: Story = {
+  tags: ['!autodocs'],
+  parameters: {
+    controls: { disable: true }
   },
-  render: ({ ...args }) => html`
-    <my-textarea>
-      <span slot="label">${args.labelSlot}</span>
-    </my-textarea>
-  `
-};
+  render: () => html`
+    <form>
+      <ug-textarea
+        help-text="Interact to see events"
+        placeholder="Type something here"
+        @ug-focus=${action('ug-focus')}
+        @ug-blur=${action('ug-blur')}
+        @ug-input=${action('ug-input')}
+        @ug-change=${action('ug-change')}
+        @ug-invalid=${action('ug-invalid')}
+      ></ug-textarea>
+      <br />
+      <ug-button type="submit">Submit</ug-button>
+    </form>
+  `,
+  play: async ({ canvasElement }) => {
+    // Wait for custom elements to be defined
+    await customElements.whenDefined('ug-textarea');
+    await customElements.whenDefined('ug-button');
 
-export const HelpTextSlot: Story = {
-  args: {
-    helpTextSlot: 'Custom help text to provide better guidance.'
-  },
-  render: ({ ...args }) => html`
-    <my-textarea>
-      <span slot="help-text">${args.helpTextSlot}</span>
-    </my-textarea>
-  `
-};*/
+    const textareaElement = canvasElement.querySelector('ug-textarea');
+    const textarea = textareaElement?.shadowRoot?.querySelector('textarea');
+    const submitButton = canvasElement.querySelector('ug-button');
+
+    if (!textarea || !submitButton) {
+      throw new Error('Required elements not found');
+    }
+
+    // Test focus and input
+    textarea.focus();
+    await userEvent.type(textarea, 'Hello World');
+
+    // Small delay to allow events to propagate
+    await new Promise((r) => setTimeout(r, 100));
+
+    // Test blur
+    textarea.blur();
+    await new Promise((r) => setTimeout(r, 100));
+
+    // Test invalid
+    textarea.setCustomValidity('Custom error message');
+    submitButton.click();
+  }
+};
