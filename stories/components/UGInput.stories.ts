@@ -142,7 +142,7 @@ const meta: Meta = {
     },
     helpText: {
       description:
-        'The input’s help text. If you need to display HTML, use the help-text slot instead.',
+        'The input’s help text. If you need to display HTML, use the <code>help-text</code> slot instead.',
       control: { type: 'text' },
       defaultValue: '',
       table: {
@@ -227,7 +227,7 @@ const meta: Meta = {
     },
     form: {
       description:
-        'Allows you to place the form control outside of a form and associate it with the form that has this id.',
+        'Allows you to place the form control outside of a form and associate it with the form that has this id. By default, form controls are associated with the nearest containing <code>&lt;form&gt;</code> element. This attribute allows you to place the form control outside of a form and associate it with the form that has this id. The form must be in the same document or shadow root for this to work.',
       control: { type: 'text' },
       defaultValue: '',
       table: {
@@ -299,7 +299,8 @@ const meta: Meta = {
       }
     },
     step: {
-      description: 'Specifies the granularity that the value must adhere to.',
+      description:
+        'Specifies the granularity that the value must adhere to, or the special value <code>any</code> which means no stepping is implied, allowing any numeric value. Only applies to date and number input types.. ',
       control: { type: 'text' },
       defaultValue: undefined,
       table: {
@@ -310,7 +311,7 @@ const meta: Meta = {
     },
     autocapitalize: {
       description:
-        'Controls whether and how text input is automatically capitalized.',
+        'Controls whether and how text input is automatically capitalized as it is entered by the user.',
       control: { type: 'select' },
       options: ['off', 'none', 'on', 'sentences', 'words', 'characters'],
       defaultValue: undefined,
@@ -337,7 +338,7 @@ const meta: Meta = {
     },
     autocomplete: {
       description:
-        'Specifies what permission the browser has to provide assistance in filling out form field values.',
+        'Specifies what permission the browser has to provide assistance in filling out form field values. Refer to [this page on MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete) for available values.',
       control: { type: 'text' },
       defaultValue: undefined,
       table: {
@@ -370,7 +371,7 @@ const meta: Meta = {
     },
     inputmode: {
       description:
-        'Specifies the type of data that is expected to be entered in the input.',
+        'Specifies the type of data that is expected to be entered in the input, allowing it to display the appropriate virtual keyboard on supportive devices.',
       control: { type: 'select' },
       options: [
         'none',
@@ -533,24 +534,20 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    blur: {
-      description: 'Removes focus from the input.',
-      table: {
-        category: 'Methods',
-        type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
-    },
-    click: {
-      description: 'Simulates a click on the input.',
-      table: {
-        category: 'Methods',
-        type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
-    },
     focus: {
+      name: 'focus()',
       description: 'Sets focus on the input.',
+      args: { options: { control: 'object' } },
+      table: {
+        category: 'Methods',
+        type: { summary: 'void' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    blur: {
+      name: 'blur()',
+      description: 'Removes focus from the input.',
+      args: {},
       table: {
         category: 'Methods',
         type: { summary: 'void' },
@@ -558,37 +555,124 @@ const meta: Meta = {
       }
     },
     select: {
+      name: 'select()',
       description: 'Selects all the text in the input.',
+      args: {},
       table: {
         category: 'Methods',
         type: { summary: 'void' },
         defaultValue: { summary: '-' }
       }
     },
-    setCustomValidity: {
+    setSelectionRange: {
+      name: 'setSelectionRange()',
       description:
-        'Sets a custom validation message for the input. Passing an empty string clears the message.',
+        'Sets the start and end positions of the text selection (0-based).',
+      args: {
+        selectionStart: { control: 'number' },
+        selectionEnd: { control: 'number' },
+        selectionDirection: {
+          control: 'select',
+          options: ['forward', 'backward', 'none']
+        }
+      },
       table: {
         category: 'Methods',
-        type: { summary: '(message: string) => void' },
+        type: { summary: 'void' },
         defaultValue: { summary: '-' }
       }
     },
-    reportValidity: {
-      description:
-        "Checks the input's validity and displays the error message if invalid.",
+    setRangeText: {
+      name: 'setRangeText()',
+      description: 'Replaces a range of text with a new string.',
+      args: {
+        replacement: { control: 'text' },
+        start: { control: 'number' },
+        end: { control: 'number' },
+        selectMode: {
+          control: 'select',
+          options: ['select', 'start', 'end', 'preserve']
+        }
+      },
       table: {
         category: 'Methods',
-        type: { summary: '() => boolean' },
+        type: { summary: 'void' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    showPicker: {
+      name: 'showPicker()',
+      description:
+        'Displays the browser picker for an input element (only works if the browser supports it for the input type).',
+      args: {},
+      table: {
+        category: 'Methods',
+        type: { summary: 'void' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    stepUp: {
+      name: 'stepUp()',
+      description:
+        'Increments the value of a numeric input type by the value of the step attribute.',
+      args: {},
+      table: {
+        category: 'Methods',
+        type: { summary: 'void' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    stepDown: {
+      name: 'stepDown()',
+      description:
+        'Decrements the value of a numeric input type by the value of the step attribute.',
+      args: {},
+      table: {
+        category: 'Methods',
+        type: { summary: 'void' },
         defaultValue: { summary: '-' }
       }
     },
     checkValidity: {
+      name: 'checkValidity()',
       description:
-        "Checks the input's validity without displaying the error message.",
+        'Checks for validity but does not show a validation message. Returns <code>true</code> when valid and <code>false</code> when invalid.',
+      args: {},
       table: {
         category: 'Methods',
-        type: { summary: '() => boolean' },
+        type: { summary: 'boolean' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    getForm: {
+      name: 'getForm()',
+      description: 'Gets the associated form, if one exists.',
+      args: {},
+      table: {
+        category: 'Methods',
+        type: { summary: 'HTMLFormElement | null' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    reportValidity: {
+      name: 'reportValidity()',
+      description:
+        'Checks for validity and shows the browser’s validation message if the control is invalid.',
+      args: {},
+      table: {
+        category: 'Methods',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    setCustomValidity: {
+      name: 'setCustomValidity()',
+      description:
+        'Sets a custom validation message. Pass an empty string to restore validity.',
+      args: { message: { control: 'text' } },
+      table: {
+        category: 'Methods',
+        type: { summary: 'void' },
         defaultValue: { summary: '-' }
       }
     }
