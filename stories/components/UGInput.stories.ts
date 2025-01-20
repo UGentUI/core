@@ -3,6 +3,9 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/input';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { Value } from 'sass';
+import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
+import { UgInput } from '@ugent-ui/core/components/input';
 
 function removeDefaultAttributes(code: string): string {
   return code
@@ -474,7 +477,8 @@ const meta: Meta = {
         defaultValue: { summary: 'undefined' }
       }
     },
-    'ug-blur': {
+    ugBlur: {
+      name: 'ug-blur',
       description: 'Emitted when the control loses focus.',
       table: {
         category: 'Events',
@@ -482,7 +486,8 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    'ug-change': {
+    ugChange: {
+      name: 'ug-change',
       description:
         'Emitted when an alteration to the control’s value is committed by the user.',
       table: {
@@ -491,7 +496,8 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    'ug-clear': {
+    ugClear: {
+      name: 'ug-clear',
       description: 'Emitted when the clear button is activated.',
       table: {
         category: 'Events',
@@ -499,7 +505,8 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    'ug-focus': {
+    ugFocus: {
+      name: 'ug-focus',
       description: 'Emitted when the control gains focus.',
       table: {
         category: 'Events',
@@ -507,7 +514,8 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    'ug-input': {
+    ugInput: {
+      name: 'ug-input',
       description: 'Emitted when the control receives input.',
       table: {
         category: 'Events',
@@ -515,7 +523,8 @@ const meta: Meta = {
         defaultValue: { summary: '-' }
       }
     },
-    'ug-invalid': {
+    ugInvalid: {
+      name: 'ug-invalid',
       description:
         'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
       table: {
@@ -911,15 +920,13 @@ export const InputTypes: Story = {
 };
 
 export const PrefixAndSuffixIcons: Story = {
-  args: {},
-
   parameters: {
     docs: {
       description: {
         story: `Use the <code>prefix</code> and <code>suffix</code> slots to add icons.`
       }
     },
-    controls: false
+    controls: { disable: true } // Completely disable controls
   },
   render: () => {
     return html`<ug-input placeholder="Small" size="small">
@@ -936,5 +943,174 @@ export const PrefixAndSuffixIcons: Story = {
         <ug-icon name="house" slot="prefix"></ug-icon>
         <ug-icon name="chat" slot="suffix"></ug-icon>
       </ug-input>`;
+  }
+};
+
+export const InputWithEvents: Story = {
+  parameters: {
+    docs: { disable: true }
+  },
+  args: {
+    type: 'text',
+    name: '',
+    value: '',
+    defaultValue: '',
+    size: 'medium',
+    filled: false,
+    pill: false,
+    label: '',
+    helpText: '',
+    clearable: true,
+    disabled: false,
+    placeholder: 'Enter text...',
+    readonly: false,
+    passwordToggle: false,
+    passwordVisible: false,
+    noSpinButtons: false,
+    form: '',
+    required: false,
+    pattern: '',
+    minlength: undefined,
+    maxlength: undefined,
+    min: undefined,
+    max: undefined,
+    step: undefined,
+    autocapitalize: 'off',
+    autocorrect: 'off',
+    autocomplete: '',
+    autofocus: false,
+    enterkeyhint: 'enter',
+    spellcheck: true,
+    inputmode: 'text'
+  },
+  render: (args) => {
+    return html` <ug-input
+      data-testid="input"
+      type="${args.type}"
+      name="${args.name}"
+      value="${args.value}"
+      default-value="${args.defaultValue}"
+      size="${args.size}"
+      ?filled="${args.filled}"
+      ?pill="${args.pill}"
+      label="${args.label}"
+      help-text="${args.helpText}"
+      ?clearable="${args.clearable}"
+      ?disabled="${args.disabled}"
+      placeholder="${args.placeholder}"
+      ?readonly="${args.readonly}"
+      ?password-toggle="${args.passwordToggle}"
+      ?password-visible="${args.passwordVisible}"
+      ?no-spin-buttons="${args.noSpinButtons}"
+      form="${args.form}"
+      ?required="${args.required}"
+      pattern="${args.pattern}"
+      minlength="${ifDefined(args.minlength)}"
+      maxlength="${ifDefined(args.maxlength)}"
+      min="${ifDefined(args.min)}"
+      max="${ifDefined(args.max)}"
+      step="${ifDefined(args.step)}"
+      autocapitalize="${args.autocapitalize}"
+      autocorrect="${args.autocorrect}"
+      autocomplete="${args.autocomplete}"
+      ?autofocus="${args.autofocus}"
+      enterkeyhint="${args.enterkeyhint}"
+      ?spellcheck="${args.spellcheck}"
+      inputmode="${args.inputmode}"
+      @ug-blur="${action('ug-blur')}"
+      @ug-change="${action('ug-change')}"
+      @ug-clear="${action('ug-clear')}"
+      @ug-focus="${action('ug-focus')}"
+      @ug-input="${action('ug-input')}"
+      @ug-invalid="${action('ug-invalid')}"
+    ></ug-input>`;
+  },
+  play: async ({ canvasElement }) => {
+    const inputElement = canvasElement.querySelector('ug-input');
+
+    if (inputElement == null) {
+      throw new Error('InputElement was null');
+    }
+    if (inputElement.shadowRoot == null) {
+      throw new Error('ShadowRoot was null');
+    }
+    const shadowRoot: ShadowRoot = inputElement.shadowRoot; // Access its shadowRoot
+
+    const input = shadowRoot.querySelector('input');
+    if (input == null) {
+      throw new Error('Input is null');
+    }
+
+    // Track if events fire
+    let focusFired = false;
+    let inputFired = false;
+    let blurFired = false;
+    let changeFired = false;
+    let clearFired = false;
+    let invalidFired = false;
+
+    // Attach event listeners
+    inputElement.addEventListener('ug-focus', () => (focusFired = true));
+    inputElement.addEventListener('ug-input', () => (inputFired = true));
+    inputElement.addEventListener('ug-blur', () => (blurFired = true));
+    inputElement.addEventListener('ug-change', () => (changeFired = true));
+    inputElement.addEventListener('ug-clear', () => (clearFired = true));
+    inputElement.addEventListener('ug-invalid', () => (invalidFired = true));
+
+    // Simulate focus
+    await userEvent.click(input);
+    if (focusFired) {
+      console.log('Focus event triggered successfully.');
+    } else {
+      console.error('Focus event did not fire.');
+    }
+
+    // Simulate input
+    await userEvent.type(input, 'Testing input...', { delay: 100 });
+    if (inputFired) {
+      console.log('Input event triggered successfully.');
+    } else {
+      console.error('Input event did not fire.');
+    }
+
+    // Simulate blur
+    await userEvent.tab();
+    if (blurFired) {
+      console.log('Blur event triggered successfully.');
+    } else {
+      console.error('Blur event did not fire.');
+    }
+
+    // Simulate change
+    // (Change events usually fire when the user commits the value and leaves the input)
+    if (changeFired) {
+      console.log('Change event triggered successfully.');
+    } else {
+      console.error('Change event did not fire.');
+    }
+
+    // Simulate clear button click
+    // Directly query the clear button from the shadow root using native methods
+    const clearButton = shadowRoot.querySelector(
+      'button[aria-label="Clear entry"]'
+    );
+    if (clearButton == null) {
+      throw new Error('clearButton was null');
+    }
+    await userEvent.click(clearButton);
+    if (clearFired) {
+      console.log('Clear event triggered successfully.');
+    } else {
+      console.error('Clear event did not fire.');
+    }
+
+    // Simulate invalid input
+    inputElement.setCustomValidity('This is invalid');
+    inputElement.reportValidity();
+    if (invalidFired) {
+      console.log('Invalid event triggered successfully.');
+    } else {
+      console.error('Invalid event did not fire.');
+    }
   }
 };
