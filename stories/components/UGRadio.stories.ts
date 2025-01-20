@@ -8,15 +8,18 @@ import { userEvent, within } from '@storybook/test';
 const meta: Meta = {
   title: 'Components/Radio',
   component: 'ug-radio',
-
   parameters: {
     docs: {
       subtitle: 'Radios allow the user to select a single option from a group.',
       description: {
-        component: `Radios are designed to be used with [radio groups](./?path=/docs/components-radiogroup--docs). Please, be aware: the attributes of the Radio Group can overwrite the attributes of the radio`
+        component: `Radios are designed to be used with [radio groups](./?path=/docs/components-radiogroup--docs).`
       },
       source: {
-        format: true
+        format: true,
+        transform: (code: string) =>
+          code
+            .replace(/\s*(value="")/g, '')
+            .replace(/\s* disabled=""/g, ' disabled')
       }
     }
   },
@@ -40,7 +43,11 @@ const meta: Meta = {
       type: { name: 'boolean' },
       table: {
         category: 'attributes',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the disabled attribute'
+        },
         defaultValue: { summary: 'false' }
       },
       control: 'boolean'
@@ -50,8 +57,8 @@ const meta: Meta = {
       description: 'The radio’s label.',
       type: { name: 'string' },
       table: {
-        category: 'slot',
-        type: { summary: 'string' },
+        category: 'slots',
+        type: { summary: 'slot' },
         defaultValue: { summary: '-' }
       },
       control: 'text'
@@ -65,37 +72,44 @@ type Story = StoryObj;
 
 export const Radio: Story = {
   args: {
-    value: '1',
+    value: '',
     disabled: false,
-    defaultSlot: 'Radio'
+    defaultSlot: 'Option'
   },
-  render: (args) => {
-    return html` <ug-radio value=${args.value} ?disabled=${args.disabled}>
-      ${args.defaultSlot}
-    </ug-radio>`;
-  }
-};
-
-export const Checked: Story = {
   parameters: {
-    controls: { disable: true },
     docs: {
       description: {
-        story: `To set the initial value and checked state, use the <code>value</code> attribute on the containing radio group.`
-      },
-      source: {
-        format: true
+        story: 'A default radio.'
       }
     }
   },
   render: (args) => {
-    return html`<ug-radio-group label="Select an option" name="a" value="1">
-      <ug-radio value="1">Radio</ug-radio>
-      <ug-radio value="2">TV</ug-radio>
-      <ug-radio value="3">Book</ug-radio>
-    </ug-radio-group>`;
+    return html` <ug-radio value=${args.value} ?disabled=${args.disabled}
+      >${args.defaultSlot}</ug-radio
+    >`;
   }
 };
+
+// export const InitialValue: Story = {
+//   parameters: {
+//     controls: { disable: true },
+//     docs: {
+//       description: {
+//         story: `To set the initial value and checked state, use the <code>value</code> attribute on the containing radio group.`
+//       },
+//       source: {
+//         format: true
+//       }
+//     }
+//   },
+//   render: () => {
+//     return html`<ug-radio-group label="Select an option" name="a" value="1">
+//       <ug-radio value="1">Option 1</ug-radio>
+//       <ug-radio value="2">Option 2</ug-radio>
+//       <ug-radio value="3">Option 3</ug-radio>
+//     </ug-radio-group>`;
+//   }
+// };
 
 export const Disabled: Story = {
   ...Radio,
