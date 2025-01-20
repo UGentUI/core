@@ -21,7 +21,10 @@ const meta: Meta = {
         format: true,
 
         transform: (code: string) => {
-          return code.replace(/\s*(name="option"|size="medium"|form="")/g, '');
+          return code
+            .replace(/\s*(name=""|size="medium"|form=""|help-text="")/g, '')
+            .replace(/\s*(required="")/g, ' required')
+            .replace(/\s*(disabled="")/g, ' disabled');
         }
       }
     }
@@ -75,7 +78,11 @@ const meta: Meta = {
       defaultValue: '',
       table: {
         category: 'attributes',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+          detail:
+            'This is a reflected property that syncs with the value attribute'
+        },
         defaultValue: { summary: "''" }
       },
       control: { type: 'text' }
@@ -84,25 +91,36 @@ const meta: Meta = {
       name: 'size',
       description:
         'The radio group’s size. This size will be applied to all child radios and radio buttons.',
-      type: { name: 'enum', required: false },
+      type: {
+        name: 'enum',
+        required: false,
+        value: ['small', 'medium', 'large']
+      },
       defaultValue: 'medium',
       table: {
         category: 'attributes',
-        type: { summary: "'small' | 'medium' | 'large'" },
+        type: {
+          summary: "'small' | 'medium' | 'large'",
+          detail:
+            'This is a reflected property that syncs with the size attribute'
+        },
         defaultValue: { summary: "'medium'" }
       },
-      options: ['small', 'medium', 'large'],
       control: { type: 'radio' }
     },
     form: {
       name: 'form',
       description:
-        'By default, form controls are associated with the nearest containing <form> element. This attribute allows you to place the form control outside of a form and associate it with the form that has this id. The form must be in the same document or shadow root for this to work.',
+        'By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you to place the form control outside of a form and associate it with the form that has this id. The form must be in the same document or shadow root for this to work.',
       type: { name: 'string', required: false },
       defaultValue: '',
       table: {
         category: 'attributes',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+          detail:
+            'This is a reflected property that syncs with the form attribute'
+        },
         defaultValue: { summary: "''" }
       },
       control: { type: 'text' }
@@ -115,7 +133,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'attributes',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the required attribute'
+        },
         defaultValue: { summary: 'false' }
       },
       control: { type: 'boolean' }
@@ -123,11 +145,10 @@ const meta: Meta = {
     validity: {
       name: 'validity',
       description: 'Gets the validity state object.',
-      type: { name: 'object', required: false },
       table: {
         category: 'attributes',
-        type: { summary: '-' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -137,8 +158,8 @@ const meta: Meta = {
       type: { name: 'string', required: false },
       table: {
         category: 'attributes',
-        type: { summary: '-' },
-        defaultValue: { summary: '-' }
+        type: { summary: undefined },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -149,7 +170,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       action: 'ug-change',
       control: false
@@ -160,7 +181,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       action: 'ug-input',
       control: false
@@ -172,7 +193,7 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       action: 'ug-invalid',
       control: false
@@ -185,7 +206,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '() => boolean' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -195,7 +216,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '() => HTMLFormElement | null' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -206,7 +227,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '() => boolean' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -217,7 +238,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '(message: string) => void' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -227,7 +248,7 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: '(options?: FocusOptions) => void' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -238,7 +259,8 @@ const meta: Meta = {
         'The default slot where <ug-radio> or <ug-radio-button> elements are placed.',
       table: {
         category: 'Slots',
-        defaultValue: { summary: '-' }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -248,7 +270,8 @@ const meta: Meta = {
         'The radio group’s label. Required for proper accessibility. Alternatively, you can use the label attribute.',
       table: {
         category: 'Slots',
-        defaultValue: { summary: '-' }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     },
@@ -258,7 +281,8 @@ const meta: Meta = {
         'Text that describes how to use the radio group. Alternatively, you can use the help-text attribute.',
       table: {
         category: 'Slots',
-        defaultValue: { summary: '-' }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       },
       control: false
     }
@@ -272,8 +296,8 @@ type Story = StoryObj;
 export const RadioGroup: Story = {
   args: {
     label: 'Select an option',
-    helpText: 'Choose one of the options below.',
-    name: 'option',
+    helpText: '',
+    name: '',
     value: '1',
     size: 'medium',
     form: '',
@@ -349,7 +373,8 @@ export const DisablingOptions: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Radio buttons offer an alternate way to display radio controls. In this case, an internal button group is used to group the buttons into a single, cohesive control.`
+        story:
+          'Radios and radio buttons can be disabled by adding the `disabled` attribute to the respective options inside the radio group.'
       }
     }
   },
@@ -376,6 +401,9 @@ export const SizingOptions: Story = {
     ...RadioGroup.args
   },
   parameters: {
+    controls: {
+      disable: true
+    },
     docs: {
       description: {
         story: `The size of Radios and Radio Buttons will be determined by the Radio Group’s size attribute. Radios and Radio Buttons also have a size attribute. This can be useful in certain compositions, but it will be ignored when used inside of a Radio Group.`
@@ -401,33 +429,20 @@ export const SizingOptions: Story = {
 };
 
 export const Validation: Story = {
-  args: {
-    label: 'Select an option',
-    helpText: 'Help text die bij de radio knop hoort.',
-    name: 'option',
-    value: '1',
-    size: 'medium',
-    form: '',
-    required: true
-  },
   parameters: {
+    controls: {
+      disable: true
+    },
     docs: {
       description: {
-        story: `Use the <code>setCustomValidity()</code> method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.`
+        story:
+          'Setting the `required` attribute to make selecting an option mandatory. If a value has not been selected, it will prevent the form from submitting and display an error message.'
       }
     }
   },
-  render: (args) => {
+  render: () => {
     return html`<form class="validation">
-        <ug-radio-group
-          label="${args.label}"
-          help-text="${args.helpText}"
-          name="${args.name}"
-          value="${args.value}"
-          size="${args.size}"
-          form="${args.form}"
-          ?required="${args.required}"
-        >
+        <ug-radio-group label="Select an option" required>
           <ug-radio value="1">Option 1</ug-radio>
           <ug-radio value="2">Option 2</ug-radio>
           <ug-radio value="3">Option 3</ug-radio>
@@ -451,45 +466,31 @@ export const Validation: Story = {
 };
 
 export const CustomValidity: Story = {
-  args: {
-    label: 'Select an option',
-    helpText: 'You must choose the last option to pass.',
-    name: 'option',
-    value: '1',
-    size: 'medium',
-    form: '',
-    required: false
-  },
   parameters: {
+    controls: {
+      disable: true
+    },
     docs: {
       description: {
         story: `Use the <code>setCustomValidity()</code> method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.`
       }
     }
   },
-  render: (args) => {
+  render: () => {
     return html`<form class="custom-validity">
-        <ug-radio-group
-          label="${args.label}"
-          help-text="${args.helpText}"
-          name="${args.name}"
-          value="${args.value}"
-          size="${args.size}"
-          form="${args.form}"
-          ?required="${args.required}"
-        >
-          <ug-radio value="1">Option 1</ug-radio>
-          <ug-radio value="2">Option 2</ug-radio>
-          <ug-radio value="3">Option 3</ug-radio>
+        <ug-radio-group label="Select an option" name="a" value="1">
+          <ug-radio value="1">Not me</ug-radio>
+          <ug-radio value="2">Me neither</ug-radio>
+          <ug-radio value="3">Choose me</ug-radio>
         </ug-radio-group>
         <br />
-        <button type="submit" variant="primary" disabled>Submit</button>
+        <ug-button type="submit" variant="primary">Submit</ug-button>
       </form>
 
       <script>
         (() => {
-          const customValidityForm = document.querySelector('.custom-validity');
-          const radioGroup = customValidityForm.querySelector('ug-radio-group');
+          const form = document.querySelector('.custom-validity');
+          const radioGroup = form.querySelector('ug-radio-group');
           const errorMessage = 'You must choose the last option';
 
           // Set initial validity as soon as the element is defined
@@ -498,52 +499,31 @@ export const CustomValidity: Story = {
           });
 
           // Update validity when a selection is made
-          customValidityForm.addEventListener('ug-change', () => {
+          form.addEventListener('ug-change', () => {
             const isValid = radioGroup.value === '3';
             radioGroup.setCustomValidity(isValid ? '' : errorMessage);
           });
 
           // Handle form submit
-          customValidityForm.addEventListener('submit', (event) => {
+          form.addEventListener('submit', (event) => {
             event.preventDefault();
             alert('All fields are valid!');
           });
-
-          // Simulate form submission
-          const submitButton = customValidityForm.querySelector('button');
-          submitButton.disabled = false;
         })();
       </script> `;
   }
 };
 
 export const RadioGroupWithEvents: Story = {
-  args: {
-    label: 'Select an option',
-    helpText: 'Choose one of the options below.',
-    name: 'option',
-    value: undefined,
-    size: 'medium',
-    form: '',
-    required: false
-  },
+  tags: ['!autodocs'],
   parameters: {
-    docs: {
-      description: {
-        story: `Use the <code>setCustomValidity()</code> method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.`
-      }
-    }
+    controls: { disable: true }
   },
-  render: (args) => html`
+  render: () => html`
     <form class="radiogroup-with-events-form">
       <ug-radio-group
-        label="${args.label}"
-        help-text="${args.helpText}"
-        name="${args.name}"
-        value="${args.value}"
-        size="${args.size}"
-        form="${args.form}"
-        ?required="${args.required}"
+        label="Select an option"
+        required
         @ug-change=${action('ug-change')}
         @ug-input=${action('ug-input')}
         @ug-invalid=${action('ug-invalid')}
@@ -552,97 +532,50 @@ export const RadioGroupWithEvents: Story = {
         <ug-radio value="2" data-testid="option-2">Option 2</ug-radio>
         <ug-radio value="3" data-testid="option-3">Option 3</ug-radio>
       </ug-radio-group>
-      <ug-button type="submit">Submit</ug-button>
+      <br />
+      <ug-button type="submit" data-testid="submit-button">Submit</ug-button>
     </form>
   `,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const form = document.querySelector(
+    const option3 = canvas.getByTestId('option-3');
+    const submitButton = canvas.getByTestId('submit-button');
+
+    const radioGroup = canvasElement.querySelector('ug-radio-group');
+
+    if (radioGroup) {
+      // Sets focus on the radio group
+      radioGroup.focus();
+
+      // Gets the associated form, if one exists
+      action('getForm()')(radioGroup.getForm()?.className);
+
+      // Checks for validity but does not show a validation message
+      action('checkValidity()')(radioGroup.checkValidity());
+
+      // Set custom validation message
+      radioGroup.setCustomValidity('You must choose an option');
+
+      // Trigger form submission which should show the validation message
+      await userEvent.click(submitButton);
+
+      // Checks for validity and shows the browser’s validation message if the control is invalid.
+      radioGroup.reportValidity();
+
+      // Wait for the validation message to appear
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Select the last option
+      await userEvent.click(option3);
+
+      // Restore validity
+      radioGroup.setCustomValidity('');
+    }
+
+    //Clear form
+    const form = canvasElement.querySelector(
       '.radiogroup-with-events-form'
     ) as HTMLFormElement;
-    const radioGroup = form?.querySelector('ug-radio-group');
-    const option1 = canvas.getByTestId('option-1');
-    const option2 = canvas.getByTestId('option-2');
-    const option3 = canvas.getByTestId('option-3');
-
-    if (!radioGroup || !form) {
-      throw new Error('radioGroup is not defined');
-    }
-
-    // Add listeners to validate event emissions
-    let changeEventTriggered = false;
-    let inputEventTriggered = false;
-    let invalidEventTriggered = false;
-
-    radioGroup.addEventListener('ug-change', () => {
-      changeEventTriggered = true;
-    });
-
-    radioGroup.addEventListener('ug-input', () => {
-      inputEventTriggered = true;
-    });
-
-    radioGroup.addEventListener('ug-invalid', () => {
-      invalidEventTriggered = true;
-    });
-
-    // Simulate selecting the first radio button
-    await userEvent.click(option1);
-
-    // Validate that ug-change and ug-input events are triggered
-    if (!changeEventTriggered) {
-      throw new Error('The ug-change event was not triggered!');
-    }
-    if (!inputEventTriggered) {
-      throw new Error('The ug-input event was not triggered!');
-    }
-
-    // Reset event flags
-    changeEventTriggered = false;
-    inputEventTriggered = false;
-
-    // Simulate selecting the second radio button
-    await userEvent.click(option2);
-
-    // Validate that ug-change and ug-input events are triggered again
-    if (!changeEventTriggered) {
-      throw new Error('The ug-change event was not triggered for Option 2!');
-    }
-    if (!inputEventTriggered) {
-      throw new Error('The ug-input event was not triggered for Option 2!');
-    }
-
-    //Add custom validation to get the invalid event
-
-    const errorMessage = 'You must choose the last option';
-
-    // Set initial validity as soon as the element is defined
-    customElements.whenDefined('ug-radio').then(() => {
-      radioGroup.setCustomValidity(errorMessage);
-    });
-
-    // Update validity when a selection is made
-    form.addEventListener('ug-change', () => {
-      const isValid = radioGroup.value === '3';
-      radioGroup.setCustomValidity(isValid ? '' : errorMessage);
-    });
-
-    // Handle form submit
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      alert('All fields are valid!');
-    });
-
-    // Simulate form submission
-    const submitButton = canvas.getByText('Submit');
-    await userEvent.click(submitButton);
-
-    // Simulate form submission to check validation
-    const isValid = form.checkValidity();
-    if (!isValid && !invalidEventTriggered) {
-      throw new Error(
-        'The ug-invalid event was not triggered for validation failure!'
-      );
-    }
+    form.reset();
   }
 };
