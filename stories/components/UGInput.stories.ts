@@ -1208,53 +1208,16 @@ export const InputWithEvents: Story = {
       throw new Error('Input is null');
     }
 
-    // Track if events fire
-    let focusFired = false;
-    let inputFired = false;
-    let blurFired = false;
-    let changeFired = false;
-    let clearFired = false;
-    let invalidFired = false;
-
-    // Attach event listeners
-    inputElement.addEventListener('ug-focus', () => (focusFired = true));
-    inputElement.addEventListener('ug-input', () => (inputFired = true));
-    inputElement.addEventListener('ug-blur', () => (blurFired = true));
-    inputElement.addEventListener('ug-change', () => (changeFired = true));
-    inputElement.addEventListener('ug-clear', () => (clearFired = true));
-    inputElement.addEventListener('ug-invalid', () => (invalidFired = true));
-
     // Simulate focus
-    await userEvent.click(input);
-    if (focusFired) {
-      console.log('Focus event triggered successfully.');
-    } else {
-      console.error('Focus event did not fire.');
-    }
+    action('click to get focus event')(await userEvent.click(input));
 
     // Simulate input
-    await userEvent.type(input, 'Testing input...', { delay: 100 });
-    if (inputFired) {
-      console.log('Input event triggered successfully.');
-    } else {
-      console.error('Input event did not fire.');
-    }
+    action('type to get input event')(
+      await userEvent.type(input, 'Testing input...', { delay: 100 })
+    );
 
     // Simulate blur
-    await userEvent.tab();
-    if (blurFired) {
-      console.log('Blur event triggered successfully.');
-    } else {
-      console.error('Blur event did not fire.');
-    }
-
-    // Simulate change
-    // (Change events usually fire when the user commits the value and leaves the input)
-    if (changeFired) {
-      console.log('Change event triggered successfully.');
-    } else {
-      console.error('Change event did not fire.');
-    }
+    action('tab to get blur and change event')(await userEvent.tab());
 
     // Simulate clear button click
     // Directly query the clear button from the shadow root using native methods
@@ -1264,20 +1227,15 @@ export const InputWithEvents: Story = {
     if (clearButton == null) {
       throw new Error('clearButton was null');
     }
-    await userEvent.click(clearButton);
-    if (clearFired) {
-      console.log('Clear event triggered successfully.');
-    } else {
-      console.error('Clear event did not fire.');
-    }
+    // Click clear button
+    action('Click clear button in the input field to get the clear event')(
+      await userEvent.click(clearButton)
+    );
 
     // Simulate invalid input
     inputElement.setCustomValidity('This is invalid');
-    inputElement.reportValidity();
-    if (invalidFired) {
-      console.log('Invalid event triggered successfully.');
-    } else {
-      console.error('Invalid event did not fire.');
-    }
+
+    // Report field as invalid
+    action('Report field as invalid')(inputElement.reportValidity());
   }
 };
