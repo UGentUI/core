@@ -68,6 +68,16 @@ const meta: Meta = {
       }
     }
   },
+  decorators: [
+    (Story) => {
+      // Apply CSS without showing in code snippet
+      const style = document.createElement('style');
+      // This breaks the zoom buttons in the toolbar
+      style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
+      document.head.appendChild(style);
+      return Story();
+    }
+  ],
   argTypes: {
     open: {
       description:
@@ -145,7 +155,7 @@ const meta: Meta = {
         type: {
           summary: SYNC_OPTIONS.map((v) => '' + v).join(' | ')
         },
-        defaultValue: { summary: undefined }
+        defaultValue: { summary: 'undefined' }
       }
     },
     defaultSlot: {
@@ -261,7 +271,7 @@ export const DefaultDropdown: Story = {
     stayOpenOnSelect: false,
     distance: 0,
     skidding: 0,
-    hoist: false,
+    hoist: true,
     sync: undefined,
     triggerSlot: `Dropdown`
   },
@@ -301,10 +311,8 @@ export const Placements: Story = {
   render: () =>
     html`<style>
         .placements {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-around;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           padding: 120px;
         }
         .dropdown {
@@ -315,7 +323,7 @@ export const Placements: Story = {
         ${PLACEMENT_OPTIONS.map(
           (placement) =>
             html`<ug-dropdown class="dropdown" placement="${placement}">
-              ${shortDropdownContent(placement)}
+              ${shortDropdownContent(`Dropdown with ${placement} placement`)}
             </ug-dropdown>`
         )}
       </div>`
