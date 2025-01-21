@@ -10,7 +10,7 @@ import { UgInput } from '@ugent-ui/core/components/input';
 function removeDefaultAttributes(code: string): string {
   return code
     .replace(
-      /\s*(type="text"|size="medium"|name=""|value=""|label=""|default-value=""|form=""|pattern=""|autocapitalize="off"|autocorrect="off"|autocomplete=""|enterkeyhint="enter"|inputmode="text"|help-text=""|placeholder="")/g,
+      /\s*(type="text"|size="medium"|name=""|value=""|label=""|default-value=""|form=""|pattern=""|autocomplete=""|help-text=""|placeholder=""|spellcheck="true")/g,
       ''
     )
     .replace(/\s* filled=""/g, ' filled')
@@ -241,7 +241,7 @@ const meta: Meta = {
       control: { type: 'boolean' },
       defaultValue: false,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
@@ -251,9 +251,9 @@ const meta: Meta = {
       control: { type: 'text' },
       defaultValue: undefined,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'string' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     minlength: {
@@ -261,9 +261,9 @@ const meta: Meta = {
       control: { type: 'number' },
       defaultValue: undefined,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'number' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     maxlength: {
@@ -271,9 +271,9 @@ const meta: Meta = {
       control: { type: 'number' },
       defaultValue: undefined,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'number' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     min: {
@@ -282,9 +282,9 @@ const meta: Meta = {
       control: { type: 'text' },
       defaultValue: undefined,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'number | string' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     max: {
@@ -293,9 +293,9 @@ const meta: Meta = {
       control: { type: 'text' },
       defaultValue: undefined,
       table: {
-        category: 'Attributes: validation',
+        category: 'Attributes: Validation',
         type: { summary: 'number | string' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     step: {
@@ -306,7 +306,7 @@ const meta: Meta = {
       table: {
         category: 'Attributes: Basic Input Behavior',
         type: { summary: "number | 'any'" },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     autocapitalize: {
@@ -321,19 +321,19 @@ const meta: Meta = {
           summary:
             "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
         },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     autocorrect: {
       description:
         'Indicates whether the browser’s autocorrect feature is on or off.',
       control: { type: 'select' },
-      options: ['off', 'on'],
+      options: ['off', 'on', undefined],
       defaultValue: undefined,
       table: {
         category: 'Attributes: Form and Accessibility',
-        type: { summary: "'off' | 'on'" },
-        defaultValue: { summary: '-' }
+        type: { summary: "'off' | 'on' " },
+        defaultValue: { summary: undefined }
       }
     },
     autocomplete: {
@@ -344,7 +344,7 @@ const meta: Meta = {
       table: {
         category: 'Attributes: Basic Input Behavior',
         type: { summary: 'string' },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     autofocus: {
@@ -360,13 +360,26 @@ const meta: Meta = {
     },
     enterkeyhint: {
       description:
-        'Used to customize the label or icon of the enter key on virtual keyboards.',
-      control: { type: 'text' },
+        'Used to customize the label or icon of the Enter key on virtual keyboards.',
+      control: { type: 'select' },
+      options: [
+        'enter',
+        'done',
+        'go',
+        'next',
+        'previous',
+        'search',
+        'send',
+        undefined
+      ],
       defaultValue: undefined,
       table: {
         category: 'Attributes: Form and Accessibility',
-        type: { summary: 'string' },
-        defaultValue: { summary: '-' }
+        type: {
+          summary:
+            "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' "
+        },
+        defaultValue: { summary: undefined }
       }
     },
     inputmode: {
@@ -390,18 +403,70 @@ const meta: Meta = {
           summary:
             "'none' | 'text' | 'tel' | 'url' | 'email' | 'numeric' | 'decimal' | 'search'"
         },
-        defaultValue: { summary: '-' }
+        defaultValue: { summary: undefined }
       }
     },
     spellcheck: {
       description:
         'Indicates whether the element is to have its spelling and grammar checked.',
       control: { type: 'boolean' },
-      defaultValue: false,
+      defaultValue: true,
       table: {
         category: 'Attributes: Form and Accessibility',
         type: { summary: 'boolean' },
-        defaultValue: { summary: 'false' }
+        defaultValue: { summary: 'true' }
+      }
+    },
+    valueAsDate: {
+      description:
+        'Gets or sets the current value as a <code>Date</code> object. Returns <code>null</code> if the value can’t be converted. This will use the native `<input type="{{type}}">` implementation and may result in an error.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'Attributes: Value and State getters',
+        type: { summary: 'Date | null' },
+        defaultValue: { summary: undefined }
+      }
+    },
+
+    valueAsNumber: {
+      description:
+        'Gets or sets the current value as a number. Returns <code>NaN</code> if the value can’t be converted.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'Attributes: Value and State getters',
+        type: { summary: 'number' },
+        defaultValue: { summary: 'NaN' }
+      }
+    },
+
+    validity: {
+      description: 'Gets the validity state object.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'Attributes: Validation',
+        type: { summary: 'ValidityState' },
+        defaultValue: { summary: undefined }
+      }
+    },
+
+    validationMessage: {
+      description: 'Gets the validation message.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'Attributes: Validation',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+
+    updateComplete: {
+      description:
+        'A read-only promise that resolves when the component has finished updating.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'Attributes: Lifecycle',
+        type: { summary: 'Promise<void>' },
+        defaultValue: { summary: undefined }
       }
     },
     labelSlot: {
@@ -412,7 +477,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     prefixSlot: {
@@ -423,7 +488,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     suffixSlot: {
@@ -434,7 +499,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     clearIconSlot: {
@@ -444,7 +509,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     showPasswordIconSlot: {
@@ -454,7 +519,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     hidePasswordIconSlot: {
@@ -464,7 +529,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     helpTextSlot: {
@@ -475,7 +540,7 @@ const meta: Meta = {
       table: {
         category: 'Slots',
         type: { summary: 'HTML' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       }
     },
     ugBlur: {
@@ -484,8 +549,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     ugChange: {
       name: 'ug-change',
@@ -494,8 +560,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     ugClear: {
       name: 'ug-clear',
@@ -503,8 +570,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     ugFocus: {
       name: 'ug-focus',
@@ -512,8 +580,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     ugInput: {
       name: 'ug-input',
@@ -521,8 +590,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     ugInvalid: {
       name: 'ug-invalid',
@@ -531,8 +601,9 @@ const meta: Meta = {
       table: {
         category: 'Events',
         type: { summary: 'CustomEvent' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     focus: {
       name: 'focus()',
@@ -541,8 +612,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     blur: {
       name: 'blur()',
@@ -551,8 +623,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     select: {
       name: 'select()',
@@ -561,8 +634,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     setSelectionRange: {
       name: 'setSelectionRange()',
@@ -579,8 +653,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     setRangeText: {
       name: 'setRangeText()',
@@ -597,8 +672,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     showPicker: {
       name: 'showPicker()',
@@ -608,8 +684,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     stepUp: {
       name: 'stepUp()',
@@ -619,8 +696,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     stepDown: {
       name: 'stepDown()',
@@ -630,8 +708,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     checkValidity: {
       name: 'checkValidity()',
@@ -641,8 +720,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'boolean' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     getForm: {
       name: 'getForm()',
@@ -651,8 +731,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'HTMLFormElement | null' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     reportValidity: {
       name: 'reportValidity()',
@@ -662,8 +743,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'boolean' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     },
     setCustomValidity: {
       name: 'setCustomValidity()',
@@ -673,8 +755,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: { summary: 'void' },
-        defaultValue: { summary: '-' }
-      }
+        defaultValue: { summary: undefined }
+      },
+      control: false
     }
   }
 };
@@ -709,11 +792,11 @@ export const Input: Story = {
     min: undefined,
     max: undefined,
     step: undefined,
-    autocapitalize: 'off',
-    autocorrect: 'off',
+    autocapitalize: undefined,
+    autocorrect: undefined,
     autocomplete: '',
     autofocus: false,
-    enterkeyhint: 'enter',
+    enterkeyhint: undefined,
     spellcheck: true,
     inputmode: 'text'
   },
@@ -743,12 +826,12 @@ export const Input: Story = {
       min="${ifDefined(args.min)}"
       max="${ifDefined(args.max)}"
       step="${ifDefined(args.step)}"
-      autocapitalize="${args.autocapitalize}"
-      autocorrect="${args.autocorrect}"
+      autocapitalize="${ifDefined(args.autocapitalize)}"
+      autocorrect="${ifDefined(args.autocorrect)}"
       autocomplete="${args.autocomplete}"
       ?autofocus="${args.autofocus}"
-      enterkeyhint="${args.enterkeyhint}"
-      ?spellcheck="${args.spellcheck}"
+      enterkeyhint="${ifDefined(args.enterkeyhint)}"
+      spellcheck="${args.spellcheck}"
       inputmode="${args.inputmode}"
     ></ug-input>`;
   }
@@ -1059,11 +1142,11 @@ export const InputWithEvents: Story = {
     min: undefined,
     max: undefined,
     step: undefined,
-    autocapitalize: 'off',
-    autocorrect: 'off',
+    autocapitalize: undefined,
+    autocorrect: undefined,
     autocomplete: '',
     autofocus: false,
-    enterkeyhint: 'enter',
+    enterkeyhint: undefined,
     spellcheck: true,
     inputmode: 'text'
   },
@@ -1094,12 +1177,12 @@ export const InputWithEvents: Story = {
       min="${ifDefined(args.min)}"
       max="${ifDefined(args.max)}"
       step="${ifDefined(args.step)}"
-      autocapitalize="${args.autocapitalize}"
-      autocorrect="${args.autocorrect}"
+      autocapitalize="${ifDefined(args.autocapitalize)}"
+      autocorrect="${ifDefined(args.autocorrect)}"
       autocomplete="${args.autocomplete}"
       ?autofocus="${args.autofocus}"
-      enterkeyhint="${args.enterkeyhint}"
-      ?spellcheck="${args.spellcheck}"
+      enterkeyhint="${ifDefined(args.enterkeyhint)}"
+      spellcheck="${args.spellcheck}"
       inputmode="${args.inputmode}"
       @ug-blur="${action('ug-blur')}"
       @ug-change="${action('ug-change')}"
