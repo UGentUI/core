@@ -484,7 +484,8 @@ const meta: Meta = {
       name: 'prefix',
       description:
         'Used to prepend a presentational icon or similar element to the input.',
-      control: { type: 'text' },
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -495,7 +496,8 @@ const meta: Meta = {
       name: 'suffix',
       description:
         'Used to append a presentational icon or similar element to the input.',
-      control: { type: 'text' },
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -505,7 +507,8 @@ const meta: Meta = {
     clearIconSlot: {
       name: 'clear-icon',
       description: 'An icon to use in lieu of the default clear icon.',
-      control: { type: 'text' },
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -515,7 +518,8 @@ const meta: Meta = {
     showPasswordIconSlot: {
       name: 'show-password-icon',
       description: 'An icon to use in lieu of the default show password icon.',
-      control: { type: 'text' },
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -525,7 +529,8 @@ const meta: Meta = {
     hidePasswordIconSlot: {
       name: 'hide-password-icon',
       description: 'An icon to use in lieu of the default hide password icon.',
-      control: { type: 'text' },
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -801,7 +806,7 @@ export const Input: Story = {
     inputmode: 'text'
   },
   render: (args) => {
-    return html` <ug-input
+    return html`<ug-input
       type="${args.type}"
       name="${args.name}"
       value="${args.value}"
@@ -833,7 +838,25 @@ export const Input: Story = {
       enterkeyhint="${ifDefined(args.enterkeyhint)}"
       spellcheck="${args.spellcheck}"
       inputmode="${args.inputmode}"
-    ></ug-input>`;
+      >${args.prefixSlot == 'Icon'
+        ? html`<ug-icon slot="prefix" name="gear"></ug-icon>`
+        : null}${args.suffixSlot == 'Icon'
+        ? html`<ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>`
+        : null}${args.clearIconSlot == 'Icon'
+        ? html`<ug-icon slot="clear-icon" name="arrow-repeat"></ug-icon>`
+        : null}${args.showPasswordIconSlot == 'Icon'
+        ? html`<ug-icon slot="show-password-icon" name="columns-gap"></ug-icon>`
+        : null}${args.hidePasswordIcon == 'Icon'
+        ? html`<ug-icon
+            slot="hide-password-icon"
+            name="cloud-rain-heavy"
+          ></ug-icon>`
+        : null}${ifDefined(args.labelSlot)
+        ? html`<div slot="label">${args.labelSlot}</div>`
+        : null}${ifDefined(args.helpTextSlot)
+        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+        : null}
+    </ug-input>`;
   }
 };
 
@@ -1190,7 +1213,25 @@ export const InputWithEvents: Story = {
       @ug-focus="${action('ug-focus')}"
       @ug-input="${action('ug-input')}"
       @ug-invalid="${action('ug-invalid')}"
-    ></ug-input>`;
+      >${args.prefixSlot == 'Icon'
+        ? html`<ug-icon slot="prefix" name="gear"></ug-icon>`
+        : null}${args.suffixSlot == 'Icon'
+        ? html`<ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>`
+        : null}${args.clearIconSlot == 'Icon'
+        ? html`<ug-icon slot="clear-icon" name="arrow-repeat"></ug-icon>`
+        : null}${args.showPasswordIconSlot == 'Icon'
+        ? html`<ug-icon slot="show-password-icon" name="columns-gap"></ug-icon>`
+        : null}${args.hidePasswordIcon == 'Icon'
+        ? html`<ug-icon
+            slot="hide-password-icon"
+            name="cloud-rain-heavy"
+          ></ug-icon>`
+        : null}${ifDefined(args.labelSlot)
+        ? html`<div slot="label">${args.labelSlot}</div>`
+        : null}${ifDefined(args.helpTextSlot)
+        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+        : null}
+    </ug-input>`;
   },
   play: async ({ canvasElement }) => {
     const inputElement = canvasElement.querySelector('ug-input');
