@@ -476,7 +476,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -487,7 +487,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -498,7 +498,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -508,7 +508,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -518,7 +518,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -528,7 +528,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
@@ -539,7 +539,7 @@ const meta: Meta = {
       control: { type: 'text' },
       table: {
         category: 'Slots',
-        type: { summary: 'HTML' },
+        type: { summary: 'slot' },
         defaultValue: { summary: undefined }
       }
     },
