@@ -2,10 +2,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/input';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { Value } from 'sass';
 import { action } from '@storybook/addon-actions';
-import { userEvent, within } from '@storybook/test';
-import { UgInput } from '@ugent-ui/core/components/input';
+import { userEvent } from '@storybook/test';
 
 function removeDefaultAttributes(code: string): string {
   return code
@@ -41,7 +39,7 @@ const meta: Meta = {
   argTypes: {
     type: {
       description:
-        'The type of input. Works the same as a native <code>&lt;input&gt;</code> element, but only a subset of types are supported.',
+        "The type of input. Works the same as a native <code>&lt;input&gt;</code> element, but only a subset of types are supported. <br/> <code>'date'</code> <code>'datetime-local'</code> <code>'email'</code> <code>'number'</code> <code>'password'</code> <code>'search'</code> <code>'tel'</code> <code>'text'</code> <code>'time'</code> <code>'url'</code> <br/>",
       control: { type: 'select' },
       options: [
         'date',
@@ -59,8 +57,9 @@ const meta: Meta = {
       table: {
         category: 'Attributes: Basic Input Behavior',
         type: {
-          summary:
-            "'date' | 'datetime-local' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url'"
+          summary: 'string',
+          detail:
+            'This is a reflected property that syncs with the type attribute'
         },
         defaultValue: { summary: "'text'" }
       }
@@ -105,7 +104,11 @@ const meta: Meta = {
       defaultValue: 'medium',
       table: {
         category: 'Attributes: Visual Appearance',
-        type: { summary: "'small' | 'medium' | 'large'" },
+        type: {
+          summary: "'small' | 'medium' | 'large'",
+          detail:
+            'This is a reflected property that syncs with the size attribute'
+        },
         defaultValue: { summary: "'medium'" }
       }
     },
@@ -115,7 +118,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Attributes: Visual Appearance',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the filled attribute'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -125,7 +132,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Attributes: Visual Appearance',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the pill attribute'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -167,7 +178,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Attributes: Visual Appearance',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the disabled attribute'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -188,7 +203,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Attributes: Visual Appearance',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the readonly attribute'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -232,7 +251,11 @@ const meta: Meta = {
       defaultValue: '',
       table: {
         category: 'Attributes: Form and Accessibility',
-        type: { summary: 'string' },
+        type: {
+          summary: 'string',
+          detail:
+            'This is a reflected property that syncs with the form attribute'
+        },
         defaultValue: { summary: "''" }
       }
     },
@@ -242,7 +265,11 @@ const meta: Meta = {
       defaultValue: false,
       table: {
         category: 'Attributes: Validation',
-        type: { summary: 'boolean' },
+        type: {
+          summary: 'boolean',
+          detail:
+            'This is a reflected property that syncs with the required attribute'
+        },
         defaultValue: { summary: 'false' }
       }
     },
@@ -773,7 +800,7 @@ type Story = StoryObj;
 
 export const Input: Story = {
   args: {
-    type: 'text',
+    type: undefined,
     name: '',
     value: '',
     defaultValue: '',
@@ -807,7 +834,7 @@ export const Input: Story = {
   },
   render: (args) => {
     return html`<ug-input
-      type="${args.type}"
+      type="${ifDefined(args.type)}"
       name="${args.name}"
       value="${args.value}"
       default-value="${args.defaultValue}"
@@ -1176,7 +1203,7 @@ export const InputWithEvents: Story = {
   render: (args) => {
     return html` <ug-input
       data-testid="input"
-      type="${args.type}"
+      type="${ifDefined(args.type)}"
       name="${args.name}"
       value="${args.value}"
       default-value="${args.defaultValue}"
