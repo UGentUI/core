@@ -6,43 +6,178 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NoasisSSSS</title>
-<!--    <script type="module" src="lib/index.ts"></script>-->
+    <title>Noasis</title>
+    <script type="module" src="lib/index.ts"></script>
     <script type="module">
-        // import "/lib/components/icon";
+        import "/lib/components/icon";
         // import "/lib/components/icon-button";
         // import "/lib/components/avatar";
-        // import "/lib/components/dropdown";
-        // import "/lib/components/button";
-        // import "/lib/components/menu";
-        // import "/lib/components/menu-item";
+        import "/lib/components/dropdown";
+        import "/lib/components/button";
+        import "/lib/components/menu";
+        import "/lib/components/menu-item";
         // import "/lib/components/divider";
         // import "/lib/components/badge";
         // import "/lib/components/input";
         // import "/lib/components/drawer";
-        import "/lib/components/app-shell";
+        import "/lib/layouts/app-shell";
+        import "/lib/layouts/app-shell-user";
+        import "/lib/layouts/navigation/navigation-item";
         import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
         import { registerIconLibrary } from '@shoelace-style/shoelace/dist/utilities/icon-library.js';
 
-        // setBasePath("lib");
-        // registerIconLibrary('fa', {
-        //     resolver: name => `lib/assets/icons/sharp-regular/${name}.svg`,
-        //     mutator: svg => svg.setAttribute('fill', 'currentColor')
-        // });
+        setBasePath("lib");
+        registerIconLibrary('fa', {
+            resolver: name => `lib/assets/icons/sharp-regular/${name}.svg`,
+            mutator: svg => svg.setAttribute('fill', 'currentColor')
+        });
     </script>
+
+    <style>
+        @tailwind base;
+        @tailwind utilities;
+        /*ug-app-shell:not(:defined)::before {*/
+        /*    content: 'Loading...';*/
+        /*    display: flex;*/
+        /*    height: 100vh;*/
+        /*    background: cornflowerblue;*/
+        /*     Your loading styles */
+        /*}*/
+        /*ug-app-shell:not(:defined) > * {*/
+        /*    display: none;*/
+        /*}*/
+        /*ug-app-shell:not(:defined) {*/
+        /*    display: none*/
+        /*}*/
+    </style>
 </head>
 
 <body style="margin: 0; padding: 0;">
 
-<ug-app-shell>
+<ug-app-shell sidebar-expanded="true" app-title="NOasis">
     <div slot="main">
         <h1 class="text-2xl font-semibold ">Welcome to Noasis</h1>
+
         <p class="text-neutral-600">This is the main content area. Your application content will appear here.</p>
         <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
         <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
         <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
         <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
     </div>
+
+    <!-- Side navigation slots    -->
+    <ug-navigation-item  slot="side">
+        Dashboard
+        <ug-icon slot="prefix" library="fa" name="house" label="Help"></ug-icon>
+        <ug-badge slot="suffix"  pill variant="neutral" size="small" >5</ug-badge>
+    </ug-navigation-item>
+
+    <ug-navigation-item   active slot="side">
+        Students
+        <ug-icon slot="prefix" library="fa" name="users" label="Help"></ug-icon>
+    </ug-navigation-item>
+
+    <ug-navigation-item   slot="side">
+        Projects
+        <ug-icon slot="prefix" library="fa" name="folder" label="Help"></ug-icon>
+
+    </ug-navigation-item>
+
+    <ug-navigation-item   slot="side"  >
+        <a href="https://www.google.com" target="_blank" class="no-underline hover:no-underline">Reports</a>
+        <ug-icon slot="prefix" library="fa" name="chart-pie" label="Help"></ug-icon>
+        <ug-icon slot="suffix" library="fa" name="square-arrow-up-right"   ></ug-icon>
+    </ug-navigation-item>
+
+
+    <ug-divider slot="side"></ug-divider>
+
+    <div  slot="side" class="px-4 pt-4 block text-neutral-600 font-semibold">Your
+        faculties</div>
+
+    <ug-navigation-item   slot="side">
+        <ug-icon slot="prefix" library="fa" name="square-s"></ug-icon>
+        Sciences
+    </ug-navigation-item>
+
+    <ug-navigation-item   slot="side" >
+        <ug-icon slot="prefix" library="fa" name="square-e"></ug-icon>
+        <div slot="suffix">
+            <ug-icon  library="fa" style="color: var(--ug-color-danger-500)" name="exclamation"></ug-icon>
+            <ug-icon library="fa" style="color: var(--ug-color-danger-500)" name="exclamation"></ug-icon>
+
+        </div>
+        Engineering
+    </ug-navigation-item>
+
+    <ug-navigation-item   slot="side">
+        <ug-icon slot="prefix" library="fa" name="square-l"></ug-icon>
+        Law
+    </ug-navigation-item>
+
+
+
+    <!-- Top navigation-->
+    <ug-navigation-item slot="navigation"  >
+        History
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation"  >
+        Page 1
+    </ug-navigation-item>
+    <ug-navigation-item slot="navigation" >
+        Page 2
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation"  >
+        Page 3
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation" label="Page4" >
+        Page 4
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation">
+        Page 5
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation" >
+        Page 6
+    </ug-navigation-item>
+
+    <ug-navigation-item slot="navigation"  >
+        huppeldepup
+        <ug-badge  pill variant="error" slot="suffix" >2</ug-badge>
+    </ug-navigation-item>
+
+    <div slot="navigation">
+        <ug-button  variant="primary" size="small">
+            <ug-icon slot="prefix" library="fa" name="plus"></ug-icon>
+            New projet
+        </ug-button>
+    </div>
+
+
+    <!-- Search section-->
+    <ug-input type="search"
+              slot="search" placeholder="Search..." size="small" clearable>
+        <ug-icon slot="prefix" library="fa" name="magnifying-glass"></ug-icon>
+    </ug-input>
+
+    <!-- Actions    -->
+    <ug-icon-button slot="action" library="fa" name="circle-question" label="Help"></ug-icon-button>
+    <ug-icon-button slot="action" library="fa" name="bell" label="Notifications"></ug-icon-button>
+<!--    <ug-icon-button slot="action" library="fa" name="book" label="Manual"></ug-icon-button>-->
+<!--    <ug-icon-button slot="action" library="fa" name="calculator" label="Calculate"></ug-icon-button>-->
+
+
+    <!--User avatar/menu -->
+    <ug-app-shell-user slot="user" display-name="Voornaam naam" >
+        <ug-menu-item slot="menu-item">Your profile</ug-menu-item>
+        <ug-divider slot="menu-item"></ug-divider>
+        <ug-menu-item slot="menu-item">Logout</ug-menu-item>
+
+    </ug-app-shell-user>
 
 </ug-app-shell>
 

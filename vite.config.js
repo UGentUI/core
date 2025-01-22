@@ -7,14 +7,16 @@ import glob from "glob";
 
 function getComponentEntries() {
   // Use glob to find all index.ts files in the lib/components directory
-  const componentEntries = glob.sync("lib/components/**/index.ts");
+  const componentIndexEntries = glob.sync("lib/components/**/index.ts");
+  const layoutIndexEntries = glob.sync("lib/layout/**/index.ts");
+  const allIndexEntries= [...componentIndexEntries, ...layoutIndexEntries]
 
   // Create an entry object dynamically
   const entries = {
     index: resolve(__dirname, "lib/index.ts"),
   };
 
-  componentEntries.forEach((file) => {
+  allIndexEntries.forEach((file) => {
     // Extract the component name and create the key in the format: components/{component}/index
     const componentPath = file.replace("lib/", "").replace(".ts", "");
     entries[componentPath] = resolve(__dirname, file);
