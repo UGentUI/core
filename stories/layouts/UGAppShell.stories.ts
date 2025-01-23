@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/alert';
 import '/lib/components/icon';
 import '/lib/layouts/app-shell';
+import '/lib/layouts/app-shell-user';
 
 const meta: Meta = {
   title: 'Layout/AppShell',
@@ -10,6 +11,7 @@ const meta: Meta = {
   parameters: {
     layout: 'fullscreen',
     docs: {
+      disable: true,
       // page: Docs,
       inlineStories: false,
       iframeHeight: 600,
@@ -17,18 +19,14 @@ const meta: Meta = {
     }
   },
   argTypes: {
-    open: {
-      control: 'boolean',
-      description: 'Alerts will not be visible if the open attribute is not present.',
-      table: { category: 'properties', defaultValue: { summary: 'false' } }
+    appTitle: {
+      name: 'app-title (reflected)',
+      control: 'text',
+      description: 'Main title. Displayed in front of the logo.',
+      table: { category: 'properties' }
     },
-    variant: {
-      control: 'select',
-      options: ['primary', 'success', 'neutral', 'warning', 'danger'],
-      description: "Set the variant attribute to change the alert's variant.",
-      table: { category: 'properties', defaultValue: { summary: 'primary' } }
-    },
-    closable: {
+    sidebarExpanded: {
+      name: 'sidebar-expanded (reflected)',
       control: 'boolean',
       description: 'Add the closable attribute to show a close button that will hide the alert.',
       table: { category: 'properties', defaultValue: { summary: 'false' } }
@@ -42,14 +40,24 @@ type Story = StoryObj;
 
 export const AppShell: Story = {
   args: {
-    open: true,
-    variant: 'primary',
-    closable: false
+    appTitle: 'Deddmo'
   },
   render: (args) => {
     // prettier-ignore
     return html`
-  <ug-app-shell>
+  <ug-app-shell app-title="${args['appTitle']} sidebar-expanded">
+
+    <div slot="main">
+      <h1 class="text-2xl font-semibold ">Welcome to Noasis</h1>
+
+      <p class="text-neutral-600">This is the main content area. Your application content will appear here.</p>
+      <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
+      <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
+      <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
+      <p class="text-neutral-600">fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf fqsdfq sdfq sdf sdfqsdf qsdf </p>
+    </div>
+
+
     <!-- Side navigation slots    -->
     <ug-navigation-item  slot="side">
       Dashboard
@@ -103,7 +111,20 @@ export const AppShell: Story = {
     <ug-navigation-item slot="navigation" >
       Page 6
     </ug-navigation-item>
-    
+
+    <!-- Actions    -->
+    <ug-icon-button slot="action" library="fa" name="circle-question" label="Help"></ug-icon-button>
+    <ug-icon-button slot="action" library="fa" name="bell" label="Notifications"></ug-icon-button>
+
+    <!--User avatar/menu -->
+    <ug-app-shell-user slot="user" display-name="Voornaam naam" >
+      <ug-menu-item slot="menu-item">Your profile</ug-menu-item>
+      <ug-divider slot="menu-item"></ug-divider>
+      <ug-menu-item slot="menu-item">Logout</ug-menu-item>
+
+    </ug-app-shell-user>
+
+
   </ug-app-shell>
     `;
   }
