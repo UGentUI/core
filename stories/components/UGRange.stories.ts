@@ -1,10 +1,333 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/range';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { min } from 'date-fns';
+
+function removeDefaultAttributes(code: string): string {
+  return code
+    .replace(
+      /\s*(name=""|value="0"|label=""|help-text=""|min="0"|max="100"|step="1"|tooltip="top")/g,
+      ''
+    )
+    .replace(/\s* disabled=""/g, ' disabled');
+}
 
 const meta: Meta = {
   title: 'Components/Range',
-  component: 'ug-range'
+  component: 'ug-range',
+  parameters: {
+    docs: {
+      subtitle:
+        'Ranges allow the user to select a single value within a given range using a slider. This component works with standard <form> elements',
+      source: {
+        transform: (code: string) => removeDefaultAttributes(code),
+        format: true
+      }
+    }
+  },
+  argTypes: {
+    name: {
+      description:
+        'The name of the range, submitted as a name/value pair with form data.',
+      control: { type: 'text' },
+      defaultValue: '',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+    value: {
+      description:
+        'The current value of the range, submitted as a name/value pair with form data.',
+      control: { type: 'number' },
+      defaultValue: 0,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' }
+      }
+    },
+    label: {
+      description:
+        'The range’s label. If you need to display HTML, use the label slot instead.',
+      control: { type: 'text' },
+      defaultValue: '',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+    helpText: {
+      description:
+        'The range’s help text. If you need to display HTML, use the help-text slot instead.',
+      control: { type: 'text' },
+      defaultValue: '',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+    disabled: {
+      description: 'Disables the range.',
+      control: { type: 'boolean' },
+      defaultValue: false,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    min: {
+      description: 'The minimum acceptable value of the range.',
+      control: { type: 'number' },
+      defaultValue: 0,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' }
+      }
+    },
+    max: {
+      description: 'The maximum acceptable value of the range.',
+      control: { type: 'number' },
+      defaultValue: 100,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'number' },
+        defaultValue: { summary: '100' }
+      }
+    },
+    step: {
+      description:
+        'The interval at which the range will increase and decrease.',
+      control: { type: 'number' },
+      defaultValue: 1,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'number' },
+        defaultValue: { summary: '1' }
+      }
+    },
+    tooltip: {
+      description: 'The preferred placement of the range’s tooltip.',
+      control: { type: 'select' },
+      options: ['top', 'bottom', 'none'],
+      defaultValue: 'top',
+      table: {
+        category: 'Attributes',
+        type: { summary: "'top' | 'bottom' | 'none'" },
+        defaultValue: { summary: "'top'" }
+      }
+    },
+    tooltipFormatter: {
+      description:
+        'A function used to format the tooltip’s value. The range’s value is passed as the first and only argument. The function should return a string to display in the tooltip.',
+      control: false,
+      defaultValue: undefined,
+      table: {
+        category: 'Attributes',
+        type: { summary: '(value: number) => string' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    form: {
+      description: 'Associates the range with a form by id.',
+      control: { type: 'text' },
+      defaultValue: '',
+      table: {
+        category: 'Attributes',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
+      }
+    },
+    defaultValue: {
+      description:
+        'The default value of the form control. Primarily used for resetting the form control.',
+      control: { type: 'number' },
+      defaultValue: 0,
+      table: {
+        category: 'Attributes',
+        type: { summary: 'number' },
+        defaultValue: { summary: '0' }
+      }
+    },
+    validity: {
+      description: 'Gets the validity state object.',
+      control: false,
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: undefined }
+      }
+    },
+    validationMessage: {
+      description: 'Gets the validation message.',
+      control: false,
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: undefined }
+      }
+    },
+    updateComplete: {
+      description:
+        'A read-only promise that resolves when the component has finished updating.',
+      control: false,
+      table: {
+        category: 'Attributes',
+        defaultValue: { summary: undefined }
+      }
+    },
+    labelSlot: {
+      name: 'label',
+      description:
+        'The range’s label. Alternatively, you can use the label attribute.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
+      },
+      control: { type: 'text' }
+    },
+    helpTextSlot: {
+      name: 'help-text',
+      description:
+        'Text that describes how to use the input. Alternatively, you can use the help-text attribute.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
+      },
+      control: { type: 'text' }
+    },
+    focus: {
+      name: 'focus()',
+      description: 'Sets focus on the range.',
+      table: {
+        category: 'Methods',
+        type: { summary: '(options?: FocusOptions) => void' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    blur: {
+      name: 'blur()',
+      description: 'Removes focus from the range.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => void' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    stepUp: {
+      name: 'stepUp()',
+      description:
+        'Increments the value of the range by the value of the step attribute.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => void' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    stepDown: {
+      name: 'stepDown()',
+      description:
+        'Decrements the value of the range by the value of the step attribute.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => void' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    checkValidity: {
+      name: 'checkValidity()',
+      description:
+        'Checks for validity but does not show a validation message. Returns true when valid and false when invalid.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => boolean' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    getForm: {
+      name: 'getForm()',
+      description: 'Gets the associated form, if one exists.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => HTMLFormElement | null' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    reportValidity: {
+      name: 'reportValidity()',
+      description:
+        'Checks for validity and shows the browser’s validation message if the control is invalid.',
+      table: {
+        category: 'Methods',
+        type: { summary: '() => boolean' },
+        defaultValue: { summary: undefined }
+      }
+    },
+    setCustomValidity: {
+      name: 'setCustomValidity()',
+      description:
+        'Sets a custom validation message. Pass an empty string to restore validity.',
+      table: {
+        category: 'Methods',
+        type: { summary: '(message: string) => void' },
+        defaultValue: { summary: undefined }
+      }
+    },
+
+    ugBlur: {
+      description: 'Emitted when the control loses focus.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-blur'
+    },
+    ugChange: {
+      description:
+        'Emitted when an alteration to the control’s value is committed by the user.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-change'
+    },
+    ugFocus: {
+      description: 'Emitted when the control gains focus.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-focus'
+    },
+    ugInput: {
+      description: 'Emitted when the control receives input.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-input'
+    },
+    ugInvalid: {
+      description:
+        'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-invalid'
+    }
+  }
 };
 
 export default meta;
@@ -12,7 +335,202 @@ export default meta;
 type Story = StoryObj;
 
 export const Range: Story = {
-  render: () => {
-    return html`<ug-range></ug-range>`;
+  args: {
+    name: '',
+    value: 0,
+    label: '',
+    helpText: '',
+    disabled: false,
+    min: 0,
+    max: 100,
+    step: 1,
+    tooltip: 'top',
+    form: '',
+    defaultValue: 0,
+    labelSlot: undefined,
+    helpTextSlot: undefined
+  },
+  render: (args) => {
+    return html`<ug-range
+      name="${args.name}"
+      value="${args.value}"
+      label="${args.label}"
+      help-text="${args.helpText}"
+      ?disabled="${args.disabled}"
+      min="${args.min}"
+      max="${args.max}"
+      step="${args.step}"
+      tooltip="${args.tooltip}"
+      >${args.labelSlot
+        ? html`<div slot="label">${args.labelSlot}</div>`
+        : ''}${args.helpTextSlot
+        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+        : ''}</ug-range
+    >`;
+  }
+};
+
+export const Label: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    label: 'Volume'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>label</code> attribute to give the range an accessible label. For labels that contain HTML, use the <code>label</code> slot instead.`
+      }
+    }
+  }
+};
+
+export const HelpText: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    label: 'Volume',
+    helpText: 'Controls the volume of the current song.'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Add descriptive help text to a range with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
+      }
+    }
+  }
+};
+
+export const MinMaxAndStep: Story = {
+  ...Range,
+  storyName: 'Min, Max, and Step', // New name for the story
+  args: {
+    ...Range.args,
+    min: '10',
+    max: '20',
+    step: '2'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>min</code> and <code>max</code> attributes to set the range’s minimum and maximum values, respectively. The <code>step</code> attribute determines the value’s interval when increasing and decreasing.`
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    disabled: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Use the <code>disabled</code> attribute to disable a slider.`
+      }
+    }
+  }
+};
+
+export const TooltipPlacement: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    tooltip: 'bottom'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `By default, the tooltip is shown on top. Set <code>tooltip</code> to bottom to show it below the slider.`
+      }
+    }
+  }
+};
+
+export const DisableTheTooltip: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    tooltip: 'none'
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `To disable the tooltip, set <code>tooltip</code> to none.`
+      }
+    }
+  }
+};
+
+export const CustomTrackOffset: Story = {
+  ...Range,
+  args: {
+    ...Range.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can customize the initial offset of the active track using the <code>--track-active-offset</code> custom property.`
+      }
+    }
+  },
+  render: (args) => {
+    return html`<ug-range
+      name="${args.name}"
+      value="${args.value}"
+      label="${args.label}"
+      help-text="${args.helpText}"
+      ?disabled="${args.disabled}"
+      min="${args.min}"
+      max="${args.max}"
+      step="${args.step}"
+      tooltip="${args.tooltip}"
+      style="--track-active-offset: 50%;"
+      >${args.labelSlot
+        ? html`<div slot="label">${args.labelSlot}</div>`
+        : ''}${args.helpTextSlot
+        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+        : ''}</ug-range
+    >`;
+  }
+};
+
+export const CustomTooltipFormatter: Story = {
+  ...Range,
+  args: {
+    ...Range.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can change the tooltip’s content by setting the <code>tooltipFormatter</code> property to a function that accepts the range’s value as an argument.`
+      }
+    }
+  },
+  render: (args) => {
+    return html`<ug-range
+        class="range-with-custom-formatter"
+        name="${args.name}"
+        value="${args.value}"
+        label="${args.label}"
+        help-text="${args.helpText}"
+        ?disabled="${args.disabled}"
+        min="${args.min}"
+        max="${args.max}"
+        step="${args.step}"
+        tooltip="${args.tooltip}"
+        >${args.labelSlot
+          ? html`<div slot="label">${args.labelSlot}</div>`
+          : ''}${args.helpTextSlot
+          ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+          : ''}</ug-range
+      >
+
+      <script>
+        const range = document.querySelector('.range-with-custom-formatter');
+        range.tooltipFormatter = (value) => \`Total - \${value}%\`;
+      </script> `;
   }
 };
