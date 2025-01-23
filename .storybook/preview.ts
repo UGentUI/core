@@ -1,9 +1,15 @@
 import type { Preview } from "@storybook/web-components";
-//import "@shoelace-style/shoelace/dist/themes/light.css";
 import "@ugent-ui/css-reset/dist/reset.css";
 import "../lib/styles/core.scss";
 import { setBasePath } from "@shoelace-style/shoelace/dist/utilities/base-path.js";
+import { registerIconLibrary } from "@shoelace-style/shoelace/dist/utilities/icon-library.js";
 setBasePath("https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/");
+
+
+registerIconLibrary('fa', {
+  resolver: name => `lib/assets/icons/sharp-regular/${name}.svg`,
+  mutator: svg => svg.setAttribute('fill', 'currentColor')
+});
 
 // Function to apply the selected theme by setting the data-color-mode attribute
 const applyTheme = (theme: string) => {

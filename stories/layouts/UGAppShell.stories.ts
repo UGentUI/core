@@ -19,8 +19,7 @@ const meta: Meta = {
   argTypes: {
     open: {
       control: 'boolean',
-      description:
-        'Alerts will not be visible if the open attribute is not present.',
+      description: 'Alerts will not be visible if the open attribute is not present.',
       table: { category: 'properties', defaultValue: { summary: 'false' } }
     },
     variant: {
@@ -31,8 +30,7 @@ const meta: Meta = {
     },
     closable: {
       control: 'boolean',
-      description:
-        'Add the closable attribute to show a close button that will hide the alert.',
+      description: 'Add the closable attribute to show a close button that will hide the alert.',
       table: { category: 'properties', defaultValue: { summary: 'false' } }
     }
   }

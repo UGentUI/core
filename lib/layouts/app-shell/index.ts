@@ -13,16 +13,29 @@ import { UgDrawer } from '../../components/drawer';
 import { classMap } from 'lit/directives/class-map.js';
 import { UgDivider } from '../../components/divider';
 import { UgDialog } from '../../components/dialog';
-import { UgNavigationItem } from '../navigation/navigation-item';
+import { ICompactable, isCompactable, UgNavigationItem } from '../navigation/navigation-item';
 
-const shellStyle = css`
-  ::slotted([slot='side']) {
-    //display: flex;
-    //flex-direction: column;
-    //gap: .25rem;
-    //overflow-y: auto;
+/**
+ * finds recursively all elements with a writable property 'compact'
+ * @param nodes
+ */
+export function findFlatWritableCompactableElements(nodes: Node[]) {
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (isCompactable(node)) {
+      return node;
+    } else {
+      // Look into children nodes (goes deeply)
+      if (node.childNodes && node.childNodes.length > 0) {
+        return findFlatWritableCompactableElements(Array.from(node.childNodes));
+      } else {
+        return null;
+      }
+    }
   }
-`;
+}
+
+const shellStyle = css``;
 
 @customElement('ug-app-shell')
 export class AppShell extends LitElement {
@@ -62,13 +75,13 @@ export class AppShell extends LitElement {
 
   /**
    * Tells whether the sidebar is shown in full width or not.
-   * Note
+   * Note that this property is only relevant in case
    */
   @property({ type: Boolean, attribute: 'sidebar-expanded' })
-  sidebarExpanded = false;
+  sidebarExpanded!: boolean;
 
   @property({ type: String, attribute: 'app-title' })
-  appTitle: string;
+  appTitle: string | undefined;
 
   // @query('slot')
   // private slot!: HTMLSlotElement;
@@ -79,50 +92,39 @@ export class AppShell extends LitElement {
 
   public toggleDesktopSidebar = () => {
     this.sidebarExpanded = !this.sidebarExpanded;
+    this.rerenderDesktopSidebar();
+  };
 
+  private rerenderDesktopSidebar() {
     // Find the slot
     const slot: HTMLSlotElement | null = this.renderRoot.querySelector('slot[name="side"]');
     if (slot) {
       // Get assigned nodes
       const assignedNodes = slot.assignedNodes({ flatten: true });
-
-      const findAndCompactableElements = (nodes: Node[]) => {
-        for (let i = 0; i < nodes.length; i++) {
-          const node = nodes[i];
-          if ((node as any).compact !== undefined && typeof (node as any).compact === 'boolean') {
-            return node;
-          }
-          // Look into children nodes (goes deeply)
-          if (node.childNodes && node.childNodes.length > 0) {
-            return findAndCompactableElements(Array.from(node.childNodes));
-          } else {
-            return null;
-          }
-        }
-      };
-
-      let renderInComactMode = !this.sidebarExpanded;
+      let renderInCompactMode = !this.sidebarExpanded;
 
       for (let i = 0; i < assignedNodes.length; i++) {
         let node = assignedNodes[i];
-        let compactableElement = findAndCompactableElements([node]);
+        let compactableElement = findFlatWritableCompactableElements([node]);
         if (compactableElement) {
-          (compactableElement as any).compact = renderInComactMode;
+          (compactableElement as ICompactable).compact = renderInCompactMode;
         } else {
-          if (renderInComactMode) {
+          if (renderInCompactMode) {
             let tagname = (node as HTMLElement).tagName;
             if (this.doNotHideElements.includes(tagname)) continue;
 
             //hide the element
             (node as HTMLElement).classList.add('hidden');
-            console.warn('No compactable elements found, so hiding the node in sidebar.', node);
+            console.trace('No compactable elements found, so hiding the node in sidebar.', node);
           } else {
             (node as HTMLElement).classList.remove('hidden');
           }
         }
       }
+    } else {
+      console.error('No slot found with name "side"');
     }
-  };
+  }
 
   public showDrawer = () => {
     return this.ugDrawer.show();
@@ -132,10 +134,10 @@ export class AppShell extends LitElement {
     return this.ugDrawer.hide();
   };
 
-  public slottedSearchChanged(slotted: HTMLElement | null) {
+  public slottedSearchChanged = (slotted: HTMLElement | null) => {
     // console.info('slottedSearchChanged', slotted);
     this.slottedSearch = slotted;
-  }
+  };
 
   public triggerSearch = () => {
     return this.searchDialog.show().then(() => {
@@ -151,7 +153,7 @@ export class AppShell extends LitElement {
     let moreDropdown = this.headerNavigation.querySelector('#moreNavigationDropdown') as UgDropdown;
     let moreMenu = this.headerNavigation.querySelector('#moreNavigationDropdown > ug-menu') as UgMenu;
 
-    let availableWidth = this.headerNavigation.offsetWidth;
+    // let availableWidth = this.headerNavigation.offsetWidth;
     // console.info('Available width: ', availableWidth);
 
     //at first: make all navigation items visible (display:block) but make visibility hidden. This way
@@ -234,7 +236,7 @@ export class AppShell extends LitElement {
         <ug-drawer id="drawer" no-header placement="start" class="lg:hidden">
           <!-- Mobile Navigation Content -->
           <nav>
-            <ug-icon-button library="fa" name="xmark-large"  label="Close" @click="${this.closeDrawer}"
+            <ug-icon-button library="fa" name="xmark-large" label="Close" @click="${this.closeDrawer}"
                             class="absolute top-4 right-3 z-40 -m-1"></ug-icon-button>
             ${!this.sideNavigationUsesSidebar ? html` <slot class="flex flex-col gap-1" name="side"></slot> ` : ''}
 
@@ -251,21 +253,21 @@ export class AppShell extends LitElement {
               </button>
               <ug-divider vertical class="lg:hidden"></ug-divider>
               <a href="#" class=" items-center hidden md:flex">
-                <ug-icon src="/lib/assets/brand/logo-ugent.svg" class="w-8 h-8 mr-2" @click="${this.recalculateTopNavigationVisibility}"></ug-icon>
+                <ug-icon src="/lib/assets/brand/logo-ugent.svg" class="w-8 h-8 mr-2"></ug-icon>
                 <span class="self-center text-2xl font-semibold whitespace-nowrap">${this.appTitle}</span>
               </a>
             </div>
 
             <!-- Optional Page Links -->
-            <nav id="headerNavigation" class=" flex flex-1  items-center overflow-hidden" >
+            <nav id="headerNavigation" class=" flex flex-1  items-center overflow-hidden">
               <slot name="navigation" class="flex  lg:flex items-center space-x-6">
               </slot>
-              <ug-dropdown  id="moreNavigationDropdown">
+              <ug-dropdown id="moreNavigationDropdown">
                 <ug-button slot="trigger" variant="text" caret>Meer...</ug-button>
                 <ug-menu>
                   <ug-menu-item>Dropdown Item 1</ug-menu-item>
                   <ug-menu-item>Dropdown Item 2
-                    <ug-icon  slot="prefix" library="fa" name="house">2</ug-icon>
+                    <ug-icon slot="prefix" library="fa" name="house">2</ug-icon>
                     <ug-badge slot="suffix">2</ug-badge>
                   </ug-menu-item>
                 </ug-menu>
@@ -283,7 +285,7 @@ export class AppShell extends LitElement {
                         name="magnifying-glass"
                         label="Search"
                       ></ug-icon-button>
-                      <ug-dialog id="searchDialog" title="Search" class="w-full" no-header>
+                      <ug-dialog id="searchDialog" title="Search" class=" w-full" no-header>
                         <slot name="search" @slotchange="${this.slottedSearchChanged}"></slot>
                       </ug-dialog>
                     `
@@ -321,8 +323,7 @@ export class AppShell extends LitElement {
               <button type="button" @click="${this.toggleDesktopSidebar}"
                       class="absolute -right-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-6 h-6 rounded-full bg-white border border-neutral-200 hover:bg-neutral-50 z-10"
                       aria-label="Toggle sidebar">
-                <ug-icon library="fa" name="chevron-left" class="text-sm text-neutral-400  ${classMap({ 'rotate-180': !this.sidebarExpanded })}"
-                " ></ug-icon>
+                <ug-icon library="fa" name="chevron-left" class="text-sm text-neutral-400  ${classMap({ 'rotate-180': !this.sidebarExpanded })}"></ug-icon>
               </button>
             </div>
 
@@ -354,40 +355,35 @@ export class AppShell extends LitElement {
   private searchUsesDialog: boolean = false;
 
   firstUpdated() {
-    // Create and configure an observer to watch for style changes
-    if (this.desktopSidebar) {
-      this.handleResize();
-    } else {
-      console.error('Internal error: desktopSidebar not found');
-    }
-
     setTimeout(() => {
+      this.recalculateSideNavigationUsesSidebar();
       this.recalculateTopNavigationVisibility();
+      this.rerenderDesktopSidebar();
     });
   }
 
-  handleResize = () => {
+  /**
+   * the fact if the drawer is used or not is defined by the responsive classes
+   * on desktopSidebar. (it is hidden by default and becomes hidden lg:flex on lg screens)
+   * To know in which case we are, compote the style.display. (if it differs from none, the
+   * sidebar is used. Otherwise the drawer is ued.)
+   */
+  recalculateSideNavigationUsesSidebar = () => {
     const style = window.getComputedStyle(this.desktopSidebar);
-    // console.info('desktopsidebar style: ', style.display);
+    console.info('desktopsidebar style: ', style.display);
 
     let previousSidebarVisible = this.sideNavigationUsesSidebar;
-    let newSidebarVisible = style.display === 'flex';
+    let newSidebarVisible = style.display !== 'none';
     if (newSidebarVisible !== previousSidebarVisible) {
-      //this timeout is in fact not strictly required. It only avoids a LIT warning because this method is also called
-      //from firstUpdated(). That call is required the first time since we need to know if the css media queries did
-      //hide the sidebar or not.
-      //
-      //There is no other way where we
-      setTimeout(() => {
-        this.sideNavigationUsesSidebar = newSidebarVisible;
-        this.searchUsesDialog = !this.sideNavigationUsesSidebar;
-      });
+      //the sidebarVisible did change
+      this.sideNavigationUsesSidebar = newSidebarVisible;
+      this.searchUsesDialog = !this.sideNavigationUsesSidebar;
     }
   };
 
   connectedCallback(): void {
     super.connectedCallback();
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('resize', this.recalculateSideNavigationUsesSidebar);
     window.addEventListener('resize', this.recalculateTopNavigationVisibility);
   }
 

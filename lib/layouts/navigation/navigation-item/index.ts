@@ -6,24 +6,25 @@ import { UgMenu } from '../../../components/menu';
 import { UgBadge } from '../../../components/badge';
 import { classMap } from 'lit/directives/class-map.js';
 
-// import { query } from 'lit/decorators/query.js';
-
-export interface Compactable {
+export interface ICompactable {
   compact: boolean;
 }
 
-const componentStyle = css`
-  :host {
-    min-height: var(--ug-input-height-small);
-  }
+export function isCompactable(obj: unknown): obj is ICompactable {
+  return obj instanceof HTMLElement && 'compact' in obj && typeof obj.compact === 'boolean';
+}
 
-  ::slotted([slot='right']) {
-    margin-left: auto;
+const componentStyle = css`
+  /* when compact is true, the badge is moved to the right upper corner of the prefix*/
+
+  :host([compact]) ::slotted(ug-badge[slot='suffix']) {
+    margin-left: -1rem;
+    margin-top: -1rem;
   }
 `;
 
 @customElement('ug-navigation-item')
-export class UgNavigationItem extends LitElement implements Compactable {
+export class UgNavigationItem extends LitElement implements ICompactable {
   static styles = [TWStyles, componentStyle];
 
   static dependencies = {
@@ -31,30 +32,26 @@ export class UgNavigationItem extends LitElement implements Compactable {
     'ug-badge': UgBadge
   };
 
-  @property({ type: String, attribute: 'label' })
-  label;
+  /**
+   * when true, this navigation-item is rendered with text-ugent-blue-600, otherwize
+   */
+  @property({ type: Boolean, attribute: 'active', reflect: true })
+  active!: boolean;
 
-  @property({ type: Boolean, attribute: 'active' })
-  active;
-
-  @property({ type: Boolean, attribute: 'compact' })
+  @property({ type: Boolean, attribute: 'compact', reflect: true })
   compact = false;
 
   @property({ type: Boolean, attribute: 'priority' })
   priority = 1;
 
-
-
   render() {
     if (this.compact) {
       return html`
         <span
-          
-          class="p-2 text-nowrap text-neutral-800 hover:bg-neutral-50 rounded-sm flex items-center font-semibold text-sm group ${classMap(
+          class="compact p-2 text-nowrap text-neutral-800 hover:bg-neutral-50 rounded-sm flex items-center font-semibold text-sm group ${classMap(
             { 'text-ugent-blue-600': this.active, 'bg-neutral-100': this.active }
           )}"
         >
-          
           <slot
             name="prefix"
             class="block mr-1 text-xl  text-neutral-600  ${classMap({
@@ -62,16 +59,13 @@ export class UgNavigationItem extends LitElement implements Compactable {
             })}  group-hover:text-neutral-800"
           >
           </slot>
-          
-          
-          <slot class="block ml-auto" name="suffix"></slot>
-          
+
+          <slot class="" style="border:solid green 1px" name="suffix"></slot>
         </span>
       `;
     } else {
       return html`
         <span
-          href="#"
           class="p-2 text-nowrap text-neutral-800 hover:bg-neutral-50 rounded-sm flex items-center font-semibold text-sm group ${classMap(
             { 'text-ugent-blue-600': this.active, 'bg-neutral-100': this.active }
           )}"
