@@ -2,7 +2,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/range';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { min } from 'date-fns';
+import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 function removeDefaultAttributes(code: string): string {
   return code
@@ -26,6 +27,16 @@ const meta: Meta = {
       }
     }
   },
+  decorators: [
+    (Story) => {
+      // Apply CSS without showing in code snippet
+      const style = document.createElement('style');
+      // This fixes the hoisting but breaks the zoom buttons in the toolbar
+      style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
+      document.head.appendChild(style);
+      return Story();
+    }
+  ],
   argTypes: {
     name: {
       description:
@@ -72,6 +83,7 @@ const meta: Meta = {
       }
     },
     disabled: {
+      name: 'disabled (Reflects)',
       description: 'Disables the range.',
       control: { type: 'boolean' },
       defaultValue: false,
@@ -135,6 +147,7 @@ const meta: Meta = {
       }
     },
     form: {
+      name: 'form (Reflects)',
       description: 'Associates the range with a form by id.',
       control: { type: 'text' },
       defaultValue: '',
@@ -403,7 +416,7 @@ export const HelpText: Story = {
 
 export const MinMaxAndStep: Story = {
   ...Range,
-  storyName: 'Min, Max, and Step', // New name for the story
+  name: 'Min, Max, and Step', // New name for the story
   args: {
     ...Range.args,
     min: '10',
@@ -529,8 +542,105 @@ export const CustomTooltipFormatter: Story = {
       >
 
       <script>
-        const range = document.querySelector('.range-with-custom-formatter');
-        range.tooltipFormatter = (value) => \`Total - \${value}%\`;
+        (() => {
+          const range = document.querySelector('.range-with-custom-formatter');
+          range.tooltipFormatter = (value) => 'Total - \${value}%';
+        })();
       </script> `;
+  }
+};
+
+export const RangeWithEvents: Story = {
+  ...Range,
+  args: {
+    ...Range.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can change the tooltip’s content by setting the <code>tooltipFormatter</code> property to a function that accepts the range’s value as an argument.`
+      }
+    }
+  },
+  render: (args) => {
+    return html` <form class="range-with-events-form">
+      <ug-range
+        class="range-with-events"
+        name="${args.name}"
+        value="${args.value}"
+        label="${args.label}"
+        help-text="${args.helpText}"
+        ?disabled="${args.disabled}"
+        min="${args.min}"
+        max="${args.max}"
+        step="${args.step}"
+        tooltip="${args.tooltip}"
+        @ug-blur=${action('ug-blur')}
+        @ug-change=${action('ug-change')}
+        @ug-focus=${action('ug-focus')}
+        @ug-input=${action('ug-input')}
+        @ug-invalid=${action('ug-invalid')}
+        >${args.labelSlot
+          ? html`<div slot="label">${args.labelSlot}</div>`
+          : ''}${args.helpTextSlot
+          ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+          : ''}</ug-range
+      >
+    </form>`;
+  },
+
+  play: async ({ canvasElement }) => {
+    // Select the <ug-range> element
+    const rangeElement = canvasElement.querySelector('ug-range');
+
+    if (rangeElement == null) {
+      throw new Error('RangeElement was null');
+    }
+    if (rangeElement.shadowRoot == null) {
+      throw new Error('ShadowRoot was null');
+    }
+    const shadowRoot: ShadowRoot = rangeElement.shadowRoot; // Access its shadowRoot
+
+    const input = shadowRoot.querySelector('input');
+    if (input == null) {
+      throw new Error('Input is null');
+    }
+
+    // Focus the range element
+    await userEvent.click(rangeElement);
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    // Increment the value using stepUp() and dispatch events
+    const steps = 5; // Number of increments
+    for (let i = 0; i < steps; i++) {
+      rangeElement.stepUp(); // Increment the value
+
+      // Dispatch input and change events
+      const inputEvent = new Event('input', { bubbles: true, composed: true });
+      const changeEvent = new Event('change', {
+        bubbles: true,
+        composed: true
+      });
+      input.dispatchEvent(inputEvent); // Trigger 'input' listeners
+      input.dispatchEvent(changeEvent); // Trigger 'change' listeners
+
+      // Add a small delay for better simulation
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+
+    rangeElement.stepDown();
+
+    // Add a delay to ensure event propagation and updates
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // Simulate blur
+    input.blur();
+
+    // Simulate invalid input
+    rangeElement.setCustomValidity('This is invalid');
+
+    // Report field as invalid
+    action('Report field as invalid')(!rangeElement.reportValidity());
   }
 };
