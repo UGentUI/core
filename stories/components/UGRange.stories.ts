@@ -1,9 +1,8 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/range';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import { action } from '@storybook/addon-actions';
-import { userEvent, within } from '@storybook/test';
+import { userEvent } from '@storybook/test';
 
 function removeDefaultAttributes(code: string): string {
   return code
@@ -42,7 +41,6 @@ const meta: Meta = {
       description:
         'The name of the range, submitted as a name/value pair with form data.',
       control: { type: 'text' },
-      defaultValue: '',
       table: {
         category: 'Attributes',
         type: { summary: 'string' },
@@ -53,7 +51,6 @@ const meta: Meta = {
       description:
         'The current value of the range, submitted as a name/value pair with form data.',
       control: { type: 'number' },
-      defaultValue: 0,
       table: {
         category: 'Attributes',
         type: { summary: 'number' },
@@ -64,7 +61,6 @@ const meta: Meta = {
       description:
         'The range’s label. If you need to display HTML, use the label slot instead.',
       control: { type: 'text' },
-      defaultValue: '',
       table: {
         category: 'Attributes',
         type: { summary: 'string' },
@@ -75,7 +71,6 @@ const meta: Meta = {
       description:
         'The range’s help text. If you need to display HTML, use the help-text slot instead.',
       control: { type: 'text' },
-      defaultValue: '',
       table: {
         category: 'Attributes',
         type: { summary: 'string' },
@@ -83,10 +78,9 @@ const meta: Meta = {
       }
     },
     disabled: {
-      name: 'disabled (Reflects)',
-      description: 'Disables the range.',
+      name: 'disabled',
+      description: 'Disables the range. <br>`reflects: true`',
       control: { type: 'boolean' },
-      defaultValue: false,
       table: {
         category: 'Attributes',
         type: { summary: 'boolean' },
@@ -96,7 +90,6 @@ const meta: Meta = {
     min: {
       description: 'The minimum acceptable value of the range.',
       control: { type: 'number' },
-      defaultValue: 0,
       table: {
         category: 'Attributes',
         type: { summary: 'number' },
@@ -106,7 +99,6 @@ const meta: Meta = {
     max: {
       description: 'The maximum acceptable value of the range.',
       control: { type: 'number' },
-      defaultValue: 100,
       table: {
         category: 'Attributes',
         type: { summary: 'number' },
@@ -117,7 +109,6 @@ const meta: Meta = {
       description:
         'The interval at which the range will increase and decrease.',
       control: { type: 'number' },
-      defaultValue: 1,
       table: {
         category: 'Attributes',
         type: { summary: 'number' },
@@ -128,7 +119,6 @@ const meta: Meta = {
       description: 'The preferred placement of the range’s tooltip.',
       control: { type: 'select' },
       options: ['top', 'bottom', 'none'],
-      defaultValue: 'top',
       table: {
         category: 'Attributes',
         type: { summary: "'top' | 'bottom' | 'none'" },
@@ -139,7 +129,6 @@ const meta: Meta = {
       description:
         'A function used to format the tooltip’s value. The range’s value is passed as the first and only argument. The function should return a string to display in the tooltip.',
       control: false,
-      defaultValue: undefined,
       table: {
         category: 'Attributes',
         type: { summary: '(value: number) => string' },
@@ -147,10 +136,10 @@ const meta: Meta = {
       }
     },
     form: {
-      name: 'form (Reflects)',
-      description: 'Associates the range with a form by id.',
+      name: 'form',
+      description:
+        'Associates the range with a form by id. <br>`reflects: true`',
       control: { type: 'text' },
-      defaultValue: '',
       table: {
         category: 'Attributes',
         type: { summary: 'string' },
@@ -161,7 +150,6 @@ const meta: Meta = {
       description:
         'The default value of the form control. Primarily used for resetting the form control.',
       control: { type: 'number' },
-      defaultValue: 0,
       table: {
         category: 'Attributes',
         type: { summary: 'number' },
@@ -215,6 +203,64 @@ const meta: Meta = {
       },
       control: { type: 'text' }
     },
+
+    ugBlur: {
+      description: 'Emitted when the control loses focus.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-blur',
+      // Events should not be controlled in the Storybook UI
+      control: false
+    },
+    ugChange: {
+      description:
+        'Emitted when an alteration to the control’s value is committed by the user.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-change',
+      // Events should not be controlled in the Storybook UI
+      control: false
+    },
+    ugFocus: {
+      description: 'Emitted when the control gains focus.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-focus',
+      // Events should not be controlled in the Storybook UI
+      control: false
+    },
+    ugInput: {
+      description: 'Emitted when the control receives input.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-input',
+      // Events should not be controlled in the Storybook UI
+      control: false
+    },
+    ugInvalid: {
+      description:
+        'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' },
+        defaultValue: { summary: undefined }
+      },
+      action: 'ug-invalid',
+      // Events should not be controlled in the Storybook UI
+      control: false
+    },
     focus: {
       name: 'focus()',
       description: 'Sets focus on the range.',
@@ -222,7 +268,9 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '(options?: FocusOptions) => void' },
         defaultValue: { summary: undefined }
-      }
+      },
+      // Methods should not be controlled in the Storybook UI
+      control: false
     },
     blur: {
       name: 'blur()',
@@ -291,54 +339,6 @@ const meta: Meta = {
         type: { summary: '(message: string) => void' },
         defaultValue: { summary: undefined }
       }
-    },
-
-    ugBlur: {
-      description: 'Emitted when the control loses focus.',
-      table: {
-        category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: undefined }
-      },
-      action: 'ug-blur'
-    },
-    ugChange: {
-      description:
-        'Emitted when an alteration to the control’s value is committed by the user.',
-      table: {
-        category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: undefined }
-      },
-      action: 'ug-change'
-    },
-    ugFocus: {
-      description: 'Emitted when the control gains focus.',
-      table: {
-        category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: undefined }
-      },
-      action: 'ug-focus'
-    },
-    ugInput: {
-      description: 'Emitted when the control receives input.',
-      table: {
-        category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: undefined }
-      },
-      action: 'ug-input'
-    },
-    ugInvalid: {
-      description:
-        'Emitted when the form control has been checked for validity and its constraints aren’t satisfied.',
-      table: {
-        category: 'Events',
-        type: { summary: 'CustomEvent' },
-        defaultValue: { summary: undefined }
-      },
-      action: 'ug-invalid'
     }
   }
 };
@@ -394,7 +394,8 @@ export const Label: Story = {
       description: {
         story: `Use the <code>label</code> attribute to give the range an accessible label. For labels that contain HTML, use the <code>label</code> slot instead.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -410,7 +411,8 @@ export const HelpText: Story = {
       description: {
         story: `Add descriptive help text to a range with the <code>help-text</code> attribute. For help texts that contain HTML, use the <code>help-text</code> slot instead.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -428,7 +430,8 @@ export const MinMaxAndStep: Story = {
       description: {
         story: `Use the <code>min</code> and <code>max</code> attributes to set the range’s minimum and maximum values, respectively. The <code>step</code> attribute determines the value’s interval when increasing and decreasing.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -443,7 +446,8 @@ export const Disabled: Story = {
       description: {
         story: `Use the <code>disabled</code> attribute to disable a slider.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -458,7 +462,8 @@ export const TooltipPlacement: Story = {
       description: {
         story: `By default, the tooltip is shown on top. Set <code>tooltip</code> to bottom to show it below the slider.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -473,7 +478,8 @@ export const DisableTheTooltip: Story = {
       description: {
         story: `To disable the tooltip, set <code>tooltip</code> to none.`
       }
-    }
+    },
+    controls: { disable: true }
   }
 };
 
@@ -487,20 +493,11 @@ export const CustomTrackOffset: Story = {
       description: {
         story: `You can customize the initial offset of the active track using the <code>--track-active-offset</code> custom property.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) => {
-    return html`<ug-range
-      name="${args.name}"
-      value="${args.value}"
-      label="${args.label}"
-      help-text="${args.helpText}"
-      ?disabled="${args.disabled}"
-      min="${args.min}"
-      max="${args.max}"
-      step="${args.step}"
-      tooltip="${args.tooltip}"
-      style="--track-active-offset: 50%;"
+    return html`<ug-range style="--track-active-offset: 50%;"
       >${args.labelSlot
         ? html`<div slot="label">${args.labelSlot}</div>`
         : ''}${args.helpTextSlot
@@ -520,20 +517,11 @@ export const CustomTooltipFormatter: Story = {
       description: {
         story: `You can change the tooltip’s content by setting the <code>tooltipFormatter</code> property to a function that accepts the range’s value as an argument.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) => {
-    return html`<ug-range
-        class="range-with-custom-formatter"
-        name="${args.name}"
-        value="${args.value}"
-        label="${args.label}"
-        help-text="${args.helpText}"
-        ?disabled="${args.disabled}"
-        min="${args.min}"
-        max="${args.max}"
-        step="${args.step}"
-        tooltip="${args.tooltip}"
+    return html`<ug-range class="range-with-custom-formatter"
         >${args.labelSlot
           ? html`<div slot="label">${args.labelSlot}</div>`
           : ''}${args.helpTextSlot
@@ -555,12 +543,14 @@ export const RangeWithEvents: Story = {
   args: {
     ...Range.args
   },
+  tags: ['!autodocs'],
   parameters: {
     docs: {
       description: {
         story: `You can change the tooltip’s content by setting the <code>tooltipFormatter</code> property to a function that accepts the range’s value as an argument.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) => {
     return html` <form class="range-with-events-form">
@@ -591,20 +581,10 @@ export const RangeWithEvents: Story = {
 
   play: async ({ canvasElement }) => {
     // Select the <ug-range> element
-    const rangeElement = canvasElement.querySelector('ug-range');
+    const rangeElement = canvasElement.querySelector('ug-range')!;
+    await rangeElement.updateComplete;
 
-    if (rangeElement == null) {
-      throw new Error('RangeElement was null');
-    }
-    if (rangeElement.shadowRoot == null) {
-      throw new Error('ShadowRoot was null');
-    }
-    const shadowRoot: ShadowRoot = rangeElement.shadowRoot; // Access its shadowRoot
-
-    const input = shadowRoot.querySelector('input');
-    if (input == null) {
-      throw new Error('Input is null');
-    }
+    const input = rangeElement.shadowRoot!.querySelector('input')!;
 
     // Focus the range element
     await userEvent.click(rangeElement);
