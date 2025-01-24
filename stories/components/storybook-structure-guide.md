@@ -276,3 +276,23 @@ export const ComponentNameWithEvents: Story = {
 7. If the component has methods:
    - Include them in the play function of the `ComponentNameWithEvents` story to test them
    - Methods should trigger events that can be monitored in the Actions panel
+
+## Fixes
+
+Some components like dropdown and select are clipped in the autodocs Story canvas even with hoisting enabled.
+This is a known issue with Storybook and can be fixed by adding a decorator to the story:
+
+```ts
+const meta: Meta = {
+  decorators: [
+    (Story) => {
+      // Apply CSS without showing in code snippet
+      const style = document.createElement('style');
+      // This breaks the zoom buttons in the toolbar
+      style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
+      document.head.appendChild(style);
+      return Story();
+    }
+  ]
+};
+```
