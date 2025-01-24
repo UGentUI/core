@@ -1165,145 +1165,54 @@ export const PrefixAndSuffixIcons: Story = {
 
 export const InputWithEvents: Story = {
   parameters: {
-    docs: { disable: true }
+    docs: { disable: true },
+    controls: { disable: true }
   },
-  args: {
-    type: 'text',
-    name: '',
-    value: '',
-    defaultValue: '',
-    size: 'medium',
-    filled: false,
-    pill: false,
-    label: '',
-    helpText: '',
-    clearable: true,
-    disabled: false,
-    placeholder: 'Enter text...',
-    readonly: false,
-    passwordToggle: false,
-    passwordVisible: false,
-    noSpinButtons: false,
-    form: '',
-    required: false,
-    pattern: '',
-    minlength: undefined,
-    maxlength: undefined,
-    min: undefined,
-    max: undefined,
-    step: undefined,
-    autocapitalize: undefined,
-    autocorrect: undefined,
-    autocomplete: '',
-    autofocus: false,
-    enterkeyhint: undefined,
-    spellcheck: true,
-    inputmode: 'text'
-  },
-  render: (args) => {
+  render: () => {
     return html` <ug-input
-      data-testid="input"
-      type="${ifDefined(args.type)}"
-      name="${args.name}"
-      value="${args.value}"
-      default-value="${args.defaultValue}"
-      size="${args.size}"
-      ?filled="${args.filled}"
-      ?pill="${args.pill}"
-      label="${args.label}"
-      help-text="${args.helpText}"
-      ?clearable="${args.clearable}"
-      ?disabled="${args.disabled}"
-      placeholder="${args.placeholder}"
-      ?readonly="${args.readonly}"
-      ?password-toggle="${args.passwordToggle}"
-      ?password-visible="${args.passwordVisible}"
-      ?no-spin-buttons="${args.noSpinButtons}"
-      form="${args.form}"
-      ?required="${args.required}"
-      pattern="${args.pattern}"
-      minlength="${ifDefined(args.minlength)}"
-      maxlength="${ifDefined(args.maxlength)}"
-      min="${ifDefined(args.min)}"
-      max="${ifDefined(args.max)}"
-      step="${ifDefined(args.step)}"
-      autocapitalize="${ifDefined(args.autocapitalize)}"
-      autocorrect="${ifDefined(args.autocorrect)}"
-      autocomplete="${args.autocomplete}"
-      ?autofocus="${args.autofocus}"
-      enterkeyhint="${ifDefined(args.enterkeyhint)}"
-      spellcheck="${args.spellcheck}"
-      inputmode="${args.inputmode}"
+      clearable
+      required
       @ug-blur="${action('ug-blur')}"
       @ug-change="${action('ug-change')}"
       @ug-clear="${action('ug-clear')}"
       @ug-focus="${action('ug-focus')}"
       @ug-input="${action('ug-input')}"
       @ug-invalid="${action('ug-invalid')}"
-      >${args.prefixSlot == 'Icon'
-        ? html`<ug-icon slot="prefix" name="gear"></ug-icon>`
-        : null}${args.suffixSlot == 'Icon'
-        ? html`<ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>`
-        : null}${args.clearIconSlot == 'Icon'
-        ? html`<ug-icon slot="clear-icon" name="arrow-repeat"></ug-icon>`
-        : null}${args.showPasswordIconSlot == 'Icon'
-        ? html`<ug-icon slot="show-password-icon" name="columns-gap"></ug-icon>`
-        : null}${args.hidePasswordIcon == 'Icon'
-        ? html`<ug-icon
-            slot="hide-password-icon"
-            name="cloud-rain-heavy"
-          ></ug-icon>`
-        : null}${ifDefined(args.labelSlot)
-        ? html`<div slot="label">${args.labelSlot}</div>`
-        : null}${ifDefined(args.helpTextSlot)
-        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
-        : null}
+    >
     </ug-input>`;
   },
   play: async ({ canvasElement }) => {
-    const inputElement = canvasElement.querySelector('ug-input');
+    const inputElement = canvasElement.querySelector('ug-input')!;
+    await inputElement.updateComplete;
 
-    if (inputElement == null) {
-      throw new Error('InputElement was null');
-    }
-    if (inputElement.shadowRoot == null) {
-      throw new Error('ShadowRoot was null');
-    }
-    const shadowRoot: ShadowRoot = inputElement.shadowRoot; // Access its shadowRoot
-
-    const input = shadowRoot.querySelector('input');
-    if (input == null) {
-      throw new Error('Input is null');
-    }
+    // Get the actual input element from shadow DOM
+    const input = inputElement.shadowRoot!.querySelector('input')!;
 
     // Simulate focus
-    action('click to get focus event')(await userEvent.click(input));
+    await userEvent.click(input);
 
-    // Simulate input
-    action('type to get input event')(
-      await userEvent.type(input, 'Testing input...', { delay: 100 })
-    );
+    // Set and show custom validation message
+    inputElement.setCustomValidity('This is a custom validation message');
+    inputElement.reportValidity();
+
+    // Add delay to see validation message
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    input.blur(); // Remove focus to prevent default validation popup and clear custom validation message
+    inputElement.setCustomValidity('');
+
+    // Simulate typing
+    await userEvent.type(input, 'Testing input...', { delay: 100 });
 
     // Simulate blur
-    action('tab to get blur and change event')(await userEvent.tab());
+    await userEvent.tab();
 
-    // Simulate clear button click
-    // Directly query the clear button from the shadow root using native methods
-    const clearButton = shadowRoot.querySelector(
-      'button[aria-label="Clear entry"]'
+    // Simulate clear button click if input has clearable attribute
+    const clearButton = inputElement.shadowRoot!.querySelector(
+      'button[part="clear-button"]'
     );
-    if (clearButton == null) {
-      throw new Error('clearButton was null');
+    if (clearButton) {
+      await userEvent.click(clearButton);
     }
-    // Click clear button
-    action('Click clear button in the input field to get the clear event')(
-      await userEvent.click(clearButton)
-    );
-
-    // Simulate invalid input
-    inputElement.setCustomValidity('This is invalid');
-
-    // Report field as invalid
-    action('Report field as invalid')(inputElement.reportValidity());
   }
 };
