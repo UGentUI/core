@@ -28,3 +28,6 @@ index.html
 # Storybook
 storybook-static
 dist
+
+# IDE
+.cursorrules

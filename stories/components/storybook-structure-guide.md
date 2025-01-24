@@ -48,9 +48,10 @@ export const ComponentName: Story = {};
 // Additional stories should demonstrate specific use cases, variants, and edge cases
 // (e.g., Disabled, Loading, Error States, Size Variants, etc.)
 export const Variants: Story = {
-  // Disable controls for this story because its a predefined state of the component
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
     controls: { disable: true }
-  },
+  }
 };
 
 // If the component has events create a story that demonstrates them
@@ -161,7 +162,8 @@ argTypes: {
       // Categorization in Storybook UI
       category: 'Methods',
       type: {
-        summary: 'Method',
+        // Add the method s
+        summary: '() => void',
       },
       defaultValue: {
         // defaultValue.summary should be undefined to hide the - in the auto-docs table
@@ -214,7 +216,7 @@ export const ComponentNameVariation: Story = {
   ...ComponentName, // Inherit all story configuration
   args: {
     ...ComponentName.args, // Keep all default args
-    label: 'Variation' // Override only what needs to change
+    propertyName: 'variation' // Override only what needs to change
   }
 };
 ```
@@ -244,7 +246,7 @@ export const ComponentNameWithEvents: Story = {
   `,
   play: async ({ canvasElement }) => {
     const element = canvasElement.querySelector('ug-component-name');
-    await element.updateComplete;
+    await element?.updateComplete;
 
     // Simulate user interaction
     await userEvent.click(element);
@@ -259,7 +261,18 @@ export const ComponentNameWithEvents: Story = {
 
 1. The first Story should always be a default interactive story with controls for all properties and slots
 2. Category order: Properties, Slots, Events and Methods. Note that the order of the properties in the args of the default story will determine the order in the auto-docs table
-3. If the component has reflected properties add "<br>`reflects: true`" at the end of the description
-4. Create variations of the default Story to demonstrate different states or configurations, disable controls for these Stories
-5. If the component has events, create a Story ComponentNameWithEvents that demonstrates them using a play function, disable controls for this Story and add the `!autodocs` tag as it should not be included in the auto-docs table
-6. If the component has methods include them in the play function of the ComponentNameWithEvents story to test them, they should trigger the events
+3. If the component has reflected properties add "\<br\>\`reflects: true\`" at the end of the description
+4. The `argTypes.propertyName.table.type.summary` should be set according to the category:
+   - Properties: The actual type (e.g., `string`, `number`, `boolean`)
+   - Slots: Always `slot`
+   - Events: Always `CustomEvent`
+   - Methods: `() => void` or the specific method signature
+5. Create variations of the default Story to demonstrate different states or configurations
+   - Disable controls for these Stories because they represent predefined states
+6. If the component has events:
+   - Create a Story named `ComponentNameWithEvents` that demonstrates them using a play function
+   - Disable controls for this Story
+   - Add the `!autodocs` tag as the play function does not work in the auto-docs table
+7. If the component has methods:
+   - Include them in the play function of the `ComponentNameWithEvents` story to test them
+   - Methods should trigger events that can be monitored in the Actions panel
