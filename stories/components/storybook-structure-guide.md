@@ -162,7 +162,7 @@ argTypes: {
       // Categorization in Storybook UI
       category: 'Methods',
       type: {
-        // Add the method s
+        // Add the method signature
         summary: '() => void',
       },
       defaultValue: {
