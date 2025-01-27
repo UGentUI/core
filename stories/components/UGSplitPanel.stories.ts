@@ -23,81 +23,82 @@ const meta: Meta = {
   },
   argTypes: {
     position: {
-      name: 'Position',
       description:
-        'The current position of the divider from the primary panel’s edge as a percentage 0–100. Defaults to 50% of the container’s initial size.',
+        'The current position of the divider from the primary panel’s edge as a percentage 0–100. Defaults to 50% of the container’s initial size. <br>`reflects: true`',
       control: { type: 'number', min: 0, max: 100, step: 1 }, // Number input, range from 0 to 100
       table: {
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '50' }
       }
     },
     positionInPixels: {
-      name: 'Position in Pixels',
+      name: 'position-in-pixels',
       description:
         'The current position of the divider from the primary panel’s edge in pixels.',
       control: { type: 'number' }, // Number input for pixel value
       table: {
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '-' }
       }
     },
     vertical: {
-      name: 'Vertical',
       description:
-        'Draws the split panel in a vertical orientation with the start and end panels stacked.',
+        'Draws the split panel in a vertical orientation with the start and end panels stacked. <br>`reflects: true`',
       control: { type: 'boolean' }, // Toggle switch for vertical orientation
       table: {
+        category: 'Properties',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
     disabled: {
-      name: 'Disabled',
       description:
-        'Disables resizing. Note that the position may still change as a result of resizing the host element.',
+        'Disables resizing. Note that the position may still change as a result of resizing the host element.<br>`reflects: true`',
       control: { type: 'boolean' }, // Toggle switch for disabled state
       table: {
+        category: 'Properties',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
     },
     primary: {
-      name: 'Primary',
       description:
         'If a primary panel is designated, it will maintain its size and the other panel will grow or shrink as needed when the host element is resized.',
       control: { type: 'select', options: ['start', 'end', undefined] }, // Dropdown with options
       table: {
+        category: 'Properties',
         type: { summary: "'start' | 'end' | undefined" },
         defaultValue: { summary: '-' }
       }
     },
     snap: {
-      name: 'Snap',
       description:
-        'One or more space-separated values at which the divider should snap. Values can be in pixels or percentages, e.g. "100px 50%".',
+        'One or more space-separated values at which the divider should snap. Values can be in pixels or percentages, e.g. <code>"100px 50%"</code>.',
       control: { type: 'text' }, // Input text box for snap points
       table: {
+        category: 'Properties',
         type: { summary: 'string | undefined' },
         defaultValue: { summary: '-' }
       }
     },
     snapThreshold: {
-      name: 'Snap Threshold',
       description:
         'How close the divider must be to a snap point until snapping occurs.',
       control: { type: 'number', min: 0, step: 1 }, // Number input for snap threshold
       table: {
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '12' }
       }
     },
     updateComplete: {
-      name: 'Update Complete',
       description:
         'A read-only promise that resolves when the component has finished updating.',
       control: false, // Read-only, so no control
       table: {
+        category: 'Properties',
         type: { summary: 'Promise<void>' }
       }
     }
