@@ -23,3 +23,21 @@ export const Spinner: Story = {
     return html`<ug-spinner></ug-spinner>`;
   }
 };
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Spinners are sized based on the current font size. To change their size, set the <code>font-size</code> property on the spinner itself or on a parent element as shown below.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-spinner></ug-spinner>
+      <ug-spinner style="font-size: 2rem;"></ug-spinner>
+      <ug-spinner style="font-size: 3rem;"></ug-spinner>`;
+  }
+};
