@@ -45,7 +45,8 @@ export const AppShell: Story = {
   render: (args) => {
     // prettier-ignore
     return html`
-  <ug-app-shell app-title="${args['appTitle']} sidebar-expanded">
+  <ug-app-shell app-title="${args['appTitle']}" ?sidebar-expanded="${args.sidebarExpanded}"
+                >
 
     <div slot="main">
       <h1 class="text-2xl font-semibold ">Welcome to Noasis</h1>
@@ -130,61 +131,3 @@ export const AppShell: Story = {
   }
 };
 
-export const Variants: Story = {
-  args: {},
-  parameters: {
-    controls: { disable: true },
-    docs: {
-      description: {
-        story: `Set the variant attribute to change the alert’s variant.`
-      }
-    }
-  },
-  // prettier-ignore
-  render: () => html`
-<ug-alert variant="primary" open>
-    <ug-icon slot="icon" name="info-circle"></ug-icon>
-    <strong>This is super informative</strong><br />
-    You can tell by how pretty the alert is.
-</ug-alert>
-
-<br />
-
-<ug-alert variant="success" open>
-    <ug-icon slot="icon" name="check2-circle"></ug-icon>
-    <strong>Your changes have been saved</strong><br />
-    You can safely exit the app now.
-</ug-alert>
-
-<br />
-
-<ug-alert variant="neutral" open>
-    <ug-icon slot="icon" name="gear"></ug-icon>
-    <strong>Your settings have been updated</strong><br />
-    Settings will take effect on next login.
-</ug-alert>
-
-<br />
-
-<ug-alert variant="warning" open>
-    <ug-icon slot="icon" name="exclamation-triangle"></ug-icon>
-    <strong>Your session has ended</strong><br />
-    Please login again to continue.
-</ug-alert>
-
-<br />
-
-<ug-alert variant="danger" open>
-    <ug-icon slot="icon" name="exclamation-octagon"></ug-icon>
-    <strong>Your account has been deleted</strong><br />
-    We're very sorry to see you go!
-</ug-alert>`
-};
-
-export const Closable: Story = {
-  ...AppShell,
-  args: {
-    ...AppShell.args,
-    closable: true
-  }
-};

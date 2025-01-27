@@ -1,17 +1,12 @@
 import { css, html, LitElement } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import { TWStyles } from '../../styles/tw.js';
-import { UgInput } from '../../components/input';
 import { UgMenu } from '../../components/menu';
 import { UgMenuItem } from '../../components/menu-item';
 import { UgDropdown } from '../../components/dropdown';
-import { UgTextarea } from '../../components/textarea';
-import { UgIconButton } from '../../components/icon-button';
 import { UgBadge } from '../../components/badge';
-import { UgDrawer } from '../../components/drawer';
-import { classMap } from 'lit/directives/class-map.js';
 import { UgDivider } from '../../components/divider';
 import { UgAvatar } from '../../components/avatar';
+import { TWStyles } from '../../styles/tw';
 
 const shellStyle = css`
     ug-avatar {

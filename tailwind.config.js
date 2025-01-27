@@ -5,6 +5,9 @@ export default {
   content: ['./lib/**/*.ts'],
   theme: {
     extend: {
+      screens: {
+        xs: {max: '370px'} // Example breakpoint for extra small screens
+      },
       colors: {
         'ugent-blue': {
           50: '#E9F1FC',
