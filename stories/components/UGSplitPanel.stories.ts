@@ -101,6 +101,50 @@ const meta: Meta = {
         category: 'Properties',
         type: { summary: 'Promise<void>' }
       }
+    },
+    // Slots
+    startSlot: {
+      name: 'start',
+      control: 'text',
+      description: 'Content to place in the start panel.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'HTML' }, // Type of slot content
+        defaultValue: { summary: '-' } // No default value
+      }
+    },
+    endSlot: {
+      name: 'end',
+      control: 'text',
+      description: 'Content to place in the end panel.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'HTML' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    dividerSlot: {
+      name: 'divider',
+      control: 'text',
+      description:
+        'The divider. Useful for slotting in a custom icon that renders as a handle.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'HTML' },
+        defaultValue: { summary: '-' }
+      }
+    },
+    // Events
+    ugReposition: {
+      name: 'ug-reposition',
+      control: false,
+      description: 'Emitted when the divider’s position changes.',
+      table: {
+        category: 'Events',
+        type: { summary: 'CustomEvent' }, // Type of the event
+        defaultValue: { summary: '-' } // No default value
+      },
+      action: 'ug-reposition' // Enables the Action Logger in Storybook
     }
   }
 };
@@ -117,7 +161,9 @@ export const SplitPanel: Story = {
     disabled: false,
     primary: undefined,
     snap: undefined,
-    snapThreshold: 12
+    snapThreshold: 12,
+    startSlot: 'Start',
+    endSlot: 'End'
   },
   render: (args) => {
     return html`<ug-split-panel
@@ -133,13 +179,13 @@ export const SplitPanel: Story = {
         slot="start"
         style="height: 200px; background: var(--ug-color-neutral-50); display: flex; align-items: center; justify-content: center; overflow: hidden;"
       >
-        Start
+        ${args.startSlot}
       </div>
       <div
         slot="end"
         style="height: 200px; background: var(--ug-color-neutral-50); display: flex; align-items: center; justify-content: center; overflow: hidden;"
       >
-        End
+        ${args.endSlot}
       </div>
     </ug-split-panel>`;
   }
