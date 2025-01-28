@@ -301,13 +301,13 @@ export const SignIcons: Story = {
     controls: { disable: true }
   },
   render: (args) => html`
-    <ug-tree class="custom-icons">
+    <ug-tree class="disableRotation">
       <ug-icon name="plus-square" slot="expand-icon"></ug-icon>
       <ug-icon name="dash-square" slot="collapse-icon"></ug-icon>
       ${renderBaseTreeContents(args)}
     </ug-tree>
     <style>
-      ug-tree-item::part(expand-button) {
+      .disableRotation ug-tree-item::part(expand-button) {
         /* Disable the expand/collapse animation */
         rotate: none;
       }
@@ -387,11 +387,11 @@ export const DisableRotationAnimation: Story = {
   },
   render: (args) => {
     return html`
-      <ug-tree selection="${args.selection}">
+      <ug-tree class="disableRotation" selection="${args.selection}">
         ${renderBaseTreeContents(args)}
       </ug-tree>
       <style>
-        ug-tree-item::part(expand-button) {
+        .disableRotation ug-tree-item::part(expand-button) {
           /* Disable the expand/collapse animation */
           rotate: none;
         }
