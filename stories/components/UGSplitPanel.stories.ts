@@ -198,6 +198,7 @@ export const InitialPosition: Story = {
     positionInPixels: '75'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `To set the initial position, use the <code>position</code> attribute. If no position is provided, it will default to 50% of the available space.`
@@ -214,6 +215,7 @@ export const InitialPositionInPixels: Story = {
     positionInPixels: '150'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `To set the initial position, use the <code>position</code> attribute. If no position is provided, it will default to 50% of the available space.`
@@ -236,6 +238,7 @@ export const Vertical: Story = {
     vertical: true
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Add the <code>vertical</code> attribute to render the split panel in a vertical orientation where the start and end panels are stacked. You also need to set a height when using the vertical orientation.`
@@ -258,6 +261,7 @@ export const Snapping: Story = {
     snap: '100px 50%'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `To snap panels at specific positions while dragging, add the <code>snap</code> attribute with one or more space-separated values. Values must be in pixels or percentages. For example, to snap the panel at <code>100px</code> and <code>50%</code>, use <code>snap="100px 50%"</code>. You can also customize how close the divider must be before snapping with the snap-threshold attribute.`
@@ -316,6 +320,7 @@ export const Disabled: Story = {
     disabled: true
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Add the <code>disabled</code> attribute to prevent the divider from being repositioned.`
@@ -339,6 +344,7 @@ export const SettingThePrimaryPanel: Story = {
     disabled: true
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `By default, both panels will grow or shrink proportionally when the host element is resized. If a primary panel is designated, it will maintain its size and the secondary panel will grow or shrink to fit the remaining space. You can set the primary panel to <code>start</code> or <code>end</code> using the primary attribute. Try resizing the example below with each option and notice how the panels respond.`
@@ -434,6 +440,7 @@ export const CustomizingTheDivider: Story = {
     disabled: true
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `To add a custom handle, slot an icon into the <code>divider</code> slot. When customizing the divider, make sure to think about focus styles for keyboard users.`
