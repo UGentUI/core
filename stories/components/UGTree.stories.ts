@@ -67,7 +67,8 @@ const meta: Meta = {
     },
     expandIconSlot: {
       name: 'expand-icon',
-      control: 'text',
+      control: 'check',
+      options: ['Icon'],
       description:
         'The icon displayed when the tree item is expanded. Works best with `<ug-icon>`.',
       table: {
@@ -83,7 +84,8 @@ const meta: Meta = {
     },
     collapseIconSlot: {
       name: 'collapse-icon',
-      control: 'text',
+      control: 'check',
+      options: ['Icon'],
       description:
         'The icon displayed when the tree item is collapsed. Works best with `<ug-icon>`.',
       table: {
@@ -130,21 +132,21 @@ export const Tree: Story = {
   args: {
     selection: 'single',
 
-    expandIconSlot: "<ug-icon name='chevron-down'></ug-icon>",
-    collapseIconSlot: "<ug-icon name='chevron-right'></ug-icon>"
+    expandIconSlot: undefined,
+    collapseIconSlot: undefined
   },
   //prettier-ignore
   render: (args) => {
-    return html`<ug-tree selection="${args.selection}">
-  <div slot="expand-icon">
-    ${unsafeHTML(args.expandIconSlot)}
-  </div>
-  <div slot="collapse-icon">
-    ${unsafeHTML(args.collapseIconSlot)}
-  </div>
-        ${renderBaseTreeContents()}
-</ug-tree>
-    `;
+    return html`<ug-tree selection="${args.selection}"
+      >${args.expandIconSlot == 'Icon'
+        ? html`
+  <ug-icon slot="expand-icon" name="plus-square"></ug-icon>`
+        : null}${args.collapseIconSlot == 'Icon'
+        ? html`
+  <ug-icon slot="collapse-icon" name="dash-square"></ug-icon>`
+        : null}
+      ${renderBaseTreeContents()}
+</ug-tree> `;
   }
 };
 
