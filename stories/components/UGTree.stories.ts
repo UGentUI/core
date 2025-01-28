@@ -10,8 +10,10 @@ const meta: Meta = {
   component: 'ug-tree',
   parameters: {
     docs: {
-      subtitle:
-        "Trees allow you to display a hierarchical list of selectable [tree items](./components-treeitem--docs). Items with children can be expanded and collapsed as desired by the user. TODO: If this page doesn't load, please try going to a story and then back to docs"
+      description: {
+        component:
+          'Trees allow you to display a hierarchical list of selectable [tree items](?path=/docs/components-treeitem--docs). Items with children can be expanded and collapsed as desired by the user.'
+      }
     }
   },
 
