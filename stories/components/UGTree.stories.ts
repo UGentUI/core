@@ -53,8 +53,7 @@ const meta: Meta = {
     defaultSlot: {
       name: '(default)',
       control: 'text',
-      description:
-        'The icon displayed when the tree item is expanded. Works best with `<sl-icon>`.',
+      description: 'The default slot.',
       table: {
         category: 'Slots',
         type: {
@@ -70,7 +69,7 @@ const meta: Meta = {
       name: 'expand-icon',
       control: 'text',
       description:
-        'The icon displayed when the tree item is expanded. Works best with `<sl-icon>`.',
+        'The icon displayed when the tree item is expanded. Works best with `<ug-icon>`.',
       table: {
         category: 'Slots',
         type: {
@@ -86,7 +85,7 @@ const meta: Meta = {
       name: 'collapse-icon',
       control: 'text',
       description:
-        'The icon displayed when the tree item is collapsed. Works best with `<sl-icon>`.',
+        'The icon displayed when the tree item is collapsed. Works best with `<ug-icon>`.',
       table: {
         category: 'Slots',
         type: {
@@ -120,32 +119,37 @@ export default meta;
 
 type Story = StoryObj;
 
-export const MinimalTree: Story = {
-  render: (args) => {
-    return html` <ug-tree> ${renderBaseTreeContents(args)} </ug-tree> `;
-  }
-};
-
-export const FullFeatureTree: Story = {
+export const Tree: Story = {
+  parameters: {
+    docs: {
+      source: {
+        format: true
+      }
+    }
+  },
   args: {
     selection: 'single',
 
     expandIconSlot: "<ug-icon name='chevron-down'></ug-icon>",
     collapseIconSlot: "<ug-icon name='chevron-right'></ug-icon>"
   },
+  //prettier-ignore
   render: (args) => {
-    return html`
-      <ug-tree selection="${args.selection}">
-        <div slot="expand-icon">${unsafeHTML(args.expandIconSlot)}</div>
-        <div slot="collapse-icon">${unsafeHTML(args.collapseIconSlot)}</div>
-        ${renderBaseTreeContents(args)}
-      </ug-tree>
+    return html`<ug-tree selection="${args.selection}">
+  <div slot="expand-icon">
+    ${unsafeHTML(args.expandIconSlot)}
+  </div>
+  <div slot="collapse-icon">
+    ${unsafeHTML(args.collapseIconSlot)}
+  </div>
+        ${renderBaseTreeContents()}
+</ug-tree>
     `;
   }
 };
 
 // Utility function for rendering the base tree structure
-const renderBaseTreeContents = (args: any) => html`
+const renderBaseTreeContents = () => html`
   <ug-tree-item aria-expanded="true" expanded>
     Deciduous
     <ug-tree-item>Birch</ug-tree-item>
@@ -191,7 +195,7 @@ export const SelectionModes: Story = {
   render: (args) => {
     return html`
       <ug-tree selection="${args.selection}">
-        ${renderBaseTreeContents(args)}
+        ${renderBaseTreeContents()}
       </ug-tree>
     `;
   }
@@ -246,9 +250,9 @@ export const LeafSelectionMode: Story = {
 };
 
 export const LazyLoading: Story = {
-  ...FullFeatureTree,
+  ...Tree,
   args: {
-    ...FullFeatureTree.args
+    ...Tree.args
   },
   parameters: {
     docs: {
@@ -288,9 +292,9 @@ export const LazyLoading: Story = {
 };
 
 export const SignIcons: Story = {
-  ...FullFeatureTree,
+  ...Tree,
   args: {
-    ...FullFeatureTree.args
+    ...Tree.args
   },
   parameters: {
     docs: {
@@ -300,11 +304,11 @@ export const SignIcons: Story = {
     },
     controls: { disable: true }
   },
-  render: (args) => html`
+  render: () => html`
     <ug-tree class="disableRotation">
       <ug-icon name="plus-square" slot="expand-icon"></ug-icon>
       <ug-icon name="dash-square" slot="collapse-icon"></ug-icon>
-      ${renderBaseTreeContents(args)}
+      ${renderBaseTreeContents()}
     </ug-tree>
     <style>
       .disableRotation ug-tree-item::part(expand-button) {
@@ -316,9 +320,9 @@ export const SignIcons: Story = {
 };
 
 export const FolderIcons: Story = {
-  ...FullFeatureTree,
+  ...Tree,
   args: {
-    ...FullFeatureTree.args
+    ...Tree.args
   },
   parameters: {
     docs: {
@@ -328,7 +332,7 @@ export const FolderIcons: Story = {
     },
     controls: { disable: true }
   },
-  render: (args) => html`
+  render: () => html`
     <ug-tree class="tree-with-icons">
       <ug-tree-item expanded>
         <ug-icon name="folder"></ug-icon>
@@ -373,9 +377,9 @@ export const FolderIcons: Story = {
 };
 
 export const DisableRotationAnimation: Story = {
-  ...FullFeatureTree,
+  ...Tree,
   args: {
-    ...FullFeatureTree.args
+    ...Tree.args
   },
   parameters: {
     docs: {
@@ -388,7 +392,7 @@ export const DisableRotationAnimation: Story = {
   render: (args) => {
     return html`
       <ug-tree class="disableRotation" selection="${args.selection}">
-        ${renderBaseTreeContents(args)}
+        ${renderBaseTreeContents()}
       </ug-tree>
       <style>
         .disableRotation ug-tree-item::part(expand-button) {
