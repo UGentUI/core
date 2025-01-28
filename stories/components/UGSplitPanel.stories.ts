@@ -6,6 +6,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import '/lib/components/select';
 import '/lib/components/option';
 import '/lib/components/icon';
+import { userEvent } from '@storybook/test';
 
 // Utility function to remove default attributes
 const removeDefaultAttributes = (code: string): string => {
@@ -404,7 +405,7 @@ export const NestedSplitPanels: Story = {
       }
     }
   },
-  render: (args) => {
+  render: () => {
     return html` <ug-split-panel>
       <div
         slot="start"
@@ -478,5 +479,96 @@ export const CustomizingTheDivider: Story = {
         End
       </div>
     </ug-split-panel>`;
+  }
+};
+
+// Function to simulate dragging
+const simulateDrag = async (
+  element: HTMLElement,
+  startX: number,
+  endX: number,
+  steps = 5
+) => {
+  const stepSize = (endX - startX) / steps;
+
+  // Start dragging
+  element.dispatchEvent(
+    new PointerEvent('pointerdown', {
+      bubbles: true,
+      composed: true,
+      clientX: startX
+    })
+  );
+
+  // Simulate the drag steps
+  for (let i = 1; i <= steps; i++) {
+    const currentX = startX + stepSize * i;
+    element.dispatchEvent(
+      new PointerEvent('pointermove', {
+        bubbles: true,
+        composed: true,
+        clientX: currentX
+      })
+    );
+    await new Promise((resolve) => setTimeout(resolve, 50)); // Small delay between steps
+  }
+
+  // End dragging
+  element.dispatchEvent(
+    new PointerEvent('pointerup', {
+      bubbles: true,
+      composed: true,
+      clientX: endX
+    })
+  );
+};
+
+export const SplitPanelWithEvents: Story = {
+  tags: ['!autodocs'],
+  args: {
+    position: 50,
+    positionInPixels: undefined,
+    vertical: false,
+    disabled: false,
+    primary: undefined,
+    snap: undefined,
+    snapThreshold: 12,
+    startSlot: 'Start',
+    endSlot: 'End'
+  },
+  render: (args) => {
+    return html`<ug-split-panel
+      position="${args.position}"
+      positionInPixels="${ifDefined(args.positionInPixels)}"
+      ?vertical="${args.vertical}"
+      ?disabled="${args.disabled}"
+      primary="${ifDefined(args.primary)}"
+      snap="${ifDefined(args.snap)}"
+      snapThreshold="${args.snapThreshold}"
+      @ug-reposition="${action('ug-reposition')}"
+    >
+      <div slot="start">Huppeldepup</div>
+    </ug-split-panel>`;
+  },
+  play: async ({ canvasElement }) => {
+    // Select the split panel
+    const splitPanel = canvasElement.querySelector('ug-split-panel')!;
+    // Select the divider element inside the shadow root
+    const divider = splitPanel.shadowRoot!.querySelector('[role="separator"]')!;
+
+    console.log(splitPanel);
+    console.log(divider);
+
+    // Drag the divider back and forth
+    const startX = 150;
+    const endX = 300;
+
+    action('Dragging divider forward...');
+    await simulateDrag(divider as HTMLElement, startX, endX);
+
+    await new Promise((resolve) => setTimeout(resolve, 500)); // Pause between drags
+
+    action('Dragging divider backward...');
+    await simulateDrag(divider as HTMLElement, endX, startX);
   }
 };
