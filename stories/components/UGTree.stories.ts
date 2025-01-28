@@ -31,7 +31,13 @@ const meta: Meta = {
         summary: 'single'
       },
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: {
+          summary: 'single'
+        }
       }
     },
     updateComplete: {
@@ -44,21 +50,68 @@ const meta: Meta = {
     },
 
     //Slots
-    expandIconSlot: {
+    defaultSlot: {
+      name: '(default)',
       control: 'text',
       description:
         'The icon displayed when the tree item is expanded. Works best with `<sl-icon>`.',
       table: {
-        category: 'Slots'
+        category: 'Slots',
+        type: {
+          summary: 'slot'
+        },
+        defaultValue: {
+          // defaultValue.summary should be undefined to hide the - in the auto-docs table
+          summary: undefined
+        }
+      }
+    },
+    expandIconSlot: {
+      name: 'expand-icon',
+      control: 'text',
+      description:
+        'The icon displayed when the tree item is expanded. Works best with `<sl-icon>`.',
+      table: {
+        category: 'Slots',
+        type: {
+          summary: 'slot'
+        },
+        defaultValue: {
+          // defaultValue.summary should be undefined to hide the - in the auto-docs table
+          summary: undefined
+        }
       }
     },
     collapseIconSlot: {
+      name: 'collapse-icon',
       control: 'text',
       description:
         'The icon displayed when the tree item is collapsed. Works best with `<sl-icon>`.',
       table: {
-        category: 'Slots'
+        category: 'Slots',
+        type: {
+          summary: 'slot'
+        },
+        defaultValue: {
+          // defaultValue.summary should be undefined to hide the - in the auto-docs table
+          summary: undefined
+        }
       }
+    },
+    'ug-selection-change': {
+      name: 'ug-selection-change',
+      description: 'Emitted when a tree item is selected or deselected.',
+      // Events should not be controlled in the Storybook UI
+      control: false,
+      table: {
+        category: 'Events',
+        type: { summary: '{ selection: UGTreeItem[] }' },
+        defaultValue: {
+          // defaultValue.summary should be undefined to hide the - in the auto-docs table
+          summary: undefined
+        }
+      },
+      action: 'ug-selection-change'
     }
   }
 };
