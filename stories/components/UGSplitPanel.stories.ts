@@ -20,6 +20,9 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Split panels display two adjacent panels, allowing the user to reposition them.'
+    },
+    source: {
+      format: true
     }
   },
   argTypes: {
@@ -155,6 +158,11 @@ export default meta;
 type Story = StoryObj;
 
 export const SplitPanel: Story = {
+  parameters: {
+    docs: {
+      source: { format: true }
+    }
+  },
   args: {
     position: 50,
     positionInPixels: undefined,
