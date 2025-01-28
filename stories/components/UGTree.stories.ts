@@ -1,6 +1,8 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tree';
+import '/lib/components/tree-item';
+import '/lib/components/icon';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
 const meta: Meta = {
