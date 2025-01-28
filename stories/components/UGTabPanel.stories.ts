@@ -1,10 +1,10 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/tab-panel";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/tab-panel';
 
 const meta: Meta = {
-  title: "Components/TabPanel",
-  component: "ug-tab-panel",
+  title: 'Components/TabPanel',
+  component: 'ug-tab-panel'
 };
 
 export default meta;
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj;
 
 export const TabPanel: Story = {
-  render: (args) => {
+  render: () => {
     return html`<ug-tab-group>
   <ug-tab slot="nav" panel="general">General</ug-tab>
   <ug-tab slot="nav" panel="custom">Custom</ug-tab>
@@ -25,5 +25,5 @@ export const TabPanel: Story = {
   <ug-tab-panel name="disabled">This is a disabled tab panel.</ug-tab-panel>
 </sl-tab-group>
 `;
-  },
+  }
 };

@@ -1,14 +1,14 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/dropdown";
-import "/lib/components/button";
-import "/lib/components/menu";
-import "/lib/components/menu-item";
-import "/lib/components/divider";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/dropdown';
+import '/lib/components/button';
+import '/lib/components/menu';
+import '/lib/components/menu-item';
+import '/lib/components/divider';
 
 const meta: Meta = {
-  title: "Components/Dropdown",
-  component: "ug-dropdown",
+  title: 'Components/Dropdown',
+  component: 'ug-dropdown'
 };
 
 export default meta;
@@ -16,7 +16,7 @@ export default meta;
 type Story = StoryObj;
 
 export const Dropdown: Story = {
-  render: (args) => {
+  render: () => {
     return html`<ug-dropdown>
       <ug-button slot="trigger" caret>Dropdown</ug-button>
       <ug-menu>
@@ -37,5 +37,5 @@ export const Dropdown: Story = {
         </ug-menu-item>
       </ug-menu>
     </ug-dropdown>`;
-  },
+  }
 };
