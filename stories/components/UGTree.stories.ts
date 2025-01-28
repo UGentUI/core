@@ -13,6 +13,9 @@ const meta: Meta = {
       description: {
         component:
           'Trees allow you to display a hierarchical list of selectable [tree items](?path=/docs/components-treeitem--docs). Items with children can be expanded and collapsed as desired by the user.'
+      },
+      source: {
+        format: true
       }
     }
   },
