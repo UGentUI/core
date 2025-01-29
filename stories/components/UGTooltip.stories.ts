@@ -190,7 +190,7 @@ const meta: Meta = {
     //Slots
     defaultSlot: {
       name: '(default)',
-      control: 'text',
+      control: false,
       description:
         'The tooltip’s target element. Avoid slotting in more than one element, as subsequent ones will be ignored.',
       table: {
@@ -201,7 +201,7 @@ const meta: Meta = {
     },
     contentSlot: {
       name: 'content',
-      control: 'check',
+      control: false,
       description:
         'The content to render in the tooltip. Alternatively, you can use the <code>content</code> attribute.',
       table: {
