@@ -7,10 +7,12 @@ import { action } from '@storybook/addon-actions';
 
 // Utility function to remove default attributes
 const removeDefaultAttributes = (code: string): string => {
-  return code.replace(
-    /\s*(placement="top"|distance="8"|skidding="0"|trigger="hover")/g,
-    ''
-  );
+  return code
+    .replace(
+      /\s*(placement="top"|distance="8"|skidding="0"|trigger="hover")/g,
+      ''
+    )
+    .replace(/\s*(hoist="")/g, ' hoist');
 };
 
 const meta: Meta = {
@@ -23,7 +25,7 @@ const meta: Meta = {
 
       description: {
         component:
-          "A tooltip's target is its first child element, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use <code>display: contents</code> so they won't interfere with how elements are positioned in a flex or grid layout."
+          "A tooltip's target is its <em>first child element</em>, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use <code>display: contents</code> so they won't interfere with how elements are positioned in a flex or grid layout."
       },
 
       source: {
@@ -39,11 +41,15 @@ const meta: Meta = {
       control: 'text',
       description:
         "The tooltip's content. If you need to display HTML, use the content slot instead.",
-      defaultValue: {
-        summary: ''
-      },
+
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: {
+          summary: ''
+        }
       }
     },
 
@@ -65,22 +71,30 @@ const meta: Meta = {
         'bottom',
         'right'
       ],
-      defaultValue: {
-        summary: 'top'
-      },
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        defaultValue: {
+          summary: 'top'
+        },
+        type: {
+          summary:
+            "'top' | 'top-start' | 'top-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start'"
+        }
       }
     },
 
     disabled: {
       control: 'boolean',
       description: "Disables the tooltip so it won't show when triggered.",
-      defaultValue: {
-        summary: false
-      },
+
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        type: {
+          summary: 'boolean'
+        },
+        defaultValue: {
+          summary: 'false'
+        }
       }
     },
 
@@ -88,11 +102,15 @@ const meta: Meta = {
       control: 'number',
       description:
         'The distance in pixels from which to offset the tooltip away from its target.',
-      defaultValue: {
-        summary: 8
-      },
+
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        defaultValue: {
+          summary: '8'
+        },
+        type: {
+          summary: 'number'
+        }
       }
     },
 
@@ -101,11 +119,14 @@ const meta: Meta = {
       description:
         'Controls how the tooltip is activated. Possible options include click, hover, focus, and manual. Multiple options can be passed by separating them with a space. When manual is used, the tooltip must be activated programmatically.',
       options: ['click', 'hover', 'focus', 'manual'],
-      defaultValue: {
-        summary: 'hover'
-      },
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        type: {
+          summary: "'click' | 'hover' | 'focus' | 'manual'"
+        },
+        defaultValue: {
+          summary: 'hover'
+        }
       }
     },
 
@@ -113,11 +134,15 @@ const meta: Meta = {
       control: 'boolean',
       description:
         'Indicates whether or not the tooltip is open. You can use this in lieu of the show/hide methods.',
-      defaultValue: {
-        summary: false
-      },
+
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        defaultValue: {
+          summary: 'false'
+        },
+        type: {
+          summary: 'boolean'
+        }
       }
     },
 
@@ -125,11 +150,14 @@ const meta: Meta = {
       control: 'number',
       description:
         'The distance in pixels from which to offset the tooltip along its target.',
-      defaultValue: {
-        summary: 0
-      },
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        defaultValue: {
+          summary: '0'
+        },
+        type: {
+          summary: 'number'
+        }
       }
     },
 
@@ -137,11 +165,15 @@ const meta: Meta = {
       control: 'boolean',
       description:
         'Enable this option to prevent the tooltip from being clipped when the component is placed inside a container with overflow: auto|hidden|scroll. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.',
-      defaultValue: {
-        summary: true
-      },
+
       table: {
-        category: 'Properties'
+        category: 'Properties',
+        defaultValue: {
+          summary: 'true'
+        },
+        type: {
+          summary: 'boolean'
+        }
       }
     },
 
