@@ -118,7 +118,7 @@ const meta: Meta = {
     trigger: {
       control: 'select',
       description:
-        'Controls how the tooltip is activated. Possible options include click, hover, focus, and manual. Multiple options can be passed by separating them with a space. When manual is used, the tooltip must be activated programmatically.',
+        'Controls how the tooltip is activated. Possible options include <code>click</code>, <code>hover</code>, <code>focus</code>, and <code>manual</code>. Multiple options can be passed by separating them with a space. When manual is used, the tooltip must be activated programmatically.',
       options: ['click', 'hover', 'focus', 'manual'],
       table: {
         category: 'Properties',
@@ -165,7 +165,7 @@ const meta: Meta = {
     hoist: {
       control: 'boolean',
       description:
-        'Enable this option to prevent the tooltip from being clipped when the component is placed inside a container with overflow: auto|hidden|scroll. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.',
+        'Enable this option to prevent the tooltip from being clipped when the component is placed inside a container with <code>overflow: auto|hidden|scroll</code>. Hoisting uses a fixed positioning strategy that works in many, but not all, scenarios.',
 
       table: {
         category: 'Properties',
@@ -213,6 +213,7 @@ const meta: Meta = {
 
     // Event handling
     ugShow: {
+      name: 'ug-show',
       action: 'ug-show',
       description: 'Emitted when the tooltip begins to show.',
       table: {
@@ -223,6 +224,7 @@ const meta: Meta = {
       control: false
     },
     ugAfterShow: {
+      name: 'ug-after-show',
       action: 'ug-after-show',
       description:
         'Emitted after the tooltip has shown and all animations are complete.',
@@ -234,6 +236,7 @@ const meta: Meta = {
       control: false
     },
     ugHide: {
+      name: 'ug-hide',
       action: 'ug-hide',
       description: 'Emitted when the tooltip begins to hide.',
       table: {
@@ -244,6 +247,7 @@ const meta: Meta = {
       control: false
     },
     ugAfterHide: {
+      name: 'ug-after-hide',
       action: 'ug-after-hide',
       description:
         'Emitted after the tooltip has hidden and all animations are complete.',
