@@ -2,17 +2,27 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tag';
 import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
+
+// Transform code that makes it more readable
+const removeDefaultAttributes = (code: string): string => {
+  return code
+    .replace(/\s*(variant="neutral"|size="medium")/g, '')
+    .replace(/pill=""/g, 'pill')
+    .replace(/removable=""/g, 'removable');
+};
 
 const meta: Meta = {
   title: 'Components/Tag',
   component: 'ug-tag',
   parameters: {
     docs: {
-      toc: {
-        /* options */
-      },
       subtitle:
-        'Tags are used as labels to organize things or to indicate a selection.'
+        'Tags are used as labels to organize things or to indicate a selection.',
+      source: {
+        format: true,
+        transform: removeDefaultAttributes // Use the custom transform function here
+      }
     }
   },
   argTypes: {
@@ -72,6 +82,19 @@ const meta: Meta = {
         defaultValue: { summary: undefined }
       }
     },
+    defaultSlot: {
+      name: '(default)',
+      description: 'The tag’s content.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: {
+          // defaultValue.summary should be undefined to hide the - in the auto-docs table
+          summary: undefined
+        }
+      },
+      control: { type: 'text' }
+    },
     //Events
     ugRemove: {
       name: 'ug-remove',
@@ -90,14 +113,6 @@ export default meta;
 
 type Story = StoryObj;
 
-// Transform code that makes it more readable
-const removeDefaultAttributes = (code: string): string => {
-  return code
-    .replace(/\s*(variant="neutral"|size="medium")/g, '')
-    .replace(/pill=""/g, 'pill')
-    .replace(/removable=""/g, 'removable');
-};
-
 export const Default = {
   args: {
     variant: 'neutral',
@@ -108,12 +123,8 @@ export const Default = {
   parameters: {
     docs: {
       source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -137,17 +148,14 @@ export const Variants: Story = {
     removable: false
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Use the <code>variant</code> attribute to set the tag's variant.`
       },
       source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -197,17 +205,14 @@ export const Sizes: Story = {
     removable: false
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Use the <code>size</code> attribute to change a tag's size.`
       },
       source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -244,17 +249,14 @@ export const Pill: Story = {
     removable: false
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Use the <code>pill</code> attribute to give tags rounded edges.`
       },
       source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -284,17 +286,14 @@ export const Removable: Story = {
     pill: false
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Use the <code>removable</code> attribute to add a remove button to the tag.`
       },
       source: {
-        format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   },
   // prettier-ignore
@@ -331,22 +330,62 @@ export const Removable: Story = {
 
 export const TagWithEvents: Story = {
   ...Default,
+  tags: ['!autodocs'],
   args: {
     ...Default.args,
     removable: true
   },
+  parameters: {
+    controls: { disable: true }
+  },
   // prettier-ignore
   render: (args) => {
     return html`
-<ug-tag 
-        variant="${args.variant}"
-        size="${args.size}"
-        ?pill="${args.pill}"
-        ?removable="${args.removable}"
+      <div class="tags-removable">
+        <ug-tag
+          variant="${args.variant}"
+          size="${args.size}"
+          ?pill="${args.pill}"
+          ?removable="${args.removable}"
+          @ug-remove="${action('ug-remove')}"
+          data-testid="tag"
+        >
+          Interactive Tag
+        </ug-tag>
+      </div>
 
-        @ug-remove="${action("ug-remove")}"
-      >
-  Interactive Tag
-</ug-tag>
-    `;}
+        <script>
+          const div = document.querySelector('.tags-removable');
+
+          div.addEventListener('ug-remove', (event) => {
+            const tag = event.target;
+            tag.style.opacity = '0';
+            setTimeout(() => (tag.style.opacity = '1'), 2000);
+          });
+        </script>
+
+        <style>
+          .tags-removable ug-tag {
+            transition: var(--ug-transition-medium) opacity;
+          }
+        </style>
+      </div>
+    `;},
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const tag = await canvas.findByTestId('tag');
+
+    // Find the remove button inside the tag's shadow DOM
+    let removeButton = null;
+    removeButton = tag.shadowRoot!.querySelector(
+      '[part="remove-button"], button'
+    )!;
+
+    // Wait for the validation message to appear
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Click the remove button
+    await userEvent.click(removeButton);
+  }
 };
