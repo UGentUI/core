@@ -24,6 +24,11 @@ const meta: Meta = {
       description: {
         component:
           "A tooltip's target is its first child element, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use <code>display: contents</code> so they won't interfere with how elements are positioned in a flex or grid layout."
+      },
+
+      source: {
+        format: true,
+        transform: (code: string) => removeDefaultAttributes(code)
       }
     }
   },
@@ -269,12 +274,8 @@ export const Tooltip: Story = {
         story: `A default tooltip`
       },
       source: {
-        format: true,
-        transform: (code: string) => removeDefaultAttributes(code)
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -451,12 +452,8 @@ export const Disabled: Story = {
         story: `Disables the tooltip so it won’t show when triggered.`
       },
       source: {
-        format: true,
-        transform: (code: string) => removeDefaultAttributes(code)
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -473,12 +470,8 @@ export const TriggeredByClick: Story = {
         story: `Set the <code>trigger</code> attribute to <code>click</code> to toggle the tooltip on click instead of hover.`
       },
       source: {
-        format: true,
-        transform: (code: string) => removeDefaultAttributes(code)
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
@@ -495,12 +488,8 @@ export const OpenByDefault: Story = {
         story: `Set the <code>open</code> attribute to <code>true</code> to display the tooltip by default when the page loads.`
       },
       source: {
-        format: true,
-        transform: (code: string) => removeDefaultAttributes(code)
+        format: true
       }
-    },
-    html: {
-      transform: (code: string) => removeDefaultAttributes(code)
     }
   }
 };
