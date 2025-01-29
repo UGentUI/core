@@ -40,7 +40,7 @@ const meta: Meta = {
     content: {
       control: 'text',
       description:
-        "The tooltip's content. If you need to display HTML, use the content slot instead.",
+        "The tooltip's content. If you need to display HTML, use the <code>content</code> slot instead.",
 
       table: {
         category: 'Properties',
@@ -85,7 +85,8 @@ const meta: Meta = {
 
     disabled: {
       control: 'boolean',
-      description: "Disables the tooltip so it won't show when triggered.",
+      description:
+        "Disables the tooltip so it won't show when triggered.<br>`reflects: true`",
 
       table: {
         category: 'Properties',
@@ -133,7 +134,7 @@ const meta: Meta = {
     open: {
       control: 'boolean',
       description:
-        'Indicates whether or not the tooltip is open. You can use this in lieu of the show/hide methods.',
+        'Indicates whether or not the tooltip is open. You can use this in lieu of the show/hide methods. <br>`reflects: true`',
 
       table: {
         category: 'Properties',
