@@ -192,7 +192,7 @@ export const Variants: Story = {
     }
   },
   // prettier-ignore
-  render: () => html`
+  render: (args) => html`
 <ug-button variant="default">Default</ug-button>
 <ug-button variant="primary">Primary</ug-button>
 <ug-button variant="success">Success</ug-button>
@@ -212,7 +212,7 @@ export const OutlineButtons: Story = {
     }
   },
   // prettier-ignore
-  render: () => html`
+  render: (args) => html`
 <ug-button variant="default" outline>Default</ug-button>
 <ug-button variant="primary" outline>Primary</ug-button>
 <ug-button variant="success" outline>Success</ug-button>
