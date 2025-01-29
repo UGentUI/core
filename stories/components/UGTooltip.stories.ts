@@ -4,6 +4,7 @@ import '/lib/components/tooltip';
 import '/lib/components/button';
 import '/lib/components/avatar';
 import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 // Utility function to remove default attributes
 const removeDefaultAttributes = (code: string): string => {
@@ -622,5 +623,19 @@ export const TooltipWithEvents: Story = {
       hoist
     >
       <ug-button>Hover me</ug-button>
-    </ug-tooltip>`
+    </ug-tooltip>`,
+
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByText('Hover me');
+
+    // Simulate hovering to trigger tooltip show
+    await userEvent.hover(button);
+
+    // Wait a moment to ensure event fires
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Simulate moving away to trigger tooltip hide
+    await userEvent.unhover(button);
+  }
 };
