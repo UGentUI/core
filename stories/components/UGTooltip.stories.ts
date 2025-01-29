@@ -187,11 +187,23 @@ const meta: Meta = {
         'A read-only promise that resolves when the component has finished updating. (Non-configurable property.)'
     },
 
+    //Slots
+    defaultSlot: {
+      name: '(default)',
+      control: 'text',
+      description:
+        'The tooltip’s target element. Avoid slotting in more than one element, as subsequent ones will be ignored.',
+      table: {
+        type: { summary: 'HTML' },
+        category: 'slots',
+        defaultValue: { summary: undefined }
+      }
+    },
     contentSlot: {
       name: 'content',
       control: 'check',
       description:
-        'The content to render in the tooltip. Alternatively, you can use the content attribute.',
+        'The content to render in the tooltip. Alternatively, you can use the <code>content</code> attribute.',
       table: {
         type: { summary: 'HTML' },
         category: 'slots',
