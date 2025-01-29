@@ -3,7 +3,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tree';
 import '/lib/components/tree-item';
 import '/lib/components/icon';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Tree',
@@ -132,21 +133,20 @@ export const Tree: Story = {
   args: {
     selection: 'single',
 
-    expandIconSlot: undefined,
-    collapseIconSlot: undefined
+    expandIconSlot: '',
+    collapseIconSlot: ''
   },
   //prettier-ignore
   render: (args) => {
-    return html`<ug-tree selection="${args.selection}"
+    return html`<ug-tree
+      selection="${args.selection}"
       >${args.expandIconSlot == 'Icon'
-        ? html`
-  <ug-icon slot="expand-icon" name="plus-square"></ug-icon>`
+        ? html` <ug-icon slot="expand-icon" name="plus-square"></ug-icon>`
         : null}${args.collapseIconSlot == 'Icon'
-        ? html`
-  <ug-icon slot="collapse-icon" name="dash-square"></ug-icon>`
+        ? html` <ug-icon slot="collapse-icon" name="dash-square"></ug-icon>`
         : null}
       ${renderBaseTreeContents()}
-</ug-tree> `;
+    </ug-tree> `;
   }
 };
 
@@ -403,5 +403,104 @@ export const DisableRotationAnimation: Story = {
         }
       </style>
     `;
+  }
+};
+
+export const TreeWithEvents: Story = {
+  tags: ['!autodocs'],
+
+  parameters: {
+    docs: {
+      source: {
+        format: true
+      }
+    }
+  },
+  args: {
+    selection: 'single',
+
+    expandIconSlot: '',
+    collapseIconSlot: ''
+  },
+  //prettier-ignore
+  render: (args) => {
+    return html`<ug-tree
+      selection="${args.selection}"
+      @ug-selection-change="${action('ug-selection-change')}"
+      >${args.expandIconSlot == 'Icon'
+        ? html` <ug-icon slot="expand-icon" name="plus-square"></ug-icon>`
+        : null}${args.collapseIconSlot == 'Icon'
+        ? html` <ug-icon slot="collapse-icon" name="dash-square"></ug-icon>`
+        : null}
+
+      <ug-tree-item
+        aria-expanded="true"
+        expanded
+        data-testid="tree-item-deciduous"
+      >
+        Deciduous
+        <ug-tree-item data-testid="tree-item-birch">Birch</ug-tree-item>
+        <ug-tree-item data-testid="tree-item-maple">
+          Maple
+          <ug-tree-item>Field maple</ug-tree-item>
+          <ug-tree-item>Red maple</ug-tree-item>
+          <ug-tree-item>Sugar maple</ug-tree-item>
+        </ug-tree-item>
+        <ug-tree-item>Oak</ug-tree-item>
+      </ug-tree-item>
+
+      <ug-tree-item>
+        Coniferous
+        <ug-tree-item>Cedar</ug-tree-item>
+        <ug-tree-item>Pine</ug-tree-item>
+        <ug-tree-item>Spruce</ug-tree-item>
+      </ug-tree-item>
+
+      <ug-tree-item>
+        Non-trees
+        <ug-tree-item>Bamboo</ug-tree-item>
+        <ug-tree-item>Cactus</ug-tree-item>
+        <ug-tree-item>Fern</ug-tree-item>
+      </ug-tree-item>
+
+      <ug-tree-item lazy>Forever Loading Lazy Item</ug-tree-item>
+    </ug-tree> `;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Find the Deciduous tree item and its expand/collapse icon
+    const deciduousTreeItem = await canvas.findByTestId('tree-item-deciduous');
+    const expandCollapseIcon = deciduousTreeItem.shadowRoot!.querySelector(
+      'slot[name="expand-icon"]'
+    )!;
+
+    // Add delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Expand the Deciduous tree item
+    action('expand');
+    await userEvent.click(expandCollapseIcon);
+
+    // Ensure child items are visible
+    await canvas.findByTestId('tree-item-maple');
+    // Add delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    // Collapse the Deciduous tree item
+    await userEvent.click(expandCollapseIcon);
+
+    // Select Birch to trigger ug-selection-change
+    const birchTreeItem = await canvas.findByTestId('tree-item-birch');
+    await userEvent.click(birchTreeItem);
+    /*
+    // Select a tree item to trigger the event
+    const treeItem = await canvas.findByText('Birch');
+    await userEvent.click(treeItem);
+
+    // Add delay
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    await userEvent.click(treeItem);*/
   }
 };
