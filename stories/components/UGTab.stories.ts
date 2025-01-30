@@ -19,9 +19,11 @@ const meta: Meta = {
         format: true,
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code;
-          //.replace(/\s(default-attribute="value")/g, '')
-          //.replace(/\s* attribute=""/g, ' attribute');
+          return (
+            code
+              //.replace(/\s(default-attribute="value")/g, '')
+              .replace(/\s* closable=""/g, ' closable')
+          );
         }
       }
     }
@@ -106,14 +108,59 @@ export const Tab: Story = {
     disabled: false,
     defaultSlot: 'Tab Title'
   },
+  //prettier-ignore
   render: (args) => {
-    return html` <ug-tab
+    return html`<ug-tab
       panel="${args.panel}"
       ?active="${args.active}"
       ?closable="${args.closable}"
       ?disabled="${args.disabled}"
-      >${args.defaultSlot}
-    </ug-tab>`;
+      >${args.defaultSlot}</ug-tab>`;
+  }
+};
+
+export const Closable: Story = {
+  ...Tab,
+  args: {
+    ...Tab.args,
+    closable: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can make the tab closable by adding the <code>closable</code> tag`
+      }
+    }
+  }
+};
+
+export const Disabled: Story = {
+  ...Tab,
+  args: {
+    ...Tab.args,
+    disable: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can disable the tab by adding the <code>disabled</code> tag`
+      }
+    }
+  }
+};
+
+export const Active: Story = {
+  ...Tab,
+  args: {
+    ...Tab.args,
+    active: true
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can make the tab active by adding the <code>active</code> tag`
+      }
+    }
   }
 };
 
