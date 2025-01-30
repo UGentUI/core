@@ -21,7 +21,8 @@ const meta: Meta = {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return (
             code
-              //.replace(/\s(default-attribute="value")/g, '')
+              //panel bewust laten staan omdat het noodzakelijk is om alles samen te laten werken
+              //.replace(/\s(panel="")/g, '')
               .replace(/\s* closable=""/g, ' closable')
           );
         }
