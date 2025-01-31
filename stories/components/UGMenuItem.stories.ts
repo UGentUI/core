@@ -224,7 +224,78 @@ export const MenuItem: Story = {
   }
 };
 
+//Ik ben niet helemaal zeker welk van deze 2 aapakken beter is, dus ik wil ze graag allebei voorleggen
+//Maar ik geloof meer in de eerste. Ik denk wel dat de eerste en de AllFunctionality story houden een meerwaarde heeft
+//Deze is nogal incompleet
 export const MenuItem2: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This example showcases all the different properties in a menu. You can see a disabled item, an item with a checkbox, an item with a prefix, an item with a suffix and an item with a submenu.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  args: {
+    type: 'normal',
+    checked: false,
+    value: '',
+    loading: false,
+    disabled: false,
+    defaultSlot: 'Option 1'
+  },
+  render: (args) => {
+    return html`<ug-menu style="max-width: 200px;">
+      <ug-menu-item>Option 1</ug-menu-item>
+      <ug-menu-item>Option 2</ug-menu-item>
+      <ug-menu-item>Option 3</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item type="checkbox" ?checked="${args.checked}"
+        >Checkbox</ug-menu-item
+      >
+      <ug-menu-item ?disabled="${args.disabled}">Disabled</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item>
+        Prefix Icon
+        ${args.prefixSlot == 'Icon'
+          ? html`<ug-icon span="prefix" name="gift"></ug-icon>`
+          : ''}
+      </ug-menu-item>
+      <ug-menu-item>
+        Suffix Icon
+        ${args.suffixSlot == 'Icon'
+          ? html`<ug-icon span="suffix" name="heart"></ug-icon>`
+          : ''}
+      </ug-menu-item>
+      <ug-menu-item
+        >Submenu
+        ${args.submenuSlot == 'Submenu'
+          ? html`<ug-menu style="max-width: 200px;" slot="submenu">
+              <ug-menu-item>Option 1</ug-menu-item>
+              <ug-menu-item>Option 2</ug-menu-item>
+              <ug-menu-item>Option 3</ug-menu-item>
+            </ug-menu>`
+          : ''}
+      </ug-menu-item>
+    </ug-menu>`;
+  }
+};
+
+export const AllFunctionality: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'This example showcases all the different properties in a menu. You can see a disabled item, an item with a checkbox, an item with a prefix, an item with a suffix and an item with a submenu.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
   render: () => {
     return html`<ug-menu style="max-width: 200px;">
       <ug-menu-item>Option 1</ug-menu-item>
@@ -241,6 +312,14 @@ export const MenuItem2: Story = {
       <ug-menu-item>
         Suffix Icon
         <ug-icon slot="suffix" name="heart"></ug-icon>
+      </ug-menu-item>
+      <ug-menu-item>
+        Submenu
+        <ug-menu style="max-width: 200px;" slot="submenu">
+          <ug-menu-item>Option 1</ug-menu-item>
+          <ug-menu-item>Option 2</ug-menu-item>
+          <ug-menu-item>Option 3</ug-menu-item>
+        </ug-menu>
       </ug-menu-item>
     </ug-menu>`;
   }
