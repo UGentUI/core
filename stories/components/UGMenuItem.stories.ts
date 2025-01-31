@@ -6,6 +6,7 @@ import '/lib/components/menu-label';
 import '/lib/components/divider';
 import '/lib/components/icon';
 import '/lib/components/popup';
+import '/lib/components/badge';
 
 const meta: Meta = {
   title: 'Components/MenuItem',
@@ -257,6 +258,7 @@ export const MenuItem2: Story = {
         >Checkbox</ug-menu-item
       >
       <ug-menu-item ?disabled="${args.disabled}">Disabled</ug-menu-item>
+      <ug-menu-item ?loading="${args.loading}">Loading</ug-menu-item>
       <ug-divider></ug-divider>
       <ug-menu-item>
         Prefix Icon
@@ -304,6 +306,7 @@ export const AllFunctionality: Story = {
       <ug-divider></ug-divider>
       <ug-menu-item type="checkbox" checked>Checkbox</ug-menu-item>
       <ug-menu-item disabled>Disabled</ug-menu-item>
+      <ug-menu-item loading>Loading</ug-menu-item>
       <ug-divider></ug-divider>
       <ug-menu-item>
         Prefix Icon
@@ -322,5 +325,147 @@ export const AllFunctionality: Story = {
         </ug-menu>
       </ug-menu-item>
     </ug-menu>`;
+  }
+};
+
+export const PrefixAndSuffix: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Add content to the start and end of menu items using the <code>prefix</code> and <code>suffix</code> slots.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-menu style="max-width: 200px;">
+      <ug-menu-item>
+        <ug-icon slot="prefix" name="house"></ug-icon>
+        Home
+      </ug-menu-item>
+
+      <ug-menu-item>
+        <ug-icon slot="prefix" name="envelope"></ug-icon>
+        Messages
+        <ug-badge slot="suffix" variant="primary" pill>12</ug-badge>
+      </ug-menu-item>
+
+      <ug-divider></ug-divider>
+
+      <ug-menu-item>
+        <ug-icon slot="prefix" name="gear"></ug-icon>
+        Settings
+      </ug-menu-item>
+    </ug-menu>`;
+  }
+};
+
+export const Disabled: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Add the <code>disabled</code> attribute to disable the menu item so it cannot be selected.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`
+      <ug-menu style="max-width: 200px;">
+        <ug-menu-item>Option 1</ug-menu-item>
+        <ug-menu-item disabled>Option 2</ug-menu-item>
+        <ug-menu-item>Option 3</ug-menu-item>
+      </ug-menu>
+    `;
+  }
+};
+
+export const Loading: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the <code>loading</code> attribute to indicate that a menu item is busy. Like a disabled menu item, clicks will be suppressed until the loading state is removed.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`
+      <ug-menu style="max-width: 200px;">
+        <ug-menu-item>Option 1</ug-menu-item>
+        <ug-menu-item loading>Option 2</ug-menu-item>
+        <ug-menu-item>Option 3</ug-menu-item>
+      </ug-menu>
+    `;
+  }
+};
+
+export const CheckboxMenuItems: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story: `Set the <code>type</code> attribute to <code>checkbox</code> to create a menu item that will toggle on and off when selected. You can use the <code>checked</code> attribute to set the initial state.
+
+Checkbox menu items are visually indistinguishable from regular menu items. Their ability to be toggled is primarily inferred from context, much like you’d find in the menu of a native app.`
+      }
+    },
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-menu style="max-width: 200px;">
+      <ug-menu-item type="checkbox">Autosave</ug-menu-item>
+      <ug-menu-item type="checkbox" checked>Check Spelling</ug-menu-item>
+      <ug-menu-item type="checkbox">Word Wrap</ug-menu-item>
+    </ug-menu> `;
+  }
+};
+
+export const ValueAndSelection: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story: `The <code>value</code> attribute can be used to assign a hidden value, such as a unique identifier, to a menu item. When an item is selected, the <code>ug-select</code> event will be emitted and a reference to the item will be available at <code>event.detail.item</code>. You can use this reference to access the selected item’s value, its checked state, and more.`
+      }
+    },
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-menu class="menu-value" style="max-width: 200px;">
+        <ug-menu-item value="opt-1">Option 1</ug-menu-item>
+        <ug-menu-item value="opt-2">Option 2</ug-menu-item>
+        <ug-menu-item value="opt-3">Option 3</ug-menu-item>
+        <ug-divider></ug-divider>
+        <ug-menu-item type="checkbox" value="opt-4">Checkbox 4</ug-menu-item>
+        <ug-menu-item type="checkbox" value="opt-5">Checkbox 5</ug-menu-item>
+        <ug-menu-item type="checkbox" value="opt-6">Checkbox 6</ug-menu-item>
+      </ug-menu>
+
+      <script>
+        const menu = document.querySelector('.menu-value');
+
+        menu.addEventListener('ug-select', (event) => {
+          const item = event.detail.item;
+
+          // Log value
+          if (item.type === 'checkbox') {
+            alert(
+              \`Selected value: \${item.value} (\${item.checked ? 'checked' : 'unchecked'})\`
+            );
+          } else {
+            alert(\`Selected value: \${item.value}\`);
+          }
+        });
+      </script> `;
   }
 };
