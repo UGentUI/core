@@ -5,6 +5,7 @@ import '/lib/components/tab-panel';
 import '/lib/components/tab';
 import '/lib/components/icon';
 import '/lib/components/icon-button';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/TabGroup',
@@ -395,5 +396,50 @@ export const ManualActivation: Story = {
       }
     },
     controls: { disable: true }
+  }
+};
+
+export const TabGroupWithEvents: Story = {
+  tags: ['!autodocs'],
+
+  args: {
+    placement: 'top',
+    activation: 'auto',
+    noScrollControls: false,
+    fixedScrollControls: false
+  },
+  render: (args) => {
+    return html`<ug-tab-group
+      id="tabGroup"
+      placement="${args.placement}"
+      activation="${args.activation}"
+      ?no-scroll-controls="${args.noScrollControls}"
+      ?fixed-scroll-controls="${args.fixedScrollControls}"
+      @ug-tab-show="${action('ug-tab-show')}"
+      @ug-tab-hide="${action('ug-tab-hide')}"
+    >
+      <ug-tab slot="nav" panel="general">General</ug-tab>
+      <ug-tab slot="nav" panel="custom">Custom</ug-tab>
+      <ug-tab slot="nav" panel="advanced">Advanced</ug-tab>
+      <ug-tab slot="nav" panel="disabled" disabled>Disabled</ug-tab>
+
+      <ug-tab-panel name="general">This is the general tab panel.</ug-tab-panel>
+      <ug-tab-panel name="custom">This is the custom tab panel.</ug-tab-panel>
+      <ug-tab-panel name="advanced"
+        >This is the advanced tab panel.</ug-tab-panel
+      >
+      <ug-tab-panel name="disabled">This is a disabled tab panel.</ug-tab-panel>
+    </ug-tab-group> `;
+  },
+  play: async ({ canvasElement }) => {
+    const tabGroup = canvasElement.querySelector('#tabGroup');
+    const tabs = tabGroup!.querySelectorAll('ug-tab');
+
+    for (const tab of tabs) {
+      if (!tab.hasAttribute('disabled')) {
+        tab.click();
+        await new Promise((resolve) => setTimeout(resolve, 500)); // Wait for animation/events
+      }
+    }
   }
 };
