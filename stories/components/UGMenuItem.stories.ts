@@ -7,6 +7,8 @@ import '/lib/components/divider';
 import '/lib/components/icon';
 import '/lib/components/popup';
 import '/lib/components/badge';
+import { userEvent, within } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/MenuItem',
@@ -467,5 +469,44 @@ export const ValueAndSelection: Story = {
           }
         });
       </script> `;
+  }
+};
+
+export const MenuItemWithEvents: Story = {
+  // Story-specific parameters
+  parameters: {
+    docs: {
+      description: {
+        story: `The <code>value</code> attribute can be used to assign a hidden value, such as a unique identifier, to a menu item. When an item is selected, the <code>ug-select</code> event will be emitted and a reference to the item will be available at <code>event.detail.item</code>. You can use this reference to access the selected item’s value, its checked state, and more.`
+      }
+    },
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-menu
+      class="menu-value"
+      style="max-width: 200px;"
+      @ug-select="${action('ug-select')}"
+    >
+      <ug-menu-item value="opt-1">Option 1</ug-menu-item>
+      <ug-menu-item value="opt-2">Option 2</ug-menu-item>
+      <ug-menu-item value="opt-3">Option 3</ug-menu-item>
+      <ug-divider></ug-divider>
+      <ug-menu-item type="checkbox" value="opt-4">Checkbox 4</ug-menu-item>
+      <ug-menu-item type="checkbox" value="opt-5">Checkbox 5</ug-menu-item>
+      <ug-menu-item type="checkbox" value="opt-6">Checkbox 6</ug-menu-item>
+    </ug-menu>`;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Select a menu item
+    const menuItem = await canvas.findByText('Option 2');
+    await userEvent.click(menuItem);
+
+    // Ensure checkbox toggling works
+    const checkboxItem = await canvas.findByText('Checkbox 4');
+    await userEvent.click(checkboxItem);
+    await userEvent.click(checkboxItem); // Toggle off
   }
 };
