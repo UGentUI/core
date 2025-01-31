@@ -13,7 +13,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          'Tabs are used inside [tab groups](?path=/docs/components-tabgroup--docs) to represent and activate [tab panels](?path=/docs/components-tabpanel--docs).'
+          'Menu labels are used to describe a group of [menu items](?path=/docs/components-menuitem--docs).'
       },
       source: {
         format: true
