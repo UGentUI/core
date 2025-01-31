@@ -26,7 +26,11 @@ const meta: Meta = {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code
             .replace(/\s(type="normal")/g, '')
-            .replace(/\s* closable=""/g, ' closable');
+            .replace(/\s(value="")/g, '')
+            .replace(/\s* checked=""/g, ' checked')
+            .replace(/\s* loading=""/g, ' loading')
+            .replace(/\s* closable=""/g, ' closable')
+            .replace(/\s* disabled=""/g, ' disabled');
         }
       }
     }
