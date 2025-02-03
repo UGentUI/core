@@ -2,6 +2,8 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/drawer';
 import '/lib/components/button';
+import '/lib/components/icon';
+import '/lib/components/iconbutton';
 
 const meta: Meta = {
   title: 'Components/Drawer',
@@ -10,6 +12,17 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Drawers slide in from a container to expose additional options and information.'
+    },
+    source: {
+      format: true,
+      transform: (code: string) => {
+        // Remove empty/default attributes and replace boolean attributes from the source code display
+        return code
+          .replace(/\s(placement="end")/g, '')
+          .replace(/\s* open=""/g, ' open')
+          .replace(/\s* contained=""/g, ' contained')
+          .replace(/\s* noheader=""/g, ' noheader');
+      }
     }
   },
   argTypes: {
@@ -64,7 +77,8 @@ const meta: Meta = {
         defaultValue: { summary: 'false' }
       }
     },
-    'no-header': {
+    noHeader: {
+      name: 'no-header',
       control: 'boolean',
       description:
         'Removes the header. This will also remove the default close button, so please ensure you provide an easy, accessible way for users to dismiss the drawer.<br>`reflects: true`',
@@ -241,9 +255,9 @@ export const Drawer: Story = {
         label=${arg.label}
         placement=${arg.placement}
         ?contained=${arg.contained}
-        ?no-header=${arg.noHeader}
+        ?noHeader=${arg.noHeader}
       >
-        > Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-drawer>
 
@@ -262,24 +276,129 @@ export const Drawer: Story = {
   }
 };
 
-export const Drawer2: Story = {
+export const SlideInFromStart: Story = {
+  ...Drawer,
   args: {
-    open: false,
-    label: 'Drawer Title',
-    placement: 'end',
-    contained: false,
-    noHeader: false
+    ...Drawer.args,
+    placement: 'start'
+  },
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `By default, drawers slide in from the end. To make the drawer slide in from the start, set the <code>placement</code> attribute to <code>start</code>.`
+      }
+    }
+  }
+};
+
+export const SlideInFromTop: Story = {
+  ...Drawer,
+  args: {
+    ...Drawer.args,
+    placement: 'top'
+  },
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `To make the drawer slide in from the top, set the <code>placement</code> attribute to <code>top</code>.`
+      }
+    }
+  }
+};
+
+export const SlideInFromBottom: Story = {
+  ...Drawer,
+  args: {
+    ...Drawer.args,
+    placement: 'bottom'
+  },
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `To make the drawer slide in from the bottom, set the <code>placement</code> attribute to <code>bottom</code>.`
+      }
+    }
+  }
+};
+
+export const ContainedToAnElement: Story = {
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `By default, drawers slide out of their [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block), which is usually the viewport. To make a drawer slide out of a parent element, add the <code>contained</code> attribute to the drawer and apply <code>position: relative</code> to its parent.
+
+Unlike normal drawers, contained drawers are not modal. This means they do not show an overlay, they do not trap focus, and they are not dismissible with <key>Escape</key>. This is intentional to allow users to interact with elements outside of the drawer.`
+      }
+    }
   },
   render: () => {
-    return html`<ug-drawer label="Drawer" class="drawer-overview">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    return html`<div
+        style="position: relative; border: solid 2px var(--ug-panel-border-color); height: 300px; padding: 1rem; margin-bottom: 1rem;"
+      >
+        The drawer will be contained to this box. This content won't shift or be
+        affected in any way when the drawer opens.
+
+        <ug-drawer
+          label="Drawer"
+          contained
+          class="drawer-contained"
+          style="--size: 50%;"
+        >
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          <ug-button slot="footer" variant="primary">Close</ug-button>
+        </ug-drawer>
+      </div>
+
+      <ug-button>Toggle Drawer</ug-button>
+
+      <script>
+        const drawer = document.querySelector('.drawer-contained');
+        const openButton = drawer.parentElement.nextElementSibling;
+        const closeButton = drawer.querySelector(
+          'ug-button[variant="primary"]'
+        );
+
+        openButton.addEventListener(
+          'click',
+          () => (drawer.open = !drawer.open)
+        );
+        closeButton.addEventListener('click', () => drawer.hide());
+      </script>`;
+  }
+};
+
+export const Scrolling: Story = {
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `By design, a drawer’s height will never exceed 100% of its container. As such, drawers will not scroll with the page to ensure the header and footer are always accessible to the user.`
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-drawer label="Drawer" class="drawer-scrolling">
+        <div
+          style="height: 150vh; border: dashed 2px var(--ug-color-neutral-200); padding: 0 1rem;"
+        >
+          <p>Scroll down and give it a try! 👇</p>
+        </div>
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-drawer>
 
       <ug-button>Open Drawer</ug-button>
 
       <script>
-        const drawer = document.querySelector('.drawer-overview');
+        const drawer = document.querySelector('.drawer-scrolling');
         const openButton = drawer.nextElementSibling;
         const closeButton = drawer.querySelector(
           'ug-button[variant="primary"]'
@@ -288,5 +407,46 @@ export const Drawer2: Story = {
         openButton.addEventListener('click', () => drawer.show());
         closeButton.addEventListener('click', () => drawer.hide());
       </script>`;
+  }
+};
+
+export const HeaderActions: Story = {
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `The header shows a functional close button by default. You can use the <code>header-actions</code> slot to add additional [icon buttons](?path=/docs/components-iconbutton--docs) if needed.`
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-drawer label="Drawer" class="drawer-header-actions">
+        <ug-icon-button
+          style="color: red;"
+          class="new-window"
+          slot="header-actions"
+          name="box-arrow-up-right"
+        ></ug-icon-button>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <ug-button slot="footer" variant="primary">Close</ug-button>
+      </ug-drawer>
+
+      <ug-button>Open Drawer</ug-button>
+
+      <script>
+        const drawer = document.querySelector('.drawer-header-actions');
+        const openButton = drawer.nextElementSibling;
+        const closeButton = drawer.querySelector(
+          'ug-button[variant="primary"]'
+        );
+        const newWindowButton = drawer.querySelector('.new-window');
+
+        openButton.addEventListener('click', () => drawer.show());
+        closeButton.addEventListener('click', () => drawer.hide());
+        newWindowButton.addEventListener('click', () =>
+          window.open(location.href)
+        );
+      </script> `;
   }
 };
