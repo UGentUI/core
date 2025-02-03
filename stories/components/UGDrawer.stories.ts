@@ -3,7 +3,9 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/drawer';
 import '/lib/components/button';
 import '/lib/components/icon';
-import '/lib/components/iconbutton';
+import '/lib/components/icon-button';
+import { userEvent, within } from '@storybook/test';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Drawer',
@@ -239,6 +241,25 @@ export default meta;
 
 type Story = StoryObj;
 
+const buttonAndScript = (drawerClass: string) => {
+  return html` <ug-button>Open Drawer</ug-button>
+    <script>
+      () => {
+        const drawer = document.querySelector('.${drawerClass}');
+        const openButton = drawer.parentElement.nextElementSibling;
+        const closeButton = drawer.querySelector(
+          'ug-button[variant="primary"]'
+        );
+
+        openButton.addEventListener(
+          'click',
+          () => (drawer.open = !drawer.open)
+        );
+        closeButton.addEventListener('click', () => drawer.hide());
+      };
+    </script>`;
+};
+
 export const Drawer: Story = {
   args: {
     open: false,
@@ -261,18 +282,7 @@ export const Drawer: Story = {
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-drawer>
 
-      <ug-button>Open Drawer</ug-button>
-
-      <script>
-        const drawer = document.querySelector('.drawer-overview');
-        const openButton = drawer.nextElementSibling;
-        const closeButton = drawer.querySelector(
-          'ug-button[variant="primary"]'
-        );
-
-        openButton.addEventListener('click', () => drawer.show());
-        closeButton.addEventListener('click', () => drawer.hide());
-      </script>`;
+      ${buttonAndScript('drawer-overview')} `;
   }
 };
 
@@ -357,21 +367,7 @@ Unlike normal drawers, contained drawers are not modal. This means they do not s
         </ug-drawer>
       </div>
 
-      <ug-button>Toggle Drawer</ug-button>
-
-      <script>
-        const drawer = document.querySelector('.drawer-contained');
-        const openButton = drawer.parentElement.nextElementSibling;
-        const closeButton = drawer.querySelector(
-          'ug-button[variant="primary"]'
-        );
-
-        openButton.addEventListener(
-          'click',
-          () => (drawer.open = !drawer.open)
-        );
-        closeButton.addEventListener('click', () => drawer.hide());
-      </script>`;
+      ${buttonAndScript('drawer-contained')} `;
   }
 };
 
@@ -395,18 +391,7 @@ export const Scrolling: Story = {
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-drawer>
 
-      <ug-button>Open Drawer</ug-button>
-
-      <script>
-        const drawer = document.querySelector('.drawer-scrolling');
-        const openButton = drawer.nextElementSibling;
-        const closeButton = drawer.querySelector(
-          'ug-button[variant="primary"]'
-        );
-
-        openButton.addEventListener('click', () => drawer.show());
-        closeButton.addEventListener('click', () => drawer.hide());
-      </script>`;
+      ${buttonAndScript('drawer-scrolling')} `;
   }
 };
 
@@ -435,18 +420,154 @@ export const HeaderActions: Story = {
       <ug-button>Open Drawer</ug-button>
 
       <script>
-        const drawer = document.querySelector('.drawer-header-actions');
-        const openButton = drawer.nextElementSibling;
-        const closeButton = drawer.querySelector(
-          'ug-button[variant="primary"]'
-        );
-        const newWindowButton = drawer.querySelector('.new-window');
+        () => {
+          const drawer = document.querySelector('.drawer-header-actions');
+          const openButton = drawer.nextElementSibling;
+          const closeButton = drawer.querySelector(
+            'ug-button[variant="primary"]'
+          );
+          const newWindowButton = drawer.querySelector('.new-window');
 
-        openButton.addEventListener('click', () => drawer.show());
-        closeButton.addEventListener('click', () => drawer.hide());
-        newWindowButton.addEventListener('click', () =>
-          window.open(location.href)
-        );
+          openButton.addEventListener('click', () => drawer.show());
+          closeButton.addEventListener('click', () => drawer.hide());
+          newWindowButton.addEventListener('click', () =>
+            window.open(location.href)
+          );
+        };
       </script> `;
+  }
+};
+
+export const PreventingTheDrawerFromClosing: Story = {
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `By default, drawers will close when the user clicks the close button, clicks the overlay, or presses the <key>Escape</key> key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
+
+To keep the drawer open in such cases, you can cancel the <code>ug-request-close</code> event. When canceled, the drawer will remain open and pulse briefly to draw the user’s attention to it.
+
+You can use <code>event.detail.source</code> to determine what triggered the request to close. This example prevents the drawer from closing when the overlay is clicked, but allows the close button or <key>Escape</key> to dismiss it.`
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-drawer label="Drawer" class="drawer-deny-close">
+        This drawer will not close when you click on the overlay.
+        <ug-button slot="footer" variant="primary">Close</ug-button>
+      </ug-drawer>
+
+      <ug-button>Open Drawer</ug-button>
+
+      <script>
+        () => {
+          const drawer = document.querySelector('.drawer-deny-close');
+          const openButton = drawer.nextElementSibling;
+          const closeButton = drawer.querySelector(
+            'ug-button[variant="primary"]'
+          );
+
+          openButton.addEventListener('click', () => drawer.show());
+          closeButton.addEventListener('click', () => drawer.hide());
+
+          // Prevent the drawer from closing when the user clicks on the overlay
+          drawer.addEventListener('ug-request-close', (event) => {
+            if (event.detail.source === 'overlay') {
+              event.preventDefault();
+            }
+          });
+        };
+      </script>`;
+  }
+};
+
+export const CustomizingInitialFocus: Story = {
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `By default, drawers will close when the user clicks the close button, clicks the overlay, or presses the <key>Escape</key> key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
+
+To keep the drawer open in such cases, you can cancel the <code>ug-request-close</code> event. When canceled, the drawer will remain open and pulse briefly to draw the user’s attention to it.
+
+You can use <code>event.detail.source</code> to determine what triggered the request to close. This example prevents the drawer from closing when the overlay is clicked, but allows the close button or <key>Escape</key> to dismiss it.
+
+You can further customize initial focus behavior by canceling the ug-initial-focus event and setting focus yourself inside the event handler.`
+      }
+    }
+  },
+  render: () => {
+    return html`<ug-drawer label="Drawer" class="drawer-deny-close">
+        This drawer will not close when you click on the overlay.
+        <ug-button slot="footer" variant="primary">Close</ug-button>
+      </ug-drawer>
+
+      <ug-button>Open Drawer</ug-button>
+
+      <script>
+        () => {
+          const drawer = document.querySelector('.drawer-deny-close');
+          const openButton = drawer.nextElementSibling;
+          const closeButton = drawer.querySelector(
+            'ug-button[variant="primary"]'
+          );
+
+          openButton.addEventListener('click', () => drawer.show());
+          closeButton.addEventListener('click', () => drawer.hide());
+
+          // Prevent the drawer from closing when the user clicks on the overlay
+          drawer.addEventListener('ug-request-close', (event) => {
+            if (event.detail.source === 'overlay') {
+              event.preventDefault();
+            }
+          });
+        };
+      </script>`;
+  }
+};
+
+export const DrawerWithEvents: Story = {
+  tags: ['!autodocs'],
+  parameters: {
+    // Disable controls for this story because its a predefined state of the component
+    controls: { disable: true }
+  },
+  render: (arg) => {
+    return html`<ug-drawer
+        label="Drawer"
+        class="drawer-overview"
+        ?open=${arg.open}
+        label=${arg.label}
+        placement=${arg.placement}
+        ?contained=${arg.contained}
+        ?noHeader=${arg.noHeader}
+        @ug-show="${action('ug-show')}"
+        @ug-after-show="${action('ug-after-show')}"
+        @ug-hide="${action('ug-hide')}"
+        @ug-after-hide="${action('ug-after-hide')}"
+        @ug-initial-focus="${action('ug-initial-focus')}"
+        @ug-request-close="${action('ug-request-close')}"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <ug-button slot="footer" variant="primary">Close</ug-button>
+      </ug-drawer>
+
+      ${buttonAndScript('drawer-overview')} `;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const openButton = canvas.getByText('Open Drawer');
+    const closeButton = canvas.getByText('Close');
+
+    // Simulate opening the drawer
+    await userEvent.click(openButton);
+    action('Drawer opened')();
+
+    // Simulate closing the drawer
+    await userEvent.click(closeButton);
+    action('Drawer closed')();
   }
 };
