@@ -6,6 +6,7 @@ import '/lib/components/option';
 import '/lib/components/input';
 import '/lib/components/switch';
 import '/lib/components/range';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/Popup',
@@ -27,8 +28,15 @@ Popup is a low-level utility built specifically for positioning elements. Do not
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code
-            .replace(/\s(default-attribute="value")/g, '')
-            .replace(/\s* attribute=""/g, ' attribute');
+            .replace(
+              /\s*(placement="top"|strategy="absolute"|distance="0"|skidding="0"|arrow-placement="anchor"|arrow-padding="10"|flip-fallback-strategy="best-fit"|flip-fallback-placements=""|flip-padding="0"|shift-padding="0"|auto-size-padding="0")/g,
+              ''
+            )
+            .replace(/\s* active=""/g, ' active')
+            .replace(/\s* flip=""/g, ' flip')
+            .replace(/\s* shift=""/g, ' shift')
+            .replace(/\s* arrow=""/g, ' arrow')
+            .replace(/\s* hover-bridge=""/g, ' hover-bridge');
         }
       }
     }
@@ -379,26 +387,56 @@ type Story = StoryObj;
 
 export const Popup: Story = {
   args: {
-    active: 'true',
-    placement: 'bottom',
+    popup: undefined,
+    anchor: undefined,
+    active: true,
+    placement: 'top',
     strategy: 'absolute',
-    flip: true,
-    shift: true,
-    autoSize: 'none',
-    distance: 10,
-    skidding: 0
+    distance: 0,
+    skidding: 0,
+    arrow: false,
+    arrowPlacement: 'anchor',
+    arrowPadding: 10,
+    flip: false,
+    flipFallbackPlacements: '',
+    flipFallbackStrategy: 'best-fit',
+    flipBoundary: undefined,
+    flipPadding: 0,
+    shift: false,
+    shiftBoundary: undefined,
+    shiftPadding: 0,
+    autoSize: false,
+    sync: false,
+    autoSizeBoundary: undefined,
+    autoSizePadding: 0,
+    hoverBridge: false
   },
   render: (args) => {
     return html`<div class="popup-default">
         <ug-popup
-          placement=${args.placement}
-          strategy=${args.strategy}
+          popup=${ifDefined(args.popup)}
+          anchor=${ifDefined(args.anchor)}
           ?active=${args.active}
-          ?flip=${args.flip}
-          ?shift=${args.shift}
-          auto-size=${args.autoSize}
+          placement=${ifDefined(args.placement)}
+          strategy=${args.strategy}
           distance=${args.distance}
           skidding=${args.skidding}
+          ?arrow=${args.arrow}
+          arrow-placement=${args.arrowPlacement}
+          arrow-padding=${args.arrowPadding}
+          flip-fallback-placements=${args.flipFallbackPlacements}
+          flip-fallback-strategy=${args.flipFallbackStrategy}
+          flipBoundary=${ifDefined(args.flipBoundary)}
+          flip-padding=${args.flipPadding}
+          ?flip=${args.flip}
+          ?shift=${args.shift}
+          shift-boundary=${ifDefined(args.shiftBoundary)}
+          ?shift-padding=${args.shiftPadding}
+          ?auto-size=${ifDefined(args.autoSize)}
+          ?sync=${ifDefined(args.sync)}
+          auto-size-boundary=${ifDefined(args.autoSizeBoundary)}
+          auto-size-padding=${args.autoSizePadding}
+          ?hoverBridge=${args.hoverBridge}
         >
           <span slot="anchor"></span>
           <div class="box"></div>
@@ -430,18 +468,6 @@ export const Popup: Story = {
           flex-wrap: wrap;
           align-items: end;
           gap: 1rem;
-        }
-
-        .popup-default-options ug-select {
-          width: 160px;
-        }
-
-        .popup-default-options ug-input {
-          width: 100px;
-        }
-
-        .popup-default-options + .popup-default-options {
-          margin-top: 1rem;
         }
       </style>`;
   }
