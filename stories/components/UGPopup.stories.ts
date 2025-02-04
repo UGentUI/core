@@ -389,23 +389,61 @@ export const Popup: Story = {
     skidding: 0
   },
   render: (args) => {
-    return html`<div class="popup-overview">
-      <ug-popup
-        active
-        anchor="popup-anchor"
-        placement=${args.placement}
-        strategy=${args.strategy}
-        ?active=${args.active}
-        ?flip=${args.flip}
-        ?shift=${args.shift}
-        auto-size=${args.autoSize}
-        distance=${args.distance}
-        skidding=${args.skidding}
-      >
-        <span slot="anchor"></span>
-        <div class="box"></div>
-      </ug-popup>
-    </div>`;
+    return html`<div class="popup-default">
+        <ug-popup
+          placement=${args.placement}
+          strategy=${args.strategy}
+          ?active=${args.active}
+          ?flip=${args.flip}
+          ?shift=${args.shift}
+          auto-size=${args.autoSize}
+          distance=${args.distance}
+          skidding=${args.skidding}
+        >
+          <span slot="anchor"></span>
+          <div class="box"></div>
+        </ug-popup>
+      </div>
+
+      <style>
+        .popup-default ug-popup {
+          --arrow-color: var(--ug-color-primary-600);
+        }
+
+        .popup-default span[slot='anchor'] {
+          display: inline-block;
+          width: 150px;
+          height: 150px;
+          border: dashed 2px var(--ug-color-neutral-600);
+          margin: 50px;
+        }
+
+        .popup-default .box {
+          width: 100px;
+          height: 50px;
+          background: var(--ug-color-primary-600);
+          border-radius: var(--ug-border-radius-medium);
+        }
+
+        .popup-default-options {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: end;
+          gap: 1rem;
+        }
+
+        .popup-default-options ug-select {
+          width: 160px;
+        }
+
+        .popup-default-options ug-input {
+          width: 100px;
+        }
+
+        .popup-default-options + .popup-default-options {
+          margin-top: 1rem;
+        }
+      </style>`;
   }
 };
 
