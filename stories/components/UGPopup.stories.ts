@@ -524,34 +524,36 @@ export const Positions: Story = {
       </div>
 
       <script>
-        const container = document.querySelector('.popup-overview');
-        const popup = container.querySelector('ug-popup');
-        const select = container.querySelector('ug-select[name="placement"]');
-        const distance = container.querySelector('ug-input[name="distance"]');
-        const skidding = container.querySelector('ug-input[name="skidding"]');
-        const active = container.querySelector('ug-switch[name="active"]');
-        const arrow = container.querySelector('ug-switch[name="arrow"]');
+        () => {
+          const container = document.querySelector('.popup-overview');
+          const popup = container.querySelector('ug-popup');
+          const select = container.querySelector('ug-select[name="placement"]');
+          const distance = container.querySelector('ug-input[name="distance"]');
+          const skidding = container.querySelector('ug-input[name="skidding"]');
+          const active = container.querySelector('ug-switch[name="active"]');
+          const arrow = container.querySelector('ug-switch[name="arrow"]');
 
-        select.addEventListener(
-          'ug-change',
-          () => (popup.placement = select.value)
-        );
-        distance.addEventListener(
-          'ug-input',
-          () => (popup.distance = distance.value)
-        );
-        skidding.addEventListener(
-          'ug-input',
-          () => (popup.skidding = skidding.value)
-        );
-        active.addEventListener(
-          'ug-change',
-          () => (popup.active = active.checked)
-        );
-        arrow.addEventListener(
-          'ug-change',
-          () => (popup.arrow = arrow.checked)
-        );
+          select.addEventListener(
+            'ug-change',
+            () => (popup.placement = select.value)
+          );
+          distance.addEventListener(
+            'ug-input',
+            () => (popup.distance = distance.value)
+          );
+          skidding.addEventListener(
+            'ug-input',
+            () => (popup.skidding = skidding.value)
+          );
+          active.addEventListener(
+            'ug-change',
+            () => (popup.active = active.checked)
+          );
+          arrow.addEventListener(
+            'ug-change',
+            () => (popup.arrow = arrow.checked)
+          );
+        };
       </script>
 
       <style>
@@ -636,14 +638,16 @@ export const Activating: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-active');
-        const popup = container.querySelector('ug-popup');
-        const active = container.querySelector('ug-switch');
+        () => {
+          const container = document.querySelector('.popup-active');
+          const popup = container.querySelector('ug-popup');
+          const active = container.querySelector('ug-switch');
 
-        active.addEventListener(
-          'ug-change',
-          () => (popup.active = active.checked)
-        );
+          active.addEventListener(
+            'ug-change',
+            () => (popup.active = active.checked)
+          );
+        };
       </script>`;
   }
 };
@@ -743,14 +747,16 @@ Since placement is preferred when using flip, you can observe the popup’s curr
       </style>
 
       <script>
-        const container = document.querySelector('.popup-placement');
-        const popup = container.querySelector('ug-popup');
-        const select = container.querySelector('ug-select');
+        () => {
+          const container = document.querySelector('.popup-placement');
+          const popup = container.querySelector('ug-popup');
+          const select = container.querySelector('ug-select');
 
-        select.addEventListener(
-          'ug-change',
-          () => (popup.placement = select.value)
-        );
+          select.addEventListener(
+            'ug-change',
+            () => (popup.placement = select.value)
+          );
+        };
       </script> `;
   }
 };
@@ -804,14 +810,16 @@ export const Distance: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-distance');
-        const popup = container.querySelector('ug-popup');
-        const distance = container.querySelector('ug-range');
+        () => {
+          const container = document.querySelector('.popup-distance');
+          const popup = container.querySelector('ug-popup');
+          const distance = container.querySelector('ug-range');
 
-        distance.addEventListener(
-          'ug-input',
-          () => (popup.distance = distance.value)
-        );
+          distance.addEventListener(
+            'ug-input',
+            () => (popup.distance = distance.value)
+          );
+        };
       </script> `;
   }
 };
@@ -865,14 +873,16 @@ export const Skidding: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-skidding');
-        const popup = container.querySelector('ug-popup');
-        const skidding = container.querySelector('ug-range');
+        () => {
+          const container = document.querySelector('.popup-skidding');
+          const popup = container.querySelector('ug-popup');
+          const skidding = container.querySelector('ug-range');
 
-        skidding.addEventListener(
-          'ug-input',
-          () => (popup.skidding = skidding.value)
-        );
+          skidding.addEventListener(
+            'ug-input',
+            () => (popup.skidding = skidding.value)
+          );
+        };
       </script> `;
   }
 };
@@ -972,22 +982,24 @@ By default, the arrow will be aligned as close to the center of the anchor as po
       </style>
 
       <script>
-        const container = document.querySelector('.popup-arrow');
-        const popup = container.querySelector('ug-popup');
-        const placement = container.querySelector('[name="placement"]');
-        const arrowPlacement = container.querySelector(
-          '[name="arrow-placement"]'
-        );
-        const arrow = container.querySelector('[name="arrow"]');
+        () => {
+          const container = document.querySelector('.popup-arrow');
+          const popup = container.querySelector('ug-popup');
+          const placement = container.querySelector('[name="placement"]');
+          const arrowPlacement = container.querySelector(
+            '[name="arrow-placement"]'
+          );
+          const arrow = container.querySelector('[name="arrow"]');
 
-        placement.addEventListener(
-          'ug-change',
-          () => (popup.placement = placement.value)
-        );
-        arrowPlacement.addEventListener(
-          'ug-change',
-          () => (popup.arrowPlacement = arrowPlacement.value)
-        );
+          placement.addEventListener(
+            'ug-change',
+            () => (popup.placement = placement.value)
+          );
+          arrowPlacement.addEventListener(
+            'ug-change',
+            () => (popup.arrowPlacement = arrowPlacement.value)
+          );
+        };
       </script>
     </div> `;
   }
@@ -1045,12 +1057,14 @@ export const SyncingWithTheAnchorsDimensions: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-sync');
-        const popup = container.querySelector('ug-popup');
-        const fixed = container.querySelector('ug-switch');
-        const sync = container.querySelector('ug-select');
+        () => {
+          const container = document.querySelector('.popup-sync');
+          const popup = container.querySelector('ug-popup');
+          const fixed = container.querySelector('ug-switch');
+          const sync = container.querySelector('ug-select');
 
-        sync.addEventListener('ug-change', () => (popup.sync = sync.value));
+          sync.addEventListener('ug-change', () => (popup.sync = sync.value));
+        };
       </script> `;
   }
 };
@@ -1065,7 +1079,7 @@ The fixed positioning strategy reduces jumpiness when the anchor is fixed and al
 
 In this example, you can see how the popup breaks out of the overflow container when it’s fixed. The fixed positioning strategy tends to be less performant than absolute, so avoid using it unnecessarily.
 
-Toggle the switch and scroll the container to see the difference.`
+Scroll the container to see the difference.`
       }
     },
     // Optional: Disable controls for this story
@@ -1076,12 +1090,12 @@ Toggle the switch and scroll the container to see the difference.`
         <div class="overflow">
           <ug-popup placement="top" strategy="fixed" active>
             <span slot="anchor"></span>
-            <div class="box"></div>
+            <div class="box"><div>Fixed</div></div>
           </ug-popup>
 
           <ug-popup placement="top" strategy="absolute" active>
             <span slot="anchor"></span>
-            <div class="box"></div>
+            <div class="box"><div>Not Fixed</div></div>
           </ug-popup>
         </div>
       </div>
@@ -1103,6 +1117,9 @@ Toggle the switch and scroll the container to see the difference.`
         }
 
         .popup-strategy .box {
+          color: white;
+          text-align: center;
+          margin: auto;
           width: 100px;
           height: 50px;
           background: var(--ug-color-primary-600);
@@ -1129,11 +1146,11 @@ Scroll the container to see how the popup flips to prevent clipping.`
         <div class="overflow">
           <ug-popup placement="top" flip active>
             <span slot="anchor"></span>
-            <div class="box"></div>
+            <div class="box">Flip</div>
           </ug-popup>
           <ug-popup placement="top" active>
             <span slot="anchor"></span>
-            <div class="box"></div>
+            <div class="box">Do not flip</div>
           </ug-popup>
         </div>
       </div>
@@ -1155,6 +1172,8 @@ Scroll the container to see how the popup flips to prevent clipping.`
         }
 
         .popup-flip .box {
+          color: white;
+          text-align: center;
           width: 100px;
           height: 50px;
           background: var(--ug-color-primary-600);
@@ -1232,14 +1251,16 @@ export const Shift: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-shift');
-        const popup = container.querySelector('ug-popup');
-        const shift = container.querySelector('ug-switch');
+        () => {
+          const container = document.querySelector('.popup-shift');
+          const popup = container.querySelector('ug-popup');
+          const shift = container.querySelector('ug-switch');
 
-        shift.addEventListener(
-          'ug-change',
-          () => (popup.shift = shift.checked)
-        );
+          shift.addEventListener(
+            'ug-change',
+            () => (popup.shift = shift.checked)
+          );
+        };
       </script> `;
   }
 };
@@ -1308,14 +1329,16 @@ Scroll the container to see the popup resize as its available space changes.`
       </style>
 
       <script>
-        const container = document.querySelector('.popup-auto-size');
-        const popup = container.querySelector('ug-popup');
-        const autoSize = container.querySelector('ug-switch');
+        () => {
+          const container = document.querySelector('.popup-auto-size');
+          const popup = container.querySelector('ug-popup');
+          const autoSize = container.querySelector('ug-switch');
 
-        autoSize.addEventListener(
-          'ug-change',
-          () => (popup.autoSize = autoSize.checked ? 'both' : '')
-        );
+          autoSize.addEventListener(
+            'ug-change',
+            () => (popup.autoSize = autoSize.checked ? 'both' : '')
+          );
+        };
       </script> `;
   }
 };
@@ -1390,24 +1413,30 @@ export const HoverBridge: Story = {
       </style>
 
       <script>
-        const container = document.querySelector('.popup-hover-bridge');
-        const popup = container.querySelector('ug-popup');
-        const hoverBridge = container.querySelector('ug-switch');
-        const distance = container.querySelector('ug-range[label="Distance"]');
-        const skidding = container.querySelector('ug-range[label="Skidding"]');
+        () => {
+          const container = document.querySelector('.popup-hover-bridge');
+          const popup = container.querySelector('ug-popup');
+          const hoverBridge = container.querySelector('ug-switch');
+          const distance = container.querySelector(
+            'ug-range[label="Distance"]'
+          );
+          const skidding = container.querySelector(
+            'ug-range[label="Skidding"]'
+          );
 
-        distance.addEventListener(
-          'ug-input',
-          () => (popup.distance = distance.value)
-        );
-        skidding.addEventListener(
-          'ug-input',
-          () => (popup.skidding = skidding.value)
-        );
-        hoverBridge.addEventListener(
-          'ug-change',
-          () => (popup.hoverBridge = hoverBridge.checked)
-        );
+          distance.addEventListener(
+            'ug-input',
+            () => (popup.distance = distance.value)
+          );
+          skidding.addEventListener(
+            'ug-input',
+            () => (popup.skidding = skidding.value)
+          );
+          hoverBridge.addEventListener(
+            'ug-change',
+            () => (popup.hoverBridge = hoverBridge.checked)
+          );
+        };
       </script> `;
   }
 };
@@ -1460,47 +1489,49 @@ const virtualElement = {
       </div>
 
       <script>
-        const container = document.querySelector('.popup-virtual-element');
-        const popup = container.querySelector('ug-popup');
-        const circle = container.querySelector('.circle');
-        const enabled = container.querySelector('ug-switch');
-        let clientX = 0;
-        let clientY = 0;
+        () => {
+          const container = document.querySelector('.popup-virtual-element');
+          const popup = container.querySelector('ug-popup');
+          const circle = container.querySelector('.circle');
+          const enabled = container.querySelector('ug-switch');
+          let clientX = 0;
+          let clientY = 0;
 
-        // Set the virtual element as a property
-        popup.anchor = {
-          getBoundingClientRect() {
-            return {
-              width: 0,
-              height: 0,
-              x: clientX,
-              y: clientY,
-              top: clientY,
-              left: clientX,
-              right: clientX,
-              bottom: clientY
-            };
+          // Set the virtual element as a property
+          popup.anchor = {
+            getBoundingClientRect() {
+              return {
+                width: 0,
+                height: 0,
+                x: clientX,
+                y: clientY,
+                top: clientY,
+                left: clientX,
+                right: clientX,
+                bottom: clientY
+              };
+            }
+          };
+
+          // Only activate the popup when the switch is checked
+          enabled.addEventListener('ug-change', () => {
+            popup.active = enabled.checked;
+          });
+
+          // Listen for the mouse to move
+          document.addEventListener('mousemove', handleMouseMove);
+
+          // Update the virtual element as the mouse moves
+          function handleMouseMove(event) {
+            clientX = event.clientX;
+            clientY = event.clientY;
+
+            // Reposition the popup when the virtual anchor moves
+            if (popup.active) {
+              popup.reposition();
+            }
           }
         };
-
-        // Only activate the popup when the switch is checked
-        enabled.addEventListener('ug-change', () => {
-          popup.active = enabled.checked;
-        });
-
-        // Listen for the mouse to move
-        document.addEventListener('mousemove', handleMouseMove);
-
-        // Update the virtual element as the mouse moves
-        function handleMouseMove(event) {
-          clientX = event.clientX;
-          clientY = event.clientY;
-
-          // Reposition the popup when the virtual anchor moves
-          if (popup.active) {
-            popup.reposition();
-          }
-        }
       </script>
 
       <style>
