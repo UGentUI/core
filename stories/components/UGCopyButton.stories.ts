@@ -287,6 +287,7 @@ export const CustomLabels: Story = {
     errorLabel: "Whoops, your browser doesn't support this!"
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -306,6 +307,7 @@ export const CustomIcons: Story = {
     errorIconSlot: 'Icon'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -325,6 +327,7 @@ export const CopyingValuesFromOtherElements: Story = {
     errorIconSlot: 'Icon'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Normally, the data that gets copied will come from the component’s <code>value</code> attribute, but you can copy data from any element within the same document by providing its <code>id</code> to the <code>from</code> attribute.
@@ -368,6 +371,7 @@ export const HandlingErrors: Story = {
     from: 'i-do-not-exist'
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `A copy error will occur if the value is an empty string, if the <code>from</code> attribute points to an id that doesn’t exist, or if the browser rejects the operation for any reason. When this happens, the <code>ug-error</code> event will be emitted.
@@ -386,6 +390,7 @@ export const Disabled: Story = {
     disabled: true
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `Copy buttons can be disabled by adding the <code>disabled</code> attribute.`
@@ -402,6 +407,7 @@ export const ChangingFeedbackDuration: Story = {
     feedbackDuration: 250
   },
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story: `A success indicator is briefly shown after copying. You can customize the length of time the indicator is shown using the <code>feedback-duration</code> attribute.`
@@ -411,6 +417,7 @@ export const ChangingFeedbackDuration: Story = {
 };
 
 export const CopyButtonWithEvents: Story = {
+  tags: ['!autodocs'],
   args: {
     value: 'Copy this text!',
     from: '',
