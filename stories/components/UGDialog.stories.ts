@@ -16,13 +16,7 @@ const meta: Meta = {
       subtitle:
         'Dialogs, sometimes called “modals”, appear above the page and require the user’s immediate attention.',
       source: {
-        format: true,
-        transform: (code: string) => {
-          // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code
-            .replace(/\s(default-attribute="value")/g, '')
-            .replace(/\s* attribute=""/g, ' attribute');
-        }
+        format: true
       }
     }
   },
