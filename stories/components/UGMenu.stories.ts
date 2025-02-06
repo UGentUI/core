@@ -73,6 +73,7 @@ export const Menu: Story = {
 
 export const InDropdown: Story = {
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -93,6 +94,7 @@ export const InDropdown: Story = {
 };
 export const MenuWithDivider: Story = {
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
@@ -112,6 +114,7 @@ export const MenuWithDivider: Story = {
 
 export const Submenus: Story = {
   parameters: {
+    controls: { disable: true },
     docs: {
       description: {
         story:
