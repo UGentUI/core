@@ -253,7 +253,9 @@ export const Disabled: Story = {
       description: {
         story: `Use the <code>disable</code> attribute to prevent the details from expanding.`
       }
-    }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
   }
 };
 
@@ -269,7 +271,9 @@ export const CustomizingTheSummaryIcon: Story = {
       description: {
         story: `Use the <code>expand-icon</code> and <code>collapse-icon</code> slots to change the expand and collapse icons, respectively.`
       }
-    }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
   }
 };
 
@@ -285,7 +289,9 @@ export const GroupingDetails: Story = {
       description: {
         story: `Details are designed to function independently, but you can simulate a group or “accordion” where only one is shown at a time by listening for the <code>ug-show</code> event.`
       }
-    }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
   },
   render: () => {
     return html`
@@ -335,6 +341,11 @@ export const GroupingDetails: Story = {
 };
 
 export const DetailsWithEvents: Story = {
+  tags: ['!autodocs'],
+  // Story-specific parameters
+  parameters: {
+    controls: { disable: true }
+  },
   args: {
     summary: 'Click to expand',
     open: false,
