@@ -17,7 +17,6 @@ const meta: Meta = {
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code
-            .replace(/\s(default-attribute="value")/g, '')
             .replace(/\s* open=""/g, ' open')
             .replace(/\s* disabled=""/g, ' disabled');
         }
