@@ -106,8 +106,8 @@ export const ButtonSizes: Story = {
   args: {
     label: 'Alignment'
   },
-  render: () => {
-    return html`<ug-button-group label="Alignment">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}">
         <ug-button size="small">Left</ug-button>
         <ug-button size="small">Center</ug-button>
         <ug-button size="small">Right</ug-button>
@@ -115,7 +115,7 @@ export const ButtonSizes: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button size="medium">Left</ug-button>
         <ug-button size="medium">Center</ug-button>
         <ug-button size="medium">Right</ug-button>
@@ -123,7 +123,7 @@ export const ButtonSizes: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button size="large">Left</ug-button>
         <ug-button size="large">Center</ug-button>
         <ug-button size="large">Right</ug-button>
@@ -144,8 +144,8 @@ export const ThemeButtons: Story = {
   args: {
     label: 'Alignment'
   },
-  render: () => {
-    return html`<ug-button-group label="Alignment">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}">
         <ug-button variant="primary">Left</ug-button>
         <ug-button variant="primary">Center</ug-button>
         <ug-button variant="primary">Right</ug-button>
@@ -153,7 +153,7 @@ export const ThemeButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button variant="success">Left</ug-button>
         <ug-button variant="success">Center</ug-button>
         <ug-button variant="success">Right</ug-button>
@@ -161,7 +161,7 @@ export const ThemeButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button variant="neutral">Left</ug-button>
         <ug-button variant="neutral">Center</ug-button>
         <ug-button variant="neutral">Right</ug-button>
@@ -169,7 +169,7 @@ export const ThemeButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button variant="warning">Left</ug-button>
         <ug-button variant="warning">Center</ug-button>
         <ug-button variant="warning">Right</ug-button>
@@ -177,7 +177,7 @@ export const ThemeButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button variant="danger">Left</ug-button>
         <ug-button variant="danger">Center</ug-button>
         <ug-button variant="danger">Right</ug-button>
@@ -198,8 +198,8 @@ export const PillButtons: Story = {
   args: {
     label: 'Alignment'
   },
-  render: () => {
-    return html`<ug-button-group label="Alignment">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}">
         <ug-button size="small" pill>Left</ug-button>
         <ug-button size="small" pill>Center</ug-button>
         <ug-button size="small" pill>Right</ug-button>
@@ -207,7 +207,7 @@ export const PillButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button size="medium" pill>Left</ug-button>
         <ug-button size="medium" pill>Center</ug-button>
         <ug-button size="medium" pill>Right</ug-button>
@@ -215,7 +215,7 @@ export const PillButtons: Story = {
 
       <br /><br />
 
-      <ug-button-group label="Alignment">
+      <ug-button-group label="${args.label}">
         <ug-button size="large" pill>Left</ug-button>
         <ug-button size="large" pill>Center</ug-button>
         <ug-button size="large" pill>Right</ug-button>
@@ -234,10 +234,10 @@ export const DropdownsInButtonGroups: Story = {
     controls: { disable: true }
   },
   args: {
-    label: 'Alignment'
+    label: 'Example Button Group'
   },
-  render: () => {
-    return html`<ug-button-group label="Example Button Group">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}>
       <ug-button>Button</ug-button>
       <ug-button>Button</ug-button>
       <ug-dropdown hoist>
@@ -265,8 +265,8 @@ export const SplitButtons: Story = {
   args: {
     label: 'Example Button Group'
   },
-  render: () => {
-    return html`<ug-button-group label="Example Button Group">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}">
       <ug-button variant="primary">Save</ug-button>
       <ug-dropdown placement="bottom-end" hoist>
         <ug-button slot="trigger" variant="primary" caret>
@@ -293,10 +293,10 @@ export const TooltipsInButtonGroups: Story = {
     controls: { disable: true }
   },
   args: {
-    label: 'Example Button Group'
+    label: 'Alignment'
   },
-  render: () => {
-    return html`<ug-button-group label="Alignment">
+  render: (args) => {
+    return html`<ug-button-group label="${args.label}">
       <ug-tooltip content="I'm on the left">
         <ug-button>Left</ug-button>
       </ug-tooltip>
@@ -322,7 +322,7 @@ export const ToolbarExample: Story = {
     controls: { disable: true }
   },
   args: {
-    label: 'Example Button Group'
+    label: 'History'
   },
   render: () => {
     return html`<div class="button-group-toolbar">
