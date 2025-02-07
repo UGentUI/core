@@ -67,7 +67,7 @@ const meta: Meta = {
     defaultSlot: {
       name: '(default)',
       description: "The details' main content.",
-      control: false, // Slots are not controlled in the Storybook UI
+      control: 'text',
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -89,7 +89,8 @@ const meta: Meta = {
       name: 'expand-icon',
       description:
         'Optional expand icon to use instead of the default. Works best with `<ug-icon>`.',
-      control: false,
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
@@ -100,7 +101,8 @@ const meta: Meta = {
       name: 'collapse-icon',
       description:
         'Optional collapse icon to use instead of the default. Works best with `<ug-icon>`.',
-      control: false,
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
