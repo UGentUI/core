@@ -1,11 +1,28 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/breadcrumb-item';
+import '/lib/components/icon';
+import '/lib/components/icon-button';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/BreadcrumbItem',
   component: 'ug-breadcrumb-item',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Breadcrumb Items are used inside [breadcrumbs](?path=/docs/components-breadcrumb--docs) to represent different links.'
+      },
+      source: {
+        format: true,
+        transform: (code: string) => {
+          // Remove empty/default attributes and replace boolean attributes from the source code display
+          return code.replace(/\s(rel="noreferrer noopener")/g, '');
+        }
+      }
+    }
+  },
 
   argTypes: {
     href: {
@@ -120,21 +137,23 @@ export const BreadcrumbItem: Story = {
     suffixSlot: undefined,
     separatorSlot: undefined
   },
+  //prettier-ignore
   render: (args) => {
-    return html`<ug-breadcrumb>
+    return html`
+    <ug-breadcrumb>
       <ug-breadcrumb-item
         href="${ifDefined(args.href)}"
         target="${ifDefined(args.target)}"
         rel="${args.rel}"
         >${args.prefixSlot == 'Icon'
-          ? html`<ug-icon slot="prefix" name="gear"></ug-icon>`
+          ? html`
+        <ug-icon slot="prefix" name="house"></ug-icon>`
           : null}${args.suffixSlot == 'Icon'
-          ? html`<ug-icon
-              slot="suffix"
-              name="arrow-counterclockwise"
-            ></ug-icon>`
+          ? html`
+        <ug-icon slot="suffix" name="shield-lock"></ug-icon>`
           : null}${args.separatorSlot
-          ? html`<span slot="separator">${args.separatorSlot}</span>`
+          ? html`
+        <span slot="separator">${args.separatorSlot}</span>`
           : null}
         ${ifDefined(args.defaultSlot)}
       </ug-breadcrumb-item>
