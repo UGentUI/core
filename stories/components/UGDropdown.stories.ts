@@ -505,24 +505,19 @@ export const DropdownWithEvents: Story = {
     }
   },
   render: () =>
-    html`<style>
-        .dropdown {
-          margin: 10px;
-        }
-      </style>
-      <div>
-        <ug-dropdown
-          data-testid="dropdown-test"
-          class="dropdown"
-          placement="bottom-start"
-          @ug-show="${action('ug-show')}"
-          @ug-after-show="${action('ug-after-show')}"
-          @ug-hide="${action('ug-hide')}"
-          @ug-after-hide="${action('ug-after-hide')}"
-        >
-          ${shortDropdownContent('Dropdown')}
-        </ug-dropdown>
-      </div>`,
+    html` <div>
+      <ug-dropdown
+        data-testid="dropdown-test"
+        class="dropdown"
+        placement="bottom-start"
+        @ug-show="${action('ug-show')}"
+        @ug-after-show="${action('ug-after-show')}"
+        @ug-hide="${action('ug-hide')}"
+        @ug-after-hide="${action('ug-after-hide')}"
+      >
+        ${shortDropdownContent('Dropdown')}
+      </ug-dropdown>
+    </div>`,
   play: async ({ canvasElement }) => {
     // Get the dropdown inside the Storybook canvas
     const canvas = within(canvasElement);
