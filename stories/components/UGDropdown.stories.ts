@@ -330,6 +330,9 @@ export const Placements: Story = {
         .dropdown {
           margin: 10px;
         }
+        ug-button {
+          width: -webkit-fill-available;
+        }
       </style>
       <div class="placements">
         ${PLACEMENT_OPTIONS.map(
