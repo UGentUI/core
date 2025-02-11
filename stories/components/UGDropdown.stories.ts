@@ -51,12 +51,14 @@ function longDropdownContent(triggerLabel: string) {
 }
 
 function shortDropdownContent(triggerLabel: string) {
-  return html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>
-    <ug-menu>
-      <ug-menu-item>Cut</ug-menu-item>
-      <ug-menu-item>Copy</ug-menu-item>
-      <ug-menu-item>Paste</ug-menu-item>
-    </ug-menu>`;
+  //prettier-ignore
+  return html`
+        <ug-button slot="trigger" caret>${triggerLabel}</ug-button>
+        <ug-menu>
+          <ug-menu-item>Cut</ug-menu-item>
+          <ug-menu-item>Copy</ug-menu-item>
+          <ug-menu-item>Paste</ug-menu-item>
+        </ug-menu>`;
 }
 
 const meta: Meta = {
@@ -368,27 +370,28 @@ export const Placements: Story = {
     }
   },
   render: () =>
-    html`<style>
-        .placements {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          padding: 120px;
-        }
-        .dropdown {
-          margin: 10px;
-        }
-        ug-button {
-          width: -webkit-fill-available;
-        }
-      </style>
-      <div class="placements">
-        ${PLACEMENT_OPTIONS.map(
-          (placement) =>
-            html`<ug-dropdown class="dropdown" placement="${placement}">
-              ${shortDropdownContent(`Dropdown with ${placement} placement`)}
-            </ug-dropdown>`
-        )}
-      </div>`
+    //prettier-ignore
+    html`
+    <style>
+    .placements {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      padding: 120px;
+    }
+    .dropdown {
+      margin: 10px;
+    }
+    ug-button {
+      width: -webkit-fill-available;
+    }
+    </style>
+    <div class="placements">${PLACEMENT_OPTIONS.map((placement) =>
+            html`
+      <ug-dropdown class="dropdown" placement="${placement}">${shortDropdownContent(`Dropdown with ${placement} placement`)}
+      </ug-dropdown>
+      `
+      )}
+    </div>`
 };
 
 export const Distance: Story = {
