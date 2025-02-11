@@ -310,13 +310,48 @@ export const DefaultDropdown: Story = {
     </ug-dropdown>`
 };
 
+export const GettingTheSelectedItem: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `When dropdowns are used with [menus](?path=/docs/components-menu--docs), you can listen for the ug-select event to determine which menu item was selected. The menu item element will be exposed in <code>event.detail.item</code>. You can set <code>value</code> props to make it easier to identify commands.`
+      }
+    }
+  },
+  render: () =>
+    html`<div class="dropdown-selection">
+        <ug-dropdown>
+          <ug-button slot="trigger" caret>Edit</ug-button>
+          <ug-menu>
+            <ug-menu-item value="cut">Cut</ug-menu-item>
+            <ug-menu-item value="copy">Copy</ug-menu-item>
+            <ug-menu-item value="paste">Paste</ug-menu-item>
+          </ug-menu>
+        </ug-dropdown>
+      </div>
+
+      <script>
+        () => {
+          const container = document.querySelector('.dropdown-selection');
+          const dropdown = container.querySelector('ug-dropdown');
+
+          dropdown.addEventListener('ug-select', (event) => {
+            const selectedItem = event.detail.item;
+            alert(selectedItem.value);
+          });
+        };
+      </script>`
+};
+
 export const Placements: Story = {
   args: {},
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: `The preferred placement of the dropdown can be set with the placement attribute. Note that the actual position may vary to ensure the panel remains in the viewport.`
+        story: `The preferred placement of the dropdown can be set with the <code>placement</code> attribute. Note that the actual position may vary to ensure the panel remains in the viewport.`
       }
     }
   },
