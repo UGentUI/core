@@ -81,7 +81,7 @@ const meta: Meta = {
   argTypes: {
     open: {
       description:
-        'Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you can use the <code>show()</code> and <code>hide()</code> methods and this attribute will reflect the dropdown’s open state.',
+        'Indicates whether or not the dropdown is open. You can toggle this attribute to show and hide the dropdown, or you can use the <code>show()</code> and <code>hide()</code> methods and this attribute will reflect the dropdown’s open state.<br>`reflects: true`',
       control: 'boolean',
       table: {
         category: 'attributes',
@@ -92,7 +92,7 @@ const meta: Meta = {
       control: 'select',
       options: PLACEMENT_OPTIONS,
       description:
-        'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.',
+        'The preferred placement of the dropdown panel. Note that the actual placement may vary as needed to keep the panel inside of the viewport.<br>`reflects: true`',
       table: {
         category: 'attributes',
         type: {
@@ -102,7 +102,8 @@ const meta: Meta = {
       }
     },
     disabled: {
-      description: 'Disables the dropdown so the panel will not open.',
+      description:
+        'Disables the dropdown so the panel will not open.<br>`reflects: true`',
       control: 'boolean',
       table: {
         category: 'attributes',
@@ -110,8 +111,9 @@ const meta: Meta = {
       }
     },
     stayOpenOnSelect: {
+      name: 'stay-open-on-select',
       description:
-        'By default, the dropdown is closed when an item is selected. This attribute will keep it open instead. Useful for dropdowns that allow for multiple interactions.',
+        'By default, the dropdown is closed when an item is selected. This attribute will keep it open instead. Useful for dropdowns that allow for multiple interactions.<br>`reflects: true`',
       control: 'boolean',
       table: {
         category: 'attributes',
@@ -149,13 +151,23 @@ const meta: Meta = {
       control: 'select',
       options: SYNC_OPTIONS,
       description:
-        'Syncs the popup width or height to that of the trigger element.',
+        'Syncs the popup width or height to that of the trigger element.<br>`reflects: true`',
       table: {
         category: 'attributes',
         type: {
           summary: SYNC_OPTIONS.map((v) => '' + v).join(' | ')
         },
         defaultValue: { summary: 'undefined' }
+      }
+    },
+    updateComplete: {
+      description:
+        'A read-only promise that resolves when the component has finished updating.',
+      control: { disable: true }, // Read-only getter, not editable via Storybook controls
+      table: {
+        category: 'attributes',
+        type: { summary: 'Promise<void>' },
+        defaultValue: { summary: undefined }
       }
     },
     defaultSlot: {
