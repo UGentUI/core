@@ -12,7 +12,10 @@ export default meta;
 type Story = StoryObj;
 
 export const ProgressRing: Story = {
-  render: () => {
-    return html`<ug-progress-ring value="25"></ug-progress-ring>`;
+  args: { value: 0, label: '', defaultSlot: undefined },
+  render: (args) => {
+    return html`<ug-progress-ring value="${args.value}" label="${args.label}">
+      ${args.defaultSlot}
+    </ug-progress-ring>`;
   }
 };
