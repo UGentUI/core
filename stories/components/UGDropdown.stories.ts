@@ -7,6 +7,7 @@ import '/lib/components/menu-item';
 import '/lib/components/divider';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/test';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 const PLACEMENT_OPTIONS = [
   'top',
@@ -26,26 +27,27 @@ const PLACEMENT_OPTIONS = [
 const SYNC_OPTIONS = ['width', 'height', 'both', undefined];
 
 function longDropdownContent(triggerLabel: string) {
+  //prettier-ignore
   return html`${triggerLabel
       ? html`<ug-button slot="trigger" caret>${triggerLabel}</ug-button>`
       : html`<ug-button slot="trigger" caret>Dropdown</ug-button>`}
-    <ug-menu>
-      <ug-menu-item>Dropdown Item 1</ug-menu-item>
-      <ug-menu-item>Dropdown Item 2</ug-menu-item>
-      <ug-menu-item>Dropdown Item 3</ug-menu-item>
-      <ug-divider></ug-divider>
-      <ug-menu-item type="checkbox" checked>Checkbox</ug-menu-item>
-      <ug-menu-item disabled>Disabled</ug-menu-item>
-      <ug-divider></ug-divider>
-      <ug-menu-item>
-        Prefix
-        <ug-icon slot="prefix" name="gift"></ug-icon>
-      </ug-menu-item>
-      <ug-menu-item>
-        Suffix Icon
-        <ug-icon slot="suffix" name="heart"></ug-icon>
-      </ug-menu-item>
-    </ug-menu>`;
+        <ug-menu>
+          <ug-menu-item>Dropdown Item 1</ug-menu-item>
+          <ug-menu-item>Dropdown Item 2</ug-menu-item>
+          <ug-menu-item>Dropdown Item 3</ug-menu-item>
+          <ug-divider></ug-divider>
+          <ug-menu-item type="checkbox" checked>Checkbox</ug-menu-item>
+          <ug-menu-item disabled>Disabled</ug-menu-item>
+          <ug-divider></ug-divider>
+          <ug-menu-item>
+            Prefix
+            <ug-icon slot="prefix" name="gift"></ug-icon>
+          </ug-menu-item>
+          <ug-menu-item>
+            Suffix Icon
+            <ug-icon slot="suffix" name="heart"></ug-icon>
+          </ug-menu-item>
+        </ug-menu>`;
 }
 
 function shortDropdownContent(triggerLabel: string) {
@@ -65,7 +67,16 @@ const meta: Meta = {
       subtitle:
         'Dropdowns expose additional content that “drops down” in a panel.',
       source: {
-        format: true
+        format: true,
+        transform: (code: string) => {
+          // Remove empty/default attributes and replace boolean attributes from the source code display
+          return code
+            .replace(
+              /\s*( placement="bottom-start"| skidding="0"| distance="0")/g,
+              ''
+            )
+            .replace(/\s* hoist=""/g, ' hoist');
+        }
       }
     }
   },
@@ -305,7 +316,7 @@ export const Dropdown: Story = {
       distance="${args.distance}"
       skidding="${args.skidding}"
       ?hoist="${args.hoist}"
-      sync="${args.sync}"
+      sync="${ifDefined(args.sync)}"
     >
       ${longDropdownContent(`${args.triggerSlot}`)}
     </ug-dropdown>`
