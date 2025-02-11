@@ -6,6 +6,7 @@ import '/lib/components/menu';
 import '/lib/components/menu-item';
 import '/lib/components/divider';
 import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 const PLACEMENT_OPTIONS = [
   'top',
@@ -511,6 +512,7 @@ export const DropdownWithEvents: Story = {
       </style>
       <div>
         <ug-dropdown
+          data-testid="dropdown-test"
           class="dropdown"
           placement="bottom-start"
           @ug-show="${action('ug-show')}"
@@ -520,5 +522,26 @@ export const DropdownWithEvents: Story = {
         >
           ${shortDropdownContent('Dropdown')}
         </ug-dropdown>
-      </div>`
+      </div>`,
+  play: async ({ canvasElement }) => {
+    // Get the dropdown inside the Storybook canvas
+    const canvas = within(canvasElement);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    const dropdown = canvas.getByTestId('dropdown-test'); // Make sure to add `data-testid="dropdown-test"` in your story
+
+    // Access the trigger button inside <ug-dropdown>
+    const button = dropdown.querySelector('ug-button');
+
+    // The trigger itself might be inside another Shadow DOM
+    const shadowButton = button!.shadowRoot!.querySelector('button')!;
+
+    // Open dropdown
+    await userEvent.click(shadowButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    // Close dropdown
+    await userEvent.click(shadowButton);
+  }
 };
