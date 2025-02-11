@@ -275,7 +275,7 @@ export default meta;
 
 type Story = StoryObj;
 
-export const DefaultDropdown: Story = {
+export const Dropdown: Story = {
   args: {
     placement: 'bottom-start',
     open: false,
@@ -322,7 +322,7 @@ export const GettingTheSelectedItem: Story = {
   },
   render: () =>
     html`<div class="dropdown-selection">
-        <ug-dropdown>
+        <ug-dropdown hoist>
           <ug-button slot="trigger" caret>Edit</ug-button>
           <ug-menu>
             <ug-menu-item value="cut">Cut</ug-menu-item>
@@ -379,7 +379,121 @@ export const Placements: Story = {
       </div>`
 };
 
+export const Distance: Story = {
+  ...Dropdown,
+  args: {
+    ...Dropdown.args,
+    distance: 30
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `The distance from the panel to the trigger can be customized using the <code>distance</code> attribute. This value is specified in pixels.`
+      }
+    }
+  }
+};
+
+export const Skidding: Story = {
+  ...Dropdown,
+  args: {
+    ...Dropdown.args,
+    skidding: 30
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `The offset of the panel along the trigger can be customized using the <code>skidding</code> attribute. This value is specified in pixels.`
+      }
+    }
+  }
+};
+
+export const Submenus: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `To create a submenu, nest an <code><ug-menu slot="submenu"></code> element in a [menu item](?path=/docs/components-menuitem--docs). As a UX best practice, avoid using more than one level of submenu when possible. `
+      }
+    }
+  },
+  render: () =>
+    html`<ug-dropdown hoist>
+      <ug-button slot="trigger" caret>Edit</ug-button>
+
+      <ug-menu style="max-width: 200px;">
+        <ug-menu-item value="undo">Undo</ug-menu-item>
+        <ug-menu-item value="redo">Redo</ug-menu-item>
+        <ug-divider></ug-divider>
+        <ug-menu-item value="cut">Cut</ug-menu-item>
+        <ug-menu-item value="copy">Copy</ug-menu-item>
+        <ug-menu-item value="paste">Paste</ug-menu-item>
+        <ug-divider></ug-divider>
+        <ug-menu-item>
+          Find
+          <ug-menu slot="submenu">
+            <ug-menu-item value="find">Find…</ug-menu-item>
+            <ug-menu-item value="find-previous">Find Next</ug-menu-item>
+            <ug-menu-item value="find-next">Find Previous</ug-menu-item>
+          </ug-menu>
+        </ug-menu-item>
+        <ug-menu-item>
+          Transformations
+          <ug-menu slot="submenu">
+            <ug-menu-item value="uppercase">Make uppercase</ug-menu-item>
+            <ug-menu-item value="lowercase">Make lowercase</ug-menu-item>
+            <ug-menu-item value="capitalize">Capitalize</ug-menu-item>
+          </ug-menu>
+        </ug-menu-item>
+      </ug-menu>
+    </ug-dropdown> `
+};
+
+export const Hoisting: Story = {
+  args: {},
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story: `Dropdown panels will be clipped if they’re inside a container that has <code>overflow: auto|hidden</code>. The <code>hoist</code> attribute forces the panel to use a fixed positioning strategy, allowing it to break out of the container. In this case, the panel will be positioned relative to its [containing block](https://developer.mozilla.org/en-US/docs/Web/CSS/Containing_block#identifying_the_containing_block), which is usually the viewport unless an ancestor uses a <code>transform</code>, <code>perspective</code>, or <code>filter</code>. [Refer to this page](https://developer.mozilla.org/en-US/docs/Web/CSS/position#fixed) for more details.`
+      }
+    }
+  },
+  render: () =>
+    html`<div class="dropdown-hoist">
+        <ug-dropdown>
+          <ug-button slot="trigger" caret>No Hoist</ug-button>
+          <ug-menu>
+            <ug-menu-item>Item 1</ug-menu-item>
+            <ug-menu-item>Item 2</ug-menu-item>
+            <ug-menu-item>Item 3</ug-menu-item>
+          </ug-menu>
+        </ug-dropdown>
+
+        <ug-dropdown hoist>
+          <ug-button slot="trigger" caret>Hoist</ug-button>
+          <ug-menu>
+            <ug-menu-item>Item 1</ug-menu-item>
+            <ug-menu-item>Item 2</ug-menu-item>
+            <ug-menu-item>Item 3</ug-menu-item>
+          </ug-menu>
+        </ug-dropdown>
+      </div>
+
+      <style>
+        .dropdown-hoist {
+          position: relative;
+          border: solid 2px var(--ug-panel-border-color);
+          padding: var(--ug-spacing-medium);
+          overflow: hidden;
+        }
+      </style>`
+};
+
 export const DropdownWithEvents: Story = {
+  tags: ['!autodocs'],
   args: {},
   parameters: {
     controls: { disable: true },
