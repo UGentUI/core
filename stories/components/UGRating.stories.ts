@@ -3,6 +3,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/rating';
 import '/lib/components/icon';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { action } from '@storybook/addon-actions';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Rating',
@@ -432,5 +434,36 @@ export const ValueBasedIcons: Story = {
         };
       </script>
     `;
+  }
+};
+
+export const RatingWithEvents: Story = {
+  tags: ['!autodocs'],
+  render: () => {
+    return html`<ug-rating
+      data-testid="rating"
+      @ug-change=${action('ug-change')}
+      @ug-hover=${action('ug-hover')}
+    ></ug-rating>`;
+  },
+  play: ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const rating = canvas.getByTestId('rating'); // Shoelace rating component uses a radiogroup
+
+    // Find all star buttons inside the rating component
+    const shadowRoot = rating.shadowRoot!;
+    const stars = shadowRoot.querySelectorAll('.rating__symbol ug-icon');
+
+    // Click each star in sequence to trigger events
+    /*for (const star of stars) {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      await userEvent.hover(star); // Simulate hover
+      await userEvent.click(star); // Simulate click
+    }*/
+    for (const star of stars) {
+      star.dispatchEvent(
+        new MouseEvent('click', { bubbles: true, composed: true })
+      );
+    }
   }
 };
