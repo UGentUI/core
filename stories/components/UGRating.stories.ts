@@ -16,8 +16,9 @@ const meta: Meta = {
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code
-            .replace(/\s(default-attribute="value")/g, '')
-            .replace(/\s* attribute=""/g, ' attribute');
+            .replace(/\s*(label=""|value="3"|max="5"|precision="1")/g, '')
+            .replace(/\s* readonly=""/g, ' readonly')
+            .replace(/\s* disabled=""/g, ' disabled');
         }
       }
     }
