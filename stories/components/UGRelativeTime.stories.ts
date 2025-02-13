@@ -18,8 +18,8 @@ const meta: Meta = {
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code
-            .replace(/\s(default-attribute="value")/g, '')
-            .replace(/\s* attribute=""/g, ' attribute');
+            .replace(/\s*(format="long"|numeric="auto")/g, '')
+            .replace(/\s* sync=""/g, ' sync');
         }
       }
     }
@@ -101,7 +101,8 @@ export const RelativeTime: Story = {
     date: new Date().toISOString(), // Default to current date/time
     format: 'long',
     numeric: 'auto',
-    lang: 'en'
+    lang: 'en',
+    sync: false
   },
   render: (args) => {
     // Ensure `date` is properly converted to a valid ISO string
