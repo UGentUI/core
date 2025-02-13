@@ -156,6 +156,17 @@ const meta: Meta = {
         defaultValue: { summary: 'undefined' }
       },
       control: false
+    },
+    lang: {
+      description: `Gets or sets the base language of an element's attribute values and text content.
+      
+The language code returned by this property is defined in [RFC 5646: Tags for Identifying Languages (also known as BCP 47)](https://datatracker.ietf.org/doc/html/rfc5646). Common examples include "en" for English, "ja" for Japanese, "es" for Spanish and so on. The default value of this attribute is unknown. Note that this attribute, though valid at the individual element level described here, is most often specified for the root element of the document.`,
+      control: 'text',
+      table: {
+        category: 'Relevant HTMLElement properties',
+        type: { summary: 'string' },
+        defaultValue: { summary: 'unknown' }
+      }
     }
   }
 };
