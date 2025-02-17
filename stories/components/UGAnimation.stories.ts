@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/animation';
 import '/lib/components/button';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Animation',
@@ -584,4 +585,53 @@ export const PlayingAnimationsOnDemand: Story = {
         });
         //};
       </script>`
+};
+
+export const AnimationWithEvents: Story = {
+  args: {
+    name: 'swing',
+    duration: 1000,
+    play: true,
+    easing: 'linear',
+    delay: 0,
+    direction: 'normal',
+    endDelay: 0,
+    fill: 'auto',
+    iterations: 1,
+    iterationStart: 0,
+    keyframes: undefined,
+    playbackRate: 1,
+    currentTime: undefined
+  },
+  render: (args) => {
+    return html` <ug-animation
+        name="${ifDefined(args.name)}"
+        duration="${args.duration}"
+        ?play="${args.play}"
+        easing="${args.easing}"
+        delay="${args.delay}"
+        direction="${args.direction}"
+        endDelay="${args.endDelay}"
+        fill="${args.fill}"
+        iterations="${args.iterations}"
+        iterationStart="${args.iterationStart}"
+        keyframes="${ifDefined(args.keyframes)}"
+        playbackRate="${args.playbackRate}"
+        currentTime="${ifDefined(args.currentTime)}"
+        @ug-start="${action('ug-start')}"
+        @ug-finish="${action('ug-finish')}"
+        @ug-cancel="${action('ug-cancel')}"
+        ><div class="box"></div
+      ></ug-animation>
+
+      <style>
+        .box {
+          display: inline-block;
+          width: 100px;
+          height: 100px;
+          background-color: var(--ug-color-primary-600);
+          margin: 1.5rem;
+        }
+      </style>`;
+  }
 };
