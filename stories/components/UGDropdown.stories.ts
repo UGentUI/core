@@ -68,6 +68,10 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Dropdowns expose additional content that “drops down” in a panel.',
+      description: {
+        component:
+          'Dropdowns consist of a trigger and a panel. By default, activating the trigger will expose the panel and interacting outside of the panel will close it. Dropdowns are designed to work well with <a href="?path=/docs/components-menu--docs">menus</a> to provide a list of options the user can select from. The API gives you complete control over showing, hiding, and positioning the panel.'
+      },
       source: {
         format: true,
         transform: (code: string) => {
@@ -77,7 +81,8 @@ const meta: Meta = {
               /\s*( placement="bottom-start"| skidding="0"| distance="0")/g,
               ''
             )
-            .replace(/\s* hoist=""/g, ' hoist');
+            .replace(/\s* hoist=""/g, ' hoist')
+            .replace(/\s* caret=""/g, ' caret');
         }
       }
     }
@@ -185,7 +190,7 @@ const meta: Meta = {
       }
     },
     defaultSlot: {
-      control: 'text',
+      control: false,
       description: 'The dropdown’s main content.',
       table: {
         category: 'slots',
@@ -194,7 +199,7 @@ const meta: Meta = {
       }
     },
     triggerSlot: {
-      control: 'text',
+      control: false,
       description: 'The dropdown’s trigger, usually a <ug-button> element.',
       table: {
         category: 'slots',
@@ -347,15 +352,14 @@ export const GettingTheSelectedItem: Story = {
       </div>
 
       <script>
-        () => {
+        (() => {
           const container = document.querySelector('.dropdown-selection');
           const dropdown = container.querySelector('ug-dropdown');
-
           dropdown.addEventListener('ug-select', (event) => {
             const selectedItem = event.detail.item;
             alert(selectedItem.value);
           });
-        };
+        })();
       </script>`
 };
 
