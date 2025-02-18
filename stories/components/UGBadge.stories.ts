@@ -21,62 +21,6 @@ const meta: Meta = {
     docs: {
       subtitle:
         'A compact UI element for highlighting key information such as notifications, statuses, or counts.',
-      description: {
-        component: `
-### Overview
-
-The **Badge** component is a compact UI element used to display concise information. It can convey notification counts, status indicators, or category tags, often in conjunction with other UI elements like buttons, avatars, or menu items.
-
-### When to use
-- **Notification Counts**: For example, displaying unread messages or alerts.
-- **Status Indicators**: Such as "active", "offline", or "new."
-- **Category Tags**: Highlighting labels like "ZAP", "AAP", or "ATP."
-
-### Variants and States
-
-...
-
-### Accessibility
-
-#### Semantic Usage
-Use badges as supplementary content, ensuring they don’t replace important information conveyed elsewhere. 
-
-For example, if the badge represents a notification count, ensure the main notification icon or button has a meaningful label:
-
-\`\`\`html
-<button aria-label="Notifications (3)">
-    Notifications
-    <ug-badge>3</ug-badge>
-</button>
-\`\`\`
-
-#### Screen Reader Support
-
-Provide an accessible name for badges when the visual information is not obvious to screen readers, for xample: 
-
-\`\`\`html
-<ug-badge aria-label="3 unread notifications">3</ug-badge>
-\`\`\`
-
-
-#### Dynamic Content Updates
-
-If the badge updates dynamically (e.g., notification count), use ARIA live regions to announce changes to screen readers:
-
-\`\`\`html
-<ug-badge aria-live="polite">3</ug-badge>
-\`\`\`
-
-
-### Best practices
-
-...
-
-### Related components
-
-...
-        `
-      },
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
@@ -107,7 +51,7 @@ If the badge updates dynamically (e.g., notification count), use ARIA live regio
     label: {
       name: 'default',
       control: 'text',
-      description: '	The badge’s content.',
+      description: 'The badge’s content.',
       table: {
         category: 'slots',
         defaultValue: { summary: undefined }
@@ -140,8 +84,7 @@ export const Badge: Story = {
       variant="${args.variant}"
       ?pill="${args.pill}"
       ?pulse="${args.pulse}"
-    >
-      ${args.label}</ug-badge
+      >${args.label}</ug-badge
     >`;
   }
 };
@@ -150,11 +93,11 @@ export const Badge: Story = {
 export const Variants: Story = {
   parameters: {
     docs: {
-      controls: { disable: true },
       description: {
         story: `Set the variant attribute to change the badge’s variant.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () =>
     html`<ug-badge variant="primary">Primary</ug-badge>
@@ -172,11 +115,11 @@ export const PillBadges: Story = {
   },
   parameters: {
     docs: {
-      controls: { disable: true },
       description: {
         story: `Use the <code>pill</code> attribute to give badges rounded edges.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) =>
     html`<ug-badge variant="primary" ?pill="${args.pill}">Primary</ug-badge>
@@ -195,11 +138,11 @@ export const PulsatingBadges: Story = {
   },
   parameters: {
     docs: {
-      controls: { disable: true },
       description: {
         story: `Use the <code>pulse</code> attribute to draw attention to the badge with a subtle animation.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) =>
     html` <div class="badge-pulse">
@@ -230,11 +173,11 @@ export const PulsatingBadges: Story = {
 export const WithButtons: Story = {
   parameters: {
     docs: {
-      controls: { disable: true },
       description: {
         story: `One of the most common use cases for badges is attaching them to buttons. To make this easier, badges will be automatically positioned at the top-right when they’re a child of a button.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () =>
     html` <ug-button>
@@ -257,11 +200,11 @@ export const WithButtons: Story = {
 export const WithMenuItems: Story = {
   parameters: {
     docs: {
-      controls: { disable: true },
       description: {
-        story: `When including badges in menu items, use the <code>suffix</code> slot to make sure they’re aligned correctly.`
+        story: `When including badges in [menu items](?path=/docs/components-menu--docs), use the <code>suffix</code> slot to make sure they’re aligned correctly.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () =>
     html`<ug-menu style="max-width: 240px;">
