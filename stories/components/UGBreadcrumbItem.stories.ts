@@ -7,19 +7,17 @@ import '/lib/components/icon-button';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
-  title: 'Components/BreadcrumbItem',
+  title: 'Components/Breadcrumb Item',
   component: 'ug-breadcrumb-item',
   parameters: {
     docs: {
-      description: {
-        component:
-          'Breadcrumb Items are used inside [breadcrumbs](?path=/docs/components-breadcrumb--docs) to represent different links.'
-      },
+      subtitle:
+        'Breadcrumb Items are used inside breadcrumbs to represent different links.',
       source: {
         format: true,
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code.replace(/\s(rel="noreferrer noopener")/g, '');
+          return code.replace(/\s(rel="")/g, '');
         }
       }
     }
@@ -55,7 +53,7 @@ const meta: Meta = {
       name: 'rel',
       description:
         'The rel attribute to use on the link. Only used when href is set.',
-      control: 'text',
+      control: false,
       table: {
         category: 'Properties',
         type: { summary: 'string' },
@@ -132,29 +130,24 @@ export const BreadcrumbItem: Story = {
   args: {
     href: undefined,
     target: undefined,
-    rel: 'noreferrer noopener',
+    rel: '',
     defaultSlot: 'Home',
     prefixSlot: undefined,
     suffixSlot: undefined,
     separatorSlot: undefined
   },
-  //prettier-ignore
   render: (args) => {
-    return html`
-    <ug-breadcrumb>
+    return html` <ug-breadcrumb>
       <ug-breadcrumb-item
         href="${ifDefined(args.href)}"
         target="${ifDefined(args.target)}"
         rel="${args.rel}"
         >${args.prefixSlot == 'Icon'
-          ? html`
-        <ug-icon slot="prefix" name="house"></ug-icon>`
+          ? html` <ug-icon slot="prefix" name="house"></ug-icon>`
           : null}${args.suffixSlot == 'Icon'
-          ? html`
-        <ug-icon slot="suffix" name="shield-lock"></ug-icon>`
+          ? html` <ug-icon slot="suffix" name="shield-lock"></ug-icon>`
           : null}${args.separatorSlot
-          ? html`
-        <span slot="separator">${args.separatorSlot}</span>`
+          ? html` <span slot="separator">${args.separatorSlot}</span>`
           : null}
         ${ifDefined(args.defaultSlot)}
       </ug-breadcrumb-item>
