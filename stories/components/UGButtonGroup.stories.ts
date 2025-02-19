@@ -7,6 +7,7 @@ import '/lib/components/tooltip';
 import '/lib/components/dropdown';
 import '/lib/components/menu';
 import '/lib/components/menu-item';
+import '/lib/components/visually-hidden';
 
 const meta: Meta = {
   title: 'Components/ButtonGroup',
@@ -185,43 +186,43 @@ export const ThemeButtons: Story = {
   }
 };
 
-export const PillButtons: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Pill buttons are supported through the button’s <code>pill</code> attribute.'
-      }
-    },
-    controls: { disable: true }
-  },
-  args: {
-    label: 'Alignment'
-  },
-  render: (args) => {
-    return html`<ug-button-group label="${args.label}">
-        <ug-button size="small" pill>Left</ug-button>
-        <ug-button size="small" pill>Center</ug-button>
-        <ug-button size="small" pill>Right</ug-button>
-      </ug-button-group>
+// export const PillButtons: Story = {
+//   parameters: {
+//     docs: {
+//       description: {
+//         story:
+//           'Pill buttons are supported through the button’s <code>pill</code> attribute.'
+//       }
+//     },
+//     controls: { disable: true }
+//   },
+//   args: {
+//     label: 'Alignment'
+//   },
+//   render: (args) => {
+//     return html`<ug-button-group label="${args.label}">
+//         <ug-button size="small" pill>Left</ug-button>
+//         <ug-button size="small" pill>Center</ug-button>
+//         <ug-button size="small" pill>Right</ug-button>
+//       </ug-button-group>
 
-      <br /><br />
+//       <br /><br />
 
-      <ug-button-group label="${args.label}">
-        <ug-button size="medium" pill>Left</ug-button>
-        <ug-button size="medium" pill>Center</ug-button>
-        <ug-button size="medium" pill>Right</ug-button>
-      </ug-button-group>
+//       <ug-button-group label="${args.label}">
+//         <ug-button size="medium" pill>Left</ug-button>
+//         <ug-button size="medium" pill>Center</ug-button>
+//         <ug-button size="medium" pill>Right</ug-button>
+//       </ug-button-group>
 
-      <br /><br />
+//       <br /><br />
 
-      <ug-button-group label="${args.label}">
-        <ug-button size="large" pill>Left</ug-button>
-        <ug-button size="large" pill>Center</ug-button>
-        <ug-button size="large" pill>Right</ug-button>
-      </ug-button-group> `;
-  }
-};
+//       <ug-button-group label="${args.label}">
+//         <ug-button size="large" pill>Left</ug-button>
+//         <ug-button size="large" pill>Center</ug-button>
+//         <ug-button size="large" pill>Right</ug-button>
+//       </ug-button-group> `;
+//   }
+// };
 
 export const DropdownsInButtonGroups: Story = {
   parameters: {
@@ -233,11 +234,8 @@ export const DropdownsInButtonGroups: Story = {
     },
     controls: { disable: true }
   },
-  args: {
-    label: 'Example Button Group'
-  },
-  render: (args) => {
-    return html`<ug-button-group label="${args.label}>
+  render: () => {
+    return html`<ug-button-group label="Example Button Group">
       <ug-button>Button</ug-button>
       <ug-button>Button</ug-button>
       <ug-dropdown hoist>
