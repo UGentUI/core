@@ -2,7 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/details';
 import '/lib/components/icon';
-import { userEvent, within } from '@storybook/test';
+import { userEvent } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
@@ -235,9 +235,7 @@ export const Details: Story = {
         <style>
           ug-details.custom-icons::part(summary-icon) {
             /* Disable the expand/collapse animation */
-            transform: none;
-            rotate: 0deg;
-            color: 'red';
+            rotate: none;
           }
         </style>`
         : null}`;
@@ -321,16 +319,18 @@ export const GroupingDetails: Story = {
       </div>
 
       <script>
-        const container = document.querySelector('.details-group-example');
+        (() => {
+          const container = document.querySelector('.details-group-example');
 
-        // Close all other details when one is shown
-        container.addEventListener('ug-show', (event) => {
-          if (event.target.localName === 'ug-details') {
-            [...container.querySelectorAll('ug-details')].map(
-              (details) => (details.open = event.target === details)
-            );
-          }
-        });
+          // Close all other details when one is shown
+          container.addEventListener('ug-show', (event) => {
+            if (event.target.localName === 'ug-details') {
+              [...container.querySelectorAll('ug-details')].map(
+                (details) => (details.open = event.target === details)
+              );
+            }
+          });
+        })();
       </script>
 
       <style>
