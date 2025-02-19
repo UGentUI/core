@@ -12,21 +12,6 @@ import '/lib/components/button';
 const meta: Meta = {
   title: 'Components/Breadcrumb',
   component: 'ug-breadcrumb',
-
-  parameters: {
-    docs: {
-      subtitle:
-        'Breadcrumbs provide a group of links so users can easily navigate a website’s hierarchy.',
-      description: {
-        component:
-          'Breadcrumbs are usually placed before a page’s main content with the current page shown last to indicate the user’s position in the navigation.'
-      },
-      source: {
-        format: true
-      }
-    }
-  },
-
   decorators: [
     (Story) => {
       // Apply CSS without showing in code snippet
@@ -37,52 +22,66 @@ const meta: Meta = {
       return Story();
     }
   ],
+  parameters: {
+    docs: {
+      subtitle:
+        'Breadcrumbs provide a group of links so users can easily navigate a website’s hierarchy.',
+      description: {
+        component:
+          'Breadcrumbs are usually placed before a page’s main content with the current page shown last to indicate the user’s position in the navigation.'
+      },
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code.replace(/\s(label="")/g, '');
+        }
+      }
+    }
+  },
 
   argTypes: {
-    argTypes: {
-      label: {
-        name: 'label',
-        description:
-          'The label to use for the breadcrumb control. This will not be shown on the screen, but it will be announced by screen readers and other assistive devices to provide more context for users.',
-        control: 'text',
-        table: {
-          category: 'Properties',
-          type: { summary: 'string' },
-          defaultValue: { summary: "''" }
-        }
-      },
-      updateComplete: {
-        name: 'updateComplete',
-        description:
-          'A read-only promise that resolves when the component has finished updating.',
-        table: {
-          category: 'Properties',
-          type: { summary: 'Promise<void>' },
-          defaultValue: { summary: undefined }
-        },
-        control: false
-      },
-      defaultSlot: {
-        name: '(default)',
-        description: 'One or more breadcrumb items to display.',
-        table: {
-          category: 'Slots',
-          type: { summary: 'slot' },
-          defaultValue: { summary: undefined }
-        },
-        control: false
-      },
-      separatorSlot: {
-        name: 'separator',
-        description:
-          'The separator to use between breadcrumb items. Works best with `<ug-icon>`.',
-        table: {
-          category: 'Slots',
-          type: { summary: 'slot' },
-          defaultValue: { summary: undefined }
-        },
-        control: 'text'
+    label: {
+      name: 'label',
+      description:
+        'The label to use for the breadcrumb control. This will not be shown on the screen, but it will be announced by screen readers and other assistive devices to provide more context for users.',
+      control: 'text',
+      table: {
+        category: 'Properties',
+        type: { summary: 'string' },
+        defaultValue: { summary: "''" }
       }
+    },
+    updateComplete: {
+      name: 'updateComplete',
+      description:
+        'A read-only promise that resolves when the component has finished updating.',
+      table: {
+        category: 'Properties',
+        type: { summary: 'Promise<void>' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    defaultSlot: {
+      name: '(default)',
+      description: 'One or more breadcrumb items to display.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    },
+    separatorSlot: {
+      name: 'separator',
+      description:
+        'The separator to use between breadcrumb items. Works best with `<ug-icon>`.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
     }
   }
 };
@@ -93,16 +92,10 @@ type Story = StoryObj;
 
 export const Breadcrumb: Story = {
   args: {
-    label: 'Breadcrumb Navigation',
-    separatorSlot: undefined
+    label: ''
   },
-  //prettier-ignore
   render: (args) => {
-    return html`<ug-breadcrumb
-      >${args.separatorSlot
-        ? html` 
-      <span slot="separator">${args.separatorSlot}</span>`
-        : null}
+    return html`<ug-breadcrumb label="${args.label}">
       <ug-breadcrumb-item>Catalog</ug-breadcrumb-item>
       <ug-breadcrumb-item>Clothing</ug-breadcrumb-item>
       <ug-breadcrumb-item>Women's</ug-breadcrumb-item>
