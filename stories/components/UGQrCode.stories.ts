@@ -11,12 +11,15 @@ const removeDefaultAttributes = (code: string): string => {
 };
 
 const meta: Meta = {
-  title: 'Components/QrCode',
+  title: 'Components/QR Code',
   component: 'ug-qr-code',
   parameters: {
     docs: {
-      subtitle:
-        'QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.',
+      subtitle: 'Generates a QR code and renders it using the Canvas API.',
+      description: {
+        component:
+          'QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.'
+      },
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
@@ -24,41 +27,44 @@ const meta: Meta = {
     }
   },
   argTypes: {
-    // Attributes (set in HTML)
     value: {
       control: 'text',
       description: 'The QR code’s value.',
-      table: { category: 'attributes', defaultValue: { summary: '' } }
+      table: { category: 'Properties', defaultValue: { summary: '' } }
     },
     label: {
       control: 'text',
       description:
         'The label for assistive devices to announce. If unspecified, the value will be used instead.',
-      table: { category: 'attributes', defaultValue: { summary: '' } }
+      table: { category: 'Properties', defaultValue: { summary: '' } }
     },
     size: {
       control: 'number',
       description: 'The size of the QR code, in pixels.',
-      table: { category: 'attributes', defaultValue: { summary: '128' } }
+      table: { category: 'Properties', defaultValue: { summary: '128' } }
     },
     fill: {
       control: 'text',
       description:
         'The fill color. This can be any valid CSS color, but not a CSS custom property.',
-      table: { category: 'attributes', defaultValue: { summary: 'black' } }
+      table: { category: 'Properties', defaultValue: { summary: 'black' } }
     },
     background: {
       control: 'text',
       description:
         'The background color. This can be any valid CSS color or <code>transparent</code>. It cannot be a CSS custom property.',
-      table: { category: 'attributes', defaultValue: { summary: 'white' } }
+      table: { category: 'Properties', defaultValue: { summary: 'white' } }
     },
     errorCorrection: {
       name: 'error-correction',
       control: 'select',
       options: ['L', 'M', 'Q', 'H'],
       description: 'The level of error correction to use.',
-      table: { category: 'attributes', defaultValue: { summary: 'H' } }
+      table: {
+        category: 'Properties',
+        defaultValue: { summary: 'H' },
+        type: { summary: "'L' | 'M' | 'Q' | 'H'" }
+      }
     }
   }
 };
@@ -92,8 +98,7 @@ export const QrCode: Story = {
       fill="${args.fill}"
       background="${args.background}"
       error-correction="${args.errorCorrection}"
-    >
-    </ug-qr-code>`;
+    ></ug-qr-code>`;
   }
 };
 
@@ -101,8 +106,8 @@ export const QrCode: Story = {
 export const Colors: Story = {
   args: {
     ...QrCode.args,
-    fill: 'royalblue',
-    background: 'aliceblue'
+    fill: '#1E64C8',
+    background: '#E9F1FC'
   },
   parameters: {
     docs: {
@@ -163,7 +168,8 @@ export const ErrorCorrection: Story = {
       description: {
         story: `QR codes can be rendered with various levels of <a href="https://www.qrcode.com/en/about/error_correction.html">error correction</a> that can be set using the <code>error-correction</code> attribute. This example generates four codes with the same value using different error correction levels.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) => {
     return html`<div class="qr-error-correction">
