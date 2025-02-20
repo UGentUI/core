@@ -4,8 +4,6 @@ import '/lib/components/progress-bar';
 import '/lib/components/button';
 import '/lib/components/icon';
 import { ifDefined } from 'lit/directives/if-defined.js';
-import { action } from '@storybook/addon-actions';
-import { userEvent } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/ProgressBar',
@@ -90,17 +88,15 @@ export const ProgressBar: Story = {
   args: {
     value: 50,
     indeterminate: false,
-    label: '',
-    defaultSlot: '50%'
+    label: ''
   },
   render: (args) => {
     return html`<ug-progress-bar
       value="${ifDefined(args.indeterminate ? undefined : args.value)}"
       ?indeterminate="${args.indeterminate}"
       label="${ifDefined(args.label)}"
-    >
-      ${args.defaultSlot}
-    </ug-progress-bar>`;
+      >${args.defaultSlot}</ug-progress-bar
+    >`;
   }
 };
 
@@ -122,6 +118,25 @@ export const Labels: Story = {
   }
 };
 
+export const CustomHeight: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Use the `--height` custom property to set the progress bar’s height.'
+      }
+    },
+    // Optional: Disable controls for this story
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<ug-progress-bar
+      value="50"
+      style="--height: 6px"
+    ></ug-progress-bar>`;
+  }
+};
+
 export const ShowingValues: Story = {
   parameters: {
     docs: {
@@ -132,7 +147,7 @@ export const ShowingValues: Story = {
     // Optional: Disable controls for this story
     controls: { disable: true }
   },
-  render: (args) => {
+  render: () => {
     return html`<ug-progress-bar value="50" class="progress-bar-values"
         >50%</ug-progress-bar
       >
@@ -147,7 +162,7 @@ export const ShowingValues: Story = {
       ></ug-button>
 
       <script>
-        () => {
+        (() => {
           const progressBar = document.querySelector('.progress-bar-values');
           const subtractButton =
             progressBar.nextElementSibling.nextElementSibling;
@@ -156,16 +171,16 @@ export const ShowingValues: Story = {
           addButton.addEventListener('click', () => {
             const value = Math.min(100, progressBar.value + 10);
             progressBar.value = value;
-            progressBar.textContent = \`\${value}%\`;
+            progressBar.textContent = value.toString() + '%';
           });
 
           subtractButton.addEventListener('click', () => {
             const value = Math.max(0, progressBar.value - 10);
             progressBar.value = value;
-            progressBar.textContent = \`\${value}%\`;
+            progressBar.textContent = value.toString() + '%';
           });
-        };
-      </script> `;
+        })();
+      </script>`;
   }
 };
 
