@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/relative-time';
 
 const meta: Meta = {
-  title: 'Components/RelativeTime',
+  title: 'Components/Relative Time',
   component: 'ug-relative-time',
   parameters: {
     docs: {
@@ -11,7 +11,7 @@ const meta: Meta = {
         'Outputs a localized time phrase relative to the current date and time.',
       description: {
         component:
-          'Localization is handled by the browser’s <code>[Intl.RelativeTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat)</code> [API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.'
+          'Localization is handled by the browser’s [Intl.RelativeTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat) [API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required. <br>The `date` attribute determines when the date/time is calculated from. It must be a string that [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) can interpret or a [Date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) set via JavaScript.'
       },
       source: {
         format: true,
@@ -47,7 +47,7 @@ const meta: Meta = {
     },
     numeric: {
       description:
-        'When <code>auto</code>, values such as “yesterday” and “tomorrow” will be shown when possible. When <code>always</code>, values such as “1 day ago” and “in 1 day” will be shown.',
+        'When <code>auto</code>, values such as "yesterday" and "tomorrow" will be shown when possible. When <code>always</code>, values such as "1 day ago" and "in 1 day" will be shown.',
       control: 'select',
       options: ['always', 'auto'],
       table: {
@@ -76,14 +76,12 @@ const meta: Meta = {
       control: false // Read-only property, so no control
     },
     lang: {
-      description: `Gets or sets the base language of an element's attribute values and text content.
-      
-The language code returned by this property is defined in [RFC 5646: Tags for Identifying Languages (also known as BCP 47)](https://datatracker.ietf.org/doc/html/rfc5646). Common examples include "en" for English, "ja" for Japanese, "es" for Spanish and so on. The default value of this attribute is unknown. Note that this attribute, though valid at the individual element level described here, is most often specified for the root element of the document.`,
+      description: `Sets the language used for relative time formatting. Uses standard language codes like 'en-US' for American English, 'nl-BE' for Belgian Dutch, or 'fr-FR' for French. If not specified, inherits from the closest parent element with a lang attribute, or defaults to the browser's language.`,
       control: 'text',
       table: {
-        category: 'Relevant HTMLElement properties',
+        category: 'Properties',
         type: { summary: 'string' },
-        defaultValue: { summary: 'unknown' }
+        defaultValue: { summary: undefined }
       }
     }
   }
@@ -93,48 +91,31 @@ export default meta;
 
 type Story = StoryObj;
 
-// Keep track of the last valid date so that you can set that if date is invalid
-let lastValidDate: Date;
-
 export const RelativeTime: Story = {
   args: {
-    date: new Date().toISOString(), // Default to current date/time
+    date: new Date(new Date().getTime() - 3600000), // One hour ago (1000ms * 60s * 60m)
     format: 'long',
     numeric: 'auto',
     lang: 'en',
     sync: false
   },
   render: (args) => {
-    // Ensure `date` is properly converted to a valid ISO string
-    let newDate =
+    const date =
       typeof args.date === 'string' || args.date instanceof Date
         ? new Date(args.date)
         : new Date(Number(args.date));
-    //If date is invalid use cached value from lastValidDate: Date;
-    if (isNaN(newDate.getTime())) {
-      console.warn('Invalid date:', args.date);
-      newDate = lastValidDate;
-    } else {
-      //chache the value
-      lastValidDate = newDate;
-    }
-    const formattedDate = newDate.toISOString();
-    return html`<ug-relative-time
-      date="${formattedDate}"
+
+    return html` <ug-relative-time
+      date="${date.toISOString()}"
       format="${args.format}"
       numeric="${args.numeric}"
       lang="${args.lang}"
+      ?sync="${args.sync}"
     ></ug-relative-time>`;
   }
 };
 
 export const KeepingTimeInSync: Story = {
-  ...RelativeTime,
-  args: {
-    ...RelativeTime.args,
-    date: new Date(new Date().getTime() - 60000), // Default to current date/time
-    sync: true
-  },
   parameters: {
     docs: {
       description: {
@@ -142,6 +123,20 @@ export const KeepingTimeInSync: Story = {
       }
     },
     controls: { disable: true }
+  },
+  render: () => {
+    return html`<div class="relative-time-sync">
+        <ug-relative-time sync></ug-relative-time>
+      </div>
+
+      <script>
+        (() => {
+          const container = document.querySelector('.relative-time-sync');
+          const relativeTime = container.querySelector('ug-relative-time');
+
+          relativeTime.date = new Date(new Date().getTime() - 60000);
+        })();
+      </script>`;
   }
 };
 
@@ -154,7 +149,8 @@ export const FormattingStyles: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the <code>sync</code> attribute to update the displayed value automatically as time passes.`
+        story:
+          'You can change how the time is displayed using the `format` attribute. Note that some locales may display the same values for narrow and short formats.'
       }
     },
     controls: { disable: true }
@@ -208,7 +204,7 @@ export const Localization: Story = {
         date="${formattedDate}"
         format="${args.format}"
         numeric="${args.numeric}"
-        lang="en"
+        lang="en-US"
       ></ug-relative-time
       ><br />
       Dutch:
@@ -216,7 +212,7 @@ export const Localization: Story = {
         date="${formattedDate}"
         format="${args.format}"
         numeric="${args.numeric}"
-        lang="nl"
+        lang="nl-BE"
       ></ug-relative-time
       ><br />
       French:
@@ -224,7 +220,7 @@ export const Localization: Story = {
         date="${formattedDate}"
         format="${args.format}"
         numeric="${args.numeric}"
-        lang="fr"
+        lang="fr-FR"
       ></ug-relative-time
       ><br />
       German:
@@ -232,7 +228,7 @@ export const Localization: Story = {
         date="${formattedDate}"
         format="${args.format}"
         numeric="${args.numeric}"
-        lang="de"
+        lang="de-DE"
       ></ug-relative-time
       ><br />
       Korean:
@@ -240,7 +236,7 @@ export const Localization: Story = {
         date="${formattedDate}"
         format="${args.format}"
         numeric="${args.numeric}"
-        lang="ko"
+        lang="ko-KR"
       ></ug-relative-time
       ><br />
       Chinese:
