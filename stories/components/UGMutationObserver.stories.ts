@@ -2,34 +2,22 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/mutation-observer';
 import '/lib/components/button';
-import '/lib/components/checkbox';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
-  title: 'Components/MutationObserver',
+  title: 'Components/Mutation Observer',
   component: 'ug-mutation-observer',
-
   parameters: {
     docs: {
+      subtitle:
+        'The Mutation Observer component offers a thin, declarative interface to the MutationObserver API.',
       description: {
-        component: `The Mutation Observer component offers a thin, declarative interface to the [MutationObserver API](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
-
-The mutation observer will report changes to the content it wraps through the ug-mutation event. When emitted, a collection of [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) objects will be attached to <code>event.detail</code> that contains information about how it changed.
-
-When you create a mutation observer, you must indicate what changes it should respond to by including at least one of <code>attr</code>, <code>child-list</code>, or <code>char-data</code>. If you don’t specify at least one of these attributes, no mutation events will be emitted.`
-      },
-      source: {
-        format: true,
-        transform: (code: string) => {
-          // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code
-            .replace(/\s* attr-old-value=""/g, ' attr-old-value')
-            .replace(/\s* char-data=""/g, ' char-data')
-            .replace(/\s* char-data-old-value=""/g, ' char-data-old-value')
-            .replace(/\s* char-list=""/g, ' char-list')
-            .replace(/\s* disabled=""/g, ' disabled');
-        }
+        component:
+          'The mutation observer will report changes to the content it wraps through the `ug-mutation` event. When emitted, a collection of [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) objects will be attached to `event.detail` that contains information about how it changed. When you create a mutation observer, you must indicate what changes it should respond to by including at least one of `attr`, `child-list`, or `char-data`. If you don’t specify at least one of these attributes, no mutation events will be emitted.'
       }
+    },
+    source: {
+      format: true
     }
   },
 
@@ -104,12 +92,16 @@ When you create a mutation observer, you must indicate what changes it should re
         category: 'Properties',
         type: { summary: 'Promise<void>' },
         defaultValue: { summary: '-' }
-      }
+      },
+      control: false
     },
     defaultSlot: {
+      name: 'default',
       description: 'The content to watch for mutations.',
       table: {
-        category: 'Slots'
+        category: 'Slots',
+        defaultValue: { summary: undefined },
+        type: { summary: undefined }
       },
       control: false
     },
@@ -118,8 +110,10 @@ When you create a mutation observer, you must indicate what changes it should re
       description: 'Emitted when a mutation occurs.',
       table: {
         category: 'Events',
-        type: { summary: '{ mutationList: MutationRecord[] }' }
-      }
+        type: { summary: '{ mutationList: MutationRecord[] }' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
     }
   }
 };
@@ -128,72 +122,129 @@ export default meta;
 
 type Story = StoryObj;
 
-export const MutationObserver: Story = {
-  args: {
-    attr: 'checked',
-    attrOldValue: false,
-    charData: false,
-    charDataOldValue: false,
-    childList: false,
-    disabled: false
+export const CharData: Story = {
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: {
+        story:
+          'Use the <code>char-data</code> attribute to watch for changes to the character data contained within the node.'
+      },
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code
+            .replace(/\s*char-data=""/g, ' char-data')
+            .replace(/\s*char-data-old-value=""/g, ' char-data-old-value');
+        }
+      }
+    }
   },
-  render: (args) => {
-    return html`<ug-mutation-observer
-      attr="${args.attr}"
-      ?attr-old-value="${args.attrOldValue}"
-      ?char-data="${args.charData}"
-      ?char-data-old-value="${args.charDataOldValue}"
-      ?child-list="${args.childList}"
-      ?disabled="${args.disabled}"
-      @ug-mutation="${action('ug-mutation')}"
-    >
-      <ug-checkbox>Checkbox</ug-checkbox>
-    </ug-mutation-observer>`;
+  render: () => {
+    return html`<div class="mutation-char-data">
+      <ug-mutation-observer
+        char-data
+        char-data-old-value
+        @ug-mutation="${action('ug-mutation')}"
+      >
+        <ug-button variant="primary">Generate ID</ug-button>
+        <span class="observed-text"> </span>
+      </ug-mutation-observer>
+
+      <br /><br />
+      Click the button and watch the console
+
+      <script>
+        (() => {
+          const container = document.querySelector('.mutation-char-data');
+          const mutationObserver = container.querySelector(
+            'ug-mutation-observer'
+          );
+          const observedText = container.querySelector('.observed-text');
+          const button = container.querySelector('ug-button');
+
+          // Change text content when clicking the button
+          button.addEventListener('click', () => {
+            const textNode = observedText.firstChild;
+            textNode.nodeValue = Math.random().toString(36).slice(2, 8);
+          });
+
+          // Log mutations
+          mutationObserver.addEventListener('ug-mutation', (event) => {
+            console.log(event.detail);
+          });
+        })();
+      </script>
+
+      <style>
+        .mutation-char-data .observed-text {
+          display: inline;
+          margin-left: 0.5rem;
+          font-family: monospace;
+        }
+      </style>
+    </div>`;
   }
 };
 
-export const ChangeColor: Story = {
+export const Attr: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Use the <code>attr</code> attribute to watch for changes in the attribute.'
+          "Use the <code>attr</code> attribute to watch for changes to element attributes. In this example, we're watching the <code>variant</code> attribute of the button."
+      },
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code
+            .replace(/\s*attr=""/g, ' attr')
+            .replace(/\s*attr-old-value=""/g, ' attr-old-value');
+        }
       }
     },
-    // Optional: Disable controls for this story
     controls: { disable: true }
   },
   render: () => {
     return html`<div class="mutation-overview">
       <ug-mutation-observer
         attr="variant"
+        attr-old-value
         @ug-mutation="${action('ug-mutation')}"
       >
         <ug-button variant="primary">Click to mutate</ug-button>
       </ug-mutation-observer>
 
       <br />
-      👆 Click the button and watch the console
+      Click the button and watch the console
 
       <script>
-        const container = document.querySelector('.mutation-overview');
-        const mutationObserver = container.querySelector(
-          'ug-mutation-observer'
-        );
-        const button = container.querySelector('ug-button');
-        const variants = ['primary', 'success', 'neutral', 'warning', 'danger'];
-        let clicks = 0;
+        (() => {
+          const container = document.querySelector('.mutation-overview');
+          const mutationObserver = container.querySelector(
+            'ug-mutation-observer'
+          );
+          const button = container.querySelector('ug-button');
+          const variants = [
+            'primary',
+            'success',
+            'neutral',
+            'warning',
+            'danger'
+          ];
+          let clicks = 0;
 
-        // Change the button's variant attribute
-        button.addEventListener('click', () => {
-          clicks++;
-          button.setAttribute('variant', variants[clicks % variants.length]);
-        });
+          // Change the button's variant attribute
+          button.addEventListener('click', () => {
+            clicks++;
+            button.setAttribute('variant', variants[clicks % variants.length]);
+          });
 
-        // Log mutations
-        mutationObserver.addEventListener('ug-mutation', (event) => {
-          console.log(event.detail);
-        });
+          // Log mutations
+          mutationObserver.addEventListener('ug-mutation', (event) => {
+            console.log(event.detail);
+          });
+        })();
       </script>
 
       <style>
@@ -211,9 +262,14 @@ export const ChildList: Story = {
       description: {
         story:
           'Use the <code>child-list</code> attribute to watch for new child elements that are added or removed.'
+      },
+      source: {
+        format: true,
+        transform: (code: string) => {
+          return code.replace(/\s*child-list=""/g, ' child-list');
+        }
       }
     },
-    // Optional: Disable controls for this story
     controls: { disable: true }
   },
   render: () => {
@@ -224,40 +280,44 @@ export const ChildList: Story = {
         </div>
       </ug-mutation-observer>
 
-      👆 Add and remove buttons and watch the console
+      Add and remove buttons and watch the console
 
       <script>
-        const container = document.querySelector('.mutation-child-list');
-        const mutationObserver = container.querySelector(
-          'ug-mutation-observer'
-        );
-        const buttons = container.querySelector('.buttons');
-        const button = container.querySelector('ug-button[variant="primary"]');
-        let i = 0;
-
-        // Add a button
-        button.addEventListener('click', () => {
-          const button = document.createElement('ug-button');
-          button.textContent = ++i;
-          buttons.append(button);
-        });
-
-        // Remove a button
-        buttons.addEventListener('click', (event) => {
-          const target = event.target.closest(
-            'ug-button:not([variant="primary"])'
+        (() => {
+          const container = document.querySelector('.mutation-child-list');
+          const mutationObserver = container.querySelector(
+            'ug-mutation-observer'
           );
-          event.stopPropagation();
+          const buttons = container.querySelector('.buttons');
+          const button = container.querySelector(
+            'ug-button[variant="primary"]'
+          );
+          let i = 0;
 
-          if (target) {
-            target.remove();
-          }
-        });
+          // Add a button
+          button.addEventListener('click', () => {
+            const button = document.createElement('ug-button');
+            button.textContent = ++i;
+            buttons.append(button);
+          });
 
-        // Log mutations
-        mutationObserver.addEventListener('ug-mutation', (event) => {
-          console.log(event.detail);
-        });
+          // Remove a button
+          buttons.addEventListener('click', (event) => {
+            const target = event.target.closest(
+              'ug-button:not([variant="primary"])'
+            );
+            event.stopPropagation();
+
+            if (target) {
+              target.remove();
+            }
+          });
+
+          // Log mutations
+          mutationObserver.addEventListener('ug-mutation', (event) => {
+            console.log(event.detail);
+          });
+        })();
       </script>
 
       <style>
