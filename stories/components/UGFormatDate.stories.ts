@@ -4,7 +4,7 @@ import '/lib/components/format-date';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
-  title: 'Components/FormatDate',
+  title: 'Components/Format Date',
   component: 'ug-format-date',
   parameters: {
     docs: {
@@ -128,7 +128,8 @@ const meta: Meta = {
     },
     timeZone: {
       name: 'time-zone',
-      description: 'The time zone to express the time in.',
+      description:
+        'The time zone to express the time in. If not set, the browser’s default time zone will be used.',
       control: 'text',
       table: {
         category: 'Properties',
@@ -147,26 +148,24 @@ const meta: Meta = {
         defaultValue: { summary: "'auto'" }
       }
     },
+    lang: {
+      description: `Sets the language used for relative date formatting. Uses standard language codes like 'en-US' for American English, 'nl-BE' for Belgian Dutch, or 'fr-FR' for French. If not specified, inherits from the closest parent element with a lang attribute, or defaults to the browser's language.`,
+      control: 'text',
+      table: {
+        category: 'Properties',
+        type: { summary: 'string' },
+        defaultValue: { summary: undefined }
+      }
+    },
     updateComplete: {
       description:
         'A read-only promise that resolves when the component has finished updating.',
       table: {
         category: 'Properties',
         type: { summary: 'Promise<void>' },
-        defaultValue: { summary: 'undefined' }
+        defaultValue: { summary: undefined }
       },
       control: false
-    },
-    lang: {
-      description: `Gets or sets the base language of an element's attribute values and text content.
-      
-The language code returned by this property is defined in [RFC 5646: Tags for Identifying Languages (also known as BCP 47)](https://datatracker.ietf.org/doc/html/rfc5646). Common examples include "en" for English, "ja" for Japanese, "es" for Spanish and so on. The default value of this attribute is unknown. Note that this attribute, though valid at the individual element level described here, is most often specified for the root element of the document.`,
-      control: 'text',
-      table: {
-        category: 'Relevant HTMLElement properties',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'unknown' }
-      }
     }
   }
 };
@@ -175,12 +174,11 @@ export default meta;
 
 type Story = StoryObj;
 
-// Keep track of the last valid date so that you can set that if date is invalid
-let lastValidDate: Date;
-
 export const FormatDate: Story = {
   args: {
     date: new Date().toISOString(),
+    weekday: undefined,
+    era: undefined,
     year: undefined,
     month: undefined,
     day: undefined,
@@ -188,26 +186,22 @@ export const FormatDate: Story = {
     minute: undefined,
     second: undefined,
     timeZoneName: undefined,
+    timeZone: 'UTC',
     hourFormat: 'auto',
-    timeZone: undefined
+    lang: 'en-US'
   },
   render: (args) => {
     // Ensure `date` is properly converted to a valid ISO string
-    let newDate =
+    const date =
       typeof args.date === 'string' || args.date instanceof Date
         ? new Date(args.date)
         : new Date(Number(args.date));
-    //If date is invalid use cached value from lastValidDate: Date;
-    if (isNaN(newDate.getTime())) {
-      console.warn('Invalid date:', args.date);
-      newDate = lastValidDate;
-    } else {
-      //chache the value
-      lastValidDate = newDate;
-    }
-    const formattedDate = newDate.toISOString();
+
+    const formattedDate = date.toISOString();
     return html`<ug-format-date
       date=${formattedDate}
+      weekday=${ifDefined(args.weekday)}
+      era=${ifDefined(args.era)}
       year=${ifDefined(args.year)}
       month=${ifDefined(args.month)}
       day=${ifDefined(args.day)}
@@ -218,6 +212,7 @@ export const FormatDate: Story = {
       time-zone-name=${ifDefined(args.timeZoneName)}
       locale=${ifDefined(args.locale)}
       hour-format=${ifDefined(args.hourFormat)}
+      lang=${ifDefined(args.lang)}
     ></ug-format-date>`;
   }
 };
