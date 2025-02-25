@@ -4,7 +4,7 @@ import '/lib/components/format-number';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
-  title: 'Components/FormatNumber',
+  title: 'Components/Format Number',
   component: 'ug-format-number',
   parameters: {
     docs: {
@@ -130,6 +130,15 @@ const meta: Meta = {
         defaultValue: { summary: undefined }
       }
     },
+    lang: {
+      description: `Sets the language used for the number formatting. Uses standard language codes like 'en-US' for American English, 'nl-BE' for Belgian Dutch, or 'fr-FR' for French. If not specified, inherits from the closest parent element with a lang attribute, or defaults to the browser's language.`,
+      control: 'text',
+      table: {
+        category: 'Properties',
+        type: { summary: 'string' },
+        defaultValue: { summary: undefined }
+      }
+    },
     updateComplete: {
       description:
         'A read-only promise that resolves when the component has finished updating.',
@@ -139,17 +148,6 @@ const meta: Meta = {
         defaultValue: { summary: undefined }
       },
       control: false
-    },
-    lang: {
-      description: `Gets or sets the base language of an element's attribute values and text content.
-      
-The language code returned by this property is defined in [RFC 5646: Tags for Identifying Languages (also known as BCP 47)](https://datatracker.ietf.org/doc/html/rfc5646). Common examples include "en" for English, "ja" for Japanese, "es" for Spanish and so on. The default value of this attribute is unknown. Note that this attribute, though valid at the individual element level described here, is most often specified for the root element of the document.`,
-      control: 'text',
-      table: {
-        category: 'Relevant HTMLElement properties',
-        type: { summary: 'string' },
-        defaultValue: { summary: 'unknown' }
-      }
     }
   }
 };
@@ -161,10 +159,11 @@ type Story = StoryObj;
 export const FormatNumber: Story = {
   args: {
     value: 12345.67,
-    type: 'decimal',
+    type: 'currency',
     noGrouping: false,
     currency: 'USD',
-    currencyDisplay: 'symbol'
+    currencyDisplay: 'symbol',
+    lang: 'en-US'
   },
   render: (args) => {
     return html`<ug-format-number
