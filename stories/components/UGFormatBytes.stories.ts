@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/format-bytes';
 
 const meta: Meta = {
-  title: 'Components/FormatBytes',
+  title: 'Components/Format Bytes',
   component: 'ug-format-bytes',
   parameters: {
     docs: {
@@ -12,7 +12,7 @@ const meta: Meta = {
         format: true,
         transform: (code: string) => {
           // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code.replace(/\s*(unit="byte"|display="short")/g, '');
+          return code.replace(/\s*(unit="byte"|display="short"|lang="")/g, '');
         }
       }
     }
@@ -48,6 +48,15 @@ const meta: Meta = {
         defaultValue: { summary: "'short'" }
       }
     },
+    lang: {
+      description: `Sets the language to set the number formatting locale. Uses standard language codes like 'en-US' for American English, 'nl-BE' for Belgian Dutch, or 'fr-FR' for French. If not specified, inherits from the closest parent element with a lang attribute, or defaults to the browser's language.`,
+      control: 'text',
+      table: {
+        category: 'Properties',
+        type: { summary: 'string' },
+        defaultValue: { summary: undefined }
+      }
+    },
     updateComplete: {
       description:
         'A read-only promise that resolves when the component has finished updating.',
@@ -71,7 +80,8 @@ export const FormatBytes: Story = {
   args: {
     value: 1024,
     unit: 'byte',
-    display: 'short'
+    display: 'short',
+    lang: ''
   },
   render: (args) => {
     return html`The file is
@@ -79,6 +89,7 @@ export const FormatBytes: Story = {
         value="${args.value}"
         unit="${args.unit}"
         display="${args.display}"
+        lang="${args.lang}"
       ></ug-format-bytes>
       in size`;
   }
