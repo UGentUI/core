@@ -220,7 +220,7 @@ export const Alert: Story = {
       countdown="${ifDefined(args.countdown)}"
     >
       ${args.iconSlot == 'Icon'
-        ? html`<ug-icon slot="icon" name="info-circle"></ug-icon>`
+        ? html`<ug-icon slot="icon" name="circle-info"></ug-icon>`
         : ``}
       This is a standard alert. You can customize its content and even the icon.
     </ug-alert>`;
@@ -238,7 +238,7 @@ export const Variants: Story = {
   },
   render: () =>
     html` <ug-alert variant="primary" open>
-        <ug-icon slot="icon" name="info-circle"></ug-icon>
+        <ug-icon slot="icon" name="circle-info"></ug-icon>
         <strong>This is super informative</strong><br />
         You can tell by how pretty the alert is.
       </ug-alert>
@@ -246,7 +246,7 @@ export const Variants: Story = {
       <br />
 
       <ug-alert variant="success" open>
-        <ug-icon slot="icon" name="check2-circle"></ug-icon>
+        <ug-icon slot="icon" name="circle-check"></ug-icon>
         <strong>Your changes have been saved</strong><br />
         You can safely exit the app now.
       </ug-alert>
@@ -262,7 +262,7 @@ export const Variants: Story = {
       <br />
 
       <ug-alert variant="warning" open>
-        <ug-icon slot="icon" name="exclamation-triangle"></ug-icon>
+        <ug-icon slot="icon" name="triangle-exclamation"></ug-icon>
         <strong>Your session has ended</strong><br />
         Please login again to continue.
       </ug-alert>
@@ -270,7 +270,7 @@ export const Variants: Story = {
       <br />
 
       <ug-alert variant="danger" open>
-        <ug-icon slot="icon" name="exclamation-octagon"></ug-icon>
+        <ug-icon slot="icon" name="octagon-exclamation"></ug-icon>
         <strong>Your account has been deleted</strong><br />
         We're very sorry to see you go!
       </ug-alert>`
@@ -291,7 +291,7 @@ export const Closable: Story = {
   },
   render: () =>
     html` <ug-alert variant="primary" open closable class="alert-closable">
-        <ug-icon slot="icon" name="info-circle"></ug-icon>
+        <ug-icon slot="icon" name="circle-info"></ug-icon>
         You can close this alert any time!
       </ug-alert>
       <script>
@@ -339,7 +339,7 @@ export const Duration: Story = {
         <ug-button variant="primary">Show Alert</ug-button>
 
         <ug-alert variant="primary" duration="3000" open closable>
-          <ug-icon slot="icon" name="info-circle"></ug-icon>
+          <ug-icon slot="icon" name="circle-info"></ug-icon>
           This alert will automatically hide itself after three seconds, unless
           you interact with it.
         </ug-alert>
@@ -383,7 +383,7 @@ export const Countdown: Story = {
         <ug-button variant="primary">Show Alert</ug-button>
 
         <ug-alert variant="primary" duration="10000" countdown="rtl" closable>
-          <ug-icon slot="icon" name="info-circle"></ug-icon>
+          <ug-icon slot="icon" name="circle-info"></ug-icon>
           You're not stuck, the alert will close after a pretty long duration.
         </ug-alert>
       </div>
@@ -434,13 +434,13 @@ export const ToastNotifications: Story = {
         </div>
 
         <ug-alert variant="primary" duration="3000" closable>
-          <ug-icon slot="icon" name="info-circle"></ug-icon>
+          <ug-icon slot="icon" name="circle-info"></ug-icon>
           <strong>This is super informative</strong><br />
           You can tell by how pretty the alert is.
         </ug-alert>
 
         <ug-alert variant="success" duration="3000" closable>
-          <ug-icon slot="icon" name="check2-circle"></ug-icon>
+          <ug-icon slot="icon" name="circle-check"></ug-icon>
           <strong>Your changes have been saved</strong><br />
           You can safely exit the app now.
         </ug-alert>
@@ -452,13 +452,13 @@ export const ToastNotifications: Story = {
         </ug-alert>
 
         <ug-alert variant="warning" duration="3000" closable>
-          <ug-icon slot="icon" name="exclamation-triangle"></ug-icon>
+          <ug-icon slot="icon" name="triangle-exclamation"></ug-icon>
           <strong>Your session has ended</strong><br />
           Please login again to continue.
         </ug-alert>
 
         <ug-alert variant="danger" duration="3000" closable>
-          <ug-icon slot="icon" name="exclamation-octagon"></ug-icon>
+          <ug-icon slot="icon" name="octagon-exclamation"></ug-icon>
           <strong>Your account has been deleted</strong><br />
           We're very sorry to see you go!
         </ug-alert>
@@ -559,7 +559,7 @@ export const AlertWithEvents: Story = {
       @ug-hide="${action('ug-hide')}"
       @ug-after-hide="${action('ug-after-hide')}"
     >
-      <ug-icon slot="icon" name="info-circle"></ug-icon>
+      <ug-icon slot="icon" name="circle-info"></ug-icon>
       This alert demonstrates events and methods. Check the Actions panel to see
       events as they fire.
     </ug-alert>

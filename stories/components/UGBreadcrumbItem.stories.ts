@@ -145,7 +145,7 @@ export const BreadcrumbItem: Story = {
         >${args.prefixSlot == 'Icon'
           ? html` <ug-icon slot="prefix" name="house"></ug-icon>`
           : null}${args.suffixSlot == 'Icon'
-          ? html` <ug-icon slot="suffix" name="shield-lock"></ug-icon>`
+          ? html` <ug-icon slot="suffix" name="shield-keyhole"></ug-icon>`
           : null}${args.separatorSlot
           ? html` <span slot="separator">${args.separatorSlot}</span>`
           : null}
