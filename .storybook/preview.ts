@@ -3,7 +3,8 @@ import type { Preview } from '@storybook/web-components';
 import '@ugent-ui/css-reset/dist/reset.css';
 import '../lib/styles/core.scss';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
-setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
+//setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
+setBasePath('/lib/');
 
 // Function to apply the selected theme by setting the data-color-mode attribute
 const applyTheme = (theme: string) => {
