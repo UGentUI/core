@@ -151,7 +151,7 @@ export const CustomSeparators: Story = {
   },
   render: () => {
     return html`<ug-breadcrumb>
-        <ug-icon name="dot" slot="separator"></ug-icon>
+        <ug-icon name="circle-chevron-right" slot="separator"></ug-icon>
         <ug-breadcrumb-item>First</ug-breadcrumb-item>
         <ug-breadcrumb-item>Second</ug-breadcrumb-item>
         <ug-breadcrumb-item>Third</ug-breadcrumb-item>
@@ -219,7 +219,7 @@ export const Suffixes: Story = {
       <ug-breadcrumb-item>Policies</ug-breadcrumb-item>
       <ug-breadcrumb-item>
         Security
-        <ug-icon slot="suffix" name="shield-lock"></ug-icon>
+        <ug-icon slot="suffix" name="shield-check"></ug-icon>
       </ug-breadcrumb-item>
     </ug-breadcrumb>`;
   }
@@ -243,7 +243,7 @@ export const WithDropdownsInDefaultSlot: Story = {
       <ug-breadcrumb-item>
         <ug-dropdown hoist>
           <ug-button slot="trigger" size="small" circle>
-            <ug-icon label="More options" name="three-dots"></ug-icon>
+            <ug-icon label="More options" name="ellipsis"></ug-icon>
           </ug-button>
           <ug-menu>
             <ug-menu-item type="checkbox" checked>Web Design</ug-menu-item>
@@ -279,7 +279,7 @@ export const WithDropdownsInPrefixOrSuffix: Story = {
         Web Design
         <ug-dropdown slot="suffix" hoist>
           <ug-button slot="trigger" size="small" circle>
-            <ug-icon label="More options" name="three-dots"></ug-icon>
+            <ug-icon label="More options" name="ellipsis"></ug-icon>
           </ug-button>
           <ug-menu>
             <ug-menu-item type="checkbox" checked>Web Design</ug-menu-item>

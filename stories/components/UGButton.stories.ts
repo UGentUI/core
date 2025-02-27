@@ -302,7 +302,7 @@ export const Button: Story = {
       ${args.prefix == 'Icon'
         ? html`<ug-icon slot="prefix" name="gear"></ug-icon>`
         : ''}${args.default}${args.suffix == 'Icon'
-        ? html`<ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>`
+        ? html`<ug-icon slot="suffix" name="arrows-rotate-reverse"></ug-icon>`
         : ''}
     </ug-button>`
 };
@@ -460,13 +460,13 @@ export const PrefixAndSuffixIcons: Story = {
     </ug-button>
 
     <ug-button variant="default" size="small">
-      <ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>
+      <ug-icon slot="suffix" name="arrows-rotate-reverse"></ug-icon>
       Refresh
     </ug-button>
 
     <ug-button variant="default" size="small">
-      <ug-icon slot="prefix" name="link-45deg"></ug-icon>
-      <ug-icon slot="suffix" name="box-arrow-up-right"></ug-icon>
+      <ug-icon slot="prefix" name="link-horizontal"></ug-icon>
+      <ug-icon slot="suffix" name="arrow-up-right-from-square"></ug-icon>
       Open
     </ug-button>
 
@@ -478,13 +478,13 @@ export const PrefixAndSuffixIcons: Story = {
     </ug-button>
 
     <ug-button variant="default">
-      <ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>
+      <ug-icon slot="suffix" name="arrows-rotate-reverse"></ug-icon>
       Refresh
     </ug-button>
 
     <ug-button variant="default">
-      <ug-icon slot="prefix" name="link-45deg"></ug-icon>
-      <ug-icon slot="suffix" name="box-arrow-up-right"></ug-icon>
+      <ug-icon slot="prefix" name="link-horizontal"></ug-icon>
+      <ug-icon slot="suffix" name="arrow-up-right-from-square"></ug-icon>
       Open
     </ug-button>
 
@@ -496,13 +496,13 @@ export const PrefixAndSuffixIcons: Story = {
     </ug-button>
 
     <ug-button variant="default" size="large">
-      <ug-icon slot="suffix" name="arrow-counterclockwise"></ug-icon>
+      <ug-icon slot="suffix" name="arrows-rotate-reverse"></ug-icon>
       Refresh
     </ug-button>
 
     <ug-button variant="default" size="large">
-      <ug-icon slot="prefix" name="link-45deg"></ug-icon>
-      <ug-icon slot="suffix" name="box-arrow-up-right"></ug-icon>
+      <ug-icon slot="prefix" name="link-horizontal"></ug-icon>
+      <ug-icon slot="suffix" name="arrow-up-right-from-square"></ug-icon>
       Open
     </ug-button>
   `

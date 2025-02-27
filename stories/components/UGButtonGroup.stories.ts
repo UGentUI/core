@@ -327,30 +327,28 @@ export const ToolbarExample: Story = {
         <ug-button-group label="History">
           <ug-tooltip content="Undo">
             <ug-button
-              ><ug-icon name="arrow-counterclockwise" label="Undo"></ug-icon
+              ><ug-icon name="arrows-rotate-reverse" label="Undo"></ug-icon
             ></ug-button>
           </ug-tooltip>
           <ug-tooltip content="Redo">
             <ug-button
-              ><ug-icon name="arrow-clockwise" label="Redo"></ug-icon
+              ><ug-icon name="arrow-rotate-right" label="Redo"></ug-icon
             ></ug-button>
           </ug-tooltip>
         </ug-button-group>
 
         <ug-button-group label="Formatting">
           <ug-tooltip content="Bold">
-            <ug-button
-              ><ug-icon name="type-bold" label="Bold"></ug-icon
-            ></ug-button>
+            <ug-button><ug-icon name="bold" label="Bold"></ug-icon></ug-button>
           </ug-tooltip>
           <ug-tooltip content="Italic">
             <ug-button
-              ><ug-icon name="type-italic" label="Italic"></ug-icon
+              ><ug-icon name="italic" label="Italic"></ug-icon
             ></ug-button>
           </ug-tooltip>
           <ug-tooltip content="Underline">
             <ug-button
-              ><ug-icon name="type-underline" label="Underline"></ug-icon
+              ><ug-icon name="underline" label="Underline"></ug-icon
             ></ug-button>
           </ug-tooltip>
         </ug-button-group>
@@ -358,17 +356,17 @@ export const ToolbarExample: Story = {
         <ug-button-group label="Alignment">
           <ug-tooltip content="Align Left">
             <ug-button
-              ><ug-icon name="justify-left" label="Align Left"></ug-icon
+              ><ug-icon name="align-left" label="Align Left"></ug-icon
             ></ug-button>
           </ug-tooltip>
           <ug-tooltip content="Align Center">
             <ug-button
-              ><ug-icon name="justify" label="Align Center"></ug-icon
+              ><ug-icon name="align-justify" label="Align Center"></ug-icon
             ></ug-button>
           </ug-tooltip>
           <ug-tooltip content="Align Right">
             <ug-button
-              ><ug-icon name="justify-right" label="Align Right"></ug-icon
+              ><ug-icon name="align-right" label="Align Right"></ug-icon
             ></ug-button>
           </ug-tooltip>
         </ug-button-group>

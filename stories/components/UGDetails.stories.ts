@@ -217,27 +217,24 @@ export const Details: Story = {
   },
   //prettier-ignore
   render: (args) => {
-    return html`<ug-details class="${args.collapseIconSlot == 'Icon' ? 'custom-icons' : 'detail'}"
+    return html`<ug-details
+        class="${args.collapseIconSlot == 'Icon' ? 'custom-icons' : 'detail'}"
         summary=${args.summary}
         ?open=${args.open}
         ?disabled=${args.disabled}
         >${args.expandIconSlot == 'Icon'
-          ? html`
-          <ug-icon slot="expand-icon" name="plus-square"></ug-icon>`
+          ? html` <ug-icon slot="expand-icon" name="square-plus"></ug-icon>`
           : null}${args.collapseIconSlot == 'Icon'
-          ? html`
-          <ug-icon slot="collapse-icon" name="dash-square"></ug-icon>`
+          ? html` <ug-icon slot="collapse-icon" name="square-minus"></ug-icon>`
           : null}
-          ${args.defaultSlot} 
-        </ug-details>${args.collapseIconSlot == 'Icon'
-        ? html`
-        
-        <style>
-          ug-details.custom-icons::part(summary-icon) {
-            /* Disable the expand/collapse animation */
-            rotate: none;
-          }
-        </style>`
+        ${args.defaultSlot} </ug-details
+      >${args.collapseIconSlot == 'Icon'
+        ? html` <style>
+            ug-details.custom-icons::part(summary-icon) {
+              /* Disable the expand/collapse animation */
+              rotate: none;
+            }
+          </style>`
         : null}`;
   }
 };

@@ -285,18 +285,18 @@ export const PrefixAndSuffixIcons: Story = {
   render: () => {
     return html`<ug-radio-group label="Select an option" name="a" value="1">
       <ug-radio-button value="1">
-        <ug-icon slot="prefix" name="archive"></ug-icon>
+        <ug-icon slot="prefix" name="box-archive"></ug-icon>
         Option 1
       </ug-radio-button>
 
       <ug-radio-button value="2">
-        <ug-icon slot="suffix" name="bag"></ug-icon>
+        <ug-icon slot="suffix" name="bag-shopping"></ug-icon>
         Option 2
       </ug-radio-button>
 
       <ug-radio-button value="3">
         <ug-icon slot="prefix" name="gift"></ug-icon>
-        <ug-icon slot="suffix" name="cart"></ug-icon>
+        <ug-icon slot="suffix" name="cart-shopping"></ug-icon>
         Option 3
       </ug-radio-button>
     </ug-radio-group> `;
@@ -315,23 +315,23 @@ export const ButtonsWithIcons: Story = {
   render: () => {
     return html`<ug-radio-group label="Select an option">
       <ug-radio-button value="angry">
-        <ug-icon name="emoji-angry" label="Angry"></ug-icon>
+        <ug-icon name="face-angry" label="Angry"></ug-icon>
       </ug-radio-button>
 
       <ug-radio-button value="sad">
-        <ug-icon name="emoji-frown" label="Sad"></ug-icon>
+        <ug-icon name="face-frown" label="Sad"></ug-icon>
       </ug-radio-button>
 
       <ug-radio-button value="neutral">
-        <ug-icon name="emoji-neutral" label="Neutral"></ug-icon>
+        <ug-icon name="face-meh" label="Neutral"></ug-icon>
       </ug-radio-button>
 
       <ug-radio-button value="happy">
-        <ug-icon name="emoji-smile" label="Happy"></ug-icon>
+        <ug-icon name="face-smile" label="Happy"></ug-icon>
       </ug-radio-button>
 
       <ug-radio-button value="laughing">
-        <ug-icon name="emoji-laughing" label="Laughing"></ug-icon>
+        <ug-icon name="face-laugh" label="Laughing"></ug-icon>
       </ug-radio-button>
     </ug-radio-group> `;
   }
