@@ -33,17 +33,17 @@ const meta: Meta = {
       control: 'select',
       options: iconNames,
       description:
-        'The name of the icon to draw from the Font Awesome Pro library. ' +
-        'See [Font Awesome Icons](https://fontawesome.com/icons) for the full list.<br>' +
-        '`reflects: true`',
+        'The name of the icon to draw. Available names depend on the icon library being used. <br> `reflects: true`',
       table: {
         category: 'Properties',
-        type: { summary: 'string' }
+        type: { summary: 'string' },
+        defaultValue: { summary: undefined }
       }
     },
     src: {
       control: 'text',
-      description: 'An external URL of an SVG file.',
+      description:
+        'An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and can result in XSS attacks.',
       table: {
         category: 'Properties',
         type: { summary: 'string' },
@@ -52,7 +52,8 @@ const meta: Meta = {
     },
     label: {
       control: 'text',
-      description: 'An alternate description to use for assistive devices.',
+      description:
+        'An alternate description to use for assistive devices. If omitted, the icon will be considered presentational and ignored by assistive devices.',
       table: {
         category: 'Properties',
         type: { summary: 'string' },
