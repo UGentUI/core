@@ -19,7 +19,10 @@ const meta: Meta = {
   parameters: {
     docs: {
       subtitle:
-        'Ranges allow the user to select a single value within a given range using a slider. This component works with standard <form> elements',
+        'Ranges allow the user to select a single value within a given range using a slider.',
+      description: {
+        component: 'This component works with standard `<form>` elements.'
+      },
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
         format: true
@@ -42,7 +45,7 @@ const meta: Meta = {
         'The name of the range, submitted as a name/value pair with form data.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       }
@@ -52,7 +55,7 @@ const meta: Meta = {
         'The current value of the range, submitted as a name/value pair with form data.',
       control: { type: 'number' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '0' }
       }
@@ -62,7 +65,7 @@ const meta: Meta = {
         'The range’s label. If you need to display HTML, use the label slot instead.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       }
@@ -72,7 +75,7 @@ const meta: Meta = {
         'The range’s help text. If you need to display HTML, use the help-text slot instead.',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       }
@@ -82,7 +85,7 @@ const meta: Meta = {
       description: 'Disables the range. <br>`reflects: true`',
       control: { type: 'boolean' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       }
@@ -91,7 +94,7 @@ const meta: Meta = {
       description: 'The minimum acceptable value of the range.',
       control: { type: 'number' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '0' }
       }
@@ -100,7 +103,7 @@ const meta: Meta = {
       description: 'The maximum acceptable value of the range.',
       control: { type: 'number' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '100' }
       }
@@ -110,7 +113,7 @@ const meta: Meta = {
         'The interval at which the range will increase and decrease.',
       control: { type: 'number' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '1' }
       }
@@ -120,7 +123,7 @@ const meta: Meta = {
       control: { type: 'select' },
       options: ['top', 'bottom', 'none'],
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: "'top' | 'bottom' | 'none'" },
         defaultValue: { summary: "'top'" }
       }
@@ -130,7 +133,7 @@ const meta: Meta = {
         'A function used to format the tooltip’s value. The range’s value is passed as the first and only argument. The function should return a string to display in the tooltip.',
       control: false,
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: '(value: number) => string' },
         defaultValue: { summary: undefined }
       }
@@ -141,7 +144,7 @@ const meta: Meta = {
         'Associates the range with a form by id. <br>`reflects: true`',
       control: { type: 'text' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'string' },
         defaultValue: { summary: "''" }
       }
@@ -151,7 +154,7 @@ const meta: Meta = {
         'The default value of the form control. Primarily used for resetting the form control.',
       control: { type: 'number' },
       table: {
-        category: 'Attributes',
+        category: 'Properties',
         type: { summary: 'number' },
         defaultValue: { summary: '0' }
       }
@@ -160,7 +163,8 @@ const meta: Meta = {
       description: 'Gets the validity state object.',
       control: false,
       table: {
-        category: 'Attributes',
+        category: 'Properties',
+        type: { summary: 'ValidityState' },
         defaultValue: { summary: undefined }
       }
     },
@@ -168,7 +172,8 @@ const meta: Meta = {
       description: 'Gets the validation message.',
       control: false,
       table: {
-        category: 'Attributes',
+        category: 'Properties',
+        type: { summary: 'string' },
         defaultValue: { summary: undefined }
       }
     },
@@ -177,7 +182,8 @@ const meta: Meta = {
         'A read-only promise that resolves when the component has finished updating.',
       control: false,
       table: {
-        category: 'Attributes',
+        category: 'Properties',
+        type: { summary: 'Promise<void>' },
         defaultValue: { summary: undefined }
       }
     },
@@ -279,7 +285,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => void' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     stepUp: {
       name: 'stepUp()',
@@ -289,7 +296,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => void' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     stepDown: {
       name: 'stepDown()',
@@ -299,7 +307,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => void' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     checkValidity: {
       name: 'checkValidity()',
@@ -309,7 +318,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => boolean' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     getForm: {
       name: 'getForm()',
@@ -318,7 +328,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => HTMLFormElement | null' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     reportValidity: {
       name: 'reportValidity()',
@@ -328,7 +339,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '() => boolean' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     },
     setCustomValidity: {
       name: 'setCustomValidity()',
@@ -338,7 +350,8 @@ const meta: Meta = {
         category: 'Methods',
         type: { summary: '(message: string) => void' },
         defaultValue: { summary: undefined }
-      }
+      },
+      control: false
     }
   }
 };
@@ -483,10 +496,40 @@ export const DisableTheTooltip: Story = {
   }
 };
 
-export const CustomTrackOffset: Story = {
+export const CustomTrackColors: Story = {
   ...Range,
   args: {
     ...Range.args
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `You can customize the active and inactive portions of the track using the <code>--track-color-active</code> and <code>--track-color-inactive</code> custom properties.`
+      }
+    },
+    controls: { disable: true }
+  },
+  render: (args) => {
+    return html`<ug-range
+      style="
+        --track-color-active: var(--ug-color-primary-600);
+        --track-color-inactive: var(--ug-color-primary-100);
+      "
+      >${args.labelSlot
+        ? html`<div slot="label">${args.labelSlot}</div>`
+        : ''}${args.helpTextSlot
+        ? html`<div slot="help-text">${args.helpTextSlot}</div>`
+        : ''}</ug-range
+    >`;
+  }
+};
+
+export const CustomTrackOffset: Story = {
+  ...Range,
+  args: {
+    ...Range.args,
+    min: -100,
+    max: 100
   },
   parameters: {
     docs: {
@@ -497,7 +540,14 @@ export const CustomTrackOffset: Story = {
     controls: { disable: true }
   },
   render: (args) => {
-    return html`<ug-range style="--track-active-offset: 50%;"
+    return html`<ug-range
+      min="${args.min}"
+      max="${args.max}"
+      style="
+        --track-color-active: var(--ug-color-primary-600);
+        --track-color-inactive: var(--ug-color-primary-100);
+        --track-active-offset: 50%;
+      "
       >${args.labelSlot
         ? html`<div slot="label">${args.labelSlot}</div>`
         : ''}${args.helpTextSlot
@@ -510,18 +560,25 @@ export const CustomTrackOffset: Story = {
 export const CustomTooltipFormatter: Story = {
   ...Range,
   args: {
-    ...Range.args
+    ...Range.args,
+    min: 0,
+    max: 100,
+    step: 1
   },
   parameters: {
     docs: {
       description: {
-        story: `You can change the tooltip’s content by setting the <code>tooltipFormatter</code> property to a function that accepts the range’s value as an argument.`
+        story: `You can change the tooltip's content by setting the <code>tooltipFormatter</code> property to a function that accepts the range's value as an argument.`
       }
     },
     controls: { disable: true }
   },
   render: (args) => {
-    return html`<ug-range class="range-with-custom-formatter"
+    return html`<ug-range
+        class="range-with-custom-formatter"
+        min="${args.min}"
+        max="${args.max}"
+        step="${args.step}"
         >${args.labelSlot
           ? html`<div slot="label">${args.labelSlot}</div>`
           : ''}${args.helpTextSlot
@@ -532,9 +589,9 @@ export const CustomTooltipFormatter: Story = {
       <script>
         (() => {
           const range = document.querySelector('.range-with-custom-formatter');
-          range.tooltipFormatter = (value) => 'Total - \${value}%';
+          range.tooltipFormatter = (value) => \`Total - \${value}%\`;
         })();
-      </script> `;
+      </script>`;
   }
 };
 
@@ -553,7 +610,7 @@ export const RangeWithEvents: Story = {
     controls: { disable: true }
   },
   render: (args) => {
-    return html` <form class="range-with-events-form">
+    return html` <form id="range-with-events-form">
       <ug-range
         class="range-with-events"
         name="${args.name}"
@@ -580,47 +637,56 @@ export const RangeWithEvents: Story = {
   },
 
   play: async ({ canvasElement }) => {
-    // Select the <ug-range> element
     const rangeElement = canvasElement.querySelector('ug-range')!;
     await rangeElement.updateComplete;
 
-    const input = rangeElement.shadowRoot!.querySelector('input')!;
+    // Test focus() method
+    rangeElement.focus();
 
-    // Focus the range element
-    await userEvent.click(rangeElement);
+    // Test blur() method
+    rangeElement.blur();
 
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Test stepUp() method
+    rangeElement.stepUp();
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Increment the value using stepUp() and dispatch events
-    const steps = 5; // Number of increments
-    for (let i = 0; i < steps; i++) {
-      rangeElement.stepUp(); // Increment the value
-
-      // Dispatch input and change events
-      const inputEvent = new Event('input', { bubbles: true, composed: true });
-      const changeEvent = new Event('change', {
-        bubbles: true,
-        composed: true
-      });
-      input.dispatchEvent(inputEvent); // Trigger 'input' listeners
-      input.dispatchEvent(changeEvent); // Trigger 'change' listeners
-
-      // Add a small delay for better simulation
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    }
-
+    // Test stepDown() method
     rangeElement.stepDown();
 
-    // Add a delay to ensure event propagation and updates
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Test getForm()
+    action('getForm')(rangeElement.getForm()?.id);
 
-    // Simulate blur
-    input.blur();
+    // Test checkValidity() with valid input
+    rangeElement.value = 50;
+    action('checkValidity - valid input')(rangeElement.checkValidity());
 
-    // Simulate invalid input
-    rangeElement.setCustomValidity('This is invalid');
+    // Test checkValidity() with invalid input
+    rangeElement.value = -10;
+    action('checkValidity - invalid input')(rangeElement.checkValidity());
+    rangeElement.setCustomValidity('Custom invalid state');
+    rangeElement.reportValidity();
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // Reset custom validity
+    rangeElement.setCustomValidity('');
 
-    // Report field as invalid
-    action('Report field as invalid')(!rangeElement.reportValidity());
+    // Find the actual input[type="range"] in the shadow DOM
+    const input = rangeElement.shadowRoot?.querySelector(
+      'input[type="range"]'
+    ) as HTMLInputElement;
+    if (!input) {
+      console.error('Could not find range input element');
+      return;
+    }
+
+    // Focus the actual range input
+    input.focus();
+
+    // TODO: This is not working
+    await userEvent.keyboard('{ArrowRight}');
+    // Let's try directly setting the value
+    const currentValue = Number(input.value);
+    input.value = String(currentValue + 1);
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
   }
 };
