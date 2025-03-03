@@ -6,10 +6,10 @@ import '/lib/components/popup';
 import '/lib/components/tooltip';
 import '/lib/components/input';
 import { action } from '@storybook/addon-actions';
-import { userEvent, within } from '@storybook/test';
+import { userEvent } from '@storybook/test';
 
 const meta: Meta = {
-  title: 'Components/CopyButton',
+  title: 'Components/Copy Button',
   component: 'ug-copy-button',
   parameters: {
     docs: {
@@ -18,18 +18,31 @@ const meta: Meta = {
       source: {
         format: true,
         transform: (code: string) => {
-          // Remove empty/default attributes and replace boolean attributes from the source code display
-          return code
-            .replace(
-              /\s( value=""| from=""| copy-label=""| success-label=""| error-label=""| feedback-duration="1000"| tooltip-placement="top")/g,
-              ''
-            )
-            .replace(/\s* disabled=""/g, ' disabled')
-            .replace(/\s* hoist=""/g, ' hoist');
+          return (
+            code
+              .replace(
+                /\s(value=""|from=""|copy-label=""|success-label=""|error-label=""|feedback-duration="1000"|tooltip-placement="top")/g,
+                ''
+              )
+              .replace(/\s* disabled=""/g, ' disabled')
+              .replace(/\s* hoist=""/g, ' hoist')
+              // Remove empty lines (two or more consecutive newlines)
+              .replace(/\n\s*\n/g, '\n')
+          );
         }
       }
     }
   },
+  decorators: [
+    (Story) => {
+      // Apply CSS without showing in code snippet
+      const style = document.createElement('style');
+      // This fixes the hoisting but breaks the zoom buttons in the toolbar
+      style.textContent = '.docs-story :not(.sb-story) { transform: none; }';
+      document.head.appendChild(style);
+      return Story();
+    }
+  ],
   argTypes: {
     value: {
       description: 'The text value to copy.',
@@ -42,7 +55,7 @@ const meta: Meta = {
     },
     from: {
       description:
-        'An id that references an element in the same document from which data will be copied. If both this and <code>value</code> are present, this value will take precedence. By default, the target element’s <code>textContent</code> will be copied. To copy an attribute, append the attribute name wrapped in square brackets, e.g. <code>from="el[value]"</code>. To copy a property, append a dot and the property name, e.g. <code>from="el.value"</code>.',
+        'An id that references an element in the same document from which data will be copied. If both this and <code>value</code> are present, this value will take precedence. By default, the target element\'s <code>textContent</code> will be copied. To copy an attribute, append the attribute name wrapped in square brackets, e.g. <code>from="el[value]"</code>. To copy a property, append a dot and the property name, e.g. <code>from="el.value"</code>.',
       control: 'text',
       table: {
         category: 'Properties',
@@ -133,103 +146,67 @@ const meta: Meta = {
       }
     },
     copyIconSlot: {
-      control: 'check',
-      options: ['Icon'],
       name: 'copy-icon',
       description:
         'The icon to show in the default copy state. Works best with <code><ug-icon></code>.',
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
-        type: {
-          summary: 'slot'
-        },
-        defaultValue: {
-          summary: 'undefined'
-        }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       }
     },
     successIconSlot: {
-      control: 'check',
-      options: ['Icon'],
       name: 'success-icon',
       description:
         'The icon to show when the content is copied. Works best with <code><ug-icon></code>.',
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
-        type: {
-          summary: 'slot'
-        },
-        defaultValue: {
-          summary: 'undefined'
-        }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       }
     },
     errorIconSlot: {
-      control: 'check',
-      options: ['Icon'],
       name: 'error-icon',
       description:
         'The icon to show when a copy error occurs. Works best with <code><ug-icon></code>.',
+      control: 'check',
+      options: ['Icon'],
       table: {
         category: 'Slots',
-        type: {
-          summary: 'slot'
-        },
-        defaultValue: {
-          summary: 'undefined'
-        }
+        type: { summary: 'slot' },
+        defaultValue: { summary: undefined }
       }
     },
     ugCopy: {
-      // Events should not be controlled in the Storybook UI
       control: false,
-
-      // Optional: Override how the event name appears in the controls panel
       name: 'ug-copy',
-
-      // Connect the event to Storybook's Actions panel
       action: 'ug-copy',
-
-      // Detailed description of the event
-      description: 'Emitted when the data has been copied.	',
-
+      description:
+        'Emitted when the data has been copied. The event detail contains the copied value.',
       table: {
-        // Categorization in Storybook UI
         category: 'Events',
-        // Type information with optional details
         type: {
-          summary: 'CustomEvent'
+          summary: 'CustomEvent<{ value: string }>'
         },
-        defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
-          summary: undefined
-        }
+        defaultValue: { summary: undefined }
       }
     },
     ugError: {
-      // Events should not be controlled in the Storybook UI
       control: false,
-
-      // Optional: Override how the event name appears in the controls panel
       name: 'ug-error',
-
-      // Connect the event to Storybook's Actions panel
       action: 'ug-error',
-
-      // Detailed description of the event
-      description: 'Emitted when the data could not be copied.',
-
+      description:
+        'Emitted when the data could not be copied. The event detail contains the error object.',
       table: {
-        // Categorization in Storybook UI
         category: 'Events',
-        // Type information with optional details
         type: {
-          summary: 'CustomEvent'
+          summary: 'CustomEvent<{ error: Error }>'
         },
-        defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
-          summary: undefined
-        }
+        defaultValue: { summary: undefined }
       }
     }
   }
@@ -249,11 +226,13 @@ export const CopyButton: Story = {
     errorLabel: '',
     feedbackDuration: 1000,
     tooltipPlacement: 'top',
-    hoist: false
+    hoist: false,
+    copyIconSlot: '',
+    successIconSlot: '',
+    errorIconSlot: ''
   },
-  //prettier-ignore
-  render: (args) => {
-    return html`<ug-copy-button
+  render: (args) => html`
+    <ug-copy-button
       value="${args.value}"
       from="${args.from}"
       ?disabled="${args.disabled}"
@@ -263,29 +242,28 @@ export const CopyButton: Story = {
       feedback-duration="${args.feedbackDuration}"
       tooltip-placement="${args.tooltipPlacement}"
       ?hoist="${args.hoist}"
-      >${args.copyIconSlot == 'Icon'
-        ? html`
-  <ug-icon span="copy-icon" name="clipboard"></ug-icon>`
-        : ''}${args.successIconSlot == 'Icon'
-        ? html`
-  <ug-icon span="success-icon" name="clipboard-check"></ug-icon>`
-        : ''}${args.errorIconSlot == 'Icon'
-        ? html`
-  <ug-icon span="error-icon" name="clipboard-x"></ug-icon>`
+      @ug-copy="${action('ug-copy')}"
+      @ug-error="${action('ug-error')}"
+    >
+      ${args.copyIconSlot == 'Icon'
+        ? html`<ug-icon slot="copy-icon" name="clipboard"></ug-icon>`
         : ''}
-</ug-copy-button>`;
-  }
+      ${args.successIconSlot == 'Icon'
+        ? html`<ug-icon slot="success-icon" name="clipboard-check"></ug-icon>`
+        : ''}
+      ${args.errorIconSlot == 'Icon'
+        ? html`<ug-icon slot="error-icon" name="clipboard-x"></ug-icon>`
+        : ''}
+      ${args.copyIconSlot == '' &&
+      args.successIconSlot == '' &&
+      args.errorIconSlot == ''
+        ? html`<!-- slots -->`
+        : ''}
+    </ug-copy-button>
+  `
 };
 
 export const CustomLabels: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    value: 'Custom labels are easy',
-    copyLabel: 'Click to copy',
-    successLabel: 'You did it!',
-    errorLabel: "Whoops, your browser doesn't support this!"
-  },
   parameters: {
     controls: { disable: true },
     docs: {
@@ -294,47 +272,46 @@ export const CustomLabels: Story = {
           'Copy Buttons display feedback in a tooltip. You can customize the labels using the <code>copy-label</code>, <code>success-label</code>, and <code>error-label</code> attributes.'
       }
     }
+  },
+  render: () => {
+    return html`
+      <ug-copy-button
+        value="Custom labels are easy"
+        copy-label="Click to copy"
+        success-label="You did it!"
+        error-label="Whoops, your browser doesn't support this!"
+      ></ug-copy-button>
+    `;
   }
 };
 
 export const CustomIcons: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    value: 'Copied from a custom button',
-    copyIconSlot: 'Icon',
-    successIconSlot: 'Icon',
-    errorIconSlot: 'Icon'
-  },
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
         story:
-          'Use the <code>copy-icon</code>, <code>success-icon</code>, and <code>error-icon</code> slots to customize the icons that get displayed for each state. You can use <code>[<ug-icon>](?path=/docs/components-icon--docs)</code> or your own images.'
+          'Use the <code>copy-icon</code>, <code>success-icon</code>, and <code>error-icon</code> slots to customize the icons that get displayed for each state. You can use [<ug-icon>](?path=/docs/components-icon--docs) or your own images.'
       }
     }
+  },
+  render: () => {
+    return html`
+      <ug-copy-button value="Copied from a custom button">
+        <ug-icon slot="copy-icon" name="clipboard"></ug-icon>
+        <ug-icon slot="success-icon" name="clipboard-check"></ug-icon>
+        <ug-icon slot="error-icon" name="clipboard-x"></ug-icon>
+      </ug-copy-button>
+    `;
   }
 };
 
 export const CopyingValuesFromOtherElements: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    value: 'Copied from a custom button',
-    copyIconSlot: 'Icon',
-    successIconSlot: 'Icon',
-    errorIconSlot: 'Icon'
-  },
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: `Normally, the data that gets copied will come from the component’s <code>value</code> attribute, but you can copy data from any element within the same document by providing its <code>id</code> to the <code>from</code> attribute.
-
-When using the <code>from</code> attribute, the element’s <code>[textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)</code> will be copied by default. Passing an attribute or property modifier will let you copy data from one of the element’s attributes or properties instead.
-
-To copy data from an attribute, use <code>from="id[attr]"</code> where <code>id</code> is the id of the target element and <code>attr</code> is the name of the attribute you’d like to copy. To copy data from a property, use <code>from="id.prop"</code> where <code>id</code> is the id of the target element and <code>prop</code> is the name of the property you’d like to copy.`
+        story: `Normally, the data that gets copied will come from the component's <code>value</code> attribute, but you can copy data from any element within the same document by providing its <code>id</code> to the <code>from</code> attribute.<br>When using the <code>from</code> attribute, the element's [textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) will be copied by default. Passing an attribute or property modifier will let you copy data from one of the element's attributes or properties instead.<br>To copy data from an attribute, use <code>from="id[attr]"</code> where <code>id</code> is the id of the target element and <code>attr</code> is the name of the attribute you'd like to copy. To copy data from a property, use <code>from="id.prop"</code> where <code>id</code> is the id of the target element and <code>prop</code> is the name of the property you'd like to copy.`
       }
     }
   },
@@ -365,30 +342,20 @@ To copy data from an attribute, use <code>from="id[attr]"</code> where <code>id<
 };
 
 export const HandlingErrors: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    from: 'i-do-not-exist'
-  },
   parameters: {
     controls: { disable: true },
     docs: {
       description: {
-        story: `A copy error will occur if the value is an empty string, if the <code>from</code> attribute points to an id that doesn’t exist, or if the browser rejects the operation for any reason. When this happens, the <code>ug-error</code> event will be emitted.
-
-This example demonstrates what happens when a copy error occurs. You can customize the error label and icon using the <code>error-label</code> attribute and the <code>error-icon</code> slot, respectively.`
+        story: `A copy error will occur if the value is an empty string, if the <code>from</code> attribute points to an id that doesn't exist, or if the browser rejects the operation for any reason. When this happens, the <code>ug-error</code> event will be emitted.<br>This example demonstrates what happens when a copy error occurs. You can customize the error label and icon using the <code>error-label</code> attribute and the <code>error-icon</code> slot, respectively.`
       }
     }
+  },
+  render: () => {
+    return html` <ug-copy-button from="i-do-not-exist"></ug-copy-button> `;
   }
 };
 
 export const Disabled: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    value: "You can't copy me",
-    disabled: true
-  },
   parameters: {
     controls: { disable: true },
     docs: {
@@ -396,16 +363,15 @@ export const Disabled: Story = {
         story: `Copy buttons can be disabled by adding the <code>disabled</code> attribute.`
       }
     }
+  },
+  render: () => {
+    return html`
+      <ug-copy-button value="You can't copy me" disabled></ug-copy-button>
+    `;
   }
 };
 
 export const ChangingFeedbackDuration: Story = {
-  ...CopyButton,
-  args: {
-    ...CopyButton.args,
-    value: 'I copy for a shorter time',
-    feedbackDuration: 250
-  },
   parameters: {
     controls: { disable: true },
     docs: {
@@ -413,60 +379,42 @@ export const ChangingFeedbackDuration: Story = {
         story: `A success indicator is briefly shown after copying. You can customize the length of time the indicator is shown using the <code>feedback-duration</code> attribute.`
       }
     }
+  },
+  render: () => {
+    return html`
+      <ug-copy-button
+        value="I copy for a shorter time"
+        feedback-duration="250"
+      ></ug-copy-button>
+    `;
   }
 };
 
 export const CopyButtonWithEvents: Story = {
-  tags: ['!autodocs'],
-  args: {
-    value: 'Copy this text!',
-    from: '',
-    disabled: false,
-    copyLabel: '',
-    successLabel: '',
-    errorLabel: '',
-    feedbackDuration: 1000,
-    tooltipPlacement: 'top',
-    hoist: false
+  parameters: {
+    controls: { disable: true }
   },
-  //prettier-ignore
-  render: (args) => {
-    return html`<ug-copy-button
-      value="${args.value}"
-      from="${args.from}"
-      ?disabled="${args.disabled}"
-      copy-label="${args.copyLabel}"
-      success-label="${args.successLabel}"
-      error-label="${args.errorLabel}"
-      feedback-duration="${args.feedbackDuration}"
-      tooltip-placement="${args.tooltipPlacement}"
-      ?hoist="${args.hoist}"
+  tags: ['!autodocs'],
+
+  render: () => html`
+    <ug-copy-button
+      value="Copy this text!"
       @ug-copy="${action('ug-copy')}"
       @ug-error="${action('ug-error')}"
-      >${args.copyIconSlot == 'Icon'
-        ? html` <ug-icon span="copy-icon" name="clipboard"></ug-icon>`
-        : ''}${args.successIconSlot == 'Icon'
-        ? html` <ug-icon span="success-icon" name="clipboard-check"></ug-icon>`
-        : ''}${args.errorIconSlot == 'Icon'
-        ? html` <ug-icon span="error-icon" name="clipboard-x"></ug-icon>`
-        : ''}
-    </ug-copy-button>`;
-  },
+    >
+    </ug-copy-button>
+  `,
   play: async ({ canvasElement }) => {
     const ugCopyButton = canvasElement.querySelector('ug-copy-button');
+    await ugCopyButton?.updateComplete;
 
     const button = ugCopyButton?.shadowRoot?.querySelector('button');
-
-    // Simulate clicking the button
     await userEvent.click(button!);
+    // Wait for the copy operation and feedback to complete
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    ugCopyButton?.setAttribute('from', 'i-do-not-exist');
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Simulate clicking the button
-    await userEvent.click(button!);
-    // Simulate clicking the button
+    // Test error case
+    ugCopyButton?.setAttribute('value', '');
     await userEvent.click(button!);
   }
 };
