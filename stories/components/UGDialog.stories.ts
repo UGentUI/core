@@ -5,7 +5,6 @@ import '/lib/components/button';
 import '/lib/components/icon';
 import '/lib/components/icon-button';
 import '/lib/components/input';
-import { userEvent, within } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
@@ -14,9 +13,18 @@ const meta: Meta = {
   parameters: {
     docs: {
       subtitle:
-        'Dialogs, sometimes called “modals”, appear above the page and require the user’s immediate attention.',
+        'Dialogs, sometimes called "modals", appear above the page and require the user’s immediate attention.',
       source: {
-        format: true
+        format: true,
+        transform: (code: string) => {
+          return code
+            .replace(/\s* open=""/g, ' open')
+            .replace(/\s* autofocus=""/g, ' autofocus');
+        }
+      },
+      story: {
+        inline: false,
+        iframeHeight: 250
       }
     }
   },
@@ -26,7 +34,7 @@ const meta: Meta = {
         'Exposes the internal modal utility that controls focus trapping. To temporarily disable focus trapping and allow third-party modals spawned from an active modal, call <code>modal.activateExternal()</code> when the third-party modal opens. Upon closing, call <code>modal.deactivateExternal()</code> to restore focus trapping.',
       table: {
         category: 'Properties',
-        type: { summary: 'Modal' },
+        type: { summary: undefined },
         defaultValue: { summary: 'new Modal(this)' }
       },
       control: { disable: true }
@@ -39,7 +47,7 @@ const meta: Meta = {
         type: { summary: 'boolean' },
         defaultValue: { summary: 'false' }
       },
-      control: 'boolean'
+      control: { disable: true }
     },
     label: {
       description:
@@ -83,12 +91,12 @@ const meta: Meta = {
           summary: 'slot'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     labelSlot: {
+      control: false,
       name: 'label',
       description:
         'The dialog’s label. Alternatively, you can use the `label` attribute.',
@@ -98,12 +106,12 @@ const meta: Meta = {
           summary: 'slot'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     headerActionsSlot: {
+      control: false,
       name: 'header-actions',
       description:
         'Optional actions to add to the header. Works best with `<ug-icon-button>`.',
@@ -113,12 +121,12 @@ const meta: Meta = {
           summary: 'slot'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     footerSlot: {
+      control: false,
       name: 'footer',
       description:
         'The dialog’s footer, usually one or more buttons representing various options.',
@@ -128,11 +136,11 @@ const meta: Meta = {
           summary: 'slot'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
+    //Events
     ugShow: {
       control: false,
       name: 'ug-show',
@@ -140,96 +148,89 @@ const meta: Meta = {
       description: 'Emitted when the dialog opens.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: 'CustomEvent'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     ugAfterShow: {
+      control: false,
       name: 'ug-after-show',
       action: 'ug-after-show',
       description:
         'Emitted after the dialog opens and all animations are complete.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: 'CustomEvent'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     ugHide: {
+      control: false,
       name: 'ug-hide',
       action: 'ug-hide',
       description: 'Emitted when the dialog closes.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: 'CustomEvent'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     ugAfterHide: {
+      control: false,
       name: 'ug-after-hide',
       action: 'ug-after-hide',
       description:
         'Emitted after the dialog closes and all animations are complete.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: 'CustomEvent'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     ugInitialFocus: {
+      control: false,
       name: 'ug-initial-focus',
       action: 'ug-initial-focus',
       description:
         'Emitted when the dialog opens and is ready to receive focus. Calling event.preventDefault() will prevent focusing and allow you to set it on a different element, such as an input.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: 'CustomEvent'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
     },
     ugRequestClose: {
+      control: false,
       name: 'ug-request-close',
       action: 'ug-request-close',
       description:
         'Emitted when the user attempts to close the dialog by clicking the close button, clicking the overlay, or pressing escape. Calling <code>event.preventDefault()</code> will keep the dialog open. Avoid using this unless closing the dialog will result in destructive behavior such as data loss.',
       table: {
         category: 'Events',
-        // Type information with optional details
         type: {
           summary: "{ source: 'close-button' | 'keyboard' | 'overlay' }"
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       }
@@ -240,11 +241,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: {
-          // Add the method signature
           summary: '() => void'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       },
@@ -256,11 +255,9 @@ const meta: Meta = {
       table: {
         category: 'Methods',
         type: {
-          // Add the method signature
           summary: '() => void'
         },
         defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
           summary: undefined
         }
       },
@@ -274,33 +271,93 @@ export default meta;
 type Story = StoryObj;
 
 export const Dialog: Story = {
-  args: {
-    open: false,
-    label: 'Dialog',
-    noHeader: false
+  parameters: {
+    docs: {
+      source: {
+        language: 'html',
+        type: 'code',
+        format: true,
+        code: `
+<ug-dialog label="Dialog" open>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  <ug-button slot="footer" variant="primary">Close</ug-button>
+</ug-dialog>
+<script>
+  (() => {
+    const dialog = document.querySelector('.dialog-overview');
+    const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+    closeButton.addEventListener('click', () => dialog.hide());
+  })();
+</script>`
+      }
+    }
   },
-  render: (args) => {
+  args: {
+    open: true,
+    label: 'Dialog',
+    noHeader: false,
+    defaultSlot: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+  },
+  render: function (args) {
     return html`<ug-dialog
+        label="${args.label}"
         class="dialog-overview"
         ?open="${args.open}"
-        label="${args.label}"
         ?no-header="${args.noHeader}"
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        ${args.defaultSlot}
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-dialog>
-
-      <ug-button>Open Dialog</ug-button>
-
       <script>
-        const dialog = document.querySelector('.dialog-overview');
+        (() => {
+          const dialog = document.querySelector('.dialog-overview');
+          const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+
+          closeButton.addEventListener('click', () => dialog.hide());
+          // Add event listener for after-hide to reopen the dialog if 'open' control is true
+          dialog.addEventListener('ug-after-hide', () => {
+            if (${args.open}) {
+              setTimeout(() => dialog.show(), 500);
+            }
+          });
+        })();
+      </script>`;
+  }
+};
+
+export const CustomWidth: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: "Use the `--width` custom property to set the dialog's width."
+      }
+    },
+    controls: { disable: true }
+  },
+  render: () => html`
+    <ug-dialog
+      class="dialog-width"
+      label="Custom Width Dialog"
+      style="--width: 95vw;"
+      open
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      <ug-button slot="footer" variant="primary">Close</ug-button>
+    </ug-dialog>
+
+    <ug-button>Open Dialog</ug-button>
+
+    <script>
+      (() => {
+        const dialog = document.querySelector('.dialog-width');
         const openButton = dialog.nextElementSibling;
         const closeButton = dialog.querySelector('ug-button[slot="footer"]');
 
         openButton.addEventListener('click', () => dialog.show());
         closeButton.addEventListener('click', () => dialog.hide());
-      </script>`;
-  }
+      })();
+    </script>
+  `
 };
 
 export const Scrolling: Story = {
@@ -314,7 +371,7 @@ export const Scrolling: Story = {
     controls: { disable: true }
   },
   args: {
-    open: false,
+    open: true,
     label: 'Dialog',
     noHeader: false
   },
@@ -336,12 +393,14 @@ export const Scrolling: Story = {
       <ug-button>Open Dialog</ug-button>
 
       <script>
-        const dialog = document.querySelector('.dialog-scrolling');
-        const openButton = dialog.nextElementSibling;
-        const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+        (() => {
+          const dialog = document.querySelector('.dialog-scrolling');
+          const openButton = dialog.nextElementSibling;
+          const closeButton = dialog.querySelector('ug-button[slot="footer"]');
 
-        openButton.addEventListener('click', () => dialog.show());
-        closeButton.addEventListener('click', () => dialog.hide());
+          openButton.addEventListener('click', () => dialog.show());
+          closeButton.addEventListener('click', () => dialog.hide());
+        })();
       </script>`;
   }
 };
@@ -357,7 +416,7 @@ export const HeaderActions: Story = {
     controls: { disable: true }
   },
   args: {
-    open: false,
+    open: true,
     label: 'Dialog',
     noHeader: false
   },
@@ -385,12 +444,14 @@ export const HeaderActions: Story = {
       <ug-button>Open Dialog</ug-button>
 
       <script>
-        const dialog = document.querySelector('.dialog-scrolling');
-        const openButton = dialog.nextElementSibling;
-        const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+        (() => {
+          const dialog = document.querySelector('.dialog-scrolling');
+          const openButton = dialog.nextElementSibling;
+          const closeButton = dialog.querySelector('ug-button[slot="footer"]');
 
-        openButton.addEventListener('click', () => dialog.show());
-        closeButton.addEventListener('click', () => dialog.hide());
+          openButton.addEventListener('click', () => dialog.show());
+          closeButton.addEventListener('click', () => dialog.hide());
+        })();
       </script>`;
   }
 };
@@ -399,22 +460,14 @@ export const PreventingTheDialogFromClosing: Story = {
   parameters: {
     docs: {
       description: {
-        story: `By default, dialogs will close when the user clicks the close button, clicks the overlay, or presses the <key>Escape</key> key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
-
-To keep the dialog open in such cases, you can cancel the <code>ug-request-close</code> event. When canceled, the dialog will remain open and pulse briefly to draw the user’s attention to it.
-
-You can use <code>event.detail.source</code> to determine what triggered the request to close. This example prevents the dialog from closing when the overlay is clicked, but allows the close button or <key>Escape</key> to dismiss it.`
+        story:
+          'By default, dialogs will close when the user clicks the close button, clicks the overlay, or presses the `Escape` key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur. To keep the dialog open in such cases, you can cancel the `ug-request-close` event. When canceled, the dialog will remain open and pulse briefly to draw the user s attention to it. You can use `event.detail.source` to determine what triggered the request to close. This example prevents the dialog from closing when the overlay is clicked, but allows the close button or `Escape` to dismiss it.'
       }
     },
     controls: { disable: true }
   },
-  args: {
-    open: false,
-    label: 'Dialog',
-    noHeader: false
-  },
-  render: (args) => {
-    return html`<ug-dialog label="Dialog" class="dialog-deny-close">
+  render: () => {
+    return html`<ug-dialog label="Dialog" class="dialog-deny-close" open>
         This dialog will not close when you click on the overlay.
         <ug-button slot="footer" variant="primary">Close</ug-button>
       </ug-dialog>
@@ -422,19 +475,21 @@ You can use <code>event.detail.source</code> to determine what triggered the req
       <ug-button>Open Dialog</ug-button>
 
       <script>
-        const dialog = document.querySelector('.dialog-deny-close');
-        const openButton = dialog.nextElementSibling;
-        const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+        (() => {
+          const dialog = document.querySelector('.dialog-deny-close');
+          const openButton = dialog.nextElementSibling;
+          const closeButton = dialog.querySelector('ug-button[slot="footer"]');
 
-        openButton.addEventListener('click', () => dialog.show());
-        closeButton.addEventListener('click', () => dialog.hide());
+          openButton.addEventListener('click', () => dialog.show());
+          closeButton.addEventListener('click', () => dialog.hide());
 
-        // Prevent the dialog from closing when the user clicks on the overlay
-        dialog.addEventListener('ug-request-close', (event) => {
-          if (event.detail.source === 'overlay') {
-            event.preventDefault();
-          }
-        });
+          // Prevent the dialog from closing when the user clicks on the overlay
+          dialog.addEventListener('ug-request-close', (event) => {
+            if (event.detail.source === 'overlay') {
+              event.preventDefault();
+            }
+          });
+        })();
       </script>`;
   }
 };
@@ -443,19 +498,13 @@ export const CustomizingInitialFocus: Story = {
   parameters: {
     docs: {
       description: {
-        story: `By default, the dialog’s panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the dialog. If you want a different element to have focus, add the <code>autofocus</code> attribute to it as shown below.
-        
-You can further customize initial focus behavior by canceling the <code>ug-initial-focus</code> event and setting focus yourself inside the event handler.`
+        story:
+          'By default, the dialog’s panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the dialog. If you want a different element to have focus, add the `autofocus` attribute to it as shown below. You can further customize initial focus behavior by canceling the`ug-initial-focus` event and setting focus yourself inside the event handler.'
       }
     },
     controls: { disable: true }
   },
-  args: {
-    open: false,
-    label: 'Dialog',
-    noHeader: false
-  },
-  render: (args) => {
+  render: () => {
     return html`<ug-dialog label="Dialog" class="dialog-focus">
         <ug-input
           autofocus
@@ -467,29 +516,28 @@ You can further customize initial focus behavior by canceling the <code>ug-initi
       <ug-button>Open Dialog</ug-button>
 
       <script>
-        const dialog = document.querySelector('.dialog-focus');
-        const openButton = dialog.nextElementSibling;
-        const closeButton = dialog.querySelector('ug-button[slot="footer"]');
+        (() => {
+          const dialog = document.querySelector('.dialog-focus');
+          const input = dialog.querySelector('ug-input');
+          const openButton = dialog.nextElementSibling;
+          const closeButton = dialog.querySelector('ug-button[slot="footer"]');
 
-        openButton.addEventListener('click', () => dialog.show());
-        closeButton.addEventListener('click', () => dialog.hide());
+          openButton.addEventListener('click', () => dialog.show());
+          closeButton.addEventListener('click', () => dialog.hide());
+        })();
       </script>`;
   }
 };
 
 export const DialogWithEvents: Story = {
-  args: {
-    open: false,
-    label: 'Dialog with Events',
-    noHeader: false
+  tags: ['!autodocs'],
+  parameters: {
+    controls: { disable: true }
   },
-  render: (args) => html`
+  render: () => html`
     <ug-dialog
+      label="Dialog"
       class="dialog-events"
-      ?open="${args.open}"
-      label="${args.label}"
-      ?no-header="${args.noHeader}"
-      data-testid="ug-dialog"
       @ug-show=${action('ug-show')}
       @ug-after-show=${action('ug-after-show')}
       @ug-hide=${action('ug-hide')}
@@ -502,34 +550,22 @@ export const DialogWithEvents: Story = {
         >Close</ug-button
       >
     </ug-dialog>
-
-    <ug-button>Open Dialog</ug-button>
-
-    <script>
-      const dialog = document.querySelector('.dialog-events');
-      const openButton = dialog.nextElementSibling;
-      const closeButton = dialog.querySelector('ug-button[slot="footer"]');
-
-      openButton.addEventListener('click', () => dialog.show());
-      closeButton.addEventListener('click', () => dialog.hide());
-    </script>
   `,
   play: async ({ canvasElement }) => {
-    //const canvas = within(canvasElement);
+    const dialog = canvasElement.querySelector('ug-dialog');
+    if (!dialog) return;
 
-    const dialog = canvasElement.querySelector('.dialog-events');
-    const openButton = dialog!.nextElementSibling;
-    const closeButton = dialog!.querySelector(
+    const closeButton = dialog.querySelector(
       'ug-button[slot="footer"]'
     ) as HTMLElement;
+    if (!closeButton) return;
 
-    // Open the dialog
-    await userEvent.click(openButton!);
+    await dialog.updateComplete;
 
-    // Add delay to see validation message
+    await dialog.show();
+
     await new Promise((resolve) => setTimeout(resolve, 500));
 
-    // Close the dialog using the close button
-    await userEvent.click(closeButton);
+    await dialog.hide();
   }
 };
