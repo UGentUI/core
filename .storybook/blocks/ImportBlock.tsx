@@ -19,17 +19,6 @@ interface ImportBlockProps {
       };
     };
   };
-  of: {
-    csfFile?: {
-      meta?: {
-        parameters?: {
-          docs?: {
-            importPath?: string;
-          };
-        };
-      };
-    };
-  };
 }
 
 export const ImportBlock: React.FC<ImportBlockProps> = ({ of }) => {
