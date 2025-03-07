@@ -1,9 +1,4 @@
 import React from 'react';
-import type { Meta as StorybookMeta } from '@storybook/web-components';
-
-interface ExtendedMeta extends StorybookMeta {
-  importPath?: string;
-}
 
 interface ImportBlockProps {
   of: {
@@ -30,7 +25,3 @@ export const ImportBlock: React.FC<ImportBlockProps> = ({ of }) => {
     </div>
   );
 };
-
-interface CustomBlockProps {
-  of: { default: ExtendedMeta };
-}
