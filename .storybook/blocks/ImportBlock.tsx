@@ -1,55 +1,18 @@
+import { useOf, Source } from '@storybook/blocks';
 import React from 'react';
-import type { Meta as StorybookMeta } from '@storybook/web-components';
 
-import { DocsContext } from '@storybook/addon-docs/blocks';
+export const ImportBlock: React.FC = () => {
+  const context = useOf('meta');
+  const importPath =
+    context?.type === 'meta'
+      ? context.csfFile?.meta?.parameters?.docs?.importPath
+      : undefined;
 
-interface ExtendedMeta extends StorybookMeta {
-  importPath?: string;
-}
-
-interface ImportBlockProps {
-  of: {
-    csfFile?: {
-      meta?: {
-        parameters?: {
-          docs?: {
-            importPath?: string;
-          };
-        };
-      };
-    };
-  };
-}
-
-export const ImportBlock: React.FC<ImportBlockProps> = ({ of }) => {
-  const importPath = of?.csfFile?.meta?.parameters?.docs?.importPath;
-
-  return (
-    <div>
-      MARYNA
-      <div className="import-block">
-        <div>
-          MARYNA
-          <code>{importPath}</code>
-        </div>
-      </div>
-      {/* Render the story's default content */}
+  return importPath ? (
+    <div className="import-block">
+      <h3>Importing</h3>
+      <p>To import this component using a bundler:</p>
+      <Source code={importPath} language="html" />
     </div>
-  );
-};
-
-interface CustomBlockProps {
-  of: { default: ExtendedMeta };
-}
-
-export const CustomBlock: React.FC<CustomBlockProps> = ({ of }) => {
-  const importPath = of.default.importPath;
-
-  return (
-    <div className="custom-block">
-      <div>
-        <code>{importPath}</code>
-      </div>
-    </div>
-  );
+  ) : null;
 };
