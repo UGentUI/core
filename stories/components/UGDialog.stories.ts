@@ -1,5 +1,9 @@
 import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type {
+  Meta as StorybookMeta,
+  StoryObj
+} from '@storybook/web-components';
+
 import '/lib/components/dialog';
 import '/lib/components/button';
 import '/lib/components/icon';
@@ -7,7 +11,13 @@ import '/lib/components/icon-button';
 import '/lib/components/input';
 import { action } from '@storybook/addon-actions';
 
+// Extend the Meta type
+interface Meta extends StorybookMeta {
+  importPath?: string;
+}
+
 const meta: Meta = {
+  importPath: 'import "@ugent-ui/core/components/button',
   title: 'Components/Dialog',
   component: 'ug-dialog',
   parameters: {

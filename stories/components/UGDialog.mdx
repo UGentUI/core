@@ -7,7 +7,7 @@ import {
   ArgTypes,
   Canvas
 } from '@storybook/blocks';
-
+import { CustomBlock } from '../../.storybook/blocks/CustomBlock';
 import * as UGDialogStories from './UGDialog.stories';
 
 <Meta of={UGDialogStories} />
@@ -15,6 +15,7 @@ import * as UGDialogStories from './UGDialog.stories';
 <Title />
 <Subtitle of={UGDialogStories} />
 <Description of={UGDialogStories} />
+<CustomBlock of={UGDialogStories} />
 <Canvas of={UGDialogStories.Dialog} />
 <ArgTypes />
 <Stories includePrimary={false} />
