@@ -3,6 +3,7 @@ import type { Preview } from '@storybook/web-components';
 import '@ugent-ui/css-reset/dist/reset.css';
 import '../lib/styles/core.scss';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
+import ComponentTemplate from './ComponentTemplate.mdx';
 //setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
 setBasePath('/lib/');
 
@@ -31,7 +32,9 @@ const preview: Preview = {
       }
     },
     docs: {
-      toc: true
+      toc: true,
+      //Note: eventueel kan er hier logica komen met if's zodat dit enkel op sommige directories toegepast wordt
+      page: ComponentTemplate
     },
     html: {
       removeComments: true,

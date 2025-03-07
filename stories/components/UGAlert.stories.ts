@@ -11,16 +11,21 @@ const meta: Meta = {
   title: 'Components/Alert',
   component: 'UgAlert',
   parameters: {
+    componentName: 'Alertzzz',
     docs: {
       subtitle:
         'Alerts are used to display important messages inline or as toast notifications.',
+      importPath: 'YEsssz!',
       source: {
         format: true,
         transform: (code: string) => {
           return code
             .replace(/\s* open=""/g, ' open')
             .replace(/\s* closable=""/g, ' closable');
-        }
+        },
+        code: `
+          import '@shoelace-style/shoelace/dist/components/badge/badge.js';
+        `
       }
     }
   },
@@ -192,11 +197,13 @@ const meta: Meta = {
 };
 
 export default meta;
+export const componentName2 = { name: 'Tralalala' };
 
 type Story = StoryObj;
 
 export const Alert: Story = {
   parameters: {
+    componentName: 'badge',
     docs: {
       description: {
         story: 'A default alert.'
