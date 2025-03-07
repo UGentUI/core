@@ -12,13 +12,9 @@ import { ImportBlock } from './blocks/ImportBlock';
 import { CustomBlock } from './blocks/ImportBlock';
 //import { ImportPath } from './ImportPath'; // Make sure the path is correct
 
-<Meta
-  parameters={{
-    componentName: 'Krakzzz',
-    componentName2:
-      useOf('meta')?.parameters?.componentName || 'UnknownComponent'
-  }}
-/>
+<Meta />
+
+<ImportBlock of={useOf('meta')} />
 
 <Title />
 

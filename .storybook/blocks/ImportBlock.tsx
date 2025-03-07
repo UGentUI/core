@@ -8,13 +8,21 @@ interface ExtendedMeta extends StorybookMeta {
 }
 
 interface ImportBlockProps {
-  of: { default?: ExtendedMeta };
+  of: {
+    csfFile?: {
+      meta?: {
+        parameters?: {
+          docs?: {
+            importPath?: string;
+          };
+        };
+      };
+    };
+  };
 }
 
-export const ImportBlock: React.FC<ImportBlockProps> = ({ children }) => {
-  const context = React.useContext(DocsContext);
-  const { parameters } = context || {};
-  const importPath = parameters?.of?.default?.importPath;
+export const ImportBlock: React.FC<ImportBlockProps> = ({ of }) => {
+  const importPath = of?.csfFile?.meta?.parameters?.docs?.importPath;
 
   return (
     <div>
@@ -26,7 +34,6 @@ export const ImportBlock: React.FC<ImportBlockProps> = ({ children }) => {
         </div>
       </div>
       {/* Render the story's default content */}
-      {children}
     </div>
   );
 };
