@@ -12,6 +12,7 @@ const meta: Meta = {
   component: 'UgAlert',
   parameters: {
     componentName: 'Alertzzz',
+    import: true, // Enables the import section
     docs: {
       subtitle:
         'Alerts are used to display important messages inline or as toast notifications.',

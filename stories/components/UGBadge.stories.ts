@@ -14,7 +14,12 @@ const removeDefaultAttributes = (code: string): string => {
     .replace(/\s* pulse=""/g, ' pulse');
 };
 
-const meta: Meta = {
+interface ComponentMeta extends Meta {
+  importPath?: string;
+}
+const meta: ComponentMeta = {
+  importPath: 'import "@ugent-ui/core/components/button',
+
   title: 'Components/Badge',
   component: 'ug-badge',
   parameters: {
