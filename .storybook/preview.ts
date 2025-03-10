@@ -38,16 +38,16 @@ const preview: Preview = {
       //Note: eventueel kan er hier logica komen met if's zodat dit enkel op sommige directories toegepast wordt
       page: ComponentTemplate
       //page: (context) => {
-        //return ComponentTemplate;
-        //console.log(context);
-        //console.log(context.title);
+      //return ComponentTemplate;
+      //console.log(context);
+      //console.log(context.title);
 
-        //console.log(context.parameters);
-        //if (context.parameters?.fileName?.includes('/component/')) {
-        //  return ComponentTemplate;
-        //}
-        //return undefined; // or a different template if needed
-      }
+      //console.log(context.parameters);
+      //if (context.parameters?.fileName?.includes('/component/')) {
+      //  return ComponentTemplate;
+      //}
+      //return undefined; // or a different template if needed
+      //}
     },
     html: {
       removeComments: true,
