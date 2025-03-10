@@ -6,6 +6,15 @@ import '/lib/components/tab';
 import '/lib/components/icon';
 import '/lib/components/icon-button';
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      // Allow any props for custom elements
+      [elemName: string]: any;
+    }
+  }
+}
+
 const UgTabGroup: React.FC<React.PropsWithChildren> = (props) => (
   <ug-tab-group {...props} />
 );
