@@ -9,13 +9,12 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Alert',
-  component: 'UgAlert',
+  component: 'alert',
   parameters: {
-    import: true, // Enables the import section
     docs: {
       subtitle:
         'Alerts are used to display important messages inline or as toast notifications.',
-      importPath: 'alert',
+      importSection: true, // Enables the import section
       dependencies: ['icon', 'button'],
       source: {
         format: true,
