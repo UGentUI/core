@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Details',
-  component: 'ug-details',
+  component: 'details',
   parameters: {
     docs: {
       subtitle:
@@ -20,7 +20,9 @@ const meta: Meta = {
             .replace(/\s* open=""/g, ' open')
             .replace(/\s* disabled=""/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   argTypes: {
