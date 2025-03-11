@@ -3,7 +3,6 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/breadcrumb';
 import '/lib/components/breadcrumb-item';
 import '/lib/components/icon';
-import '/lib/components/icon-button';
 import '/lib/components/dropdown';
 import '/lib/components/menu';
 import '/lib/components/menu-item';
@@ -11,7 +10,7 @@ import '/lib/components/button';
 
 const meta: Meta = {
   title: 'Components/Breadcrumb',
-  component: 'ug-breadcrumb',
+  component: 'breadcrumb',
   decorators: [
     (Story) => {
       // Apply CSS without showing in code snippet
@@ -35,7 +34,9 @@ const meta: Meta = {
         transform: (code: string) => {
           return code.replace(/\s(label="")/g, '');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['breadcrumb-item', 'icon']
     }
   },
 

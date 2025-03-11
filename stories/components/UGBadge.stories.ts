@@ -16,7 +16,7 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Badge',
-  component: 'ug-badge',
+  component: 'badge',
   parameters: {
     docs: {
       subtitle:
@@ -24,7 +24,8 @@ const meta: Meta = {
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
