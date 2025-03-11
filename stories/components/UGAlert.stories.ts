@@ -11,23 +11,19 @@ const meta: Meta = {
   title: 'Components/Alert',
   component: 'UgAlert',
   parameters: {
-    componentName: 'Alertzzz',
     import: true, // Enables the import section
     docs: {
       subtitle:
         'Alerts are used to display important messages inline or as toast notifications.',
-      componentName: 'alert',
-      dependencies: {'icon', 'button'},
+      importPath: 'alert',
+      dependencies: ['icon', 'button'],
       source: {
         format: true,
         transform: (code: string) => {
           return code
             .replace(/\s* open=""/g, ' open')
             .replace(/\s* closable=""/g, ' closable');
-        },
-        code: `
-          import '@shoelace-style/shoelace/dist/components/badg2e/badge2.js';
-        `
+        }
       }
     }
   },
