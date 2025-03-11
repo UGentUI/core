@@ -32,35 +32,63 @@ const UgTabPanel: React.FC<{
   children?: React.ReactNode;
 }> = (props) => <ug-tab-panel {...props} />;
 
+const ugCopyButton: React.FC<{
+  name?: string;
+  active?: boolean;
+  children?: React.ReactNode;
+}> = (props) => <ug-copy-button {...props} />;
+
 export const ImportBlock: React.FC = () => {
   const context = useOf('meta');
   const importPath =
     context?.type === 'meta'
       ? context.csfFile?.meta?.parameters?.docs?.importPath
       : undefined;
+  const dependencies =
+    context?.type === 'meta'
+      ? context.csfFile?.meta?.parameters?.docs?.dependencies
+      : undefined;
 
   return importPath ? (
     <div>
+      <h3 id="import">Import</h3>
       <UgTabGroup>
-        <UgTab slot="nav" panel="tab1" active>
-          First Tab
+        <UgTab slot="nav" panel="scripttab" active>
+          Script
         </UgTab>
-        <UgTab slot="nav" panel="tab2">
-          Second Tab
+        <UgTab slot="nav" panel="importtab">
+          Import
         </UgTab>
-        <UgTab slot="nav" panel="tab3">
-          Third Tab
+        <UgTab slot="nav" panel="bundlertab">
+          Bundler
+        </UgTab>
+        <UgTab slot="nav" panel="reacttab">
+          React
         </UgTab>
 
-        <UgTabPanel name="tab1" active>
-          <p>This is the content for the first tab.</p>
+        <UgTabPanel name="scripttab" active>
+          <p>To import this component using a script tag:</p>
+          <Source
+            code={`
+              //import component
+              import "@ugent-ui/core/components/${importPath}/${importPath}.js
+              // Required dependencies
+              import '@ugent-ui/core/components/icon';
+              import '@ugent-ui/core/components/button';
+              ";`}
+            language="html"
+          />
         </UgTabPanel>
 
-        <UgTabPanel name="tab2">
+        <UgTabPanel name="importtab">
           <p>This is the content for the second tab.</p>
         </UgTabPanel>
 
-        <UgTabPanel name="tab3">
+        <UgTabPanel name="bundlertab">
+          <p>This is the content for the third tab.</p>
+        </UgTabPanel>
+
+        <UgTabPanel name="reacttab">
           <p>This is the content for the third tab.</p>
         </UgTabPanel>
       </UgTabGroup>

@@ -16,7 +16,8 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Alerts are used to display important messages inline or as toast notifications.',
-      importPath: 'YEsssz!',
+      componentName: 'alert',
+      dependencies: {'icon', 'button'},
       source: {
         format: true,
         transform: (code: string) => {
@@ -25,7 +26,7 @@ const meta: Meta = {
             .replace(/\s* closable=""/g, ' closable');
         },
         code: `
-          import '@shoelace-style/shoelace/dist/components/badge/badge.js';
+          import '@shoelace-style/shoelace/dist/components/badg2e/badge2.js';
         `
       }
     }
@@ -198,13 +199,12 @@ const meta: Meta = {
 };
 
 export default meta;
-export const componentName2 = { name: 'Tralalala' };
 
 type Story = StoryObj;
 
 export const Alert: Story = {
   parameters: {
-    componentName: 'badge',
+    componentName: 'badge3',
     docs: {
       description: {
         story: 'A default alert.'

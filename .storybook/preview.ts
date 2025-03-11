@@ -35,6 +35,8 @@ const preview: Preview = {
     },
     docs: {
       toc: true,
+
+      //toc: { headingSelector: 'h1, h3' },
       //Note: eventueel kan er hier logica komen met if's zodat dit enkel op sommige directories toegepast wordt
       page: ComponentTemplate
       //page: (context) => {
