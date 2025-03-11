@@ -20,15 +20,18 @@ export const ImportBlock: React.FC = () => {
           code={`
 //Import component
 import '@ugent-ui/core/components/${componentName}/${componentName}.js';
-
+${ dependencies && dependencies.length > 0 ? `
 //Required dependencies
 ${dependencies.map((dep) => `import '@ugent-ui/core/components/${dep}';`).join('\n')}
+`
+    : ''
+}
 `}
           language="js"
           format={true}
         />
         {/* Conditionally render the dependencies section if there are any dependencies */}
-        {dependencies.length > 0 && (
+        {dependencies && dependencies.length > 0 && (
           <div>
             <h4>Dependencies</h4>
             <p>This component requires:</p>
