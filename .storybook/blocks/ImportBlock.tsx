@@ -1,51 +1,67 @@
-import { useOf, Source } from '@storybook/blocks';
+import { useOf, Source, Markdown } from '@storybook/blocks';
 import React from 'react';
+import { SupportedLanguage } from 'storybook/internal/components';
 
-export const ImportBlock: React.FC = () => {
-  const context = useOf('meta');
-  console.log(context?.type);
-  if (context?.type === 'meta') {
-    const shouldImport = context.csfFile?.meta?.parameters?.docs?.importSection;
-    const componentName = context.csfFile?.meta?.component;
-    const dependencies = context.csfFile?.meta?.parameters?.docs?.dependencies;
-
-    console.log('Got here ' + shouldImport);
-
-    //prettier-ignore
-    return shouldImport ? (
-      <div>
-        <h3 id="import">Import</h3>
-        <p>To import this component using a script tag:</p>
-        <Source
-          code={`
-//Import component
-import '@ugent-ui/core/components/${componentName}/${componentName}.js';
-${ dependencies && dependencies.length > 0 ? `
-//Required dependencies
-${dependencies.map((dep) => `import '@ugent-ui/core/components/${dep}';`).join('\n')}
-`
-    : ''
+interface StoryMetaContext {
+  type: 'meta';
+  csfFile?: {
+    meta?: {
+      component?: string;
+      parameters?: {
+        docs?: {
+          importSection?: boolean;
+          dependencies?: string[];
+        };
+      };
+    };
+  };
 }
-`}
-          language="js"
-          format={true}
-        />
-        {/* Conditionally render the dependencies section if there are any dependencies */}
-        {dependencies && dependencies.length > 0 && (
-          <div>
-            <h4>Dependencies</h4>
-            <p>This component requires:</p>
-            <ul>
-              {dependencies.map((dep) => (
-                <li key={dep}>
-                  <code>{`<ug-${dep}>`}</code>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
-    ) : null;
+
+/**
+ * ImportBlock component displays import instructions for UI components in Storybook.
+ * It shows the main component import statement and any required dependencies.
+ *
+ * @returns React component that renders import instructions and dependencies
+ * @example
+ * <ImportBlock />
+ */
+export const ImportBlock: React.FC = () => {
+  const context = useOf('meta') as StoryMetaContext;
+
+  if (context?.type !== 'meta') {
+    return null;
   }
-  return null;
+
+  const shouldImport = context.csfFile?.meta?.parameters?.docs?.importSection;
+  const componentName = context.csfFile?.meta?.component;
+  const dependencies =
+    context.csfFile?.meta?.parameters?.docs?.dependencies ?? [];
+
+  if (!shouldImport || !componentName) {
+    return null;
+  }
+
+  const hasDependencies = dependencies.length > 0;
+  const dependenciesText = hasDependencies
+    ? ' and its required dependencies'
+    : '';
+
+  return (
+    <div>
+      <Markdown>{`### Importing
+After [installing the package](/docs/introduction--docs), import the component${dependenciesText}:`}</Markdown>
+
+      <Source
+        code={`
+// Import component
+import '@ugent-ui/core/components/${componentName}';
+${hasDependencies ? '\n// Required dependencies' : ''}${dependencies
+          .map((dep) => `\nimport '@ugent-ui/core/components/${dep}';`)
+          .join('')}
+`}
+        language={'js' as SupportedLanguage}
+        format={true}
+      />
+    </div>
+  );
 };
