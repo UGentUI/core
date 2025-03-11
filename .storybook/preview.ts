@@ -4,8 +4,6 @@ import '@ugent-ui/css-reset/dist/reset.css';
 import '../lib/styles/core.scss';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 import ComponentTemplate from './ComponentTemplate.mdx';
-//import { addDecorator } from '@storybook/addons';
-import { withImportDocs } from './withImportDocs.ts';
 //setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
 setBasePath('/lib/');
 
@@ -35,21 +33,7 @@ const preview: Preview = {
     },
     docs: {
       toc: true,
-
-      //toc: { headingSelector: 'h1, h3' },
-      //Note: eventueel kan er hier logica komen met if's zodat dit enkel op sommige directories toegepast wordt
       page: ComponentTemplate
-      //page: (context) => {
-      //return ComponentTemplate;
-      //console.log(context);
-      //console.log(context.title);
-
-      //console.log(context.parameters);
-      //if (context.parameters?.fileName?.includes('/component/')) {
-      //  return ComponentTemplate;
-      //}
-      //return undefined; // or a different template if needed
-      //}
     },
     html: {
       removeComments: true,

@@ -199,7 +199,6 @@ type Story = StoryObj;
 
 export const Alert: Story = {
   parameters: {
-    componentName: 'badge3',
     docs: {
       description: {
         story: 'A default alert.'
