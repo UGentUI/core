@@ -3,12 +3,11 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/breadcrumb-item';
 import '/lib/components/breadcrumb';
 import '/lib/components/icon';
-import '/lib/components/icon-button';
 import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/Breadcrumb Item',
-  component: 'ug-breadcrumb-item',
+  component: 'breadcrumb-item',
   parameters: {
     docs: {
       subtitle:
@@ -19,7 +18,9 @@ const meta: Meta = {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code.replace(/\s(rel="")/g, '');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
 
