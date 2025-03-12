@@ -12,7 +12,7 @@ const iconNames = Object.entries(icons)
 
 const meta: Meta = {
   title: 'Components/Icon',
-  component: 'ug-icon',
+  component: 'icon',
   parameters: {
     docs: {
       subtitle:
@@ -20,6 +20,7 @@ const meta: Meta = {
       description: {
         component: `The UGent UI component library comes bundled with over ${Math.round(iconNames.length / 100) * 100} <a href="https://fontawesome.com/search?o=r&ic=pro-collection&s=regular&ip=sharp" >Font Awesome Pro - Regular Sharp</a> icons. <br>If you prefer, you can register <a href="#icon%20library">custom icon libraries</a> as well.`
       },
+      importSection: true,
       source: {
         format: true,
         transform: (code: string) => {
@@ -891,7 +892,8 @@ export const FrequentlyUsedIcons: Story = {
         </div>
       </div>
       <script>
-        const iconCards = document.querySelectorAll('.ugIconCard');
+        (() => {
+          const iconCards = document.querySelectorAll('.ugIconCard');
         iconCards.forEach(card => {
           const nameDiv = card.querySelector('.ugIconCard__name');
           const iconName = nameDiv.textContent.trim();
@@ -903,8 +905,9 @@ export const FrequentlyUsedIcons: Story = {
           copyButton.setAttribute('hoist', 'true');
             
           // Add button next to name
-          nameDiv.appendChild(copyButton);
-        });
+            nameDiv.appendChild(copyButton);
+          });
+        })();
       </script>
       <style>
         .ugIconCards {
