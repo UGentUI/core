@@ -7,7 +7,7 @@ import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Radio',
-  component: 'ug-radio',
+  component: 'radio',
   parameters: {
     docs: {
       subtitle: 'Radios allow the user to select a single option from a group.',
@@ -20,7 +20,8 @@ const meta: Meta = {
           code
             .replace(/\s*(value="")/g, '')
             .replace(/\s* disabled=""/g, ' disabled')
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
