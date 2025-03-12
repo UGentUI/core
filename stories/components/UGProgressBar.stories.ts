@@ -21,7 +21,8 @@ const meta: Meta = {
             .replace(/\s(label="")/g, '')
             .replace(/\s* indeterminate=""/g, ' indeterminate');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
