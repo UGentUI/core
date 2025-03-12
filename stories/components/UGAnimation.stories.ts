@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Animation',
-  component: 'ug-animation',
+  component: 'animation',
   parameters: {
     docs: {
       description: {
@@ -28,7 +28,8 @@ Animations are based on those found in the popular [Animate.css](https://animate
             )
             .replace(/\s* play=""/g, ' play');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
