@@ -18,6 +18,9 @@ const meta: Meta = {
   component: 'ug-tooltip',
   parameters: {
     docs: {
+      toc: {
+        /* options */
+      },
       subtitle:
         'Tooltips display additional information based on a specific action.',
 
