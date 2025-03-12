@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/icon';
 import '/lib/components/radio';
 import '/lib/components/radio-group';
 import { action } from '@storybook/addon-actions';
@@ -21,7 +22,8 @@ const meta: Meta = {
             .replace(/\s*(value="")/g, '')
             .replace(/\s* disabled=""/g, ' disabled')
       },
-      importSection: true // Enables the import section
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
 
