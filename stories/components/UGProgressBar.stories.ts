@@ -7,7 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/ProgressBar',
-  component: 'ug-progress-bar',
+  component: 'progress-bar',
 
   parameters: {
     docs: {
