@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/icon';
+import '/lib/components/copy-button';
 import { action } from '@storybook/addon-actions';
 import icons from '/lib/assets/icons/icons.json';
 
@@ -316,7 +317,7 @@ export const FrequentlyUsedIcons: Story = {
     docs: {
       description: {
         story:
-          'Navigating through the university’s applications can be much easier when it is clear what each icon represents. Below is a list of frequently used icons and their meanings to help users to find there way around more efficiently.'
+          'Below is a comprehensive list of frequently used icons in the UGent UI Design System, organized by their purpose and common use cases. Each icon includes its name and intended meaning to help developers choose the right icon for their needs. Click the copy button next to any icon name to quickly copy it to your clipboard for use in your code.'
       },
       canvas: {
         // This will remove the "show code" button
@@ -889,7 +890,22 @@ export const FrequentlyUsedIcons: Story = {
           </div>
         </div>
       </div>
-
+      <script>
+        const iconCards = document.querySelectorAll('.ugIconCard');
+        iconCards.forEach(card => {
+          const nameDiv = card.querySelector('.ugIconCard__name');
+          const iconName = nameDiv.textContent.trim();
+          
+          // Create copy button
+          const copyButton = document.createElement('ug-copy-button');
+          copyButton.setAttribute('value', iconName);
+          copyButton.setAttribute('success-label', 'Icon name copied!');
+          copyButton.setAttribute('hoist', 'true');
+            
+          // Add button next to name
+          nameDiv.appendChild(copyButton);
+        });
+      </script>
       <style>
         .ugIconCards {
           display: flex;
