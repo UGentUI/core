@@ -15,14 +15,16 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Avatar',
-  component: 'ug-avatar',
+  component: 'avatar',
   parameters: {
     docs: {
       subtitle: 'Avatars are used to represent a person or object.',
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   argTypes: {
