@@ -1,96 +1,101 @@
-import { html } from "lit";
-import type { Meta, StoryObj } from "@storybook/web-components";
-import "/lib/components/tree-item";
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/tree-item';
+import '/lib/components/checkbox';
+import '/lib/components/icon';
+import '/lib/components/spinner';
 
 const meta: Meta = {
-  title: "Components/TreeItem",
-  component: "ug-tree-item",
+  title: 'Components/TreeItem',
+  component: 'tree-item',
   parameters: {
     docs: {
       subtitle:
-        "A tree item serves as a hierarchical node that lives inside a tree. You can read more about it in [the documentation of a Tree](?path=/docs/components-tree--docs)",
-    },
+        'A tree item serves as a hierarchical node that lives inside a tree. You can read more about it in [the documentation of a Tree](?path=/docs/components-tree--docs)',
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'checkbox', 'spinner']
+    }
   },
   argTypes: {
     expanded: {
-      control: "boolean",
-      description: "Expands the tree item",
+      control: 'boolean',
+      description: 'Expands the tree item',
       defaultValue: false,
       table: {
-        category: "Properties",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+        category: 'Properties',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
     },
     selected: {
-      control: "boolean",
-      description: "Draws the tree item in a selected state",
+      control: 'boolean',
+      description: 'Draws the tree item in a selected state',
       defaultValue: false,
       table: {
-        category: "Properties",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+        category: 'Properties',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
     },
     disabled: {
-      control: "boolean",
-      description: "Disables the tree item",
+      control: 'boolean',
+      description: 'Disables the tree item',
       defaultValue: false,
       table: {
-        category: "Properties",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+        category: 'Properties',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
     },
     lazy: {
-      control: "boolean",
-      description: "Enables lazy loading behavior",
+      control: 'boolean',
+      description: 'Enables lazy loading behavior',
       defaultValue: false,
       table: {
-        category: "Properties",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
+        category: 'Properties',
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
     },
     updateComplete: {
       description:
-        "A read-only promise that resolves when the component has finished updating.",
+        'A read-only promise that resolves when the component has finished updating.',
 
       table: {
-        category: "Properties",
-      },
+        category: 'Properties'
+      }
     },
-    "expand-icon": {
-      control: "text",
-      description: "The icon to show when the tree item is expanded.",
+    'expand-icon': {
+      control: 'text',
+      description: 'The icon to show when the tree item is expanded.',
       table: {
-        category: "Slots",
-      },
+        category: 'Slots'
+      }
     },
-    "collapse-icon": {
-      control: "text",
-      description: "The icon to show when the tree item is collapsed.",
+    'collapse-icon': {
+      control: 'text',
+      description: 'The icon to show when the tree item is collapsed.',
       table: {
-        category: "Slots",
-      },
+        category: 'Slots'
+      }
     },
-    "getChildrenItems()": {
+    'getChildrenItems()': {
       getChildrenItems: {
-        name: "getChildrenItems()",
-        description: "Gets all the nested tree items in this node.",
+        name: 'getChildrenItems()',
+        description: 'Gets all the nested tree items in this node.',
         table: {
           type: {
-            summary: "summary: undefined ",
+            summary: 'summary: undefined '
           },
-          category: "Methods",
+          category: 'Methods',
           defaultValue: {
-            summary: undefined,
-          },
+            summary: undefined
+          }
         },
-        control: false,
-      },
-    },
-  },
+        control: false
+      }
+    }
+  }
 };
 
 export default meta;
@@ -118,16 +123,16 @@ export const DemoTree: Story = {
         <ug-tree-item lazy>Lazy Loading</ug-tree-item>
       </ug-tree>
     `;
-  },
+  }
 };
 
 export const NestedTreeItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: `A tree item can contain other tree items. This allows the node to be expanded or collapsed by the user.`,
-      },
-    },
+        story: `A tree item can contain other tree items. This allows the node to be expanded or collapsed by the user.`
+      }
+    }
   },
   render: (args) => {
     return html`
@@ -147,16 +152,16 @@ export const NestedTreeItems: Story = {
         <ug-tree-item>Item 3</ug-tree-item>
       </ug-tree>
     `;
-  },
+  }
 };
 
 export const SelectedTreeItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the selected attribute to select a tree item initially.`,
-      },
-    },
+        story: `Use the selected attribute to select a tree item initially.`
+      }
+    }
   },
   render: (args) => {
     return html`
@@ -171,16 +176,16 @@ export const SelectedTreeItems: Story = {
         <ug-tree-item>Item 3</ug-tree-item>
       </ug-tree>
     `;
-  },
+  }
 };
 
 export const ExpandedTreeItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the expanded attribute to expand a tree item initially.`,
-      },
-    },
+        story: `Use the expanded attribute to expand a tree item initially.`
+      }
+    }
   },
   render: (args) => {
     return html`
@@ -200,15 +205,15 @@ export const ExpandedTreeItems: Story = {
         <ug-tree-item>Item 3</ug-tree-item>
       </ug-tree>
     `;
-  },
+  }
 };
 export const DisabledTreeItems: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Use the disabled attribute to expand a tree item initially.`,
-      },
-    },
+        story: `Use the disabled attribute to expand a tree item initially.`
+      }
+    }
   },
   render: (args) => {
     return html`
@@ -238,21 +243,21 @@ export const DisabledTreeItems: Story = {
         <ug-tree-item>Item 3</ug-tree-item>
       </ug-tree>
     `;
-  },
+  }
 };
 
 export const LazyLoading: Story = {
   ...DemoTree,
   args: {
-    ...DemoTree.args,
+    ...DemoTree.args
   },
   parameters: {
     docs: {
       description: {
         story: `Use the lazy attribute on a tree item to indicate that the content is not yet present and will be loaded later. When the user tries to expand the node, the loading state is set to true and the ug-lazy-load event will be emitted to allow you to load data asynchronously. The item will remain in a loading state until its content is changed. If you want to disable this behavior after the first load, simply remove the lazy attribute and, on the next expand, the existing content will be shown instead.
-                `,
-      },
-    },
+                `
+      }
+    }
   },
   render: (args) => html`
     <p>Click on the arrow to see how the data is loaded</p>
@@ -260,13 +265,13 @@ export const LazyLoading: Story = {
       <ug-tree-item lazy>Available Trees</ug-tree-item>
     </ug-tree>
     <script type="module">
-      const lazyItem = document.querySelector("ug-tree-item[lazy]");
-      lazyItem.addEventListener("ug-lazy-load", () => {
+      const lazyItem = document.querySelector('ug-tree-item[lazy]');
+      lazyItem.addEventListener('ug-lazy-load', () => {
         // Simulate asynchronous loading
         setTimeout(() => {
-          const subItems = ["Birch", "Cedar", "Maple", "Pine"];
+          const subItems = ['Birch', 'Cedar', 'Maple', 'Pine'];
           for (const item of subItems) {
-            const treeItem = document.createElement("ug-tree-item");
+            const treeItem = document.createElement('ug-tree-item');
             treeItem.innerText = item;
             lazyItem.append(treeItem);
           }
@@ -275,5 +280,5 @@ export const LazyLoading: Story = {
         }, 2000);
       });
     </script>
-  `,
+  `
 };
