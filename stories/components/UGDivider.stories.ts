@@ -11,14 +11,15 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Divider',
-  component: 'ug-divider',
+  component: 'divider',
   parameters: {
     docs: {
       subtitle: 'Dividers are used to visually separate or group elements.',
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
