@@ -1,13 +1,14 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tab';
+import '/lib/components/icon';
 import '/lib/components/icon-button';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Tab',
-  component: 'ug-tab',
+  component: 'tab',
 
   parameters: {
     docs: {
@@ -26,7 +27,9 @@ const meta: Meta = {
               .replace(/\s* closable=""/g, ' closable')
           );
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'icon-button']
     }
   },
 
