@@ -15,11 +15,12 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/SplitPanel',
-  component: 'ug-split-panel',
+  component: 'split-panel',
   parameters: {
     docs: {
       subtitle:
-        'Split panels display two adjacent panels, allowing the user to reposition them.'
+        'Split panels display two adjacent panels, allowing the user to reposition them.',
+      importSection: true // Enables the import section
     },
     source: {
       format: true
