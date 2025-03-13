@@ -9,7 +9,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/TabGroup',
-  component: 'ug-tab-group',
+  component: 'tab-group',
 
   parameters: {
     docs: {
@@ -29,7 +29,9 @@ const meta: Meta = {
             .replace(/\s* no-scroll-controls=""/g, ' no-scroll-controls')
             .replace(/\s* fixed-scroll-controls=""/g, ' fixed-scroll-controls');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'icon-button']
     }
   },
   argTypes: {
