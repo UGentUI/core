@@ -7,7 +7,7 @@ import '/lib/components/divider';
 
 const meta: Meta = {
   title: 'Components/Menu',
-  component: 'ug-menu',
+  component: 'menu',
 
   parameters: {
     docs: {
@@ -19,7 +19,8 @@ Menus are intended for system menus (dropdown menus, select menus, context menus
       },
       source: {
         format: true
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
