@@ -4,7 +4,7 @@ import '/lib/components/include';
 
 const meta: Meta = {
   title: 'Components/Include',
-  component: 'ug-include',
+  component: 'include',
   parameters: {
     docs: {
       subtitle:
@@ -22,7 +22,8 @@ The included content will be inserted into the <code><ug-include></code> element
             .replace(/\s(mode="cors")/g, '')
             .replace(/\s* allowScripts=""/g, ' allowScripts');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
