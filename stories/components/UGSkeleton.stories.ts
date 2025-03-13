@@ -4,7 +4,7 @@ import '/lib/components/skeleton';
 
 const meta: Meta = {
   title: 'Components/Skeleton',
-  component: 'ug-skeleton',
+  component: 'skeleton',
 
   parameters: {
     docs: {
@@ -17,7 +17,8 @@ These are simple containers for scaffolding layouts that mimic what users will s
 
 Skeletons try not to be opinionated, as there are endless possibilities for designing layouts. Therefore, you’ll likely use more than one skeleton to create the effect you want. If you find yourself using them frequently, consider creating a template that renders them with the desired arrangement and styles.
 `
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
