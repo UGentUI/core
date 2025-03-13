@@ -4,7 +4,7 @@ import '/lib/components/visually-hidden';
 
 const meta: Meta = {
   title: 'Components/VisuallyHidden',
-  component: 'ug-visually-hidden',
+  component: 'visually-hidden',
   parameters: {
     docs: {
       toc: {
@@ -19,7 +19,8 @@ According to [The A11Y Project](https://www.a11yproject.com/posts/how-to-hide-co
 Since visually hidden content can receive focus when tabbing, the element will become visible when something inside receives focus. This behavior is intentional, as sighted keyboard user won't be able to determine where the focus indicator is without it.
 
 The <code><ug-visually-hidden></code> component is used to provide content that is visually hidden but accessible to screen readers. It is ideal for improving accessibility in applications by ensuring non-visual users can access critical information. Below are just a few examples of scenario's where it's use is justified`
-      }
+      },
+      importSection: true // Enables the import section
     }
   }
 };
