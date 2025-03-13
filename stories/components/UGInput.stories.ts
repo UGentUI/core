@@ -25,7 +25,7 @@ function removeDefaultAttributes(code: string): string {
 
 const meta: Meta = {
   title: 'Components/Input',
-  component: 'ug-input',
+  component: 'input',
 
   parameters: {
     docs: {
@@ -33,7 +33,8 @@ const meta: Meta = {
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
         format: true
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
