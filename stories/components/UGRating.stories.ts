@@ -8,7 +8,7 @@ import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Rating',
-  component: 'ug-rating',
+  component: 'rating',
   parameters: {
     docs: {
       subtitle:
@@ -22,7 +22,9 @@ const meta: Meta = {
             .replace(/\s* readonly=""/g, ' readonly')
             .replace(/\s* disabled=""/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   argTypes: {
