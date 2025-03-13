@@ -4,7 +4,7 @@ import '/lib/components/progress-ring';
 
 const meta: Meta = {
   title: 'Components/ProgressRing',
-  component: 'ug-progress-ring',
+  component: 'progress-ring',
 
   parameters: {
     docs: {
@@ -17,7 +17,8 @@ const meta: Meta = {
             .replace(/\s(value="0"|label="")/g, '')
             .replace(/\s* attribute=""/g, ' attribute');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
