@@ -7,12 +7,13 @@ import '/lib/components/divider';
 import '/lib/components/icon';
 import '/lib/components/popup';
 import '/lib/components/badge';
+import '/lib/components/spinner';
 import { userEvent, within } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/MenuItem',
-  component: 'ug-menu-item',
+  component: 'menu-item',
 
   parameters: {
     docs: {
@@ -32,7 +33,9 @@ const meta: Meta = {
             .replace(/\s* closable=""/g, ' closable')
             .replace(/\s* disabled=""/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'popup', 'spinner']
     }
   },
 
