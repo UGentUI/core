@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/Format Number',
-  component: 'ug-format-number',
+  component: 'format-number',
   parameters: {
     docs: {
       subtitle: 'Formats a number using the specified locale and options.',
@@ -21,7 +21,8 @@ const meta: Meta = {
             .replace(/\s(default-attribute="value")/g, '')
             .replace(/\s* attribute=""/g, ' attribute');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

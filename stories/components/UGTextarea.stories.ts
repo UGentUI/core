@@ -8,7 +8,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Textarea',
-  component: 'ug-textarea',
+  component: 'textarea',
   parameters: {
     docs: {
       toc: {
@@ -29,7 +29,8 @@ const meta: Meta = {
             .replace(/\s* disabled=""/g, ' disabled')
             .replace(/\s* readonly=""/g, ' readonly');
         }
-      }
+      },
+      importSection: true // Enables the import section
     },
     html: {
       transform: (code: string) => {

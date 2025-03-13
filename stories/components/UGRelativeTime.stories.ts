@@ -4,7 +4,7 @@ import '/lib/components/relative-time';
 
 const meta: Meta = {
   title: 'Components/Relative Time',
-  component: 'ug-relative-time',
+  component: 'relative-time',
   parameters: {
     docs: {
       subtitle:
@@ -21,7 +21,8 @@ const meta: Meta = {
             .replace(/\s*(format="long"|numeric="auto")/g, '')
             .replace(/\s* sync=""/g, ' sync');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

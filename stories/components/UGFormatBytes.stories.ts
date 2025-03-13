@@ -4,7 +4,7 @@ import '/lib/components/format-bytes';
 
 const meta: Meta = {
   title: 'Components/Format Bytes',
-  component: 'ug-format-bytes',
+  component: 'format-bytes',
   parameters: {
     docs: {
       subtitle: 'Brief description of the component',
@@ -14,7 +14,8 @@ const meta: Meta = {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code.replace(/\s*(unit="byte"|display="short"|lang="")/g, '');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

@@ -8,7 +8,7 @@ import { userEvent } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/RadioButton',
-  component: 'ug-radio-button',
+  component: 'radio-button',
   parameters: {
     docs: {
       subtitle:
@@ -25,7 +25,8 @@ const meta: Meta = {
             .replace(/\s*(value=""|size="medium")/g, '')
             .replace(/\s*(disabled="")/g, ' disabled');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

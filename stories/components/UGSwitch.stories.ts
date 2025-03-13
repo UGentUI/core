@@ -19,14 +19,15 @@ const removeDefaultAttributes = (code: string) => {
 
 const meta: Meta = {
   title: 'Components/Switch',
-  component: 'ug-switch',
+  component: 'switch',
   parameters: {
     docs: {
       subtitle: 'Switches allow the user to toggle an option on or off.',
       source: {
         format: true,
         transform: removeDefaultAttributes
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

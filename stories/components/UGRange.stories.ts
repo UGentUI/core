@@ -15,7 +15,7 @@ function removeDefaultAttributes(code: string): string {
 
 const meta: Meta = {
   title: 'Components/Range',
-  component: 'ug-range',
+  component: 'range',
   parameters: {
     docs: {
       subtitle:
@@ -26,7 +26,8 @@ const meta: Meta = {
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
         format: true
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   decorators: [

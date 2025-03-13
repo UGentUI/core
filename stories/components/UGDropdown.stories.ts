@@ -5,6 +5,7 @@ import '/lib/components/button';
 import '/lib/components/menu';
 import '/lib/components/menu-item';
 import '/lib/components/divider';
+import '/lib/components/popup';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/test';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -63,7 +64,7 @@ function shortDropdownContent(triggerLabel: string) {
 
 const meta: Meta = {
   title: 'Components/Dropdown',
-  component: 'ug-dropdown',
+  component: 'dropdown',
   parameters: {
     docs: {
       subtitle:
@@ -84,7 +85,9 @@ const meta: Meta = {
             .replace(/\s* hoist=""/g, ' hoist')
             .replace(/\s* caret=""/g, ' caret');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['popup']
     }
   },
   decorators: [

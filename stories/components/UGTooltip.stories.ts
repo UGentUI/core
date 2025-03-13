@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tooltip';
 import '/lib/components/button';
 import '/lib/components/avatar';
+import '/lib/components/popup';
 import { action } from '@storybook/addon-actions';
 
 // Utility function to remove default attributes
@@ -15,7 +16,7 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Tooltip',
-  component: 'ug-tooltip',
+  component: 'tooltip',
   parameters: {
     docs: {
       subtitle:
@@ -24,7 +25,9 @@ const meta: Meta = {
       description: {
         component:
           "A tooltip's target is its first child element, so you should only wrap one element inside of the tooltip. If you need the tooltip to show up for multiple elements, nest them inside a container first. Tooltips use <code>display: contents</code> so they won't interfere with how elements are positioned in a flex or grid layout."
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['popup']
     }
   },
 

@@ -2,6 +2,7 @@ import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { action } from '@storybook/addon-actions';
 import '/lib/components/icon-button';
+import '/lib/components/icon';
 import icons from '/lib/assets/icons/icons.json';
 
 const iconNames = Object.entries(icons)
@@ -11,7 +12,7 @@ const iconNames = Object.entries(icons)
 
 const meta: Meta = {
   title: 'Components/IconButton',
-  component: 'ug-icon-button',
+  component: 'icon-button',
   parameters: {
     docs: {
       subtitle:
@@ -30,7 +31,9 @@ const meta: Meta = {
             )
             .replace(/\s* disabled=""/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   argTypes: {

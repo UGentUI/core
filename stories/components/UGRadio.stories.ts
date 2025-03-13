@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
+import '/lib/components/icon';
 import '/lib/components/radio';
 import '/lib/components/radio-group';
 import { action } from '@storybook/addon-actions';
@@ -7,7 +8,7 @@ import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Radio',
-  component: 'ug-radio',
+  component: 'radio',
   parameters: {
     docs: {
       subtitle: 'Radios allow the user to select a single option from a group.',
@@ -20,7 +21,9 @@ const meta: Meta = {
           code
             .replace(/\s*(value="")/g, '')
             .replace(/\s* disabled=""/g, ' disabled')
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
 

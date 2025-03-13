@@ -7,7 +7,9 @@ import '/lib/components/select';
 import '/lib/components/option';
 import '/lib/components/tag';
 import '/lib/components/icon';
+import '/lib/components/icon-button';
 import '/lib/components/button';
+import '/lib/components/popup';
 import '/lib/components/divider';
 
 function removeDefaultAttributes(code: string): string {
@@ -25,7 +27,7 @@ function removeDefaultAttributes(code: string): string {
 
 const meta: Meta = {
   title: 'Components/Select',
-  component: 'ug-select',
+  component: 'select',
   parameters: {
     docs: {
       subtitle:
@@ -33,7 +35,9 @@ const meta: Meta = {
       source: {
         transform: (code: string) => removeDefaultAttributes(code),
         format: true
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'icon-button', 'popup', 'tag', 'option']
     }
   },
   decorators: [

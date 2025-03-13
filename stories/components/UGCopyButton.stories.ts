@@ -10,7 +10,7 @@ import { userEvent } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Copy Button',
-  component: 'ug-copy-button',
+  component: 'copy-button',
   parameters: {
     docs: {
       subtitle:
@@ -30,7 +30,9 @@ const meta: Meta = {
               .replace(/\n\s*\n/g, '\n')
           );
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'popup', 'tooltip']
     }
   },
   decorators: [

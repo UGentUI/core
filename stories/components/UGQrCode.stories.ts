@@ -12,7 +12,7 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/QR Code',
-  component: 'ug-qr-code',
+  component: 'qr-code',
   parameters: {
     docs: {
       subtitle: 'Generates a QR code and renders it using the Canvas API.',
@@ -23,7 +23,8 @@ const meta: Meta = {
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

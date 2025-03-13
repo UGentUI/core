@@ -11,14 +11,16 @@ import '/lib/components/visually-hidden';
 
 const meta: Meta = {
   title: 'Components/ButtonGroup',
-  component: 'ug-button-group',
+  component: 'button-group',
   parameters: {
     docs: {
       subtitle:
         'Button groups can be used to group related buttons into sections.',
       source: {
         format: true
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['button']
     }
   },
   decorators: [

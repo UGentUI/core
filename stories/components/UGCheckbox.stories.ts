@@ -18,14 +18,16 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Checkbox',
-  component: 'ug-checkbox',
+  component: 'checkbox',
   parameters: {
     docs: {
       subtitle: 'Checkboxes allow the user to toggle an option on or off.',
       source: {
         format: true,
         transform: (code: string) => removeDefaultAttributes(code)
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   argTypes: {
