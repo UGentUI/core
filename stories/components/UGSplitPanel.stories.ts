@@ -20,10 +20,10 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Split panels display two adjacent panels, allowing the user to reposition them.',
-      importSection: true // Enables the import section
-    },
-    source: {
-      format: true
+      importSection: true, // Enables the import section,
+      source: {
+        format: true
+      }
     }
   },
   argTypes: {
