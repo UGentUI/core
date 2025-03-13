@@ -1,6 +1,8 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/tag';
+import '/lib/components/icon';
+import '/lib/components/icon-button';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/test';
 
@@ -14,7 +16,7 @@ const removeDefaultAttributes = (code: string): string => {
 
 const meta: Meta = {
   title: 'Components/Tag',
-  component: 'ug-tag',
+  component: 'tag',
   parameters: {
     docs: {
       subtitle:
@@ -22,7 +24,9 @@ const meta: Meta = {
       source: {
         format: true,
         transform: removeDefaultAttributes // Use the custom transform function here
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon', 'icon-button']
     }
   },
   argTypes: {
