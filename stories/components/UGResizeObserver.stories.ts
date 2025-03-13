@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/ResizeObserver',
-  component: 'ug-resize-observer',
+  component: 'resize-observer',
   parameters: {
     docs: {
       description: {
@@ -19,7 +19,8 @@ The resize observer will report changes to the dimensions of the elements it wra
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code.replace(/\s* disabled=""/g, ' disabled');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
