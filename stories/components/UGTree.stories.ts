@@ -8,7 +8,7 @@ import { userEvent, within } from '@storybook/test';
 
 const meta: Meta = {
   title: 'Components/Tree',
-  component: 'ug-tree',
+  component: 'tree',
   parameters: {
     docs: {
       description: {
@@ -17,7 +17,9 @@ const meta: Meta = {
       },
       source: {
         format: true
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
 
