@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Option',
-  component: 'ug-option',
+  component: 'option',
 
   parameters: {
     docs: {
@@ -24,7 +24,9 @@ const meta: Meta = {
             .replace(/\s*(required="")/g, ' required')
             .replace(/\s*(disabled="")/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['icon']
     }
   },
   //Hoist-problems
