@@ -7,7 +7,7 @@ import '/lib/components/divider';
 
 const meta: Meta = {
   title: 'Components/MenuLabel',
-  component: 'ug-menu-label',
+  component: 'menu-label',
 
   parameters: {
     docs: {
@@ -17,7 +17,8 @@ const meta: Meta = {
       },
       source: {
         format: true
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
