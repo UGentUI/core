@@ -8,14 +8,15 @@ import '/lib/components/icon';
 
 const meta: Meta = {
   title: 'Components/TabPanel',
-  component: 'ug-tab-panel',
+  component: 'tab-panel',
 
   parameters: {
     docs: {
       description: {
         component:
           'Tabs are used inside [tab groups](?path=/docs/components-tabgroup--docs) to display tabbed content.'
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
