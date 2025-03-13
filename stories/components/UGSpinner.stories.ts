@@ -4,12 +4,13 @@ import '/lib/components/spinner';
 
 const meta: Meta = {
   title: 'Components/Spinner',
-  component: 'ug-spinner',
+  component: 'spinner',
 
   parameters: {
     docs: {
       subtitle:
-        'Spinners are used to show the progress of an indeterminate operation.'
+        'Spinners are used to show the progress of an indeterminate operation.',
+      importSection: true // Enables the import section
     }
   }
 };
