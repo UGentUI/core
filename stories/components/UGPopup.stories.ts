@@ -10,7 +10,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/Popup',
-  component: 'ug-popup',
+  component: 'popup',
 
   parameters: {
     docs: {
@@ -40,7 +40,8 @@ A popup’s anchor should not be styled with <code>display: contents</code> sinc
             .replace(/\s* arrow=""/g, ' arrow')
             .replace(/\s* hover-bridge=""/g, ' hover-bridge');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
