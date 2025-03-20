@@ -8,29 +8,39 @@ const meta: Meta = {
 
   parameters: {
     docs: {
-      subtitle:
-        'Skeletons are used to provide a visual representation of where content will eventually be drawn.',
-
       description: {
         component: `
+Skeletons are used to provide a visual representation of where content will eventually be drawn.
+
 These are simple containers for scaffolding layouts that mimic what users will see when content has finished loading. This prevents large areas of empty space during asynchronous operations.
 
-Skeletons try not to be opinionated, as there are endless possibilities for designing layouts. Therefore, you’ll likely use more than one skeleton to create the effect you want. If you find yourself using them frequently, consider creating a template that renders them with the desired arrangement and styles.
-`
-      },
-      importSection: true // Enables the import section
+Skeletons try not to be opinionated, as there are endless possibilities for designing layouts. Therefore, you'll likely use more than one skeleton to create the effect you want. If you find yourself using them frequently, consider creating a template that renders them with the desired arrangement and styles.`
+      }
     }
   },
+
   argTypes: {
     effect: {
-      name: 'Effect',
+      name: 'effect',
       description: 'Determines which effect the skeleton will use.',
       control: 'select',
-      options: ['pulse', 'sheen', 'none'],
+      options: ['none', 'pulse', 'sheen'],
       table: {
-        type: { summary: "'pulse' | 'sheen' | 'none'" },
-        defaultValue: { summary: "'none'" }
+        category: 'Properties',
+        type: { summary: "'none' | 'pulse' | 'sheen'" },
+        defaultValue: { summary: 'none' }
       }
+    },
+    updateComplete: {
+      name: 'updateComplete',
+      description:
+        'A read-only promise that resolves when the component has finished updating.',
+      table: {
+        category: 'Properties',
+        type: { summary: 'Promise<void>' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
     }
   }
 };
@@ -49,15 +59,15 @@ export const Skeleton: Story = {
     effect: 'none'
   },
   render: (args) => {
-    return html`<div class="skeleton-overview" effect="${args.effect}">
+    return html`<div class="skeleton-overview">
         <header>
-          <ug-skeleton></ug-skeleton>
-          <ug-skeleton></ug-skeleton>
+          <ug-skeleton effect="${args.effect}"></ug-skeleton>
+          <ug-skeleton effect="${args.effect}"></ug-skeleton>
         </header>
 
-        <ug-skeleton></ug-skeleton>
-        <ug-skeleton></ug-skeleton>
-        <ug-skeleton></ug-skeleton>
+        <ug-skeleton effect="${args.effect}"></ug-skeleton>
+        <ug-skeleton effect="${args.effect}"></ug-skeleton>
+        <ug-skeleton effect="${args.effect}"></ug-skeleton>
       </div>
 
       <style>
@@ -105,7 +115,7 @@ export const Effects: Story = {
     },
     controls: { disable: true }
   },
-  render: (args) => {
+  render: () => {
     return html`<div class="skeleton-effects">
         <ug-skeleton effect="none"></ug-skeleton>
         None
@@ -139,7 +149,7 @@ export const Paragraphs: Story = {
     },
     controls: { disable: true }
   },
-  render: (args) => {
+  render: () => {
     return html`<div class="skeleton-paragraphs">
         <ug-skeleton></ug-skeleton>
         <ug-skeleton></ug-skeleton>
@@ -165,5 +175,41 @@ export const Paragraphs: Story = {
           width: 50%;
         }
       </style> `;
+  }
+};
+
+export const Avatars: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: `Set a matching width and height to make a circle, square, or rounded avatar skeleton.`
+      },
+      source: { format: true }
+    },
+    controls: { disable: true }
+  },
+  render: () => {
+    return html`<div class="skeleton-avatars">
+        <ug-skeleton></ug-skeleton>
+        <ug-skeleton></ug-skeleton>
+        <ug-skeleton></ug-skeleton>
+      </div>
+
+      <style>
+        .skeleton-avatars ug-skeleton {
+          display: inline-block;
+          width: 3rem;
+          height: 3rem;
+          margin-right: 0.5rem;
+        }
+
+        .skeleton-avatars ug-skeleton:nth-child(1) {
+          --border-radius: 0;
+        }
+
+        .skeleton-avatars ug-skeleton:nth-child(2) {
+          --border-radius: var(--ug-border-radius-medium);
+        }
+      </style>`;
   }
 };
