@@ -27,7 +27,7 @@ const config: StorybookConfig = {
 
   viteFinal: async (config) => {
     if (process.env.GITHUB_ACTIONS) {
-      config.base = './';
+      config.base = '/core/';
     }
     return config;
   }
