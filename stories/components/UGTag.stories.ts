@@ -21,20 +21,24 @@ const meta: Meta = {
     docs: {
       subtitle:
         'Tags are used as labels to organize things or to indicate a selection.',
+      description: {
+        component:
+          'Tags are used as labels to organize things or to indicate a selection.'
+      },
       source: {
         format: true,
-        transform: removeDefaultAttributes // Use the custom transform function here
+        transform: removeDefaultAttributes
       },
-      importSection: true, // Enables the import section
+      importSection: true,
       dependencies: ['icon', 'icon-button']
     }
   },
   argTypes: {
+    // Properties
     variant: {
-      name: 'variant',
-      description: "The tag's theme variant.",
       control: { type: 'select' },
       options: ['primary', 'success', 'neutral', 'warning', 'danger', 'text'],
+      description: "The tag's theme variant.",
       table: {
         category: 'Properties',
         type: {
@@ -45,10 +49,9 @@ const meta: Meta = {
       }
     },
     size: {
-      name: 'size',
-      description: "The tag's size.",
       control: { type: 'select' },
       options: ['small', 'medium', 'large'],
+      description: "The tag's size.",
       table: {
         category: 'Properties',
         type: { summary: "'small' | 'medium' | 'large'" },
@@ -56,9 +59,8 @@ const meta: Meta = {
       }
     },
     pill: {
-      name: 'pill',
-      description: 'Draws a pill-style tag with rounded edges.',
       control: { type: 'boolean' },
+      description: 'Draws a pill-style tag with rounded edges.',
       table: {
         category: 'Properties',
         type: { summary: 'boolean' },
@@ -66,9 +68,8 @@ const meta: Meta = {
       }
     },
     removable: {
-      name: 'removable',
-      description: 'Makes the tag removable and shows a remove button.',
       control: { type: 'boolean' },
+      description: 'Makes the tag removable and shows a remove button.',
       table: {
         category: 'Properties',
         type: { summary: 'boolean' },
@@ -76,31 +77,29 @@ const meta: Meta = {
       }
     },
     updateComplete: {
-      name: 'updateComplete',
+      control: false,
       description:
         'A read-only promise that resolves when the component has finished updating.',
-      control: false,
       table: {
         category: 'Properties',
-        type: { summary: 'Promise<void>' },
+        type: { summary: 'Promise<boolean>' },
         defaultValue: { summary: undefined }
       }
     },
+    // Slots
     defaultSlot: {
+      control: { type: 'text' },
       name: '(default)',
-      description: 'The tag’s content.',
+      description: "The tag's content.",
       table: {
         category: 'Slots',
         type: { summary: 'slot' },
-        defaultValue: {
-          // defaultValue.summary should be undefined to hide the - in the auto-docs table
-          summary: undefined
-        }
-      },
-      control: { type: 'text' }
+        defaultValue: { summary: undefined }
+      }
     },
-    //Events
+    // Events
     ugRemove: {
+      control: false,
       name: 'ug-remove',
       description: 'Emitted when the remove button is activated.',
       action: 'ug-remove',
@@ -117,32 +116,25 @@ export default meta;
 
 type Story = StoryObj;
 
-export const Default = {
+// Default story with all controls
+export const Tag: Story = {
   args: {
     variant: 'neutral',
     size: 'medium',
     pill: false,
-    removable: false
+    removable: false,
+    defaultSlot: 'Tag'
   },
-  parameters: {
-    docs: {
-      source: {
-        format: true
-      }
-    }
-  },
-  // prettier-ignore
-  render: (args) => {
-    return html`
-<ug-tag
-        variant="${args.variant}"
-        size="${args.size}"
-        ?pill="${args.pill}"
-        ?removable="${args.removable}"
-      >
-  Interactive Tag
-</ug-tag>
-    `;}
+  render: (args) => html`
+    <ug-tag
+      variant="${args.variant}"
+      size="${args.size}"
+      ?pill="${args.pill}"
+      ?removable="${args.removable}"
+    >
+      ${args.defaultSlot}
+    </ug-tag>
+  `
 };
 
 export const Variants: Story = {
@@ -162,43 +154,51 @@ export const Variants: Story = {
       }
     }
   },
-  // prettier-ignore
   render: (args) => {
-    return html`
-<ug-tag variant="primary"
+    return html` <ug-tag
+        variant="primary"
         size="${args.size}"
         ?pill="${args.pill}"
-        ?removable="${args.removable}" >
-  Primary
-</ug-tag>
+        ?removable="${args.removable}"
+      >
+        Primary
+      </ug-tag>
 
-<ug-tag variant="success"
-      size="${args.size}"
-      ?pill="${args.pill}"
-      ?removable="${args.removable}">
-  Success
-</ug-tag>
+      <ug-tag
+        variant="success"
+        size="${args.size}"
+        ?pill="${args.pill}"
+        ?removable="${args.removable}"
+      >
+        Success
+      </ug-tag>
 
-<ug-tag variant="neutral"
-      size="${args.size}"
-      ?pill="${args.pill}"
-      ?removable="${args.removable}">
-  Neutral
-</ug-tag>
+      <ug-tag
+        variant="neutral"
+        size="${args.size}"
+        ?pill="${args.pill}"
+        ?removable="${args.removable}"
+      >
+        Neutral
+      </ug-tag>
 
-<ug-tag variant="warning"
-      size="${args.size}"
-      ?pill="${args.pill}"
-      ?removable="${args.removable}">
-  Warning
-</ug-tag>
+      <ug-tag
+        variant="warning"
+        size="${args.size}"
+        ?pill="${args.pill}"
+        ?removable="${args.removable}"
+      >
+        Warning
+      </ug-tag>
 
-<ug-tag variant="danger" 
-      size="${args.size}"
-      ?pill="${args.pill}"
-      ?removable="${args.removable}">
-  Danger
-</ug-tag>`;
+      <ug-tag
+        variant="danger"
+        size="${args.size}"
+        ?pill="${args.pill}"
+        ?removable="${args.removable}"
+      >
+        Danger
+      </ug-tag>`;
   }
 };
 
@@ -219,29 +219,34 @@ export const Sizes: Story = {
       }
     }
   },
-  // prettier-ignore
   render: (args) => {
     return html`
-<ug-tag size="small"
+      <ug-tag
+        size="small"
         variant="${args.variant}"
         ?pill="${args.pill}"
-        ?removable="${args.removable}">
-  Small
-</ug-tag>
+        ?removable="${args.removable}"
+      >
+        Small
+      </ug-tag>
 
-<ug-tag size="medium"
+      <ug-tag
+        size="medium"
         variant="${args.variant}"
         ?pill="${args.pill}"
-        ?removable="${args.removable}">
-  Medium
-</ug-tag>
+        ?removable="${args.removable}"
+      >
+        Medium
+      </ug-tag>
 
-<ug-tag size="large"
+      <ug-tag
+        size="large"
         variant="${args.variant}"
         ?pill="${args.pill}"
-        ?removable="${args.removable}">
-  Large
-</ug-tag>
+        ?removable="${args.removable}"
+      >
+        Large
+      </ug-tag>
     `;
   }
 };
@@ -263,22 +268,24 @@ export const Pill: Story = {
       }
     }
   },
-  // prettier-ignore
   render: (args) => {
     return html`
-<ug-tag pill 
-  size="${args.size}"
-  variant="${args.variant}"
-  ?removable="${args.removable}">
-  Pill
-</ug-tag>
+      <ug-tag
+        pill
+        size="${args.size}"
+        variant="${args.variant}"
+        ?removable="${args.removable}"
+      >
+        Pill
+      </ug-tag>
 
-<ug-tag 
-  size="${args.size}"
-  variant="${args.variant}"
-  ?removable="${args.removable}">
-  Default
-</ug-tag>
+      <ug-tag
+        size="${args.size}"
+        variant="${args.variant}"
+        ?removable="${args.removable}"
+      >
+        Default
+      </ug-tag>
     `;
   }
 };
@@ -300,7 +307,6 @@ export const Removable: Story = {
       }
     }
   },
-  // prettier-ignore
   render: (args) => {
     return html`
       <div class="tags-removable">
@@ -333,16 +339,15 @@ export const Removable: Story = {
 };
 
 export const TagWithEvents: Story = {
-  ...Default,
+  ...Tag,
   tags: ['!autodocs'],
   args: {
-    ...Default.args,
+    ...Tag.args,
     removable: true
   },
   parameters: {
     controls: { disable: true }
   },
-  // prettier-ignore
   render: (args) => {
     return html`
       <div class="tags-removable">
@@ -354,7 +359,7 @@ export const TagWithEvents: Story = {
           @ug-remove="${action('ug-remove')}"
           data-testid="tag"
         >
-          Interactive Tag
+          ${args.defaultSlot}
         </ug-tag>
       </div>
 
@@ -374,7 +379,8 @@ export const TagWithEvents: Story = {
           }
         </style>
       </div>
-    `;},
+    `;
+  },
 
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
