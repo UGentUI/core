@@ -26,8 +26,7 @@ const meta: Meta = {
         transform: (code: string) => {
           return code.replace(/\s*(name=""|library=""|label=""|src="")/g, '');
         }
-      },
-      importSection: true // Enables the import section
+      }
     }
   },
   argTypes: {
