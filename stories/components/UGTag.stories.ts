@@ -320,13 +320,15 @@ export const Removable: Story = {
       </div>
 
       <script>
-        const div = document.querySelector('.tags-removable');
+        (() => {
+          const div = document.querySelector('.tags-removable');
 
-        div.addEventListener('ug-remove', (event) => {
-          const tag = event.target;
-          tag.style.opacity = '0';
-          setTimeout(() => (tag.style.opacity = '1'), 2000);
-        });
+          div.addEventListener('ug-remove', (event) => {
+            const tag = event.target;
+            tag.style.opacity = '0';
+            setTimeout(() => (tag.style.opacity = '1'), 2000);
+          });
+        })();
       </script>
 
       <style>
@@ -363,7 +365,8 @@ export const TagWithEvents: Story = {
         </ug-tag>
       </div>
 
-        <script>
+      <script>
+        (() => {
           const div = document.querySelector('.tags-removable');
 
           div.addEventListener('ug-remove', (event) => {
@@ -371,14 +374,14 @@ export const TagWithEvents: Story = {
             tag.style.opacity = '0';
             setTimeout(() => (tag.style.opacity = '1'), 2000);
           });
-        </script>
+        })();
+      </script>
 
-        <style>
-          .tags-removable ug-tag {
-            transition: var(--ug-transition-medium) opacity;
-          }
-        </style>
-      </div>
+      <style>
+        .tags-removable ug-tag {
+          transition: var(--ug-transition-medium) opacity;
+        }
+      </style>
     `;
   },
 
