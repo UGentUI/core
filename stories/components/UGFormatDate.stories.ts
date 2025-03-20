@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 
 const meta: Meta = {
   title: 'Components/Format Date',
-  component: 'ug-format-date',
+  component: 'format-date',
   parameters: {
     docs: {
       subtitle: 'Formats a date/time using the specified locale and options.',
@@ -19,7 +19,8 @@ const meta: Meta = {
           // Remove empty/default attributes and replace boolean attributes from the source code display
           return code.replace(/\s(hour-format="auto")/g, '');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {

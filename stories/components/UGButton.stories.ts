@@ -6,7 +6,7 @@ import '/lib/components/button';
 
 const meta: Meta = {
   title: 'Components/Button',
-  component: 'ug-button',
+  component: 'button',
   parameters: {
     docs: {
       subtitle: 'Buttons represent actions that are available to the user',
@@ -24,7 +24,8 @@ const meta: Meta = {
             .replace(/\s* loading=""/g, ' loading')
             .replace(/\s* required=""/g, ' required');
         }
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
