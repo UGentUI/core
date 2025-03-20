@@ -5,7 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Dateinput',
-  component: 'ug-dateinput',
+  component: 'dateinput',
   parameters: {
     // layout: 'fullscreen',
     docs: {
@@ -20,7 +20,8 @@ On top of that, it contains an input mask which helps the user entering a date i
 It is up to you to implement the (asynchronous) loading behavior, and adding the <ug-menu-item>'s as a result of that.
 </p>`,
         story: `(start typing to show the dropdown)`
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
 
