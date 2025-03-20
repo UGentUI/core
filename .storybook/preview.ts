@@ -5,7 +5,9 @@ import '../lib/styles/core.scss';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
 import ComponentTemplate from './ComponentTemplate.mdx';
 //setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
-setBasePath('/lib/');
+const IS_PRODUCTION = window.location.href.includes('github.io');
+const base = IS_PRODUCTION ? '/core/lib' : '/lib';
+setBasePath(base);
 
 // Function to apply the selected theme by setting the data-color-mode attribute
 const applyTheme = (theme: string) => {
