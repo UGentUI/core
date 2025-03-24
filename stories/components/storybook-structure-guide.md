@@ -8,6 +8,8 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import { action } from '@storybook/addon-actions';
 import { userEvent, within } from '@storybook/testing-library';
 import '/lib/components/component-name';
+import { ifDefined } from 'lit/directives/if-defined.js';
+
 ```
 
 ## Basic Story Configuration
