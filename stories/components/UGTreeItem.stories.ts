@@ -360,6 +360,9 @@ export const LazyLoading: Story = {
 };
 
 export const TreeItemWithEvents: Story = {
+  //Disable auto-docs for this story because the play function does not work
+  tags: ['!autodocs'],
+
   render: (args) => html`
     <ug-tree>
       <ug-tree-item id="parent" expanded>
