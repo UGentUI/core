@@ -7,7 +7,33 @@ import '/lib/components/divider';
 
 const meta: Meta = {
   title: 'Components/MenuLabel',
-  component: 'ug-menu-label'
+  component: 'menu-label',
+
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Menu labels are used to describe a group of [menu items](?path=/docs/components-menuitem--docs).'
+      },
+      source: {
+        format: true
+      },
+      importSection: true // Enables the import section
+    }
+  },
+
+  argTypes: {
+    defaultSlot: {
+      name: '(default)',
+      description: '	The menu label’s content.',
+      table: {
+        category: 'Slots',
+        type: { summary: 'HTML' },
+        defaultValue: { summary: undefined }
+      },
+      control: false
+    }
+  }
 };
 
 export default meta;
