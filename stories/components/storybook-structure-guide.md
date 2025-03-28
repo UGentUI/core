@@ -6,7 +6,7 @@
 import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { action } from '@storybook/addon-actions';
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent, within } from '@storybook/test';
 import '/lib/components/component-name';
 ```
 
