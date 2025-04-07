@@ -32,31 +32,61 @@ const meta: Meta = {
     image: {
       control: 'text',
       description: 'The image source to use for the avatar.',
-      table: { category: 'attributes', defaultValue: { summary: '' } }
+      table: {
+        category: 'attributes',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: { summary: '' }
+      }
     },
     label: {
       control: 'text',
       description:
         'A label to use to describe the avatar to assistive devices.',
-      table: { category: 'attributes', defaultValue: { summary: '' } }
+      table: {
+        category: 'attributes',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: { summary: '' }
+      }
     },
     initials: {
       control: 'text',
       description:
         'Initials to use as a fallback when no image is available (1–2 characters max recommended).',
-      table: { category: 'attributes', defaultValue: { summary: '' } }
+      table: {
+        category: 'attributes',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: { summary: '' }
+      }
     },
     loading: {
       control: 'select',
       options: ['eager', 'lazy'],
       description: 'Indicates how the browser should load the image.',
-      table: { category: 'attributes', defaultValue: { summary: 'eager' } }
+      table: {
+        category: 'attributes',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: { summary: 'eager' }
+      }
     },
     shape: {
       control: 'select',
       options: ['circle', 'square', 'rounded'],
       description: 'The shape of the avatar.',
-      table: { category: 'attributes', defaultValue: { summary: 'circle' } }
+      table: {
+        category: 'attributes',
+        type: {
+          summary: 'string'
+        },
+        defaultValue: { summary: 'circle' }
+      }
     },
 
     // Properties (accessed via JavaScript)
@@ -68,6 +98,9 @@ const meta: Meta = {
         'The default icon to use when no image or initials are present. Works best with <code><ug-icon></code>',
       table: {
         category: 'slots',
+        type: {
+          summary: 'slot'
+        },
         defaultValue: { summary: undefined }
       }
     },
@@ -79,7 +112,7 @@ const meta: Meta = {
       description:
         'The image could not be loaded. This may because of an invalid URL, a temporary network condition, or some unknown cause.',
       table: {
-        type: { summary: undefined },
+        type: { summary: 'CustomEvent' },
         category: 'events',
         defaultValue: { summary: undefined }
       },
@@ -130,7 +163,8 @@ export const Images: Story = {
       description: {
         story: `To use an image for the avatar, set the <code>image</code> and <code>label</code> attributes. This will take priority and be shown over initials and icons. Avatar images can be lazily loaded by setting the <code>loading</code> attribute to <code>lazy</code>.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () => {
     return html`
@@ -159,7 +193,8 @@ export const Initials: Story = {
       description: {
         story: `When you don’t have an image to use, you can set the <code>initials</code> attribute to show something more personalized than an icon.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: (args) => {
     return html`
@@ -176,7 +211,8 @@ export const CustomIcons: Story = {
       description: {
         story: `When no image or initials are set, an icon will be shown. The default avatar shows a generic “user” icon, but you can customize this with the <code>icon</code> slot.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () => {
     return html`
@@ -203,7 +239,8 @@ export const Shapes: Story = {
       description: {
         story: `Avatars can be shaped using the shape attribute.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () => {
     return html`
@@ -222,7 +259,8 @@ export const AvatarGroups: Story = {
       description: {
         story: `You can group avatars with a few lines of CSS.`
       }
-    }
+    },
+    controls: { disable: true }
   },
   render: () => {
     return html`<div class="avatar-group">
