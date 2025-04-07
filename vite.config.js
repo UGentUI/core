@@ -46,7 +46,11 @@ export default defineConfig({
       exclude: ["lib/styles.ts"],
     }),
     copy({
-      targets: [{ src: "lib/assets", dest: "dist/" }], // Copy assets
+      targets: [
+        { src: "lib/assets", dest: "dist/" },
+        { src: "package.json", dest: "dist/" }
+
+      ], // Copy assets
       hook: "writeBundle", // Ensure assets are copied after bundle is generated
     }),
     {
