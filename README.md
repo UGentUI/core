@@ -42,3 +42,4 @@ Some components may rely on external assets, so it's necessary to configure the 
 import { setBasePath } from "@ugent-ui/core";
 setBasePath("/node_modules/@ugent-ui/core/dist/");
 ```
+
