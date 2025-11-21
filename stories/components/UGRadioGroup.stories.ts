@@ -3,13 +3,14 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/radio-group';
 import '/lib/components/radio';
 import '/lib/components/radio-button';
+import '/lib/components/button-group';
 import '/lib/components/button';
 import { userEvent, within } from '@storybook/test';
 import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/RadioGroup',
-  component: 'ug-radio-group',
+  component: 'radio-group',
 
   parameters: {
     docs: {
@@ -26,7 +27,9 @@ const meta: Meta = {
             .replace(/\s*(required="")/g, ' required')
             .replace(/\s*(disabled="")/g, ' disabled');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['button-group']
     }
   },
 
