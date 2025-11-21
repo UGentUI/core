@@ -21,6 +21,16 @@ const config: StorybookConfig = {
 
   features: {
     backgroundsStoryGlobals: true
+  },
+
+  staticDirs: [{ from: '../lib/assets', to: '/lib/assets' }],
+
+  viteFinal: async (config) => {
+    if (process.env.GITHUB_ACTIONS) {
+      config.base = '/core/';
+    }
+    return config;
   }
 };
+
 export default config;
