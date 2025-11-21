@@ -1,150 +1,184 @@
 // Design Tokens
-@import "@ugent-ui/design-tokens/build/scss/_colors-map";
-@import "@ugent-ui/design-tokens/build/scss/_core-map";
-@import "@ugent-ui/design-tokens/src/utils/scss/helpers";
+@use 'sass:map';
+@use '@ugent-ui/design-tokens/build/scss/_colors-map' as c;
+
+$colors: c.$colors;
+
+//@import "@ugent-ui/design-tokens/build/scss/_core-map";
+//@import "@ugent-ui/design-tokens/src/utils/scss/helpers";
 
 :root,
 :host,
-:root[data-color-mode="light"] {
+:root[data-color-mode='light'],
+[data-color-mode='light'] {
   /* Primary */
-  --ug-color-primary-50: #{map-get($colors, "color-ugent-blue-50")};
-  --ug-color-primary-100: #{map-get($colors, "color-ugent-blue-100")};
-  --ug-color-primary-200: #{map-get($colors, "color-ugent-blue-200")};
-  --ug-color-primary-300: #{map-get($colors, "color-ugent-blue-300")};
-  --ug-color-primary-400: #{map-get($colors, "color-ugent-blue-400")};
-  --ug-color-primary-500: #{map-get($colors, "color-ugent-blue-500")};
-  --ug-color-primary-600: #{map-get($colors, "color-ugent-blue-600")};
-  --ug-color-primary-700: #{map-get($colors, "color-ugent-blue-700")};
-  --ug-color-primary-800: #{map-get($colors, "color-ugent-blue-800")};
-  --ug-color-primary-900: #{map-get($colors, "color-ugent-blue-900")};
-  --ug-color-primary-950: #{map-get($colors, "color-ugent-blue-950")};
+  --ug-color-primary-50: #{map.get($colors, 'color-ugent-blue-50')};
+  --ug-color-primary-100: #{map.get($colors, 'color-ugent-blue-100')};
+  --ug-color-primary-200: #{map.get($colors, 'color-ugent-blue-200')};
+  --ug-color-primary-300: #{map.get($colors, 'color-ugent-blue-300')};
+  --ug-color-primary-400: #{map.get($colors, 'color-ugent-blue-400')};
+  --ug-color-primary-500: #{map.get($colors, 'color-ugent-blue-500')};
+  --ug-color-primary-600: #{map.get($colors, 'color-ugent-blue-600')};
+  --ug-color-primary-700: #{map.get($colors, 'color-ugent-blue-700')};
+  --ug-color-primary-800: #{map.get($colors, 'color-ugent-blue-800')};
+  --ug-color-primary-900: #{map.get($colors, 'color-ugent-blue-900')};
+  --ug-color-primary-950: #{map.get($colors, 'color-ugent-blue-950')};
 
   /* Success */
-  --ug-color-success-50: #{map-get($colors, "color-mint-50")};
-  --ug-color-success-100: #{map-get($colors, "color-mint-100")};
-  --ug-color-success-200: #{map-get($colors, "color-mint-200")};
-  --ug-color-success-300: #{map-get($colors, "color-mint-300")};
-  --ug-color-success-400: #{map-get($colors, "color-mint-400")};
-  --ug-color-success-500: #{map-get($colors, "color-mint-500")};
-  --ug-color-success-600: #{map-get($colors, "color-mint-600")};
-  --ug-color-success-700: #{map-get($colors, "color-mint-700")};
-  --ug-color-success-800: #{map-get($colors, "color-mint-800")};
-  --ug-color-success-900: #{map-get($colors, "color-mint-900")};
-  --ug-color-success-950: #{map-get($colors, "color-mint-950")};
+  --ug-color-success-50: #{map.get($colors, 'color-mint-50')};
+  --ug-color-success-100: #{map.get($colors, 'color-mint-100')};
+  --ug-color-success-200: #{map.get($colors, 'color-mint-200')};
+  --ug-color-success-300: #{map.get($colors, 'color-mint-300')};
+  --ug-color-success-400: #{map.get($colors, 'color-mint-400')};
+  --ug-color-success-500: #{map.get($colors, 'color-mint-500')};
+  --ug-color-success-600: #{map.get($colors, 'color-mint-600')};
+  --ug-color-success-700: #{map.get($colors, 'color-mint-700')};
+  --ug-color-success-800: #{map.get($colors, 'color-mint-800')};
+  --ug-color-success-900: #{map.get($colors, 'color-mint-900')};
+  --ug-color-success-950: #{map.get($colors, 'color-mint-950')};
 
   /* Warning */
-  --ug-color-warning-50: #{map-get($colors, "color-ugent-yellow-50")};
-  --ug-color-warning-100: #{map-get($colors, "color-ugent-yellow-100")};
-  --ug-color-warning-200: #{map-get($colors, "color-ugent-yellow-200")};
-  --ug-color-warning-300: #{map-get($colors, "color-ugent-yellow-300")};
-  --ug-color-warning-400: #{map-get($colors, "color-ugent-yellow-400")};
-  --ug-color-warning-500: #{map-get($colors, "color-ugent-yellow-500")};
-  --ug-color-warning-600: #{map-get($colors, "color-ugent-yellow-600")};
-  --ug-color-warning-700: #{map-get($colors, "color-ugent-yellow-700")};
-  --ug-color-warning-800: #{map-get($colors, "color-ugent-yellow-800")};
-  --ug-color-warning-900: #{map-get($colors, "color-ugent-yellow-900")};
-  --ug-color-warning-950: #{map-get($colors, "color-ugent-yellow-950")};
+  --ug-color-warning-50: #{map.get($colors, 'color-ugent-yellow-50')};
+  --ug-color-warning-100: #{map.get($colors, 'color-ugent-yellow-100')};
+  --ug-color-warning-200: #{map.get($colors, 'color-ugent-yellow-200')};
+  --ug-color-warning-300: #{map.get($colors, 'color-ugent-yellow-300')};
+  --ug-color-warning-400: #{map.get($colors, 'color-ugent-yellow-400')};
+  --ug-color-warning-500: #{map.get($colors, 'color-ugent-yellow-500')};
+  --ug-color-warning-600: #{map.get($colors, 'color-ugent-yellow-600')};
+  --ug-color-warning-700: #{map.get($colors, 'color-ugent-yellow-700')};
+  --ug-color-warning-800: #{map.get($colors, 'color-ugent-yellow-800')};
+  --ug-color-warning-900: #{map.get($colors, 'color-ugent-yellow-900')};
+  --ug-color-warning-950: #{map.get($colors, 'color-ugent-yellow-950')};
 
   /* Danger */
-  --ug-color-danger-50: #{map-get($colors, "color-tomato-50")};
-  --ug-color-danger-100: #{map-get($colors, "color-tomato-100")};
-  --ug-color-danger-200: #{map-get($colors, "color-tomato-200")};
-  --ug-color-danger-300: #{map-get($colors, "color-tomato-300")};
-  --ug-color-danger-400: #{map-get($colors, "color-tomato-400")};
-  --ug-color-danger-500: #{map-get($colors, "color-tomato-500")};
-  --ug-color-danger-600: #{map-get($colors, "color-tomato-600")};
-  --ug-color-danger-700: #{map-get($colors, "color-tomato-700")};
-  --ug-color-danger-800: #{map-get($colors, "color-tomato-800")};
-  --ug-color-danger-900: #{map-get($colors, "color-tomato-900")};
-  --ug-color-danger-950: #{map-get($colors, "color-tomato-950")};
+  --ug-color-danger-50: #{map.get($colors, 'color-tomato-50')};
+  --ug-color-danger-100: #{map.get($colors, 'color-tomato-100')};
+  --ug-color-danger-200: #{map.get($colors, 'color-tomato-200')};
+  --ug-color-danger-300: #{map.get($colors, 'color-tomato-300')};
+  --ug-color-danger-400: #{map.get($colors, 'color-tomato-400')};
+  --ug-color-danger-500: #{map.get($colors, 'color-tomato-500')};
+  --ug-color-danger-600: #{map.get($colors, 'color-tomato-600')};
+  --ug-color-danger-700: #{map.get($colors, 'color-tomato-700')};
+  --ug-color-danger-800: #{map.get($colors, 'color-tomato-800')};
+  --ug-color-danger-900: #{map.get($colors, 'color-tomato-900')};
+  --ug-color-danger-950: #{map.get($colors, 'color-tomato-950')};
 
   /* Neutral */
-  --ug-color-neutral-50: #{map-get($colors, "color-neutral-50")};
-  --ug-color-neutral-100: #{map-get($colors, "color-neutral-100")};
-  --ug-color-neutral-200: #{map-get($colors, "color-neutral-200")};
-  --ug-color-neutral-300: #{map-get($colors, "color-neutral-300")};
-  --ug-color-neutral-400: #{map-get($colors, "color-neutral-400")};
-  --ug-color-neutral-500: #{map-get($colors, "color-neutral-500")};
-  --ug-color-neutral-600: #{map-get($colors, "color-neutral-600")};
-  --ug-color-neutral-700: #{map-get($colors, "color-neutral-700")};
-  --ug-color-neutral-800: #{map-get($colors, "color-neutral-800")};
-  --ug-color-neutral-900: #{map-get($colors, "color-neutral-900")};
-  --ug-color-neutral-950: #{map-get($colors, "color-neutral-950")};
+  --ug-color-neutral-50: #{map.get($colors, 'color-neutral-50')};
+  --ug-color-neutral-100: #{map.get($colors, 'color-neutral-100')};
+  --ug-color-neutral-200: #{map.get($colors, 'color-neutral-200')};
+  --ug-color-neutral-300: #{map.get($colors, 'color-neutral-300')};
+  --ug-color-neutral-400: #{map.get($colors, 'color-neutral-400')};
+  --ug-color-neutral-500: #{map.get($colors, 'color-neutral-500')};
+  --ug-color-neutral-600: #{map.get($colors, 'color-neutral-600')};
+  --ug-color-neutral-700: #{map.get($colors, 'color-neutral-700')};
+  --ug-color-neutral-800: #{map.get($colors, 'color-neutral-800')};
+  --ug-color-neutral-900: #{map.get($colors, 'color-neutral-900')};
+  --ug-color-neutral-950: #{map.get($colors, 'color-neutral-950')};
 
   /* Neutral one-offs */
-  --ug-color-neutral-0: #{map-get($colors, "color-neutral-0")};
-  --ug-color-neutral-1000: #{map-get($colors, "color-neutral-950")};
+  --ug-color-neutral-0: #{map.get($colors, 'color-neutral-0')};
+  --ug-color-neutral-1000: #{map.get($colors, 'color-neutral-950')};
+
+  /* Neutral alpha */
+  --ug-color-neutral-alpha-100: #{map.get($colors, 'color-neutral-alpha-100')};
+  --ug-color-neutral-alpha-300: #{map.get($colors, 'color-neutral-alpha-300')};
+  --ug-color-neutral-alpha-500: #{map.get($colors, 'color-neutral-alpha-500')};
+  --ug-color-neutral-alpha-700: #{map.get($colors, 'color-neutral-alpha-700')};
+  --ug-color-neutral-alpha-900: #{map.get($colors, 'color-neutral-alpha-900')};
 }
-
-:root[data-color-mode="dark"] {
+[data-color-mode='dark'],
+:root[data-color-mode='dark'] {
   /* Primary */
-  --ug-color-primary-50: #{map-get($colors, "color-ugent-blue-950")};
-  --ug-color-primary-100: #{map-get($colors, "color-ugent-blue-900")};
-  --ug-color-primary-200: #{map-get($colors, "color-ugent-blue-800")};
-  --ug-color-primary-300: #{map-get($colors, "color-ugent-blue-700")};
-  --ug-color-primary-400: #{map-get($colors, "color-ugent-blue-600")};
-  --ug-color-primary-500: #{map-get($colors, "color-ugent-blue-500")};
-  --ug-color-primary-600: #{map-get($colors, "color-ugent-blue-400")};
-  --ug-color-primary-700: #{map-get($colors, "color-ugent-blue-300")};
-  --ug-color-primary-800: #{map-get($colors, "color-ugent-blue-200")};
-  --ug-color-primary-900: #{map-get($colors, "color-ugent-blue-100")};
-  --ug-color-primary-950: #{map-get($colors, "color-ugent-blue-50")};
+  --ug-color-primary-50: #{map.get($colors, 'color-ugent-blue-950')};
+  --ug-color-primary-100: #{map.get($colors, 'color-ugent-blue-900')};
+  --ug-color-primary-200: #{map.get($colors, 'color-ugent-blue-800')};
+  --ug-color-primary-300: #{map.get($colors, 'color-ugent-blue-700')};
+  --ug-color-primary-400: #{map.get($colors, 'color-ugent-blue-600')};
+  --ug-color-primary-500: #{map.get($colors, 'color-ugent-blue-500')};
+  --ug-color-primary-600: #{map.get($colors, 'color-ugent-blue-400')};
+  --ug-color-primary-700: #{map.get($colors, 'color-ugent-blue-300')};
+  --ug-color-primary-800: #{map.get($colors, 'color-ugent-blue-200')};
+  --ug-color-primary-900: #{map.get($colors, 'color-ugent-blue-100')};
+  --ug-color-primary-950: #{map.get($colors, 'color-ugent-blue-50')};
 
   /* Success */
-  --ug-color-success-50: #{map-get($colors, "color-mint-950")};
-  --ug-color-success-100: #{map-get($colors, "color-mint-900")};
-  --ug-color-success-200: #{map-get($colors, "color-mint-800")};
-  --ug-color-success-300: #{map-get($colors, "color-mint-700")};
-  --ug-color-success-400: #{map-get($colors, "color-mint-600")};
-  --ug-color-success-500: #{map-get($colors, "color-mint-500")};
-  --ug-color-success-600: #{map-get($colors, "color-mint-400")};
-  --ug-color-success-700: #{map-get($colors, "color-mint-300")};
-  --ug-color-success-800: #{map-get($colors, "color-mint-200")};
-  --ug-color-success-900: #{map-get($colors, "color-mint-100")};
-  --ug-color-success-950: #{map-get($colors, "color-mint-50")};
+  --ug-color-success-50: #{map.get($colors, 'color-mint-950')};
+  --ug-color-success-100: #{map.get($colors, 'color-mint-900')};
+  --ug-color-success-200: #{map.get($colors, 'color-mint-800')};
+  --ug-color-success-300: #{map.get($colors, 'color-mint-700')};
+  --ug-color-success-400: #{map.get($colors, 'color-mint-600')};
+  --ug-color-success-500: #{map.get($colors, 'color-mint-500')};
+  --ug-color-success-600: #{map.get($colors, 'color-mint-400')};
+  --ug-color-success-700: #{map.get($colors, 'color-mint-300')};
+  --ug-color-success-800: #{map.get($colors, 'color-mint-200')};
+  --ug-color-success-900: #{map.get($colors, 'color-mint-100')};
+  --ug-color-success-950: #{map.get($colors, 'color-mint-50')};
 
   /* Warning */
-  --ug-color-warning-50: #{map-get($colors, "color-ugent-yellow-950")};
-  --ug-color-warning-100: #{map-get($colors, "color-ugent-yellow-900")};
-  --ug-color-warning-200: #{map-get($colors, "color-ugent-yellow-800")};
-  --ug-color-warning-300: #{map-get($colors, "color-ugent-yellow-700")};
-  --ug-color-warning-400: #{map-get($colors, "color-ugent-yellow-600")};
-  --ug-color-warning-500: #{map-get($colors, "color-ugent-yellow-500")};
-  --ug-color-warning-600: #{map-get($colors, "color-ugent-yellow-400")};
-  --ug-color-warning-700: #{map-get($colors, "color-ugent-yellow-300")};
-  --ug-color-warning-800: #{map-get($colors, "color-ugent-yellow-200")};
-  --ug-color-warning-900: #{map-get($colors, "color-ugent-yellow-100")};
-  --ug-color-warning-950: #{map-get($colors, "color-ugent-yellow-50")};
+  --ug-color-warning-50: #{map.get($colors, 'color-ugent-yellow-950')};
+  --ug-color-warning-100: #{map.get($colors, 'color-ugent-yellow-900')};
+  --ug-color-warning-200: #{map.get($colors, 'color-ugent-yellow-800')};
+  --ug-color-warning-300: #{map.get($colors, 'color-ugent-yellow-700')};
+  --ug-color-warning-400: #{map.get($colors, 'color-ugent-yellow-600')};
+  --ug-color-warning-500: #{map.get($colors, 'color-ugent-yellow-500')};
+  --ug-color-warning-600: #{map.get($colors, 'color-ugent-yellow-400')};
+  --ug-color-warning-700: #{map.get($colors, 'color-ugent-yellow-300')};
+  --ug-color-warning-800: #{map.get($colors, 'color-ugent-yellow-200')};
+  --ug-color-warning-900: #{map.get($colors, 'color-ugent-yellow-100')};
+  --ug-color-warning-950: #{map.get($colors, 'color-ugent-yellow-50')};
 
   /* Danger */
-  --ug-color-danger-50: #{map-get($colors, "color-tomato-950")};
-  --ug-color-danger-100: #{map-get($colors, "color-tomato-900")};
-  --ug-color-danger-200: #{map-get($colors, "color-tomato-800")};
-  --ug-color-danger-300: #{map-get($colors, "color-tomato-700")};
-  --ug-color-danger-400: #{map-get($colors, "color-tomato-600")};
-  --ug-color-danger-500: #{map-get($colors, "color-tomato-500")};
-  --ug-color-danger-600: #{map-get($colors, "color-tomato-400")};
-  --ug-color-danger-700: #{map-get($colors, "color-tomato-300")};
-  --ug-color-danger-800: #{map-get($colors, "color-tomato-200")};
-  --ug-color-danger-900: #{map-get($colors, "color-tomato-100")};
-  --ug-color-danger-950: #{map-get($colors, "color-tomato-50")};
+  --ug-color-danger-50: #{map.get($colors, 'color-tomato-950')};
+  --ug-color-danger-100: #{map.get($colors, 'color-tomato-900')};
+  --ug-color-danger-200: #{map.get($colors, 'color-tomato-800')};
+  --ug-color-danger-300: #{map.get($colors, 'color-tomato-700')};
+  --ug-color-danger-400: #{map.get($colors, 'color-tomato-600')};
+  --ug-color-danger-500: #{map.get($colors, 'color-tomato-500')};
+  --ug-color-danger-600: #{map.get($colors, 'color-tomato-400')};
+  --ug-color-danger-700: #{map.get($colors, 'color-tomato-300')};
+  --ug-color-danger-800: #{map.get($colors, 'color-tomato-200')};
+  --ug-color-danger-900: #{map.get($colors, 'color-tomato-100')};
+  --ug-color-danger-950: #{map.get($colors, 'color-tomato-50')};
 
   /* Neutral */
-  --ug-color-neutral-50: #{map-get($colors, "color-neutral-dark-50")};
-  --ug-color-neutral-100: #{map-get($colors, "color-neutral-dark-100")};
-  --ug-color-neutral-200: #{map-get($colors, "color-neutral-dark-200")};
-  --ug-color-neutral-300: #{map-get($colors, "color-neutral-dark-300")};
-  --ug-color-neutral-400: #{map-get($colors, "color-neutral-dark-400")};
-  --ug-color-neutral-500: #{map-get($colors, "color-neutral-dark-500")};
-  --ug-color-neutral-600: #{map-get($colors, "color-neutral-dark-600")};
-  --ug-color-neutral-700: #{map-get($colors, "color-neutral-dark-700")};
-  --ug-color-neutral-800: #{map-get($colors, "color-neutral-dark-800")};
-  --ug-color-neutral-900: #{map-get($colors, "color-neutral-dark-900")};
-  --ug-color-neutral-950: #{map-get($colors, "color-neutral-dark-950")};
+  --ug-color-neutral-50: #{map.get($colors, 'color-neutral-dark-50')};
+  --ug-color-neutral-100: #{map.get($colors, 'color-neutral-dark-100')};
+  --ug-color-neutral-200: #{map.get($colors, 'color-neutral-dark-200')};
+  --ug-color-neutral-300: #{map.get($colors, 'color-neutral-dark-300')};
+  --ug-color-neutral-400: #{map.get($colors, 'color-neutral-dark-400')};
+  --ug-color-neutral-500: #{map.get($colors, 'color-neutral-dark-500')};
+  --ug-color-neutral-600: #{map.get($colors, 'color-neutral-dark-600')};
+  --ug-color-neutral-700: #{map.get($colors, 'color-neutral-dark-700')};
+  --ug-color-neutral-800: #{map.get($colors, 'color-neutral-dark-800')};
+  --ug-color-neutral-900: #{map.get($colors, 'color-neutral-dark-900')};
+  --ug-color-neutral-950: #{map.get($colors, 'color-neutral-dark-950')};
 
   /* Neutral one-offs */
-  --ug-color-neutral-0: #{map-get($colors, "color-neutral-dark-50")};
-  --ug-color-neutral-1000: #{map-get($colors, "color-neutral-dark-950")};
+  --ug-color-neutral-0: #{map.get($colors, 'color-neutral-dark-50')};
+  --ug-color-neutral-1000: #{map.get($colors, 'color-neutral-dark-950')};
+
+  /* Neutral alpha */
+  --ug-color-neutral-alpha-100: #{map.get(
+      $colors,
+      'color-neutral-dark-alpha-100'
+    )};
+  --ug-color-neutral-alpha-300: #{map.get(
+      $colors,
+      'color-neutral-dark-alpha-300'
+    )};
+  --ug-color-neutral-alpha-500: #{map.get(
+      $colors,
+      'color-neutral-dark-alpha-500'
+    )};
+  --ug-color-neutral-alpha-700: #{map.get(
+      $colors,
+      'color-neutral-dark-alpha-700'
+    )};
+  --ug-color-neutral-alpha-900: #{map.get(
+      $colors,
+      'color-neutral-dark-alpha-900'
+    )};
 }
 
 :root,
@@ -201,11 +235,11 @@
    */
 
   /* Fonts */
-  --ug-font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  --ug-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  --ug-font-serif: Georgia, "Times New Roman", serif;
+  --ug-font-mono: SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+  --ug-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+  --ug-font-serif: Georgia, 'Times New Roman', serif;
 
   /* Font sizes */
   --ug-font-size-2x-small: 0.625rem; /* 10px */
@@ -269,7 +303,7 @@
   --ug-input-border-color-focus: var(--ug-color-primary-500);
   --ug-input-border-color-disabled: var(--ug-color-neutral-300);
   --ug-input-border-width: 1px;
-  --ug-input-required-content: "*";
+  --ug-input-required-content: '*';
   --ug-input-required-content-offset: -2px;
   --ug-input-required-content-color: var(--ug-input-label-color);
 
