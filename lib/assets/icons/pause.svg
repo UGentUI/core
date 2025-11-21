@@ -1,3 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pause" viewBox="0 0 16 16">
-  <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2024 Fonticons, Inc. --><path d="M48 112l0 288 48 0 0-288-48 0zM0 64l48 0 48 0 48 0 0 48 0 288 0 48-48 0-48 0L0 448l0-48L0 112 0 64zm224 48l0 288 48 0 0-288-48 0zM176 64l48 0 48 0 48 0 0 48 0 288 0 48-48 0-48 0-48 0 0-48 0-288 0-48z"/></svg>
