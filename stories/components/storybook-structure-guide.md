@@ -30,7 +30,9 @@ const meta: Meta = {
             .replace(/\s(default-attribute="value")/g, '')
             .replace(/\s* attribute=""/g, ' attribute');
         }
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['component-dependency-1', 'component-dependency-2'] // Required dependencies to import
     }
   },
   argTypes: {

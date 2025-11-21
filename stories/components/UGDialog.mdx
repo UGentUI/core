@@ -1,0 +1,21 @@
+import {
+  Meta,
+  Title,
+  Subtitle,
+  Description,
+  Stories,
+  ArgTypes,
+  Canvas
+} from '@storybook/blocks';
+
+import * as UGDialogStories from './UGDialog.stories';
+
+<Meta of={UGDialogStories} />
+
+<Title />
+<Subtitle of={UGDialogStories} />
+<Description of={UGDialogStories} />
+<Canvas of={UGDialogStories.Dialog} />
+<ArgTypes />
+<ImportBlock />
+<Stories includePrimary={false} />
