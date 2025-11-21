@@ -13,7 +13,7 @@ import { action } from '@storybook/addon-actions';
 
 const meta: Meta = {
   title: 'Components/Autocomplete',
-  component: 'ug-autocomplete',
+  component: 'autocomplete',
   parameters: {
     // layout: 'fullscreen',
     docs: {
@@ -28,7 +28,9 @@ This component can be used for implementing an 'autocomplete" component in your 
 It is up to you to implement the (asynchronous) loading behavior, and adding the <ug-menu-item>'s as a result of that.
 </p>`,
         story: `(start typing to show the dropdown)`
-      }
+      },
+      importSection: true, // Enables the import section
+      dependencies: ['alert', 'input', 'dropdown', 'menu-item', 'icon', 'menu']
     }
   },
 

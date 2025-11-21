@@ -3,7 +3,11 @@ import type { Preview } from '@storybook/web-components';
 import '@ugent-ui/css-reset/dist/reset.css';
 import '../lib/styles/core.scss';
 import { setBasePath } from '@shoelace-style/shoelace/dist/utilities/base-path.js';
-setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
+import ComponentTemplate from './ComponentTemplate.mdx';
+//setBasePath('https://cdn.jsdelivr.net/npm/@ugent-ui/core/dist/');
+const IS_PRODUCTION = window.location.href.includes('github.io');
+const base = IS_PRODUCTION ? '/core/lib' : '/lib';
+setBasePath(base);
 
 // Function to apply the selected theme by setting the data-color-mode attribute
 const applyTheme = (theme: string) => {
@@ -25,12 +29,14 @@ const preview: Preview = {
     },
     options: {
       storySort: {
-        order: ['Introduction', 'Components', '*'], // Custom order
+        // Custom order
+        order: ['Introduction', 'foundation', 'components', '*'],
         method: 'alphabetical'
       }
     },
     docs: {
-      toc: true
+      toc: true,
+      page: ComponentTemplate
     },
     html: {
       removeComments: true,
