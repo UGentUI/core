@@ -3,17 +3,19 @@ import type { Meta, StoryObj } from '@storybook/web-components';
 import '/lib/components/card';
 import '/lib/components/icon-button';
 import '/lib/components/rating';
+import '/lib/components/icon-button';
 import '/lib/components/button';
 
 const meta: Meta = {
   title: 'Components/Card',
-  component: 'ug-card',
+  component: 'card',
   parameters: {
     docs: {
       subtitle: 'Cards can be used to group related subjects in a container.',
       source: {
         format: true
-      }
+      },
+      importSection: true // Enables the import section
     }
   },
   argTypes: {
