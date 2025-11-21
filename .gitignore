@@ -26,5 +26,10 @@ node_modules
 index.html 
 
 # Storybook
-storybook-static
-dist
+storybook-static/
+
+# Build output
+dist/
+
+# IDE
+.cursorrules
