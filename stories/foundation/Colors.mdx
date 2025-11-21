@@ -1,0 +1,243 @@
+import {
+  Title,
+  Subtitle,
+  Description,
+  ColorPalette,
+  ColorItem
+} from '@storybook/blocks';
+import SaturatedColors from './blocks/saturated-colors';
+import NeutralColors from './blocks/neutral-colors';
+import NeutralTransparentColors from './blocks/neutral-transparent-colors';
+
+<style>
+  {`
+  .spacing {
+    margin-top: var(--ug-spacing-x-large);
+  }
+  .docblock-colorpalette div:not(.spacing) {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border: none !important;
+  }
+`}
+</style>
+
+<Title>Colors</Title>
+
+<Subtitle>
+  Colors are a fundamental element of our Design System, serving multiple
+  purposes
+</Subtitle>
+
+- **Brand Identity**: Our color palette reflects UGent's visual identity, ensuring consistent brand recognition across all digital platforms.
+- **User Experience**: Strategic use of color enhances usability by guiding attention, indicating state changes, and providing visual feedback.
+- **Accessibility**: Colors are carefully selected and tested to maintain WCAG 2.1 compliance, ensuring optimal contrast ratios and readability.
+
+<div className="spacing"></div>
+
+### Color System
+
+Our color system is built on UGent's distinctive brand colors, carefully expanded into functional palettes. Tints and shades follow a consistent numerical scale from 50 to 950 in increments of 100, with step 600 serving as the primary color in each palette. To ensure consistency and flexibility across applications, these colors are defined as **design tokens**. The tokens are stored in a [repository](https://github.com/ugent/design-tokens) as a Single Source of Truth and are available in different formats.
+
+### Saturated colors
+
+Saturated colors enhance user experience by providing meaningful visual cues, highlighting important UI elements, and creating consistent patterns across our applications.
+
+<SaturatedColors />
+
+<div className="spacing"></div>
+
+### Neutral colors
+
+Neutral colors are used to create a consistent and harmonious visual experience across our applications. They serve as a foundation for our color palette, providing a range of shades for text, backgrounds, and borders.
+
+There are dedicated neutrals for both light and dark mode.
+
+<NeutralColors />
+
+### Neutral transparent colors
+
+The neutral colors includes transparency variations, enabling subtle overlays, shadows, and depth effects in our interfaces. These transparent colors are essential for creating layered UI elements while maintaining readability and visual hierarchy. Transparent neutral colors follow a consistent numerical scale from 100 to 900 in increments of 200.
+
+There are dedicated transparent neutrals for both light and dark mode.
+
+<NeutralTransparentColors />
+
+### Primary and Semantic Colors
+
+The **primary color** is used for main UI elements, brand representation, and primary actions. **Semantic colors**—such as success, warning, and danger—provide clear visual feedback for specific states. All of these colors use 600 as their base shade.
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    subtitle="UGent Blue"
+    colors={{ 'ugent.blue.600': 'var(--ug-color-primary-600)' }}
+  />
+  <ColorItem
+    title="Semantic Colors"
+    subtitle="UGent Yellow, Mint, Tomato"
+    colors={{
+      'ugent.yellow.600': 'var(--ug-color-warning-600)',
+      'ugent.mint.600': 'var(--ug-color-success-600)',
+      'ugent.tomato.600': 'var(--ug-color-danger-600)'
+    }}
+  />
+</ColorPalette>
+
+_While primitive tokens are available, we recommend using only primary and semantic tokens to ensure better readability, maintainability, and consistency._
+
+### Usage
+
+To apply the default styles globally across your project, import the UGentUI style sheet:
+
+```html
+<link rel="stylesheet" href="@ugent-ui/core/style.css" />
+```
+
+Design color tokens are represented as CSS variables, which are automatically applied to the root element (`:root`). This ensures consistent styling throughout your application while allowing flexibility for customization. Additionally, **UGent UI components inherit these styles**, ensuring they remain visually consistent with the design system and automatically adapt to theme changes, including dark mode.
+
+All CSS color variables are available globally, allowing you to use them in your custom styles:
+
+```css
+.custom-element {
+  background-color: var(--ug-color-neutral-100);
+  color: var(--ug-color-primary-600);
+}
+```
+
+For a full list of available CSS color variables, refer to the [CSS Color Variables Reference](#available-css-color-variables).
+
+### Accessibility
+
+The UGentUI color system is designed to ensure readability and usability for all users, including those with visual impairments. We follow WCAG 2.1 guidelines to maintain accessible contrast ratios, ensuring that text and UI elements remain distinguishable in various lighting conditions and for different levels of vision.
+
+To meet WCAG 2.1 AA accessibility standards:
+
+- **Text and interactive elements** must have a contrast ratio of **at least 4.5:1** against their background.
+- **Large text** (18px+ or 14px bold) requires a minimum contrast ratio of **3:1**.
+- **Non-text elements** (icons, buttons, borders) should have a contrast ratio of **at least 3:1** against adjacent colors.
+
+To ensure compliance with accessibility standards, UGentUI integrates automated contrast testing directly into Storybook. Each component is evaluated using Storybook's accessibility add-on, which checks for contrast ratio issues and WCAG compliance.
+
+When using CSS color variables in your custom styles, it's essential to verify that your color combinations meet WCAG accessibility standards. While UGentUI's default color combinations are tested for accessibility, **custom combinations should be independently validated**.
+
+### Dark Mode Support
+
+Our color system includes built-in support for dark mode through the `data-color-mode` attribute. Colors are automatically inverted and adjusted for optimal contrast and readability in dark mode. To ensure consistency, always use primary and semantic tokens, as they adapt seamlessly between light and dark modes.
+
+To enable dark mode, you can toggle the `data-color-mode` attribute to `"dark"` or `"light"` (default) on the root element of your application.
+
+```html
+<html lang="en" data-color-mode="dark">
+  <head>
+    <link rel="stylesheet" href="@ugent-ui/core/style.css" />
+  </head>
+  <body>
+    <!-- Colors are automatically inverted and adjusted for dark mode -->
+    <div style="background-color: var(--ug-color-neutral-100);">
+      <h1 style="color: var(--ug-color-neutral-950);">Dark Mode</h1>
+    </div>
+  </body>
+</html>
+```
+
+### Available CSS Color Variables
+
+The following CSS color variables are available in the UGentUI core style sheet:
+
+<ColorPalette>
+  <ColorItem
+    title="Primary"
+    colors={[
+      'var(--ug-color-primary-50)',
+      'var(--ug-color-primary-100)',
+      'var(--ug-color-primary-200)',
+      'var(--ug-color-primary-300)',
+      'var(--ug-color-primary-400)',
+      'var(--ug-color-primary-500)',
+      'var(--ug-color-primary-600)',
+      'var(--ug-color-primary-700)',
+      'var(--ug-color-primary-800)',
+      'var(--ug-color-primary-900)',
+      'var(--ug-color-primary-950)'
+    ]}
+  />
+  <ColorItem
+    title="Warning"
+    colors={[
+      'var(--ug-color-warning-50)',
+      'var(--ug-color-warning-100)',
+      'var(--ug-color-warning-200)',
+      'var(--ug-color-warning-300)',
+      'var(--ug-color-warning-400)',
+      'var(--ug-color-warning-500)',
+      'var(--ug-color-warning-600)',
+      'var(--ug-color-warning-700)',
+      'var(--ug-color-warning-800)',
+      'var(--ug-color-warning-900)',
+      'var(--ug-color-warning-950)'
+    ]}
+  />
+  <ColorItem
+    title="Success"
+    colors={[
+      'var(--ug-color-success-50)',
+      'var(--ug-color-success-100)',
+      'var(--ug-color-success-200)',
+      'var(--ug-color-success-300)',
+      'var(--ug-color-success-400)',
+      'var(--ug-color-success-500)',
+      'var(--ug-color-success-600)',
+      'var(--ug-color-success-700)',
+      'var(--ug-color-success-800)',
+      'var(--ug-color-success-900)',
+      'var(--ug-color-success-950)'
+    ]}
+  />
+  <ColorItem
+    title="Danger"
+    colors={[
+      'var(--ug-color-danger-50)',
+      'var(--ug-color-danger-100)',
+      'var(--ug-color-danger-200)',
+      'var(--ug-color-danger-300)',
+      'var(--ug-color-danger-400)',
+      'var(--ug-color-danger-500)',
+      'var(--ug-color-danger-600)',
+      'var(--ug-color-danger-700)',
+      'var(--ug-color-danger-800)',
+      'var(--ug-color-danger-900)',
+      'var(--ug-color-danger-950)'
+    ]}
+  />
+  <ColorItem
+    title="Neutral"
+    colors={[
+      'var(--ug-color-neutral-50)',
+      'var(--ug-color-neutral-100)',
+      'var(--ug-color-neutral-200)',
+      'var(--ug-color-neutral-300)',
+      'var(--ug-color-neutral-400)',
+      'var(--ug-color-neutral-500)',
+      'var(--ug-color-neutral-600)',
+      'var(--ug-color-neutral-700)',
+      'var(--ug-color-neutral-800)',
+      'var(--ug-color-neutral-900)',
+      'var(--ug-color-neutral-950)'
+    ]}
+  />
+  <ColorItem
+    title="Neutral Alpha"
+    colors={[
+      'var(--ug-color-neutral-alpha-100)',
+      'var(--ug-color-neutral-alpha-300)',
+      'var(--ug-color-neutral-alpha-500)',
+      'var(--ug-color-neutral-alpha-700)',
+      'var(--ug-color-neutral-alpha-900)'
+    ]}
+  />
+  <ColorItem
+    title="Neutral One-offs"
+    colors={['var(--ug-color-neutral-0)', 'var(--ug-color-neutral-1000)']}
+  />
+</ColorPalette>
