@@ -1,7 +1,0 @@
-import{k as y}from"./lit-element-CPYlYYac.js";import{L as g}from"./chunk.WLV3FVBR-BTBv_Sfe.js";import{c as u,n as m,S as v,t as b}from"./chunk.NLWS5DN7-C0h9DzRV.js";var n=class extends v{constructor(){super(...arguments),this.localize=new g(this),this.value=0,this.unit="byte",this.display="short"}render(){if(isNaN(this.value))return"";const a=["","kilo","mega","giga","tera"],r=["","kilo","mega","giga","tera","peta"],s=this.unit==="bit"?a:r,e=Math.max(0,Math.min(Math.floor(Math.log10(this.value)/3),s.length-1)),t=s[e]+this.unit,o=parseFloat((this.value/Math.pow(1e3,e)).toPrecision(3));return this.localize.number(o,{style:"unit",unit:t,unitDisplay:this.display})}};u([m({type:Number})],n.prototype,"value",2);u([m()],n.prototype,"unit",2);u([m()],n.prototype,"display",2);var d=Object.defineProperty,_=Object.getOwnPropertyDescriptor,x=(a,r,s,e)=>{for(var t=e>1?void 0:e?_(r,s):r,o=a.length-1,l;o>=0;o--)(l=a[o])&&(t=(e?l(r,s,t):l(t))||t);return e&&t&&d(r,s,t),t};let p=class extends n{};p=x([b("ug-format-bytes")],p);const B={title:"Components/FormatBytes",component:"ug-format-bytes"},i={render:a=>y`The file is <ug-format-bytes value="1000"></ug-format-bytes> in
-      size`};var c,h,f;i.parameters={...i.parameters,docs:{...(c=i.parameters)==null?void 0:c.docs,source:{originalSource:`{
-  render: args => {
-    return html\`The file is <ug-format-bytes value="1000"></ug-format-bytes> in
-      size\`;
-  }
-}`,...(f=(h=i.parameters)==null?void 0:h.docs)==null?void 0:f.source}}};const M=["FormatBytes"];export{i as FormatBytes,M as __namedExportsOrder,B as default};
