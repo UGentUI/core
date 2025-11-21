@@ -76,12 +76,14 @@ export class UgAutocomplete extends LitElement {
    * the number of characters that should be entered before the menu will be shown and the searchEntered event will be
    * fired
    */
-  @property({ type: Number, reflect: true }) threshold: number = 1;
+  @property({ type: Number, reflect: true }) threshold: number = 0;
 
   @property({ type: String, reflect: true }) label: string | null = null;
 
   // @property({type: String, reflect: true}) searchTerm: string | null = null;
   @state() searchTerm: string | null = null;
+
+  @state() private displayValue: string = '';
 
   //if true, a focus traverse from input to menu is allowed.
   //if false, such a focus traverse will be blocked
@@ -103,7 +105,7 @@ export class UgAutocomplete extends LitElement {
     super.updated(changedProperties);
     if (this.dropdownVisible) this.showDropdown();
 
-    if (this.searchTerm) {
+    if (this.searchTerm || this.threshold == 0) {
       this.hasFocus = true;
       this.inputVisible = true;
     }
@@ -115,6 +117,8 @@ export class UgAutocomplete extends LitElement {
   handleSearchInput = (event: CustomEvent) => {
     const { value } = event.target as UgInput;
     this.searchTerm = value;
+
+    this.filterOptions();
 
     if (this.meetsInputThreshold()) {
       void this.showDropdown();
@@ -143,8 +147,9 @@ export class UgAutocomplete extends LitElement {
     this.dispatchEvent(
       new CustomEvent<unknown>('ug-selected', { detail: event.detail.item })
     );
-    this.inputVisible = false;
-    this.searchTerm = '';
+    //this.inputVisible = false;
+    //this.searchTerm = '';
+    this.searchTerm = event.detail.item.value;
     void this.hideDropdown();
     setTimeout(() => {
       this.trigger.focus();
@@ -152,9 +157,9 @@ export class UgAutocomplete extends LitElement {
   };
 
   handleInputKeydown = (event: KeyboardEvent) => {
-    if (event.key == 'Escape') {
+    /*if (event.key == 'Escape') {
       this.inputVisible = false;
-      this.searchTerm = '';
+      //this.searchTerm = '';
       this.trigger.focus();
       void this.hideDropdown();
       this.dispatchEvent(new CustomEvent('ug-edit-cancelled'));
@@ -164,7 +169,7 @@ export class UgAutocomplete extends LitElement {
       this.searchTerm = '';
       this.dispatchEvent(new CustomEvent('ug-edit-cancelled'));
       return;
-    }
+    }*/
 
     const options = this.visibleOptions;
 
@@ -201,7 +206,7 @@ export class UgAutocomplete extends LitElement {
   };
 
   meetsInputThreshold() {
-    return this.input.value?.length >= this.threshold;
+    return this.threshold == 0 || this.input.value?.length >= this.threshold;
   }
 
   handleUgFocus = () => {
@@ -211,6 +216,17 @@ export class UgAutocomplete extends LitElement {
       // console.info("searching ", _event)
       this.dispatchEvent(new CustomEvent('ug-autocomplete-search'));
     }
+
+    // Als threshold 0 en input zichtbaar (of we willen op focus altijd openen), open dropdown
+    // We checken inputVisible zodat we niet per ongeluk opent bij focus op de trigger container
+    if (this.threshold === 0 && this.inputVisible) {
+      // safety: open pas als dropdown bestaat
+      if (this.dropdown) {
+        void this.showDropdown();
+      } else {
+        setTimeout(() => void this.showDropdown(), 0);
+      }
+    }
   };
 
   handleUgAfterHide = () => {
@@ -219,8 +235,8 @@ export class UgAutocomplete extends LitElement {
       //dropdown was hidden without selecting (esc pressed?)
       //cancel input and transfer focus back to trigger
       this.dropdownVisible = false;
-      this.searchTerm = '';
-      this.inputVisible = false;
+      //this.searchTerm = '';
+      //this.inputVisible = false;
       this.dispatchEvent(new CustomEvent('ug-edit-cancelled'));
       if (this.hasFocus) {
         setTimeout(() => {
@@ -311,6 +327,9 @@ export class UgAutocomplete extends LitElement {
       this.input.focus();
       this.dispatchEvent(new CustomEvent('ug-edit-started', { bubbles: true }));
     });
+    if (this.threshold === 0) {
+      this.showDropdown();
+    }
   };
 
   private handleTriggerKeydown = (event: KeyboardEvent) => {
@@ -355,6 +374,17 @@ export class UgAutocomplete extends LitElement {
     return this.disabled ? 'input--disabled' : '';
   }
 
+  private filterOptions() {
+    const term = this.searchTerm?.toLowerCase() ?? '';
+
+    this.options.forEach(option => {
+      const text = (option.textContent || '').toLowerCase();
+      const matches = text.includes(term);
+
+      option.style.display = matches ? '' : 'none';
+    });
+  }
+
   render() {
     const { shouldDisplayLoadingText } = this;
 
@@ -379,12 +409,28 @@ export class UgAutocomplete extends LitElement {
                 display: this.shouldDisplayInput ? 'block' : 'none'
               })}"
               role="textbox"
+              @focus=${this.handleUgFocus}
               @ug-focus=${this.handleUgFocus}
               @input=${this.handleSearchInput}
               @blur=${this.handleInputBlur}
               @keydown=${this.handleInputKeydown}
               .value=${this.searchTerm}
-            />
+            >
+            </input>
+
+            <ug-icon
+              slot="suffix"
+              name="chevron-down"
+              @click=${this.handleTriggerClick}
+              style="
+                cursor: pointer;
+                position: absolute;
+                right: 24px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: auto;
+              "
+            ></ug-icon>
 
             <div
               class="trigger"
