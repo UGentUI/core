@@ -541,6 +541,20 @@ export const FrequentlyUsedIcons: Story = {
             <div class="ugIconCard__name">bars</div>
           </div>
         </div>
+        <div class="ugIconCard">
+          <ug-icon name="sun-bright" label="Light Mode"></ug-icon>
+          <div class="ugIconCard__description">
+            <p>Light Mode</p>
+            <div class="ugIconCard__name">sun-bright</div>
+          </div>
+        </div>
+        <div class="ugIconCard">
+          <ug-icon name="moon-stars" label="Dark Mode"></ug-icon>
+          <div class="ugIconCard__description">
+            <p>Dark Mode</p>
+            <div class="ugIconCard__name">moon-stars</div>
+          </div>
+        </div>
       </div>
 
       <h4>Management and Administration</h4>
