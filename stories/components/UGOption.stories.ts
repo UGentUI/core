@@ -67,7 +67,7 @@ const meta: Meta = {
       name: 'updateComplete',
       description:
         'A read-only promise that resolves when the component has finished updating.',
-      type: { name: 'Promise', required: false },
+      // type: { name: 'Promise', required: false },
       table: {
         type: { summary: 'Promise' }
       }
