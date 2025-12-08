@@ -42,6 +42,11 @@ export class UgDatetimeinput extends LitElement {
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
 
   /**
+   * Tells whether this component is required or not
+   */
+  @property({ type: Boolean, reflect: true }) required: boolean = false;
+
+  /**
    * Tells whether this component is disabled or not
    */
   @property({
@@ -387,6 +392,7 @@ export class UgDatetimeinput extends LitElement {
         spellcheck="false"
         label="${this.label}"
         size="${this.size}"
+        ?required="${this.required}"
         ?disabled="${this.disabled}"
         ?clearable="${this.clearable}"
         ?placeholderwhiletyping="${this.placeholderWhileTyping}"
