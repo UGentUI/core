@@ -260,6 +260,30 @@ export const DatetimeInUTC: Story = {
   }
 };
 
+
+export const DatetimeInUTCWithSeconds: Story = {
+  ...Datetimeinput,
+  parameters: {
+    docs: {
+      description: {
+        story: `When timezone is specified, the local date, entered by the user, will be transformed to the given timezone before it is formatted as a 'value'`
+      }
+    }
+  },
+  args: {
+    label: 'datetimeinput',
+    // value: '2025-01-01T01:05:12.123456+01:00',
+    // value: '2025-04-17T10:00:00.123456Z',
+    value: '2025-12-08T08:48:42.7681401Z',
+    // format: "yyyy-MM-dd'T'HH:mmXXX",
+    dateMode: 'dd/mm/yyyy',
+    dateSeparator: '/',
+    datetimeSeparator: ', ',
+    timezone: 'UTC'
+  }
+};
+
+
 export const DatetimeWithEvents: Story = {
   ...Datetimeinput,
   parameters: {

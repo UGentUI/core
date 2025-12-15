@@ -6,7 +6,7 @@ import {
   maskitoWithPlaceholder
 } from '@maskito/kit';
 import { Maskito, type MaskitoOptions } from '@maskito/core';
-import { format, parse, parseISO } from 'date-fns';
+import { format, formatISO, parse, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import {
   DateComponents,
@@ -92,8 +92,7 @@ export class UgDatetimeinput extends LitElement {
   @property({ attribute: 'timemode', reflect: true, type: String })
   timeMode: TimeMode = 'HH:MM';
 
-  @property({ reflect: true, type: String }) format: string =
-    "yyyy-MM-dd'T'HH:mm";
+  @property({ reflect: true, type: String }) format: string | undefined = undefined;// = "yyyy-MM-dd'T'HH:mm";
 
   /**
    * When timezone is specified, the local date, entered by the user, will be transformed to the given timezone before
@@ -135,6 +134,7 @@ export class UgDatetimeinput extends LitElement {
   private maskitoInstance?: Maskito;
 
   updated(changedProperties: Map<string | number | symbol, unknown>) {
+    console.info("Updated called on datetimeinput. Changed properties:", changedProperties)
     let updateInput = false;
 
     if (changedProperties.has('value')) {
@@ -169,12 +169,13 @@ export class UgDatetimeinput extends LitElement {
       }
     } else {
       let incomingValueAsLocalDate;
-      if (this.timezone) {
-        incomingValueAsLocalDate = parse(this.value, this.format, new Date());
+      if (this.format) {
+        incomingValueAsLocalDate = parse(this.value.replace('Z','+00:00'), this.format, new Date());
       } else {
-        incomingValueAsLocalDate = parse(this.value, this.format, new Date());
+        incomingValueAsLocalDate = parseISO(this.value.replace('Z','+00:00'))
       }
 
+      console.info("Incoming value as local date:", incomingValueAsLocalDate)
       if (!isNaN(incomingValueAsLocalDate.getTime())) {
         //update valueAsIso8601
 
@@ -460,13 +461,26 @@ export class UgDatetimeinput extends LitElement {
   }
 
   private updateValueAccordingLocalDate(localDate: Date | null) {
+    // console.info('Updating value according to local date', localDate);
     if (localDate == null) {
       this.value = '';
     } else {
       if (this.timezone) {
-        this.value = formatInTimeZone(localDate, this.timezone, this.format);
+        if (this.format) {
+          // console.info("Formatting with timezone and format " + this.format)
+          this.value = formatInTimeZone(localDate, this.timezone, this.format);
+        } else {
+          // console.info("Formatting with timezone and default format")
+          this.value = formatInTimeZone(localDate, this.timezone, "yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+        }
       } else {
-        this.value = format(localDate, this.format);
+        if (this.format) {
+          // console.info("Formatting without timezone and format " + this.format)
+          this.value = format(localDate, this.format);
+        } else {
+          // console.info("Formatting without timezone and default format")
+          this.value = localDate.toISOString();
+        }
       }
     }
   }
