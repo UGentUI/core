@@ -7,7 +7,6 @@ import '/lib/components/icon-button';
 import '/lib/components/input';
 import { action } from '@storybook/addon-actions';
 import { userEvent } from '@storybook/test';
-import dedent from 'dedent';
 
 const meta: Meta = {
   title: 'Components/Drawer',
@@ -36,7 +35,7 @@ const meta: Meta = {
   argTypes: {
     modal: {
       control: false,
-      description: dedent/*html*/ `
+      description: `
         Exposes the internal modal utility that controls focus trapping. To temporarily disable focus trapping and allow third-party modals spawned from an active modal, call <code>modal.activateExternal()</code> when the third-party modal opens. Upon closing, call <code>modal.deactivateExternal()</code> to restore focus trapping.
       `,
       table: {
@@ -47,7 +46,7 @@ const meta: Meta = {
     },
     open: {
       control: false,
-      description: dedent/*html*/ `
+      description: `
         Indicates whether or not the drawer is open. You can toggle this attribute to show and hide the drawer, or you can use the <code>show()</code> and <code>hide()</code> methods and this attribute will reflect the drawer’s open state.<br><code>reflects: true</code>
       `,
       table: {
@@ -58,7 +57,7 @@ const meta: Meta = {
     },
     label: {
       control: 'text',
-      description: dedent/*html*/ `
+      description: `
         The drawer’s label displayed in the header. You should always include a relevant label even when using <code>no-header</code>, as it is required for proper accessibility. If you need to display HTML, use the <code>label</code> slot instead.<br><code>reflects: true</code>`,
       table: {
         category: 'Properties',
@@ -69,7 +68,7 @@ const meta: Meta = {
     placement: {
       control: 'select',
       options: ['top', 'end', 'bottom', 'start'],
-      description: dedent/*html*/ `
+      description: `
         The direction from which the drawer will open.<br><code>reflects: true</code>
       `,
       table: {
@@ -80,7 +79,7 @@ const meta: Meta = {
     },
     contained: {
       control: 'boolean',
-      description: dedent/*html*/ `
+      description: `
         By default, the drawer slides out of its containing block (usually the viewport). To make the drawer slide out of its parent element, set this attribute and add <code>position: relative</code> to the parent.<br><code>reflects: true</code>
       `,
       table: {
@@ -92,7 +91,7 @@ const meta: Meta = {
     noHeader: {
       name: 'no-header',
       control: 'boolean',
-      description: dedent/*html*/ `
+      description: `
         Removes the header. This will also remove the default close button, so please ensure you provide an easy, accessible way for users to dismiss the drawer.<br><code>reflects: true</code>
       `,
       table: {
@@ -103,7 +102,7 @@ const meta: Meta = {
     },
     updateComplete: {
       control: false,
-      description: dedent/*html*/ `
+      description: `
         A read-only promise that resolves when the component has finished updating.
       `,
       table: {
@@ -117,7 +116,7 @@ const meta: Meta = {
     defaultSlot: {
       control: false,
       name: '(default)',
-      description: dedent/*html*/ `
+      description: `
         The drawer’s main content.
       `,
       table: {
@@ -129,7 +128,7 @@ const meta: Meta = {
     labelSlot: {
       control: false,
       name: 'label',
-      description: dedent/*html*/ `
+      description: `
         The drawer’s label. Alternatively, you can use the <code>label</code> attribute.
       `,
       table: {
@@ -141,7 +140,7 @@ const meta: Meta = {
     headerActionsSlot: {
       control: false,
       name: 'header-actions',
-      description: dedent/*html*/ `
+      description: `
         Optional actions to add to the header. Works best with <code>&lt;ug-icon-button&gt;</code>.
       `,
       table: {
@@ -153,7 +152,7 @@ const meta: Meta = {
     footerSlot: {
       control: false,
       name: 'footer',
-      description: dedent/*html*/ `
+      description: `
         The drawer’s footer, usually one or more buttons representing various options.
       `,
       table: {
@@ -167,7 +166,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-show',
       action: 'ug-show',
-      description: dedent/*html*/ `
+      description: `
         Emitted when the drawer opens.
       `,
       table: {
@@ -180,7 +179,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-after-show',
       action: 'ug-after-show',
-      description: dedent/*html*/ `
+      description: `
         Emitted after the drawer opens and all animations are complete.
       `,
       table: {
@@ -193,7 +192,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-hide',
       action: 'ug-hide',
-      description: dedent/*html*/ `
+      description: `
         Emitted when the drawer closes.
       `,
       table: {
@@ -206,7 +205,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-after-hide',
       action: 'ug-after-hide',
-      description: dedent/*html*/ `
+      description: `
         Emitted after the drawer closes and all animations are complete.
       `,
       table: {
@@ -219,7 +218,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-initial-focus',
       action: 'ug-initial-focus',
-      description: dedent/*html*/ `
+      description: `
         Emitted when the drawer opens and is ready to receive focus. Calling <code>event.preventDefault()</code> will prevent focusing and allow you to set it on a different element, such as an input.
       `,
       table: {
@@ -232,7 +231,7 @@ const meta: Meta = {
       control: false,
       name: 'ug-request-close',
       action: 'ug-request-close',
-      description: dedent/*html*/ `
+      description: `
         Emitted when the user attempts to close the drawer by clicking the close button, clicking the overlay, or pressing escape. Calling <code>event.preventDefault()</code> will keep the drawer open. Avoid using this unless closing the drawer will result in destructive behavior such as data loss.
       `,
       table: {
@@ -338,7 +337,7 @@ export const SlideInFromStart: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           By default, drawers slide in from the end. To make the drawer slide in from the start, set the <code>placement</code> attribute to <code>start</code>.
         `
       }
@@ -376,7 +375,7 @@ export const SlideInFromTop: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           To make the drawer slide in from the top, set the <code>placement</code> attribute to <code>top</code>.
         `
       }
@@ -414,7 +413,7 @@ export const SlideInFromBottom: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           To make the drawer slide in from the bottom, set the <code>placement</code> attribute to <code>bottom</code>.
         `
       }
@@ -452,7 +451,7 @@ export const ContainedToAnElement: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           By default, drawers will close when the user clicks the close button, clicks the overlay, or presses the <code>Escape</code> key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
 
           To keep the drawer open in such cases, you can cancel the <code>ug-request-close</code> event. When canceled, the drawer will remain open and pulse briefly to draw the user's attention to it.
@@ -505,7 +504,7 @@ export const CustomSize: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           Use the <code>--size</code> custom property to set the drawer’s size. This will be applied to the drawer’s width or height depending on its placement.
         `
       }
@@ -543,7 +542,7 @@ export const Scrolling: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           By design, a drawer’s height will never exceed 100% of its container. As such, drawers will not scroll with the page to ensure the header and footer are always accessible to the user.
         `
       }
@@ -581,7 +580,7 @@ export const HeaderActions: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           The header shows a functional close button by default. You can use the <code>header-actions</code> slot to add additional [icon buttons](?path=/docs/components-iconbutton--docs) if needed.
         `
       }
@@ -624,7 +623,7 @@ export const PreventingTheDrawerFromClosing: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `
+        story: `
           By default, drawers will close when the user clicks the close button, clicks the overlay, or presses the <code>Escape</code> key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
           
           To keep the drawer open in such cases, you can cancel the <code>ug-request-close</code> event. When canceled, the drawer will remain open and pulse briefly to draw the user's attention to it.
@@ -668,7 +667,7 @@ export const CustomizingInitialFocus: Story = {
     controls: { disable: true },
     docs: {
       description: {
-        story: dedent/*html*/ `By default, the drawer’s panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the drawer. If you want a different element to have focus, add the <code>autofocus</code> attribute to it as shown below.`
+        story: `By default, the drawer’s panel will gain focus when opened. This allows a subsequent tab press to focus on the first tabbable element in the drawer. If you want a different element to have focus, add the <code>autofocus</code> attribute to it as shown below.`
       }
     }
   },
