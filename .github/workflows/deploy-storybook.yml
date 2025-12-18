@@ -54,4 +54,8 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # 👇 Runs Chromatic with the option to compress the build output.
+          zip: true
