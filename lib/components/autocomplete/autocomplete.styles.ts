@@ -156,5 +156,14 @@ export default css`
     trigger {
         .input--small {
         }
+      
+      .form-control--has-label, .form-control-label {
+        display: inline-block;
+        color: var(--ug-input-label-color);
+        margin-bottom: var(--ug-spacing-3x-small);
+      }
 
+      .form-control--has-label.form-control--medium, .form-control-label {
+        font-size: var(--ug-input-label-font-size-medium);
+      }
 `;
