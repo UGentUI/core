@@ -2,7 +2,9 @@ import SlTextarea from '@shoelace-style/shoelace/dist/components/textarea/textar
 import { customElement } from 'lit/decorators.js';
 
 @customElement('ug-textarea')
-export class UgTextarea extends SlTextarea {}
+export class UgTextarea extends SlTextarea {
+  declare autocorrect: any;
+}
 
 declare global {
   interface HTMLElementTagNameMap {

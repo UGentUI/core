@@ -2,7 +2,9 @@ import SlInput from '@shoelace-style/shoelace/dist/components/input/input.compon
 import { customElement } from 'lit/decorators.js';
 
 @customElement('ug-input')
-export class UgInput extends SlInput {}
+export class UgInput extends SlInput {
+  declare autocorrect: any;
+}
 
 declare global {
   interface HTMLElementTagNameMap {
