@@ -46,6 +46,7 @@ export default css`
         border-width: 1px;
         display: flex;
         flex-direction: column;
+        justify-content: center;
         //align-items: center;
         //display: inline-flex;
         flex: 1;
@@ -76,6 +77,8 @@ export default css`
         flex-direction: row;
         align-items: center;
         height: 100%;
+        width: 100%;
+        box-sizing: border-box;
 
         font-family: var(--ug-input-font-family);
         font-weight: var(--ug-input-font-weight);

@@ -80,6 +80,15 @@ export class UgAutocomplete extends LitElement {
 
   @property({ type: String, reflect: true }) label: string | null = null;
 
+  /**
+   * Enable this option to prevent the dropdown panel from being clipped when this component is placed
+   * inside a container with overflow: auto|hidden|scroll. Hoisting uses a fixed positioning strategy that
+   * escapes the panel from clipping/scrolling ancestors, following the trigger relative to the viewport
+   * instead. This is forwarded to the internal ug-dropdown (see its `hoist` property, inherited from
+   * sl-dropdown). Defaults to false to preserve existing (non-hoisted) behavior.
+   */
+  @property({ type: Boolean, reflect: true }) hoist: boolean = false;
+
   // @property({type: String, reflect: true}) searchTerm: string | null = null;
   @state() searchTerm: string | null = null;
 
@@ -362,55 +371,66 @@ export class UgAutocomplete extends LitElement {
       <label>${this.label}</label>
       <div part="base" class="base">
         <div class="control control--${this.size} ${this.disabledClass}">
-          <div
-            class="fix-wrapper"
-            tabindex=${this.disabled ? -1 : 0}
-            @focus="${this.handleTriggerFocus}"
-            @keydown=${this.handleTriggerKeydown}
-            @blur=${this.handleTriggerBlur}
+          <ug-dropdown
+            ?hoist=${this.hoist}
+            sync="width"
+            @ug-hide=${this.handleUgAfterHide}
           >
-            ${this.shouldDisplayPrefixSlot
-              ? html` <div class="prefix">
-                  <slot name="prefix"></slot>
-                </div>`
-              : ''}
-            <input
-              style="${styleMap({
-                display: this.shouldDisplayInput ? 'block' : 'none'
-              })}"
-              role="textbox"
-              @ug-focus=${this.handleUgFocus}
-              @input=${this.handleSearchInput}
-              @blur=${this.handleInputBlur}
-              @keydown=${this.handleInputKeydown}
-              .value=${this.searchTerm}
-            />
-
+            <!-- @click stops propagation: this div is ug-dropdown's slot="trigger" content, and
+                 ug-dropdown's own sl-dropdown base listens on that slot for its own open/close toggle.
+                 We manage dropdownVisible ourselves based on the search threshold, so a click here must
+                 not also bubble into that listener, or it reopens the panel on every click, even with
+                 an empty search term. -->
             <div
-              class="trigger"
-              style="${styleMap({
-                display: this.shouldDisplayTrigger ? 'flex' : 'none'
-              })}"
-              @click="${this.handleTriggerClick}"
+              slot="trigger"
+              class="fix-wrapper"
+              tabindex=${this.disabled ? -1 : 0}
+              @focus="${this.handleTriggerFocus}"
+              @keydown=${this.handleTriggerKeydown}
+              @blur=${this.handleTriggerBlur}
+              @click=${(event: Event) => event.stopPropagation()}
             >
-              <slot name="trigger"></slot>
+              ${this.shouldDisplayPrefixSlot
+                ? html` <div class="prefix">
+                    <slot name="prefix"></slot>
+                  </div>`
+                : ''}
+              <input
+                style="${styleMap({
+                  display: this.shouldDisplayInput ? 'block' : 'none'
+                })}"
+                role="textbox"
+                @ug-focus=${this.handleUgFocus}
+                @input=${this.handleSearchInput}
+                @blur=${this.handleInputBlur}
+                @keydown=${this.handleInputKeydown}
+                .value=${this.searchTerm}
+              />
+
+              <div
+                class="trigger"
+                style="${styleMap({
+                  display: this.shouldDisplayTrigger ? 'flex' : 'none'
+                })}"
+                @click="${this.handleTriggerClick}"
+              >
+                <slot name="trigger"></slot>
+              </div>
+
+              ${this.clearable && !this.disabled
+                ? html` <ug-icon-button
+                    class="clearbutton"
+                    name="x-circle-fill"
+                    @click="${this.handleClearClick}"
+                  ></ug-icon-button>`
+                : ''}
+              ${this.shouldDisplaySuffixSlot
+                ? html` <div class="suffix">
+                    <slot name="suffix"></slot>
+                  </div>`
+                : ''}
             </div>
 
-            ${this.clearable && !this.disabled
-              ? html` <ug-icon-button
-                  class="clearbutton"
-                  name="x-circle-fill"
-                  @click="${this.handleClearClick}"
-                ></ug-icon-button>`
-              : ''}
-            ${this.shouldDisplaySuffixSlot
-              ? html` <div class="suffix">
-                  <slot name="suffix"></slot>
-                </div>`
-              : ''}
-          </div>
-
-          <ug-dropdown @ug-hide=${this.handleUgAfterHide}>
             <ug-menu @ug-select="${this.handleUgSelect}">
               <slot
                 style="${styleMap({
@@ -442,11 +462,6 @@ export class UgAutocomplete extends LitElement {
               >
                 <slot name="no-results">${this.noResultsPlaceholder}</slot>
               </div>
-
-              <div
-                aria-hidden="true"
-                style=${styleMap({ width: `${this.clientWidth}px` })}
-              ></div>
             </ug-menu>
           </ug-dropdown>
         </div>
