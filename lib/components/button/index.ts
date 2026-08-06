@@ -13,7 +13,7 @@ export class UgButton extends SlButton {
 
     // Workaround: gebruik een mutation observer om de button te update als er een wijziging in de slot is. (straf dat dit niet standaard in Shoelace zit, (of LIT)
     this.slotObserver = new MutationObserver(() => {
-      console.info("Slot changed in ug-button; requesting update.")
+      // console.info("Slot changed in ug-button; requesting update.")
       this.requestUpdate();
     });
 
